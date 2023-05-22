@@ -1,0 +1,86 @@
+cllient Update Json
+{
+  "clientId": "0a619a1d-4465-4e31-95a7-f46f420a6993",
+  "clientName": "Kelly sancxhez"
+}
+UPDATE AREA ID
+{
+  "employees": [
+    {
+       "employee_id": "89d6314c-91c0-4ef3-b4c6-852a8a3fb5fc",
+    "employee_name": "ARMANDO",
+    "employee_charge": "GERENTE",
+    "employee_email": "ARMANDO@GMAIL.COM",
+    "employee_knowledge": "BACKLOG"
+    }
+  ],
+  "areaName": "Bakendes Fronten"
+}
+
+UPDATE AREA EMPLOYEE
+[
+  {
+    "employee_id": "3c0e99dc-f639-4f6d-8891-f3eb19ba2725",
+    "employee_name": "ARMANDO",
+    "employee_charge": "GERENTE",
+    "employee_email": "ARMANDO@GMAIL.COM",
+    "employee_knowledge": "BACKLOG"
+  }
+]
+
+update empleado
+
+{
+    "employee_id": "89d6314c-91c0-4ef3-b4c6-852a8a3fb5fc",
+    "employee_name": "ARMANDO dto",
+    "employee_charge": "EMPRESARIO",
+    "employee_email": "ARMANDO@GMAIL.COM",
+    "employee_knowledge": "BACKLOG"
+}
+
+UPDATE PROYECT ID
+{
+  "projectId": "b9ca771f-c869-4cb6-8b36-337c5f6d6721",
+  "projectName": "BANCARIOSSS"
+
+}
+
+UPDATA SUB-PROYECT
+  {
+    "subProjectId": "e1063d76-78c4-4561-a662-717cae12e9ef",
+    "subProjectName": "BANCO BBVA OCCIDENTAL",
+    "projectId": "3c8f481e-5066-4d00-ba06-72bc0253f55c"
+  }
+
+UPDATE LISTA DE PERSONAS ASIGANADAS A UN TEAM
+[
+  {
+    "employee_id": "89d6314c-91c0-4ef3-b4c6-852a8a3fb5fc",
+    "employee_name": "OSCAR VARGAS",
+    "employee_charge": "EMPRESARIO",
+    "employee_email": "OSCARS@GMAIL.COM",
+    "employee_knowledge": "BACKLOG"
+  }
+]
+
+UPDATE TEAM ID
+{
+    "teamName": "FRONTEND WPOSS i",
+    "areaId": "5837e303-a62c-4cd2-bcef-63eaa0b5855b",
+    "teamId": "04de5c57-16d4-488c-8089-4bf103a8cda9"
+  }
+
+UPDATE USER STORY
+ {
+    "userStoryId": "dfaffce6-d94a-446e-9d00-254153c8f004",
+    "userStoryName": "Bakend",
+    "userStoryScore": 2,
+    "userStoryArchive": "Bakend Fronend",
+    "userStoryStateId": 1,
+    "subProjectId": "526f0c4d-fb14-4c7e-b161-8361f03970bb"
+  }
+
+
+
+
+

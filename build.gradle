@@ -1,0 +1,46 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    //Faltan los servicios de Sprint: el de fechas y empleados por sprint, lo demas esta funcionando.
+    //Y.S
+}
+
+group = 'com.wposs.scrum_back'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    implementation 'org.jetbrains:annotations:22.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.modelmapper:modelmapper:3.1.0'
+    implementation "org.springdoc:springdoc-openapi-ui:1.6.4"
+    implementation 'com.beust:jcommander:1.7'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.postgresql:postgresql:42.5.4'
+    implementation 'org.springframework.hateoas:spring-hateoas:1.4.1' //no actualizar libreria plox
+    implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
+
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    test {
+        useJUnitPlatform()
+    }
+}
