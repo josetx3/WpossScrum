@@ -6,6 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { SubprojetcComponent } from '../subprojetc/subprojetc.component';
 import Swal from 'sweetalert2';
 import { SubprojectService } from '../service/subproject.service';
+import { Team } from 'src/app/modules/teams/pages/interface/team';
 
 @Component({
   selector: 'app-subprojetc-edit',

@@ -7,6 +7,8 @@ import {MatDialogRef} from '@angular/material/dialog';
 import { Subproject } from '../interface/subprojects';
 import { SubprojectService } from '../service/subproject.service';
 import { SubprojetcComponent } from '../subprojetc/subprojetc.component';
+import { Team } from 'src/app/modules/teams/pages/interface/team';
+import { TeamsService } from 'src/app/modules/teams/pages/service/teams.service';
 
 
 @Component({

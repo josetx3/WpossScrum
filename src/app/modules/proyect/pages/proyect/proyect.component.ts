@@ -31,7 +31,7 @@ export class ProyectComponent implements OnInit {
 
   getAllProject():void{
     this.proyectService.getAllProyect().subscribe(resp => {
-      resp.forEach(item => {
+      resp.forEach((item: { clientId: string | null; areaId: string | null; }) => {
         this.customerService.getCustomerById(item.clientId).forEach(customer => {
           item.clientId = customer.client_name;
         })
