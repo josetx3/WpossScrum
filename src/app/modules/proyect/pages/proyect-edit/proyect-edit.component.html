@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="title">
+    <p> Editar Proyecto</p>
+  </div>
+
+  <div class="form-row align-items-center">
+    <form class="userStory-form" [formGroup]="proyectEditForm" (ngSubmit)="edit()">
+
+      <div class="form-group">
+        <label>Nombre del proyecto</label>
+        <input type="text" class="form-control" placeholder="Ingrese el nombre del proyecto"
+               formControlName="proyectName">
+      </div>
+
+      <div class="form-group">
+        <label>Seleccione el cliente</label>
+        <select class="form-control form-select " formControlName="proyectClient">
+          <option value="{{client.clientNit}}" *ngFor="let client of clients">{{client.client_name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Seleccione el área</label>
+        <select class="form-control form-select " formControlName="proyectArea">
+          <option value="{{area.areaId}}" *ngFor="let area of areas">{{area.areaName}}</option>
+        </select>
+      </div>
+      <div class="text-center">
+      <button class="btn btn btn-primary mb-2" type="submit"  [disabled]="proyectEditForm.invalid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+

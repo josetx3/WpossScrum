@@ -1,0 +1,122 @@
+
+.title {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 25px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  justify-content: space-between;
+}
+
+.span-text{
+  padding-left: 10px;
+}
+
+.subtitle{
+  margin-top: 25px;
+}
+
+
+.title_table{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+
+input:focus {
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+button:focus {
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+select:focus {
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.table{
+  box-shadow: 2px 2px 5px #999;
+}
+
+.thead-ligth{
+  background-color: #e5e6e4;
+  color: black;
+}
+
+.mr-sm{
+  margin-right: 20px;
+}
+
+.btn-primary{
+  background-color: #219ebc;
+  border: 1px solid #219ebc;
+}
+
+.icon{
+  text-align: center;
+}
+
+.form-group{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search {
+  /*margin-left: 22px;*/
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input {
+  border-radius: 10px;
+  padding: 2px 2px 2px 10px;
+  margin: 10px 3px 10px 0;
+  outline: none;
+}
+
+.search button {
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+}
+
+.content{
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.navbar{
+  margin-top: 5px;
+  margin-bottom: 40px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px 1px #999;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid #ccc;
+}
+
+.btn-red {
+  background-color: gray;
+  border-color: gray;
+  color: white;
+}
+

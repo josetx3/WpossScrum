@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="title">
+    <p>Editar cliente</p>
+  </div>
+
+  <div class="form-row align-items-center">
+    <form class="customer-form" [formGroup]="customerForm" (ngSubmit)="edit()">
+
+      <div class="form-group mb-3">
+        <label>NIT de la empresa</label>
+          <input type="text" class="form-control" placeholder="Ingrese el NIT" formControlName="clientNit">
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="mr-sm ">Razón social</label>
+          <input type="text" class="form-control" placeholder="Ingrese la razón social" formControlName="client_name">
+      </div>
+      <div class="text-center">
+        <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="customerForm.invalid">Editar</button>
+      </div>
+    </form>
+  </div>
+</div>
+

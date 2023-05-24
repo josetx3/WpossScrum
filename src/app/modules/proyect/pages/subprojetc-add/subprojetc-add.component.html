@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="title">
+    <p> Agregar Subproyecto</p>
+  </div>
+
+  <div class="form-row align-items-center">
+    <form class="userStory-form" [formGroup]="subprojectAddForm" (ngSubmit)="saveSubProject()">
+
+      <div class="form-group">
+        <span>Nombre del subproyecto:</span>
+        <input type="text" class="form-control " placeholder="Ingrese el nombre"
+               formControlName="subProjectName">
+      </div>
+      <div class="form-group">
+        <span>Seleccione el proyecto:</span>
+        <select type="text" class="form-control form-select"  formControlName="projectId">
+          <option *ngFor="let item of projects" value="{{item.projectId}}">{{item.projectName}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <span>Seleccione el equipo</span>
+        <select type="text" class="form-control form-select"  formControlName="teamId">
+          <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}</option>
+          </select>
+      </div>
+      <div class="text-center">
+        <button class="btn btn btn-primary mb-2" type="submit" [disabled]="subprojectAddForm.invalid" (click)="closeModal()">Agregar</button>
+      </div>
+    </form>
+  </div>
+</div>
+

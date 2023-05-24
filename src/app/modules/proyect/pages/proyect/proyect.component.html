@@ -1,0 +1,50 @@
+<div class="container">
+
+
+  <nav class="navbar navbar-light bg-light">
+    <span class="title">Gestionar proyectos</span>
+    <div class="search">
+      <input class="form-control mr-sm" type="search" placeholder="Buscar proyecto" aria-label="Search">
+      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  </nav>
+
+
+  <div class="title">
+    <p>Lista de proyectos</p>
+    <div>
+      <button type="button" class="btn btn-primary mb-2 mx-2" (click)="addProjetModal()">Agregar proyecto</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-ligth">
+      <tr>
+        <th scope="row" class="title_table">Nombre del proyecto</th>
+        <th scope="row" class="title_table">Área</th>
+        <th scope="row" class="title_table">Cliente</th>
+        <th scope="row" class="title_table icon">Acciones</th>
+      </tr>
+      </thead>  
+      <tbody>
+      <tr *ngFor="let item of proyect">
+        <td>{{item.projectName}}</td>
+        <td>{{item.areaId}}</td>
+        <td>{{item.clientId}}</td>
+        <td class="icon">
+
+
+          <button type="button" class="btn btn-success"  (click)="editProjetModal(item.projectId)" ><i class="fas fa-edit"></i></button>
+          <button type="button" class="btn btn-primary mx-2" [routerLink]="['subproject']"><i class="fa fa-eye"></i></button>
+
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
