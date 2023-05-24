@@ -1,1 +1,21 @@
-<p>team-add-manage works!</p>
+<div class="container">
+
+  <div class="form-row align-items-center">
+      <form class="manage-teams-form" [formGroup]="manageTeamsForm" (ngSubmit)="saveTeams()">
+
+        <div class="form-group">
+            <span class="mr-sm">Seleccione el Area</span>
+            <select class="form-select mt-2 form-control" formControlName="areaId">
+              <option  value="{{item.areaId}}" *ngFor="let item of areas">{{item.areaName}}</option>
+            </select>
+        </div>
+
+        <div class="form-group" >
+            <span class="mr-sm">Nombre del Equipo</span>
+            <input type="text" class="form-control" placeholder="Escriba el nombre del Equipo" formControlName="teamName">
+        </div>
+
+        <button class="btn btn btn-primary mb-2" type="submit" [disabled]="manageTeamsForm.invalid">Guardar</button>
+      </form>
+    </div>
+</div>

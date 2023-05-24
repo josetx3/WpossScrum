@@ -1,1 +1,11 @@
-<p>team-tasks-edit works!</p>
+<div class="conteiner">
+  <form class="" [formGroup]="tasksFormEdit" (ngSubmit)="editTasks()">
+    <div class="paragraph">Edite el nombre de la tarea</div>
+    <div class="input-group mb-4">
+      <label class="col-sm-4 ">
+        <input id="first-name" type="text" class="form-control" placeholder="Dijite la Tarea" formControlName="taskName" autocomplete="off">
+      </label>
+      <button class="btn btn btn-primary mb-2 mx-2" type="submit">Editar</button>
+    </div>
+  </form>
+</div>

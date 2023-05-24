@@ -1,1 +1,42 @@
-<p>team-manage works!</p>
+<div class="container">
+
+  <nav class="navbar navbar-light bg-light">
+    <span class="title">Gestion de Equipos</span>
+
+  </nav>
+
+  <div class="title">
+    <p> Lista de equipos</p>
+    <div>
+      <button type="button" class="btn btn-primary " (click)="addTeamModal()"> Añadir un equipo</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-condensed table-hover ">
+      <thead class="thead-ligth">
+      <tr>
+        <th scope="row" class="title_table">#</th>
+        <th scope="row" class="title_table">Nombre del Equipo</th>
+        <th scope="row" class="title_table">Area</th>
+        <th scope="row" class="title_table icon">Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of team;let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{item.teamName}}</td>
+        <td>{{item.areaName}}</td>
+        <td class="icon">
+          <button class="btn btn-success" (click)="editTeamModal(item.teamId)">
+            <i class="fas fa-edit"></i></button>
+          <button class="btn btn-success" [routerLink]="['add-employee.ts-team',item.teamId]">
+            <i class="fa-solid fa-user-plus"></i></button>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+

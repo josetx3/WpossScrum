@@ -7,7 +7,15 @@ import { TeamManageEditComponent } from './pages/team-manage-edit/team-manage-ed
 import { TeamTasksComponent } from './pages/team-tasks/team-tasks.component';
 import { TeamTasksEditComponent } from './pages/team-tasks-edit/team-tasks-edit.component';
 import { TeamEmployeesListComponent } from './pages/team-employees-list/team-employees-list.component';
-
+import { TeamsRoutingModule } from './teams-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -21,7 +29,17 @@ import { TeamEmployeesListComponent } from './pages/team-employees-list/team-emp
     TeamEmployeesListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    TeamsRoutingModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule
   ]
 })
 export class TeamsModule { }
