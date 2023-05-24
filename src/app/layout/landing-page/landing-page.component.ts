@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,18 @@ import { Router } from '@angular/router';
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnInit {
+
+  ngOnInit(): void {
+    let body = document.body;
+    let script = document.createElement('script');
+    script.innerHTML = '';
+    script.src = 'assets/js/landing.js';
+    script.async = true;
+    script.type = 'text/javascript';
+    body.appendChild(script);
+  }
+
 
   constructor(private router: Router){}
 
