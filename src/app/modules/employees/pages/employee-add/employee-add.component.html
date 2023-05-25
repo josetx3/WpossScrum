@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="title">
+    <h2>Agrega Empleado</h2>
+  </div>
+
+  <div class="form-row align-items-center">
+    <form class="userStory-form" [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+
+
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend w-100 mb-3">
+          <span class="mr-sm">Nombre Del Empleado</span>
+        </div>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" formControlName="employeeName" placeholder="Ingrese el Nombre">
+        </div>
+      </div>
+
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend w-100 mb-3">
+          <span class="mr-sm">Cargo</span>
+        </div>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" formControlName="employeeCharge" placeholder="Ingrese el Cargo">
+        </div>
+      </div>
+
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend w-100 mb-3">
+          <span class="mr-sm">Correo</span>
+        </div>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" formControlName="employeeEmail" placeholder="Ingrese el Correo">
+        </div>
+      </div>
+
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend w-100 mb-3">
+          <span class="mr-sm">Conocimiento En:</span>
+        </div>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" formControlName="employeeKnowledge" placeholder="Ingrese el Conocimiento">
+        </div>
+      </div>
+      <div class="mb-3">
+      <button class="btn btn-primary mb-2"  type="submit" [disabled]="employeeForm.invalid">Guardar</button>
+      </div>
+    </form>
+
+  </div>

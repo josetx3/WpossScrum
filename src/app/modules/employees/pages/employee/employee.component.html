@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="narvar">
+    <span class="title">Gestionar Empleados</span>
+    <nav class="navbar navbar-light bg-light">
+      <div class="search ">
+        <input class="form-control mr-sm" type="search" placeholder="Buscar empleado" aria-label="Search">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </nav>
+  </div>
+
+
+
+  <div class=" navbar ">
+    <div class="title align ">
+      <p>Lista de empleados</p>
+    </div>
+    <button type="button" class="btn btn-primary mb-2 mx-2" (click)="addEmployeeModal()">Agregar Empleado</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-condensed table-hover ">
+      <thead class="thead-ligth">
+        <tr>
+          <th scope="row" class="title_table">Nombre del empleado</th>
+          <th scope="row" class="title_table">Cargo</th>
+          <th scope="row" class="title_table">Email</th>
+          <th scope="row" class="title_table">Conocimiento</th>
+          <th scope="row" class="title_table icon">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of employee">
+          <td>{{item.employeeName}}</td>
+          <td>{{item.employeeCharge}}</td>
+          <td>{{item.employeeEmail}}</td>
+          <td>{{item.employeeKnowledge}}</td>
+          <td class="icon">
+            <button type="button" class="btn btn-success" (click)="editEmployeeModal(item.employeeId)">
+              <i class="fas fa-edit"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

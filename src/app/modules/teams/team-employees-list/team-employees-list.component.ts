@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Employee } from '../../employees/pages/interface/employee';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { TeamsService } from '../service/teams.service';
+import { TeamsService } from '../pages/service/teams.service';
+import { EmployeesService } from '../../employees/pages/service/employees.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./team-employees-list.component.scss']
 })
 export class TeamEmployeesListComponent implements OnInit {
-
   employees: Employee[] = [];
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource();
   displayedColumns: string[] = ['Id', 'Nombre', 'Cargo', 'Conocimiento'];
@@ -34,5 +35,4 @@ export class TeamEmployeesListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }

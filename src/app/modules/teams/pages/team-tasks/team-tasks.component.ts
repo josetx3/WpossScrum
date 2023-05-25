@@ -87,7 +87,7 @@ export class TeamTasksComponent {
   }
 
 
-  deleteTasks(id){
+  deleteTasks(id: string){
     Swal.fire({
       title: 'Desea eliminar tarea?',
       text: "despues de eliminada no podra recuperar los datos",

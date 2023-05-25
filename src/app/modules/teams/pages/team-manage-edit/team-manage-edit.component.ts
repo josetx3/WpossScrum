@@ -4,6 +4,7 @@ import { TeamsService } from '../service/teams.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TeamManageComponent } from '../team-manage/team-manage.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-team-manage-edit',

@@ -5,6 +5,7 @@ import { Team } from '../interface/team';
 import { TeamsService } from '../service/teams.service';
 import { AreaService } from 'src/app/modules/area/pages/service/area.service';
 import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-team-add-manage',

@@ -1,0 +1,70 @@
+
+<div class="container">
+  <div class="title">
+    <p> Gestionar Tablero</p>
+  </div>
+
+  <div class="form-row align-items-center">
+
+    <form class="sprints-form" [formGroup]="boardFrom" (ngSubmit)="filterboard()">
+
+
+      <div class="form-group col-sm-4">
+        <label>Seleccionar area</label>
+        <select class="form-select" formControlName="areaId" (change)="selectArea()">
+          <option>Seleccionar</option>
+          <option value="{{item.areaId}}" *ngFor="let item of areas">{{ item.areaName }}</option>
+
+        </select>
+      </div>
+
+      <div class="form-group col-sm-4">
+      <label>Seleccionar equipo</label>
+      <select class="form-select" formControlName="teamId" (change)="selectTeam()">
+        <option value="{{team.teamId}}" *ngFor="let team of teams">{{team.teamName}}</option>
+      </select>
+      </div>
+
+        <div class="form-group col-sm-4">
+          <label>Seleccionar historia de usuario</label>
+          <select class="form-select" formControlName="userStoryId">
+            <option>Seleccionar</option>
+            <option value="{{item.userStoryId}}" *ngFor="let item of userStorys">{{item.userStoryName}}</option>
+          </select>
+        </div>
+        <div class="btn-new">
+          <button class="btn btn-primary mx-2 mb-2" (click)="filterboard()">Filtrar</button>
+          <button class="btn btn-primary mx-2 mb-2 bnt" (click)="addBoardModal()">añadir tablero</button>
+        </div>
+
+      </form>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth">
+        <tr>
+
+          <th scope="row" class="title_table">Tarea</th>
+          <th scope="row" class="title_table icon">Empleado</th>
+          <th scope="row" class="title_table icon">Fecha</th>
+          <th scope="row" class="title_table icon">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of board">
+
+          <td>{{item.taskName}}</td>
+          <td>{{item.employeeName}}</td>
+          <td>{{item.date}}</td>
+          <td class="icon"><button type="button" class="btn btn-success" (click)="editBoardModal(item.idBoard)"><i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-danger mx-2" (click)="deleteBoard(item.idBoard)"><i class="fas fa-trash"></i></button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+
+

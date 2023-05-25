@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamsService } from '../service/teams.service';
 import { ActivatedRoute } from '@angular/router';
+import { EmployeesService } from 'src/app/modules/employees/pages/service/employees.service';
 
 @Component({
   selector: 'app-team-add-employee',
@@ -39,7 +40,7 @@ export class TeamAddEmployeeComponent implements OnInit {
     this.employeesService.getAllEmployee().subscribe(
       resp => {
       this.employees = resp;
-      this.employees.map(r => {
+      this.employees.map((r: { checked: boolean; }) => {
         r.checked = false;
       })
     })
@@ -48,15 +49,15 @@ export class TeamAddEmployeeComponent implements OnInit {
 
 
   AddEmployeeTeam() {
-    let employeesAdd = this.employees.filter(resp => resp.checked === true);
-    employeesAdd.forEach((element) => {
+    let employeesAdd = this.employees.filter((resp: { checked: boolean; }) => resp.checked === true);
+    employeesAdd.forEach((element: { employeeId: any; }) => {
       let item = element.employeeId
 
 
       this.teamEmployee.push(item);
 
 
-      this.employees = this.employees.filter(resp => resp.checked === false)
+      this.employees = this.employees.filter((resp: { checked: boolean; }) => resp.checked === false)
       console.log(this.teamEmployee);
 
     });
@@ -66,7 +67,7 @@ export class TeamAddEmployeeComponent implements OnInit {
   }
 
 
-  getAllEmployeesAddToTeam(teamId){
+  getAllEmployeesAddToTeam(teamId: string | null){
     this.employeesService.getEmployeesAddToTeam(teamId).subscribe(resp=>{ //empleados que pertenecen a un equipo
       this.employeesAddTeam=resp;
     })

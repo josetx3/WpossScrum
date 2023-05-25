@@ -18,30 +18,52 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
-      },
-      {
-        path: 'area',
-        loadChildren: () => import ('./modules/area/area.module').then(m => m.AreaModule)
-      },
-      {
-        path: 'customer',
-        loadChildren: () => import ('./modules/customer/customer.module').then(m => m.CustomerModule)
-      },
-      {
-        path: 'proyect',
-        loadChildren: () => import('./modules/proyect/proyect.module').then(m => m.ProyectModule)
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
       },
       {
         path: 'user-story',
         loadChildren: () => import('./modules/userStory/user-story.module').then(m => m.UserStoryModule)
+      },
+      {
+        path: 'customer',
+        loadChildren: () => import('./modules/customer/customer.module').then(m => m.CustomerModule)
+      },
+      {
+        path: 'area',
+        loadChildren: () => import('./modules/area/area.module').then(m => m.AreaModule)
+      },
+      {
+        path: 'employees',
+        loadChildren: () => import('./modules/employees/employees.module').then(m => m.EmployeesModule)
+      },
+      {
+        path: 'teams',
+        loadChildren: () => import('./modules/teams/teams.module').then(m => m.TeamsModule)
+      },
+      //{
+      //  path: 'sprints',
+      //  loadChildren: () => import('./modules/sprints/sprints.module').then(m => m.SprintsModule)
+      //},
+      {
+        path: 'board',
+        loadChildren: () => import('./modules/manage-board/manage-board.module').then(m => m.ManageBoardModule)
+      },
+
+      //{
+      //  path: 'improvements',
+      //  loadChildren: () => import('./modules/manage-improvements/manage-improvements.module').then(m => m.ManageImprovementsModule)
+      //},
+
+      {
+        path: 'proyect',
+        loadChildren: () => import('./modules/proyect/proyect.module').then(m => m.ProyectModule)
       }
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

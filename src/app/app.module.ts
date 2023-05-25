@@ -12,9 +12,18 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { CommonModule, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { FilterAddEmployeesTeamPipe } from './pipes/pages/filter-employees-add-team/filter-add-employees-team.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatMenuModule} from "@angular/material/menu";
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatLineModule} from "@angular/material/core";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+
 
 @NgModule({
   declarations: [
@@ -27,14 +36,30 @@ import { MatDialogModule } from '@angular/material/dialog';
     FilterAddEmployeesTeamPipe,
   ],
   imports: [
+
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
+
+    //modules
+    FormsModule,
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule,
+
+    //Material
+    MatSidenavModule,
+    MatLineModule,
+    MatMenuModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatDialogModule
+
+
   ],
   providers: [
     {
