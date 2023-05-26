@@ -12,6 +12,10 @@ export class userStoryService {
 
   constructor(private httpClient: HttpClient) { }
 
+  public getAllSubprojects():Observable<any>{
+    return this.httpClient.get(this.API_SERVER+"/all");
+  }
+
   public getAllUser_story():Observable<any>{
     return this.httpClient.get(this.API_SERVER+"/userstory/all");
   }

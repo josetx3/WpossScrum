@@ -24,7 +24,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,1 +1,56 @@
-<p>user-story-add works!</p>
+<div class="container">
+
+  <div class="title">
+    <p>Agregar historia de usuario</p>
+  </div>
+
+  <div class="form-row align-items-center">
+    <form class="userStory-form" [formGroup]="userStoryForm" (ngSubmit)="saveStory()">
+
+      <div class="form-group">
+        <label> Nombre de la historia de usuario:</label>
+        <input type="text" class="form-control" placeholder="Ingrese el nombre" formControlName="userStoryName">
+      </div>
+
+      <div class="form-group mb-3" >
+        <span class="mr-sm">Elija el subproyecto:</span>
+        <div class="label-text">
+          <select class="form-control form-select" formControlName="subProjectId">
+            <option  *ngFor="let item of subProjects" value="{{item.subProjectId}}">{{ item.subProjectName}}</option>
+         </select>
+        </div>
+      </div>
+
+      <div class="form-group mb-3" >
+        <span class="mr-sm">Estado</span>
+        <div class="label-text">
+          <select class="form-control form-select" formControlName="userStoryStateId">
+            <option  *ngFor="let item of userStoryState" value="{{item.userStoryStateId}}">{{ item.userStoryStateName}}</option>
+         </select>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <span>Fecha final</span>
+        <input type="date" class="form-control" formControlName="fechaMaxima">
+      </div>
+
+      <div class="form-group mb-3">
+        <label>Puntos historia de usuario</label>
+        <input type="text" class="form-control" placeholder="Ingrese los puntos" formControlName="userStoryScore">
+      </div>
+
+      <div class="input-group mb-3">
+        <form>
+          <div class="form-group">
+            <span class="mr-sm">Archivo</span>
+            <input type="file" class="form-control-file" formControlName="userStoryArchive" (change)="upload_image($event)">
+          </div>
+        </form>
+      </div>
+      <div class="text-center">
+    <button class="btn btn btn-primary mb-2" type="submit" [disabled]="userStoryForm.invalid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserStory } from '../interface/userStory';
 import { userStoryService } from '../service/user-story.service';
 import { MatDialog } from '@angular/material/dialog';
+import { SubprojectService } from 'src/app/modules/proyect/pages/service/subproject.service';
+import { UserStoryAddComponent } from '../user-story-add/user-story-add.component';
+import { UserStoryManagementComponent } from '../user-story-management/user-story-management.component';
 
 @Component({
   selector: 'app-user-story',

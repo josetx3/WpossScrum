@@ -1,0 +1,65 @@
+<div class="container-edit ">
+  <div class="card w-50">
+    <div class="card-body">
+      <div class="title text-center">
+        <p>Editar Empleado en el Sprint</p>
+      </div>
+      <div class="title-employee text-center">
+        <p style="color: #309ae8">("{{employeeName}}")</p>
+      </div>
+
+      <div class="container-form w-100 mt-4">
+        <form [formGroup]="employeeSprintEditForm" (ngSubmit)="employeeEdit()">
+          <div class="input-group mb-2">
+            <div class="input-fill w-100">
+              <span class="mr-sm">Porcentaje</span>
+              <input type="text" class="form-control w-100"  formControlName="sprintEmployeePercentage" maxlength="3" max="31">
+
+              <div *ngIf="employeeSprintEditForm.get('sprintEmployeePercentage')?.dirty || employeeSprintEditForm.get('sprintEmployeePercentage')?.touched">
+                <p *ngIf="employeeSprintEditForm.get('sprintEmployeePercentage')?.hasError('required')" style="color: red">
+                  Este campo es requerido
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-fill w-100">
+              <span class="mr-sm">Dias de Permiso</span>
+              <input type="text" class="form-control w-100 mb-2" formControlName="sprintEmployeeDay" maxlength="2" max="30">
+              <div *ngIf="employeeSprintEditForm.get('sprintEmployeeDay')?.dirty || employeeSprintEditForm.get('sprintEmployeeDay')?.touched">
+                <p *ngIf="employeeSprintEditForm.get('sprintEmployeeDay')?.hasError('required')" style="color: red">
+                  Este campo es requerido
+                </p>
+                <p *ngIf="employeeSprintEditForm.get('sprintEmployeeDay')?.hasError('max')" style="color: red">
+                  Los dias de permiso no pueden ser mayores a 31 dias
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="input-fill w-100">
+              <span class="mr-sm ">Observaciones</span>
+              <textarea type="text" class="form-control w-100 mt-3" formControlName="sprintEmployeeDescription" maxlength="151"></textarea>
+              <div *ngIf="employeeSprintEditForm.get('sprintEmployeeDescription')?.dirty || employeeSprintEditForm.get('sprintEmployeeDescription')?.touched">
+                <p *ngIf="employeeSprintEditForm.get('sprintEmployeeDescription')?.hasError('required')" style="color: red">
+                  Este campo es requerido
+                </p>
+                <p *ngIf="employeeSprintEditForm.get('sprintEmployeeDescription')?.hasError('maxlength')" style="color: red">
+                  El maximo de caracteres permitidos es de 150
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="btns-edit">
+            <button class="btn btn-success w-100" type="submit">Editar</button>
+            <button class="btn btn-primary w-100 mt-3" [routerLink]="'/app/sprints/calculateSprintPoints/'+ this.sprintId + '/' + this.teamId">Volver</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

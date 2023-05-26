@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="title">
+    <p>Calcular Puntos Sprint Ideal</p>
+  </div>
+  <div class="form-row align-items-center">
+    <form class="sprints-form" [formGroup]="calculateSprintForm" (ngSubmit)="saveSprintPoints()">
+
+      <div class="form-group col-sm-4">
+        <span>Seleccione el Empleado</span>
+        <select class="form-select mt-2 mb-2" formControlName="employeeId">
+          <option value="">Seleccione</option>
+          <option *ngFor="let item of employees" value="{{item.employeeId}}">{{item.employeeName}}</option>
+        </select>
+        <div *ngIf="calculateSprintForm.get('employeeId')?.dirty || calculateSprintForm.get('employeeId')?.touched">
+          <p *ngIf="calculateSprintForm.get('employeeId')?.hasError('required')" style="color: red">
+            Este campo es requerido
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <span>Porcentaje</span>
+        <input class="form-control" type="number" formControlName="sprintEmployeePercentage">
+        <div
+          *ngIf="calculateSprintForm.get('sprintEmployeePercentage')?.dirty || calculateSprintForm.get('sprintEmployeePercentage')?.touched">
+          <p *ngIf="calculateSprintForm.get('sprintEmployeePercentage')?.hasError('required')" style="color: red">
+            Este campo es requerido
+          </p>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <span>Dias de Permiso</span>
+        <input class="form-control" type="number" formControlName="sprintEmployeeDay">
+        <div
+          *ngIf="calculateSprintForm.get('sprintEmployeeDay')?.dirty || calculateSprintForm.get('sprintEmployeeDay')?.touched">
+          <p *ngIf="calculateSprintForm.get('sprintEmployeeDay')?.hasError('required')" style="color: red">
+            Este campo es requerido
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <span>Observaciones</span>
+        <textarea class="form-control" formControlName="sprintEmployeeDescription"></textarea>
+        <div
+          *ngIf="calculateSprintForm.get('sprintEmployeeDescription')?.dirty || calculateSprintForm.get('sprintEmployeeDescription')?.touched">
+          <p *ngIf="calculateSprintForm.get('sprintEmployeeDescription')?.hasError('required')" style="color: red">
+            Este campo es requerido
+          </p>
+        </div>
+      </div>
+      <button class="btn btn btn-primary mb-2 " type="submit">Guardar</button>
+    </form>
+  </div>
+  <div class="title mt-3">
+    <h3 class=" mr-2">Equipo</h3>
+    <p>{{teamName}}</p>
+  </div>
+  <div class="table-responsive mt-3 mb-4">
+    <table class="table table-condensed table-hover ">
+      <thead class="thead-ligth">
+        <tr>
+          <th scope="row" class="title_table">Empleado</th>
+          <th scope="row" class="title_table">Porcentaje(%)</th>
+          <th scope="row" class="title_table">Puntos Calculados</th>
+          <th scope="row" class="title_table">Observaciones</th>
+          <th scope="row" class="title_table">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of employeeListFinal">
+          <td class="title_table">{{item.employeeSprint.employeeName}}</td>
+          <td class="title_table">{{item.sprintEmployeePercentage}}</td>
+          <td class="title_table">{{item.employeePercentageFinal}}</td>
+          <td class="title_table">{{item.sprintEmployeeDescription}}</td>
+          <td class="icon">
+            <button type="button" class="btn btn-success"
+              [routerLink]="['/app/sprints/edit-add-employee-sprint/'+ item.sprintEmployeeId +'/'+this.sprintDays+'/'+this.sprintId+'/'+this.teamId]"><i
+                class="fas fa-edit"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="points_final">
+    <label>Los puntos del sprint son</label>
+    <br>
+    <span>("{{finalCalculation}}")</span>
+    <br>
+    <button class="btn btn btn-primary mb-2 mt-3" (click)="calculateSprintPoints()">Calcular Puntos</button>
+  </div>
+</div>

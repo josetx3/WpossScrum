@@ -40,19 +40,19 @@ const routes: Routes = [
         path: 'teams',
         loadChildren: () => import('./modules/teams/teams.module').then(m => m.TeamsModule)
       },
-      //{
-      //  path: 'sprints',
-      //  loadChildren: () => import('./modules/sprints/sprints.module').then(m => m.SprintsModule)
-      //},
+      {
+        path: 'sprints',
+        loadChildren: () => import('./modules/sprints/sprints.module').then(m => m.SprintsModule)
+      },
       {
         path: 'board',
         loadChildren: () => import('./modules/manage-board/manage-board.module').then(m => m.ManageBoardModule)
       },
 
-      //{
-      //  path: 'improvements',
-      //  loadChildren: () => import('./modules/manage-improvements/manage-improvements.module').then(m => m.ManageImprovementsModule)
-      //},
+      {
+        path: 'improvements',
+        loadChildren: () => import('./modules/manage-improvements/manage-improvements.module').then(m => m.ManageImprovementsModule)
+      },
 
       {
         path: 'proyect',

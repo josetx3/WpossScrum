@@ -12,9 +12,6 @@ const routes: Routes = [
     path: 'employee-edit/:employeeId',
     component: EmployeeEditComponent,
   },
-  {
-    path: 'empli'
-  },
 ];
 
 @NgModule({
