@@ -1,42 +1,40 @@
-<div class="container">
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Gestion de Equipos</h1>
+    <div class="row">
+      <div class="col-3">
+        <h2>Agregar un nuevo equipo</h2>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-primary " (click)="addTeamModal()"> Añadir un equipo</button>
+      </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover ">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">#</th>
+            <th scope="row" class="title_table">Nombre del Equipo</th>
+            <th scope="row" class="title_table">Area</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of team;let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{item.teamName}}</td>
+            <td>{{item.areaName}}</td>
+            <td class="icon">
+              <button class="btn btn-success" (click)="editTeamModal(item.teamId)">
+                <i class="fas fa-edit"></i></button>
+              <button class="btn btn-success" [routerLink]="['add-employee.ts-team',item.teamId]">
+                <i class="fa-solid fa-user-plus"></i></button>
+            </td>
+          </tr>
 
-  <nav class="navbar navbar-light bg-light">
-    <span class="title">Gestion de Equipos</span>
-
-  </nav>
-
-  <div class="title">
-    <p> Lista de equipos</p>
-    <div>
-      <button type="button" class="btn btn-primary " (click)="addTeamModal()"> Añadir un equipo</button>
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <div class="table-responsive">
-    <table class="table table-condensed table-hover ">
-      <thead class="thead-ligth">
-      <tr>
-        <th scope="row" class="title_table">#</th>
-        <th scope="row" class="title_table">Nombre del Equipo</th>
-        <th scope="row" class="title_table">Area</th>
-        <th scope="row" class="title_table icon">Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of team;let i = index">
-        <td>{{i + 1}}</td>
-        <td>{{item.teamName}}</td>
-        <td>{{item.areaName}}</td>
-        <td class="icon">
-          <button class="btn btn-success" (click)="editTeamModal(item.teamId)">
-            <i class="fas fa-edit"></i></button>
-          <button class="btn btn-success" [routerLink]="['add-employee.ts-team',item.teamId]">
-            <i class="fa-solid fa-user-plus"></i></button>
-        </td>
-      </tr>
-
-      </tbody>
-    </table>
-  </div>
 </div>
-

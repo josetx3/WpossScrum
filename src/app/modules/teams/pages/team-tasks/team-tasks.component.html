@@ -1,76 +1,66 @@
-<div class="container">
-  <div class="title">
-    <p> Crear Tareas por Equipo</p>
-  </div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Crear Tareas por equipo</h1>
+    <div class="row">
+      <div class="col-6">
+        <form>
 
-  <div>
-    <form class="customer-form" [formGroup]="tasksForm" (ngSubmit)="saveTasks()">
-      <div class="input-group mb-3">
-        <span class="mr-sm ">Seleccione el Equipo</span>
-        <div class="col-sm-3">
-          <select class="form-select" formControlName="teamId">
-            <option>Seleccione</option>
-            <option value="{{item.teamId}}" *ngFor="let item of teams">{{item.teamName}}</option>
-          </select>
-        </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">
+              <h2>Select</h2>
+            </label>
+            <div class="col-sm-10">
+              <select class="form-select" aria-label="Default select example" formControlName="teamId">
+                <option selected>Seleccione</option>
+                <option value="{{item.teamId}}" *ngFor="let item of teams">{{item.teamName}}</option>
+              </select>
+            </div>
+          </div>
 
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label">
+              <h2>Tarea</h2>
+            </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="input-group mb-3">
-        <label class="mr-sm ">Tarea</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control" placeholder="Dijite la Tarea" formControlName="taskName">
-        </div>
-      </div>
-      <button class="btn btn btn-primary mb-3" type="submit"  >Guardar</button>
-    </form>
 
-
-    <!-- <form [formGroup]="filterTaskTeamForm">
-      <div class="input-group mb-3 mt-3">
-        <h4 class="mr-sm ">Buscar tareas por Equipo</h4>
-        <div class="col-sm-3">
-          <select class="form-select" formControlName="teamIdFilter">
-            <option>Seleccione</option>
-            <option value="{{item.teamId}}" *ngFor="let item of teams">{{item.teamName}}</option>
-          </select>
-        </div>
-        <button class="btn btn btn-primary" (click)="selectTeamFilter()">Filtrar</button>
-      </div>
-    </form> -->
-
-  </div>
-
-  <br>
-  <div class="title">
-    <p>Gestión de Tareas</p>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover">
-      <thead class="thead-ligth">
-      <tr>
-        <th scope="row" class="title_table">#</th>
-        <th scope="row" class="title_table">Tareas</th>
-        <th scope="row" class="title_table">Equipo</th>
-        <th scope="row" class="title_table icon">Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of tasksTeams;let i = index">
-        <td>{{i + 1}}</td>
-        <td>{{item.taskName}}</td>
-        <td>{{item.teamName}}</td>
-        <td class="icon">
-          <button type="button" class="btn btn-success" (click)="editTaskModal(item.taskTeamId)"><i
-            class="fas fa-edit"></i>
-          </button>
-          <button type="button" class="btn btn-danger mx-2" (click)="deleteTasks(item.taskTeamId)"><i
-            class="fas fa-trash-alt"></i></button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    </div>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">#</th>
+            <th scope="row" class="title_table">Tareas</th>
+            <th scope="row" class="title_table">Equipo</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tasksTeams;let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{item.taskName}}</td>
+            <td>{{item.teamName}}</td>
+            <td class="icon">
+              <button type="button" class="btn btn-success" (click)="editTaskModal(item.taskTeamId)"><i
+                  class="fas fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-danger mx-2" (click)="deleteTasks(item.taskTeamId)"><i
+                  class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-

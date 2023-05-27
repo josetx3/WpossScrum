@@ -1,47 +1,58 @@
-<div class="container">
-
-
-  <nav class="navbar navbar-light bg-light">
-    <span class="title">Subproyecto</span>
-    <div class="search">
-      <input class="form-control mr-sm" type="search" placeholder="Buscar subproyecto" aria-label="Search">
-      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+<div class="card justify-content-center">
+  <div class="card-body">
+    <h1 class="card-title">Subproyectos</h1>
+    <div class="row">
+      <h2 class="col-4">Agregar un nuevo subproyecto</h2>
+      <h4 class="col-2">
+        <button type="button" class="btn btn-primary" (click)="addSubprojetModal()">Agregar subproyecto
+        </button>
+      </h4>
+      <div class="col-2"></div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col-5">
+            <input class="form-control col-6" type="search" placeholder="Buscar subproyecto" aria-label="Search">
+          </div>
+          <div class="col-1">
+            <button type="submit" class="btn btn-primary btn-sm "><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+        </div>
+      </div>
     </div>
-  </nav>
-
-  <div class="content">
-
-  <div class="title">
-    <p>Lista de Subproyectos</p>
-  </div>
-
-    <button type="button" class="btn btn-primary mb-2" (click)="addSubprojetModal()">Agregar
-      subproyecto
-    </button>
-  </div>
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover">
-      <thead class="thead-ligth">
-      <tr>
-        <th scope="row" class="title_table">Nombre del subproyecto</th>
-        <th scope="row" class="title_table">Proyecto</th>
-        <th scope="row" class="title_table icon">equipo</th>
-        <th scope="row" class="title_table icon">Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of subproject">
-        <td>{{item.subProjectName}}</td>
-        <td>{{item.projectName}}</td>
-        <td>{{item.teamName}}</td>
-        <td class="icon">
-          <button type="button" class="btn btn-success" (click)="editSubProjetModal(item.subProjectId)" title="Editar Subproyecto"><i class="fas fa-edit"></i></button>
-          <button type="button" class="btn btn-primary mx-2" [routerLink]="['/app/user-story']" title="Visualizar subproyecto"><i class="fa fa-eye" ></i></button>
-          <button type="button" class="btn btn-red  mx-1" (click)="addUserStoryModal()" title="Agregar historia de usuario"><i class="fa fa-plus"></i></button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 </div>
 
+
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="car-title">Lista de los subproyectos</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth">
+          <tr class="text-center">
+            <th scope="row" class="title_table">Nombre del subproyecto</th>
+            <th scope="row" class="title_table">Proyecto</th>
+            <th scope="row" class="title_table icon">equipo</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of subproject">
+            <td>{{item.subProjectName}}</td>
+            <td>{{item.projectName}}</td>
+            <td>{{item.teamName}}</td>
+            <td class="icon">
+              <button type="button" class="btn btn-success" (click)="editSubProjetModal(item.subProjectId)"
+                title="Editar Subproyecto"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-primary mx-2" [routerLink]="['/app/user-story']"
+                title="Visualizar subproyecto"><i class="fa fa-eye"></i></button>
+              <button type="button" class="btn btn-red  mx-1" (click)="addUserStoryModal()"
+                title="Agregar historia de usuario"><i class="fa fa-plus"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

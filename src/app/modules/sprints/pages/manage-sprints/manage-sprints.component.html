@@ -1,45 +1,50 @@
-<div class="container">
-  <div class="title">
-    <p> Gestionar Sprint</p>
-  </div>
-  <div class="content">
-    <button class="btn btn-primary mx-2 mb-3 " (click)="AddSprintModal()">Agregar sprint</button>
-  </div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Gestionar Sprint</h1>
+    <button class="btn btn-primary mx-2 mb-3 " (click)="AddSprintModal()">Agregar un sprint</button>
 
-  <div class="border-2 table-responsive">
-    <table class="table table-bordered table-hover">
-      <thead class="thead-ligth">
-      <tr>
-        <th scope="row" class="title_table">Equipo</th>
-        <th scope="row" class="title_table">N°Sprint</th>
-        <th scope="row" class="title_table">Fecha Inicial</th>
-        <th scope="row" class="title_table">Fecha Final</th>
-        <th scope="row" class="title_table">Dias de sprint</th>
-        <th scope="row" class="title_table">Puntear dias</th>
-        <th scope="row" class="title_table">Calcular Puntos Sprint</th>
-        <th scope="row" class="title_table">Añadir HU</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor=" let item of sprints">
-        <td class="content_table">{{item.teamName}}</td>
-        <td class="content_table">{{item.nuSprint}}</td>
-        <td class="content_table">{{item.sprintStart}}</td>
-        <td class="content_table">{{item.sprintEnd}}</td>
-        <td class="content_table">{{item.sprintDay}}</td>
 
-        <td class="icon">
-          <button type="button" class="btn btn-primary" (click)="sendToChosenButton(item,'score-sprint-days')"><i class="fa-solid fa-calendar"></i></button>
-        </td>
-        <td class="icon">
-          <button type="button" class="btn btn-primary" (click)="sendToChosenButton(item,'calculate_points_sprint')"><i class="fa-solid fa-calculator"></i></button>
-        </td>
-        <td class="icon">
-          <button type="button" class="btn btn-primary" (click)="sendToChosenButton(item,'add-userStory-sprint')"><i class="fa-solid fa-address-book"></i></button>
-        </td>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">Equipo</th>
+            <th scope="row" class="title_table">N°Sprint</th>
+            <th scope="row" class="title_table">Fecha Inicial</th>
+            <th scope="row" class="title_table">Fecha Final</th>
+            <th scope="row" class="title_table">Dias de sprint</th>
+            <th scope="row" class="title_table">Puntear dias</th>
+            <th scope="row" class="title_table">Calcular Puntos Sprint</th>
+            <th scope="row" class="title_table">Añadir HU</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor=" let item of sprints">
+            <td class="content_table">{{item.teamName}}</td>
+            <td class="content_table">{{item.nuSprint}}</td>
+            <td class="content_table">{{item.sprintStart}}</td>
+            <td class="content_table">{{item.sprintEnd}}</td>
+            <td class="content_table">{{item.sprintDay}}</td>
 
-      </tr>
-      </tbody>
-    </table>
+            <td class="icon">
+              <button type="button" class="btn btn-primary" (click)="sendToChosenButton(item,'score-sprint-days')"><i
+                  class="fa-solid fa-calendar"></i></button>
+            </td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary"
+                (click)="sendToChosenButton(item,'calculate_points_sprint')"><i
+                  class="fa-solid fa-calculator"></i></button>
+            </td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary" (click)="sendToChosenButton(item,'add-userStory-sprint')"><i
+                  class="fa-solid fa-address-book"></i></button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
   </div>
 </div>

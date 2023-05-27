@@ -1,37 +1,36 @@
-<div class="container">
-
-  <nav class="navbar">
-    <span class="title">Gestion de clientes</span>
-  </nav>
-
-
-  <div class="title">
-    <p>Lista de clientes</p>
-    <div>
-      <button type="button" class="btn btn-primary mb-2 mx-2" (click)="addCustomerModal()">Agregar cliente</button>
+<div class="card">
+  <div class="card-body">
+    <div class="row col-12">
+      <h1 class="card-title"> Gestion de Clientes </h1>
+      <button type="button" class="btn btn-primary mb-2 mx-2 btn-sm col-2" (click)="addCustomerModal()">Agregar
+        cliente</button>
     </div>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover">
-      <thead class="thead-ligth">
-      <tr>
-        <th scope="row" class="title_table">NIT</th>
-        <th scope="row" class="title_table">Razón social</th>
-        <th scope="row" class="title_table icon">Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of customer">
-        <td>{{item.clientNit}}</td>
-        <td>{{item.client_name}}</td>
-        <td class="icon">
-          <button type="button" class="btn btn-success" (click)="editCustomerModal(item.clientNit)">
-            <i class="fas fa-edit"></i></button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 </div>
 
+<div class="card">
+  <div class="card-body">
+    <h1 class="car-title">Lista de Clientes</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">NIT</th>
+            <th scope="row" class="title_table">Razón social</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of customer">
+            <td>{{item.clientNit}}</td>
+            <td>{{item.client_name}}</td>
+            <td class="icon">
+              <button type="button" class="btn btn-success" (click)="editCustomerModal(item.clientNit)">
+                <i class="fas fa-edit"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
