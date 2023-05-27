@@ -1,70 +1,82 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Gestionar Tablero</h1>
+    <div class="row">
+      <div class="col-6">
+        <form [formGroup]="boardFrom" (ngSubmit)="filterboard()">
 
-<div class="container">
-  <div class="title">
-    <p> Gestionar Tablero</p>
-  </div>
+          <div class="row mb-3">
+            <label class="col-4 col-form-label">
+              <h2>Seleccionar area</h2>
+            </label>
+            <div class="col-sm-7">
+              <select class="form-select" aria-label="Default select example" formControlName="areaId"
+                (change)="selectArea()">
+                <option selected>Seleccione</option>
+                <option value="{{item.areaId}}" *ngFor="let item of areas">{{ item.areaName }}</option>
+              </select>
+            </div>
+          </div>
 
-  <div class="form-row align-items-center">
+          <div class="row mb-3">
+            <label class="col-4 col-form-label">
+              <h2>Seleccionar equipo</h2>
+            </label>
+            <div class="col-sm-7">
+              <select class="form-select" aria-label="Default select example" formControlName="teamId"
+                (change)="selectTeam()">
+                <option selected>Seleccionar equipo</option>
+                <option value="{{team.teamId}}" *ngFor="let team of teams">{{team.teamName}}</option>
+              </select>
+            </div>
+          </div>
 
-    <form class="sprints-form" [formGroup]="boardFrom" (ngSubmit)="filterboard()">
+          <div class="row mb-3">
+            <label class="col-4 col-form-label">
+              <h2>Seleccionar H usuario</h2>
+            </label>
+            <div class="col-sm-7">
+              <select class="form-select" aria-label="Default select example" formControlName="userStoryId">
+                <option selected>Seleccionar</option>
+                <option value="{{item.userStoryId}}" *ngFor="let item of userStorys">{{item.userStoryName}}</option>
+              </select>
+            </div>
+          </div>
 
+          <div class="btn-new">
+            <button class="btn btn-primary mx-2 mb-2" (click)="filterboard()">Filtrar</button>
+            <button class="btn btn-primary mx-2 mb-2 bnt" (click)="addBoardModal()">añadir tablero</button>
+          </div>
 
-      <div class="form-group col-sm-4">
-        <label>Seleccionar area</label>
-        <select class="form-select" formControlName="areaId" (change)="selectArea()">
-          <option>Seleccionar</option>
-          <option value="{{item.areaId}}" *ngFor="let item of areas">{{ item.areaName }}</option>
-
-        </select>
+        </form>
       </div>
-
-      <div class="form-group col-sm-4">
-      <label>Seleccionar equipo</label>
-      <select class="form-select" formControlName="teamId" (change)="selectTeam()">
-        <option value="{{team.teamId}}" *ngFor="let team of teams">{{team.teamName}}</option>
-      </select>
-      </div>
-
-        <div class="form-group col-sm-4">
-          <label>Seleccionar historia de usuario</label>
-          <select class="form-select" formControlName="userStoryId">
-            <option>Seleccionar</option>
-            <option value="{{item.userStoryId}}" *ngFor="let item of userStorys">{{item.userStoryName}}</option>
-          </select>
-        </div>
-        <div class="btn-new">
-          <button class="btn btn-primary mx-2 mb-2" (click)="filterboard()">Filtrar</button>
-          <button class="btn btn-primary mx-2 mb-2 bnt" (click)="addBoardModal()">añadir tablero</button>
-        </div>
-
-      </form>
+    </div>
+    <hr>
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
         <thead class="thead-ligth">
-        <tr>
+          <tr>
 
-          <th scope="row" class="title_table">Tarea</th>
-          <th scope="row" class="title_table icon">Empleado</th>
-          <th scope="row" class="title_table icon">Fecha</th>
-          <th scope="row" class="title_table icon">Acciones</th>
-        </tr>
+            <th scope="row" class="title_table">Tarea</th>
+            <th scope="row" class="title_table icon">Empleado</th>
+            <th scope="row" class="title_table icon">Fecha</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of board">
+          <tr *ngFor="let item of board">
 
-          <td>{{item.taskName}}</td>
-          <td>{{item.employeeName}}</td>
-          <td>{{item.date}}</td>
-          <td class="icon"><button type="button" class="btn btn-success" (click)="editBoardModal(item.idBoard)"><i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-danger mx-2" (click)="deleteBoard(item.idBoard)"><i class="fas fa-trash"></i></button></td>
-        </tr>
+            <td>{{item.taskName}}</td>
+            <td>{{item.employeeName}}</td>
+            <td>{{item.date}}</td>
+            <td class="icon"><button type="button" class="btn btn-success" (click)="editBoardModal(item.idBoard)"><i
+                  class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-danger mx-2" (click)="deleteBoard(item.idBoard)"><i
+                  class="fas fa-trash"></i></button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
-
   </div>
 </div>
-
-
-
-

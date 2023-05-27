@@ -7,10 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: BoardSeeComponent,
+    //component: BoardComponent,
   },
   {
     path: 'Boardsee',
     component: BoardComponent,
+    //component: BoardSeeComponent,
   },
 ];
 

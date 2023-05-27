@@ -1,35 +1,36 @@
-<div class="container">
-  <div class="title">
-    <p>Gestionar Mejoras</p>
-  </div>
- <div class="btn ">
-  <button class="btn btn-primary mb-2 mx-2" (click)="abrirModalImprovements()">nueva mejora</button>
- </div>
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover">
-      <thead class="thead-ligth">
-      <tr>
-        <th scope="row" class="title_table">Area</th>
-        <th scope="row" class="title_table">Equipo</th>
-        <th scope="row" class="title_table icon">Histoia de usuario</th>
-        <th scope="row" class="title_table icon">Tarea</th>
-        <th scope="row" class="title_table icon">Tipo de observacion</th>
-        <th scope="row" class="title_table icon">Mas detalles</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of improvements;">
-        <td>{{item.areaName}}</td>
-        <td>{{item.teamName}}</td>
-        <td>{{item.userStoryName}}</td>
-        <td>{{item.nameTask}}</td>
-        <td>{{item.observationName}}</td>
-        <td class="icon">
-          <button type="button" class="btn btn-primary mx-2" [routerLink]="['see', item.improvementsId]"><i class="fa fa-eye"></i></button>
-          <button type="button" class="btn btn-danger mx-2" (click)="deleteImprovements(item.improvementsId)"><i class="fas fa-trash"></i></button></td>
-      </tr>
-      </tbody>
-    </table>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Gestionar Mejoras</h1>
+    <button type="submit" class="btn btn-primary">Agregar una mejora</button>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">Area</th>
+            <th scope="row" class="title_table">Equipo</th>
+            <th scope="row" class="title_table icon">Histoia de usuario</th>
+            <th scope="row" class="title_table icon">Tarea</th>
+            <th scope="row" class="title_table icon">Tipo de observacion</th>
+            <th scope="row" class="title_table icon">Mas detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of improvements;">
+            <td>{{item.areaName}}</td>
+            <td>{{item.teamName}}</td>
+            <td>{{item.userStoryName}}</td>
+            <td>{{item.nameTask}}</td>
+            <td>{{item.observationName}}</td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary mx-2" [routerLink]="['see', item.improvementsId]"><i
+                  class="fa fa-eye"></i></button>
+              <button type="button" class="btn btn-danger mx-2" (click)="deleteImprovements(item.improvementsId)"><i
+                  class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
