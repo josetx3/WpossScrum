@@ -8,7 +8,7 @@ import { UserStory } from '../interface/userStory';
 })
 export class userStoryService {
 
-  private API_SERVER  ="http://localhost:8020/userstory";
+  private API_SERVER  ="http://localhost:8020/subproject";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -17,10 +17,10 @@ export class userStoryService {
   }
 
   public getAllUser_story():Observable<any>{
-    return this.httpClient.get(this.API_SERVER+"/userstory/all");
+    return this.httpClient.get("http://localhost:8020/userstory/userstory/all");
   }
   public saveUser_story(user_story:any):Observable<any>{
-    return this.httpClient.post(this.API_SERVER+"/save",user_story);
+    return this.httpClient.post("http://localhost:8020/userstory/save",user_story);
   }
   getUserStoryById(id:string | null):Observable<any>{
     return this.httpClient.get(this.API_SERVER+"/"+id);

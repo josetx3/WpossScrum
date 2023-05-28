@@ -3,7 +3,7 @@
     <h1 class="card-title">Crear Tareas por equipo</h1>
     <div class="row">
       <div class="col-6">
-        <form [formGroup]="tasksForm" (ngSubmit)="saveTasks()">
+        <form class="customer-form" [formGroup]="tasksForm" (ngSubmit)="saveTasks()">
 
           <div class="row mb-3">
             <label class="col-sm-2 col-form-label">
@@ -22,7 +22,7 @@
               <h2>Tarea</h2>
             </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" formControlName="taskName">
             </div>
           </div>
 

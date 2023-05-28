@@ -1,1 +1,59 @@
-<p>sprint-add works!</p>
+<div class="container">
+  <div class="title">
+    <p> Gestionar Sprint</p>
+  </div>
+  <div class="form-row align-items-center">
+    <form class="sprints-form" [formGroup]="sprintsForm" (ngSubmit)="saveSprint()">
+
+      <div class="form-group col-sm-4">
+        <span>Seleccionar área</span>
+        <select class="form-select" formControlName="areaId" (change)="selectArea()">
+          <option value="{{area.areaId}}" *ngFor="let area of areas">{{area.areaName}}</option>
+        </select>
+        <div *ngIf="sprintsForm.get('areaId')?.dirty || sprintsForm.get('areaId')?.touched">
+          <p *ngIf="sprintsForm.get('areaId')?.hasError('required')" style="color: red">
+            Este campo es requerido
+          </p>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <span>Seleccionar equipo</span>
+        <select class="form-select" formControlName="teamId">
+          <option value="">Seleccionar</option>
+          <option value="{{team.teamId}}" *ngFor="let team of teams">{{team.teamName}}</option>
+        </select>
+        <div *ngIf="sprintsForm.get('teamId')?.dirty || sprintsForm.get('teamId')?.touched">
+          <p *ngIf="sprintsForm.get('teamId')?.hasError('required')" style="color: red">
+            Este campo es requerido
+          </p>
+        </div>
+      </div>
+      <div class="mt-3 card">
+        <div class="card-body">
+          <div class="form-group-card col-sm-4">
+            <span>Fecha inicial</span>
+            <input type="date" class="form-control" formControlName="sprintStart">
+            <div *ngIf="sprintsForm.get('sprintStart')?.dirty || sprintsForm.get('sprintStart')?.touched">
+              <p *ngIf="sprintsForm.get('sprintStart')?.hasError('required')" style="color: red">
+                Este campo es requerido
+              </p>
+            </div>
+          </div>
+          <div class="form-group-card col-sm-4">
+            <span>Fecha final</span>
+            <input type="date" class="form-control" formControlName="sprintEnd">
+            <div *ngIf="sprintsForm.get('sprintEnd')?.dirty || sprintsForm.get('sprintEnd')?.touched">
+              <p *ngIf="sprintsForm.get('sprintEnd')?.hasError('required')" style="color: red">
+                Este campo es requerido
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="content-button">
+        <button class="btn-card btn btn-primary mb-3" type="submit" >Crear Sprint</button>
+        </div>
+      </div>
+    </form>
+    <br>
+  </div>
+</div>

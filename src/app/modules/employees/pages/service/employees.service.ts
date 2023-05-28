@@ -32,4 +32,8 @@ export class EmployeesService {
     return this.httpClient.get(this.API_SERVER + "/employeteam/" + teamId)
   }
 
+  getEmployeeToTeam(teamId: string | null): Observable<any>{
+    return this.httpClient.get(this.API_SERVER + "/employeteam/" + teamId)
+  }
+
 }

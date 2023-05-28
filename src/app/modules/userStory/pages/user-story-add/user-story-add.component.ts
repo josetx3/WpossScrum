@@ -51,12 +51,14 @@ export class UserStoryAddComponent implements OnInit {
   getAllSubprojects() {
     this.subProjectService.getAllSubprojects().subscribe(resp => {
       this.subProjects = resp;
+      console.log("respuesta:  " + resp);
     })
   }
 
 
   saveStory(): void {
-    if (this.userStoryForm.valid) {
+    //if (this.userStoryForm.valid) {
+    if (this.userStoryForm) {
       const data = {
         subProjectId: this.userStoryForm.get('subProjectId')?.value,
         userStoryArchive: this.userStoryForm.get('userStoryArchive')?.value,

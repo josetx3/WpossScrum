@@ -7,7 +7,8 @@
 
       <div class="form-group col-sm-4">
         <span>Seleccione el Empleado</span>
-        <select class="form-select mt-2 mb-2" formControlName="employeeId">
+        <select class="form-select mt-2 mb-2" formControlName="employeeId"
+        (change)="selectEmploye()">
           <option value="">Seleccione</option>
           <option *ngFor="let item of employees" value="{{item.employeeId}}">{{item.employeeName}}</option>
         </select>

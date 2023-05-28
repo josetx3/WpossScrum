@@ -13,12 +13,12 @@ import { TeamTasksEditComponent } from '../team-tasks-edit/team-tasks-edit.compo
   styleUrls: ['./team-tasks.component.scss']
 })
 export class TeamTasksComponent {
+
   tasksForm: FormGroup = new FormGroup({
     taskName: new FormControl(null, [Validators.required]),
     teamId: new FormControl(null, [Validators.required]),
     taskTeamId: new FormControl(null,)
   })
-
   filterTaskTeamForm:FormGroup=new FormGroup({
     teamIdFilter: new FormControl(null, [Validators.required])
   })
@@ -51,6 +51,7 @@ export class TeamTasksComponent {
   }
 
   getAllTasksTeams(){
+    console.log("hola")
     this.teamTasksService.getAllTeamTasks().subscribe(resp => { // trae todas las tares por equipo
       this.tasksTeams = resp;
 
@@ -58,7 +59,7 @@ export class TeamTasksComponent {
   }
 
 
-  saveTasks(): void {
+  saveTasks() {
     if (this.tasksForm.valid){
       const data = {
         teamId:this.tasksForm.get('teamId')?.value,
