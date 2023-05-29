@@ -7,8 +7,7 @@
 
       <div class="form-group col-sm-4">
         <span>Seleccione el Empleado</span>
-        <select class="form-select mt-2 mb-2" formControlName="employeeId"
-        (change)="selectEmploye()">
+        <select class="form-select mt-2 mb-2" formControlName="employeeId" (change)="selectEmploye()">
           <option value="">Seleccione</option>
           <option *ngFor="let item of employees" value="{{item.employeeId}}">{{item.employeeName}}</option>
         </select>
@@ -29,6 +28,7 @@
           </p>
         </div>
       </div>
+
       <div class="form-group col-sm-4">
         <span>Dias de Permiso</span>
         <input class="form-control" type="number" formControlName="sprintEmployeeDay">
@@ -57,6 +57,8 @@
     <h3 class=" mr-2">Equipo</h3>
     <p>{{teamName}}</p>
   </div>
+
+
   <div class="table-responsive mt-3 mb-4">
     <table class="table table-condensed table-hover ">
       <thead class="thead-ligth">
@@ -82,6 +84,8 @@
         </tr>
       </tbody>
     </table>
+
+
   </div>
   <div class="points_final">
     <label>Los puntos del sprint son</label>
@@ -89,5 +93,73 @@
     <span>("{{finalCalculation}}")</span>
     <br>
     <button class="btn btn btn-primary mb-2 mt-3" (click)="calculateSprintPoints()">Calcular Puntos</button>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Calcular Puntos Sprint</h1>
+
+    <div class="row">
+      <div class="col-7">
+        <form [formGroup]="calculateSprintForm" (ngSubmit)="saveSprintPoints()">
+
+
+          <div class="row col-8">
+            <label class="col-5 col-form-label">
+              <h2>Empleado</h2>
+            </label>
+            <div class="col-sm-6">
+              <select class="form-select" formControlName="employeeId" (change)="selectEmploye()">
+                <option value="">Seleccione</option>
+                <option *ngFor="let item of employees" value="{{item.employeeId}}">{{item.employeeName}}</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row col-8">
+            <label for="inputText" class="col-5 col-form-label">
+              <h2>Porcentaje</h2>
+            </label>
+            <div class="col-6">
+              <input type="text" class="form-control" formControlName="sprintEmployeePercentage">
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show"
+            *ngIf="calculateSprintForm.get('sprintEmployeePercentage')?.dirty || calculateSprintForm.get('sprintEmployeePercentage')?.touched">
+            <p *ngIf="calculateSprintForm.get('sprintEmployeePercentage')?.hasError('required')">
+              Este campo es requerido
+            </p>
+          </div>
+          </div>
+
+
+          <div class="row col-8">
+            <label for="inputText" class="col-5 col-form-label">
+              <h2>Dias de permiso</h2>
+            </label>
+            <div class="col-6">
+              <input type="text" class="form-control" formControlName="">
+            </div>
+          </div>
+
+
+          <div class="row col-8">
+            <label for="inputPassword" class="col-5 col-form-label">
+              <h2>
+                Observaciones
+              </h2>
+            </label>
+            <div class="col-6">
+              <textarea class="form-control" style="height: 100px"></textarea>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+
   </div>
 </div>
