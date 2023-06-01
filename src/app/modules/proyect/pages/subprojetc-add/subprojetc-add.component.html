@@ -1,32 +1,52 @@
-<div class="container">
-  <div class="title">
-    <p> Agregar Subproyecto</p>
-  </div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Agregar subproyecto</h1>
 
-  <div class="form-row align-items-center">
+
     <form class="userStory-form" [formGroup]="subprojectAddForm" (ngSubmit)="saveSubProject()">
 
-      <div class="form-group">
-        <span>Nombre del subproyecto:</span>
-        <input type="text" class="form-control " placeholder="Ingrese el nombre"
-               formControlName="subProjectName">
+      <div class="row">
+        <div class="col-12">
+
+
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Nombre del subproyecto</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="subProjectName">
+            </div>
+          </div>
+
+
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el proyecto: </label>
+            <div class="col-12">
+              <select type="text" class="form-control form-select" formControlName="projectId">
+                <option *ngFor="let item of projects" value="{{item.projectId}}">{{item.projectName}}</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el equipo: </label>
+            <div class="col-12">
+              <select type="text" class="form-control form-select" formControlName="teamId">
+                <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn-primary" type="submit" [disabled]="subprojectAddForm.invalid"
+              (click)="closeModal()">Agregar</button>
+          </div>
+
+
+        </div>
       </div>
-      <div class="form-group">
-        <span>Seleccione el proyecto:</span>
-        <select type="text" class="form-control form-select"  formControlName="projectId">
-          <option *ngFor="let item of projects" value="{{item.projectId}}">{{item.projectName}}</option>
-          </select>
-      </div>
-      <div class="form-group">
-        <span>Seleccione el equipo</span>
-        <select type="text" class="form-control form-select"  formControlName="teamId">
-          <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}</option>
-          </select>
-      </div>
-      <div class="text-center">
-        <button class="btn btn btn-primary mb-2" type="submit" [disabled]="subprojectAddForm.invalid" (click)="closeModal()">Agregar</button>
-      </div>
+
     </form>
+
   </div>
 </div>
-

@@ -31,7 +31,7 @@ export class CalculateSprintPointsComponent implements OnInit {
   employeeListFinal: any;
   employeePercentageFinal: any;
 
-  employeeId: string='';
+  employeeId: string = '';
 
   constructor(
     public teamService: TeamsService,
@@ -44,24 +44,24 @@ export class CalculateSprintPointsComponent implements OnInit {
     this.teamId = this.route.snapshot.paramMap.get('teamId');
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
 
-    //this.getAllCalculationPercentageEmployee();
-    //this.getEmployeeByTeam();
-    //this.getBySprintId();
-    //this.getTeamNameById();
+    this.getAllCalculationPercentageEmployee();
+    this.getEmployeeByTeam();
+    this.getBySprintId();
+    this.getTeamNameById();
     this.selectEmploye();
   }
 
   //----------------------------------------------
 
   selectEmploye() {
-    //this.teamId = this.calculateSprintForm.get('teamId')?.value;
-    console.log("asd  " + this.teamId )
+    //!this.teamId = this.calculateSprintForm.get('teamId')?.value;
+    //!console.log('asd  ' + this.teamId);
     this.employeesService.getEmployeeToTeam(this.teamId).subscribe({
       next: (r) => {
         this.employees = r;
-        console.log("Select employe   "+ this.employees )
-      }
-    })
+        //!console.log('Select employe   ' + this.employees);
+      },
+    });
   }
 
   //----------------------------------------------
@@ -110,13 +110,14 @@ export class CalculateSprintPointsComponent implements OnInit {
         'sprintEmployeePercentage'
       )?.value;
       const data = {
-        employeeId: this.calculateSprintForm.get('employeeId')?.value,
-        sprintEmployeeDescription: this.calculateSprintForm.get(
+        idEmployee: this.calculateSprintForm.get('employeeId')?.value,
+        idSprint: this.sprintId,
+        percentage: this.sprintEmployeePercentage,
+        daysLeave: this.sprintEmployeeDay,
+        observations: this.calculateSprintForm.get(
           'sprintEmployeeDescription'
         )?.value,
-        sprintEmployeePercentage: this.sprintEmployeePercentage,
-        sprintId: this.sprintId,
-        sprintEmployeeDay: this.sprintEmployeeDay,
+
         employeePercentageFinal:
           (this.sprintEmployeePercentage *
             (this.sprintDays - this.sprintEmployeeDay)) /

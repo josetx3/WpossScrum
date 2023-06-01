@@ -25,9 +25,7 @@ export class TeamsService {
     return this.httpClient.put(this.API_SERVER + '/' + id, team);
   }
 
-  addEmployeeTeam(
-    teamId: string | null,
-    teamEmployee: string[]
+  addEmployeeTeam(teamId: string | null, teamEmployee: string[]
   ): Observable<any> {
     return this.httpClient.put(
       this.API_SERVER + '/saveemployetoteam/' + teamId,
@@ -37,4 +35,14 @@ export class TeamsService {
   getTeamArea(areaId: string): Observable<any> {
     return this.httpClient.get(this.API_SERVER + '/area/' + areaId);
   }
+
+  getEmployeesInTeam(teamId: string): Observable<any> {
+    return this.httpClient.get(this.API_SERVER + '/team/' + teamId + '/employees');
+  }
+
+
+
+
+
+
 }

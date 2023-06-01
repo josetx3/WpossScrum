@@ -28,8 +28,7 @@ export class SprintsService {
     return this.httpClient.get('http://localhost:8020/team/area/' + areaId);
   }
   saveCalculationSprintPoints(dataPointsSprint: any): Observable<any> {
-    return this.httpClient.post(
-      this.API_SERVER + '/sprint-employee/save',
+    return this.httpClient.post('http://localhost:8020/sprintEmployee/savesprintemployee',
       dataPointsSprint
     );
   }
@@ -82,3 +81,10 @@ export class SprintsService {
     );
   }
 }
+
+
+
+//employeeId 0ab1c469-6711-4217-85db-2915dbca4d2e
+//sprintId: 291d8565-998f-4acf-8968-b50726316d33
+//areaId: 20be06ff-614c-4279-b064-def63fbf5ef6
+//teamId: c33faf49-9d2e-4997-8af7-189e9ca90fea

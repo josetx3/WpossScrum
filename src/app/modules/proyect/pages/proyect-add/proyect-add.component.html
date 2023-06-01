@@ -1,46 +1,58 @@
-<div class="container">
-  <div class="title">
-    <p> Agregar Proyecto</p>
-  </div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Agregar Proyecto</h1>
+    <div class="form-row align-items-center">
+      <form class="project-form" [formGroup]="projectAddForm" (ngSubmit)="saveProject()">
+        <div class="row">
+          <div class="col-12">
 
-  <div class="form-row align-items-center">
-    <form class="project-form" [formGroup]="projectAddForm" (ngSubmit)="saveProject()">
 
-      <div class="form-group">
-        <label>Nombre del proyecto:</label>
-        <input type="text" class="form-control" placeholder="Ingrese el nombre del proyecto"
-               formControlName="projectName">
-      </div>
 
-      <div class="form-group mb-3" >
-        <span class="mr-sm">Seleccione el cliente:</span>
-        <div class="label-text">
-          <select class="form-control form-select" formControlName="projectClient">
-            <option  *ngFor="let client of clients" value="{{client.clientNit}}">{{ client.client_name}}</option>
-         </select>
-        </div>
-      </div>
+            <div class="row col-12">
+              <label for="inputEmail" class="col-6 col-form-label">Nombre del proyecto</label>
+              <div class="col-12">
+                <input type="text" class="form-control" formControlName="projectName">
+              </div>
+            </div>
 
-      <div class="form-group">
-        <label>Seleccione el área:</label>
-        <select class="form-control form-select" formControlName="projectArea">
-          <option value="{{area.areaId}}" *ngFor="let area of areas">{{area.areaName}}</option>
-        </select>
-      </div>
 
-      <div class="input-group mb-3">
-        <form>
-          <div class="form-group">
-            <span class="mr-sm">Archivo</span>
-            <input type="file" class="form-control-file" formControlName="archive" (change)="upload_image($event)">
+            <div class="row col-12">
+              <label class="col-6 col-form-label">Seleccione el cliente: </label>
+              <div class="col-12">
+                <select class="form-select" formControlName="projectClient">
+                  <option *ngFor="let client of clients" value="{{client.clientNit}}">{{ client.client_name}}</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="row col-12">
+              <label class="col-6 col-form-label">Seleccione el area: </label>
+              <div class="col-12">
+                <select class="form-select" formControlName="projectArea">
+                  <option value="{{area.areaId}}" *ngFor="let area of areas">{{area.areaName}}</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="row col-12">
+              <label for="inputNumber" class="col-6 col-form-label">subir archivo</label>
+              <div class="col-12">
+                <input type="file" class="form-control" formControlName="archive" (change)="upload_image($event)">
+              </div>
+            </div>
+
+
+            <div class="row col-6 mt-3 m-1">
+              <button type="submit" class="btn btn-primary" [disabled]="projectAddForm.invalid">Agregar</button>
+            </div>
+
+
           </div>
-        </form>
-      </div>
-      <div class="text-center">
-        <button class="btn btn btn-primary mb-2" type="submit" [disabled]="projectAddForm.invalid" >Agregar</button>
-      </div>
+        </div>
 
-    </form>
+      </form>
+    </div>
   </div>
 </div>
-

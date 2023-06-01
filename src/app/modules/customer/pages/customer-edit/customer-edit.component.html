@@ -1,24 +1,31 @@
-<div class="container">
-  <div class="title">
-    <p>Editar cliente</p>
-  </div>
-
-  <div class="form-row align-items-center">
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Editar cliente</h1>
     <form class="customer-form" [formGroup]="customerForm" (ngSubmit)="edit()">
+      <div class="row">
+        <div class="col-12">
 
-      <div class="form-group mb-3">
-        <label>NIT de la empresa</label>
-          <input type="text" class="form-control" placeholder="Ingrese el NIT" formControlName="clientNit">
-      </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">NIT de la empresa:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="clientNit">
+            </div>
+          </div>
 
-      <div class="form-group mb-3">
-        <label class="mr-sm ">Razón social</label>
-          <input type="text" class="form-control" placeholder="Ingrese la razón social" formControlName="client_name">
-      </div>
-      <div class="text-center">
-        <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="customerForm.invalid">Editar</button>
+
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Razón social:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="client_name">
+            </div>
+          </div>
+
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="customerForm.invalid">Editar</button>
+          </div>
+
+        </div>
       </div>
     </form>
   </div>
 </div>
-

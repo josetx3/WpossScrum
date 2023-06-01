@@ -3,5 +3,6 @@ export interface Employee {
   employeeEmail: string,
   employeeId: string,
   employeeKnowledge: string,
-  employeeName: string
+  employeeName: string,
+  checked?:boolean
 }

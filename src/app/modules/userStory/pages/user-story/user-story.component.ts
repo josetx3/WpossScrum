@@ -81,8 +81,7 @@ export class UserStoryComponent implements OnInit {
 
   addUserStoryModal(): void {
     const dialogRef = this.dialog.open(UserStoryAddComponent, {
-      width: '500px',
-      maxHeight: '600px',
+      maxHeight: '580px',
     });
 
     dialogRef.afterClosed().subscribe((resul) => {
@@ -92,9 +91,8 @@ export class UserStoryComponent implements OnInit {
 
   editUserStoryModal(userStoryId: string): void {
     const dialogRef = this.dialog.open(UserStoryManagementComponent, {
-      width: '500px',
-      maxHeight: '600px',
       data: { userStoryId: userStoryId },
+      maxHeight: '580px',
     });
 
     dialogRef.afterClosed().subscribe({

@@ -1,26 +1,37 @@
-<div class="container">
-  <div class="title">
-    <p> Agregar cliente</p>
-  </div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Agregar Cliente</h1>
 
-  <div class="form-row align-items-center">
+
     <form class="customer-form" [formGroup]="customerForm" (ngSubmit)="saveCustomer()">
 
-      <div class="form-group mb-3">
-        <label>NIT de la empresa:</label>
-          <input type="text" class="form-control" placeholder="Ingrese el NIT" formControlName="clientNit">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">NIT de la empresa:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="clientNit">
+            </div>
+          </div>
+
+
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Razón social:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="clientName">
+            </div>
+          </div>
+
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="customerForm.invalid">Guardar</button>
+          </div>
+
+
+        </div>
       </div>
 
-      <div class="form-group mb-3">
-        <label >Razón social:</label>
-          <input type="text" class="form-control" placeholder="Ingrese la razón social" formControlName="clientName">
-      </div>
-      <div class="text-center">
-        <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="customerForm.invalid">Guardar</button>
-      </div>
-      </form>
+    </form>
 
   </div>
 </div>
-
-

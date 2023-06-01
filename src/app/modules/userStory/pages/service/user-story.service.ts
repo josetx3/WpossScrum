@@ -23,7 +23,7 @@ export class userStoryService {
     return this.httpClient.post("http://localhost:8020/userstory/save",user_story);
   }
   getUserStoryById(id:string | null):Observable<any>{
-    return this.httpClient.get(this.API_SERVER+"/"+id);
+    return this.httpClient.get("http://localhost:8020/userstory/"+id);
   }
   updateUserStory(id:string,dataUserStory:any){
     return this.httpClient.put(this.API_SERVER+"/"+id,dataUserStory);
