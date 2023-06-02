@@ -25,10 +25,10 @@
             <td>{{i + 1}}</td>
             <td>{{item.teamName}}</td>
             <td>{{item.areaName}}</td>
-            <td class="icon">
-              <button class="btn btn-success" (click)="editTeamModal(item.teamId)">
+            <td class="icon m">
+              <button class="btn btn-success ml-1" (click)="editTeamModal(item.teamId)">
                 <i class="fas fa-edit"></i></button>
-              <button class="btn btn-success" [routerLink]="['add-employee.ts-team',item.teamId]">
+              <button class="btn btn-success ml-1" [routerLink]="['add-employee.ts-team',item.teamId]">
                 <i class="fa-solid fa-user-plus"></i></button>
             </td>
           </tr>

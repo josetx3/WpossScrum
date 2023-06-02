@@ -1,11 +1,11 @@
 <div class="container">
   <h2 class="H2">Lista de Empleados Existentes</h2>
   <div class="table-responsive">
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover text-center">
       <thead class="thead-ligth">
-      <tr>
+      <tr class="text-uppercase">
         <th scope="row" class="title_table">#</th>
-        <th scope="row" class="title_table">Nombre del Empleado</th>
+        <th scope="row" class="title_table">Nombre empleado</th>
         <th scope="row" class="title_table icon">Cargo</th>
         <th scope="row" class="title_table icon">cheked</th>
       </tr>
@@ -22,17 +22,21 @@
       </tbody>
     </table>
   </div>
-  <button mat-raised-button color="primary" class="btn btn btn-primary mb-2" (click)="AddEmployeeTeam()">Agregar al Equipo</button>
+  <div class="position-relative m-4">
+    <div class="position-absolute top-50 start-50 translate-middle">
+      <button mat-raised-button color="primary" class="btn btn btn-primary mb-2 " (click)="AddEmployeeTeam()">Agregar</button>
+    </div>
+  </div>
     <div class="table-responsive">
-      <h2 class="H2">Empleados Agregados al Equipo</h2>
-      <table class="table table-condensed table-hover ">
+      <h2 class="mt-4">Empleados Agregados al Equipo</h2>
+      <table class="table table-bordered table-hover text-center">
         <thead class="thead-ligth">
-        <tr>
+        <tr class="text-uppercase">
           <th scope="row" class="title_table">#</th>
-          <th scope="row" class="title_table">Nombre del empleado</th>
+          <th scope="row" class="title_table">Nombre empleado</th>
           <th scope="row" class="title_table">Cargo</th>
           <th scope="row" class="title_table">Correo</th>
-          <th scope="row" class="title_table icon">Conocimiento En:</th>
+          <th scope="row" class="title_table icon">Conocimiento</th>
         </tr>
         </thead>
         <tbody>
