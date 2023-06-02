@@ -7,61 +7,35 @@ import { SprintsService } from '../service/sprints.service';
 @Component({
   selector: 'app-score-sprint-days',
   templateUrl: './score-sprint-days.component.html',
-  styleUrls: ['./score-sprint-days.component.scss']
+  styleUrls: ['./score-sprint-days.component.scss'],
 })
 export class ScoreSprintDaysComponent implements OnInit {
   dayForm: FormGroup = new FormGroup({
-
-    date: new FormControl(null, [Validators.required ] ),
-    dotteddays: new FormControl(null, [Validators.required  ])
+    date: new FormControl(null, [Validators.required]),
+    dotteddays: new FormControl(null, [Validators.required]),
   });
 
   sprintId: string | null = '';
-  arrayDates: any[] =[];
+  arrayDates: any[] = [];
   startDate: any;
   endDate: any;
-  currentDate : any;
-  DateItem: DateItem[]=[];
+  currentDate: any;
+  DateItem: DateItem[] = [];
 
-
+  //! ---------------------- !\\
+  selectedValues: string[] = [];
+  totalScore: number = 0;
+  //! ---------------------- !\\
 
   constructor(
     private route: ActivatedRoute,
-    private sprintService: SprintsService,
-
-  ) {
-  }
+    private sprintService: SprintsService
+  ) {}
 
   ngOnInit(): void {
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
-     this.getAllDatesSprint();
-
+    this.getAllDatesSprint();
   }
-
-
-  // getAllDatesSprint(){
-  //   this.sprintService.getSprintById(this.sprintId).subscribe({
-  //     next: (data) => {
-  //       this.startDate = new Date(data.sprintStart);
-  //       this.endDate = new Date(data.sprintEnd);
-
-  //       this.currentDate = this.startDate;
-
-  //       while (this.currentDate <= this.endDate) {
-  //         if (this.currentDate.getDay() !== 0) {
-  //           const formattedDate = `${this.currentDate.getDate().toString().padStart(2, '0')}/${(this.currentDate.getMonth() + 1).toString().padStart(2, '0')}/${this.currentDate.getFullYear().toString()}`;
-  //           const dateItem: DateItem = {
-  //             date: formattedDate,
-  //             name: 'dain1',
-  //           };
-  //           this.arrayDates.push(formattedDate);
-  //         }
-  //         this.currentDate.setDate(this.currentDate.getDate() + 1);
-  //       }
-  //       console.log(this.DateItem);
-  //     }
-  //    })
-  // }
 
   getAllDatesSprint() {
     this.sprintService.getSprintById(this.sprintId).subscribe({
@@ -74,28 +48,44 @@ export class ScoreSprintDaysComponent implements OnInit {
 
         while (this.currentDate <= this.endDate) {
           if (this.currentDate.getDay() !== 0) {
-            const formattedDate = `${this.currentDate.getDate().toString().padStart(2, '0')}/${(this.currentDate.getMonth() + 1).toString().padStart(2, '0')}/${this.currentDate.getFullYear().toString()}`;
+            const formattedDate = `${this.currentDate
+              .getDate()
+              .toString()
+              .padStart(2, '0')}/${(this.currentDate.getMonth() + 1)
+              .toString()
+              .padStart(2, '0')}/${this.currentDate.getFullYear().toString()}`;
             const dateItem: DateItem = {
               date: formattedDate,
-
             };
             this.arrayDates.push(dateItem);
           }
           this.currentDate.setDate(this.currentDate.getDate() + 1);
         }
         console.log(this.arrayDates);
-      }
+      },
     });
   }
 
-  saveDatesSprints(){
+  saveDatesSprints() {
     if (this.dayForm.valid) {
       const data = {
         dayp: this.dayForm.get('dotteddays')?.value,
         date: this.dayForm.get('date')?.value,
-      }
+      };
     }
-
   }
 
+  //! --------------------------------------------------------------------------------- !\\
+
+
+  CalculateSprintPoints() {
+    this.totalScore = this.selectedValues.reduce(
+      (sum, value) => sum + parseFloat(value),
+      0
+    );
+    console.log('Total:', this.totalScore.toFixed(1));
+  }
+
+
+  //! --------------------------------------------------------------------------------- !\\
 }

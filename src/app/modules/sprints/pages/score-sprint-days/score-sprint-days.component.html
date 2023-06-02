@@ -1,75 +1,52 @@
-<div class="container p-5">
-  <div class="card p-3">
+<div class="container">
+  <div class="card">
     <div class="card-body">
-  <div class="title">
-    <p>Puntear Días Sprint</p>
-  </div>
-  <div class="w-75">
-    <!-- <div class="table-responsive p-5 w-100">
-      <form [formGroup]="dayForm" (ngSubmit)="saveDatesSprints()">
-      <table class="table table-hover">
-        <thead class="thead-ligth">
-        <tr>
-          <th  class="title_table text-center w-50">Fecha</th>
-          <th  class="title_table text-center">Días Sprint</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of arrayDates">
-          <td class="text-center p-3 form-control"  formControlName="date">{{item.date}}</td>
-          <td class="text-center">
-            <div class="container-select w-100">
-            <select name="sprintDaysScore" class="form-select text-center" formControlName="dotteddays" >
-              <option value="{{item.sprintDaysScore}}">{{item.sprintDaysScore}}</option>
-              <option value="0">N/A</option>
-              <option value="0.5">Medio Día</option>
-              <option value="1">Día</option>
-            </select>
+      <h1 class="card-title">Puntear dias sprint</h1>
+
+      <div class="row">
 
 
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <button class="btn-primary">Calcular</button>
-    </form>
-    </div> -->
+        <div class="table-responsive  ">
 
-    <div class="table-responsive p-5 w-100">
-
-        <table class="table table-hover">
-          <thead class="thead-ligth">
-            <tr>
-              <th class="title_table text-center w-50">Fecha</th>
-              <th class="title_table text-center">Días Sprint</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container  *ngFor="let item of arrayDates; let i = index">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-ligth">
               <tr>
-                <td class="text-center p-3">{{item.date}}</td>
-                <td class="text-center">
-                  <div class="container-select w-100">
-                    <select name="sprintDaysScore" class="form-select text-center" >
-                      <option value="{{item.sprintDaysScore}}">{{item.sprintDaysScore}}</option>
-                      <option value="0">N/A</option>
-                      <option value="0.5">Medio Día</option>
-                      <option value="1">Día</option>
-                    </select>
-                  </div>
-                </td>
+                <th class="title_table text-center w-50">Fecha</th>
+                <th class="title_table text-center">Días Sprint</th>
               </tr>
-            </ng-container>
-          </tbody>
-        </table>
-        <button type="submit" class="btn-primary">Calcular</button>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of arrayDates; let i = index">
+                <tr>
+                  <td class="text-center p-3">{{item.date}}</td>
+                  <td class="text-center">
+                    <div class="container-select w-100">
+                      <select name="sprintDaysScore" class="form-select text-center" [(ngModel)]="selectedValues[i]"
+                        (change)="CalculateSprintPoints()">
+                        <option value="{{item.sprintDaysScore}}">{{item.sprintDaysScore}}</option>
+                        <option value="0">N/A</option>
+                        <option value="0.5">Medio Día</option>
+                        <option value="1">Día</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
 
-    </div>
+          <div class="row">
+            <div class="col-12">
+              <button class=" col-2 btn btn-primary" (click)="CalculateSprintPoints()">Calcular</button>
+            </div>
+          </div>
+          <div class="col-6 mt-2">
+            <h1>El total es: {{totalScore}} </h1>
+          </div>
+        </div>
 
-  </div>
+
+      </div>
     </div>
   </div>
 </div>
-
-

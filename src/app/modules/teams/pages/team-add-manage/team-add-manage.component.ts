@@ -66,7 +66,7 @@ saveTeams(): void {
           background: '#E6F4EA',
         })
         this.manageTeamsForm.reset();
-
+        localStorage.removeItem('employees');
       },
     );
   }
