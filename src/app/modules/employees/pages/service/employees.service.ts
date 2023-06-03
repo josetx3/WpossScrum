@@ -33,4 +33,8 @@ export class EmployeesService {
   getEmployeeToTeam(teamId: string | null): Observable<any> {
     return this.httpClient.get(this.API_SERVER + '/employeteam/' + teamId);
   }
+
+  getAllnoExistAndTeam(teamId: string | null): Observable<any>{
+    return this.httpClient.get(this.API_SERVER + '/employeenoteam/' + teamId)
+  }
 }

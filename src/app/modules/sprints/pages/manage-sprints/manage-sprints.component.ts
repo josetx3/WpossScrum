@@ -35,6 +35,8 @@ export class ManageSprintsComponent implements OnInit {
   }
 
   sendToChosenButton(sprint: Sprints, route: string) {
+    console.log(sprint);
+
     let dateSprintEnd = new Date(sprint.sprintEnd)
     dateSprintEnd.setDate(dateSprintEnd.getDate() + 1);
     if (dateSprintEnd >= this.currenDate) {
@@ -47,11 +49,12 @@ export class ManageSprintsComponent implements OnInit {
           break;
         }
         case 'add-userStory-sprint': {
-          this.route.navigateByUrl('/app/sprints/add-userStory-sprint/'+sprint.team.areaId+'/'+sprint.sprintId).then();
+          this.route.navigateByUrl('/app/sprints/add-userStory-sprint/'+ sprint.areaId +'/'+sprint.sprintId).then();
           break;
         }
         case 'score-sprint-days':{
           this.route.navigateByUrl('/app/sprints/score-sprint-days/'+sprint.sprintId)
+          break;
         }
       }
 
