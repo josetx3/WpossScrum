@@ -17,6 +17,7 @@ public class SprintEmployee {
     private Integer daysLeave;
     @Column(name = "Observations",nullable = false)
     private String observations;
+    private Double percentageFinal;
 
     @ManyToOne
     @JoinColumn(name = "fk_Sprint_id",insertable = false,updatable = false)
@@ -71,5 +72,13 @@ public class SprintEmployee {
 
     public void setId(SprintEmployeePk id) {
         this.id = id;
+    }
+
+    public Double getPercentageFinal() {
+        return percentageFinal;
+    }
+
+    public void setPercentageFinal(Double percentageFinal) {
+        this.percentageFinal = percentageFinal;
     }
 }

@@ -17,4 +17,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 
     @Query(value = "SELECT * FROM wposs.employee em INNER JOIN wposs.team_employee te ON em.employee_id = te.employee_id WHERE te.team_id=?1",nativeQuery = true)
     List<Employee> getEmployeToTeam(UUID idTeam);
+
+    @Query(value = "SELECT * FROM wposs.team_employee where team_id != employee_id",nativeQuery = true)
+    List<Employee> getEmployeNoToTeam(UUID idEmploye);
+
 }

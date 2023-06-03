@@ -2,7 +2,6 @@ package com.wposs.scrum_back.sprint.service;
 
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
-import com.wposs.scrum_back.area.dto.AreaDto;
 import com.wposs.scrum_back.sprint.dto.SprintDto;
 import com.wposs.scrum_back.sprint.entity.Sprint;
 import com.wposs.scrum_back.sprint.repository.SprintRepository;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -65,12 +63,4 @@ public class SprintServiceImpl implements SprintService{
             return modelMapper.map(sprintRepository.save(sprint),SprintDto.class);
         }).orElseThrow(()->new MessageGeneric("no esta disponible el Sprint que quiere actualizar","404",HttpStatus.NOT_FOUND));
     }
-/*
-    @Override
-    public Optional<AreaDto> getFechaInit(Date sprintStart) {
-        return Optional.ofNullable(sprintRepository.get(sprintStart).map(area -> {
-            return modelMapper.map(area, AreaDto.class);
-        }).orElseThrow(() -> new MessageGeneric("No hay fechas de inicio registradas", "404", HttpStatus.NOT_FOUND)));
-    }
-*/
 }

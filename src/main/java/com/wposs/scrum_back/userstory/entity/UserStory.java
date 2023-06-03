@@ -30,6 +30,7 @@ public class UserStory {
     @Column(name = "user_story_score")
     private Integer userStoryScore;
 
+    @Lob
     @Column(name = "user_story_archive")
     private String userStoryArchive;
 

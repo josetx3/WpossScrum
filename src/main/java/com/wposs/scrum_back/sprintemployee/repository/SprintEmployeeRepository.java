@@ -13,4 +13,5 @@ import java.util.UUID;
 @Repository
 public interface SprintEmployeeRepository extends JpaRepository<SprintEmployee,Long> {
     Boolean existsById(SprintEmployeePk id);
+
 }

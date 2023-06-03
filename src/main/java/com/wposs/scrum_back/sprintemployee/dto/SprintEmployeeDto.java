@@ -22,6 +22,8 @@ public class SprintEmployeeDto implements Serializable {
     private Integer daysLeave;
     @JsonProperty(value = "observations")
     private String observations;
+    @JsonProperty(value = "percentageFinal")
+    private Double percentageFinal;
 
     public String getObservations() {
         return observations;
@@ -61,5 +63,13 @@ public class SprintEmployeeDto implements Serializable {
 
     public void setIdSprint(UUID idSprint) {
         this.idSprint = idSprint;
+    }
+
+    public Double getPercentageFinal() {
+        return percentageFinal;
+    }
+
+    public void setPercentageFinal(Double percentageFinal) {
+        this.percentageFinal = percentageFinal;
     }
 }

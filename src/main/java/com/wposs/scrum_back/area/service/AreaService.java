@@ -2,7 +2,6 @@ package com.wposs.scrum_back.area.service;
 
 import com.wposs.scrum_back.area.dto.AreaDto;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,5 +13,4 @@ public interface AreaService {
     AreaDto updateArea(UUID idArea,AreaDto areaDto);
     Boolean existAreaByName(String areName);
     Boolean deleteArea(UUID idArea);
-   // Optional<AreaDto> getFechaInit(Date sprintStart);
 }
