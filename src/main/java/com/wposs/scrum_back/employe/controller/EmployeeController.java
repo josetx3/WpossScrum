@@ -81,14 +81,14 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("employeenoexistonteam/{id}")
-    @Operation(summary = "Get all employee to team")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Get all Success"),
-            @ApiResponse(responseCode = "404",description = "Not Found")
+    @GetMapping("employeenoteam/{id}")
+    @Operation(summary = "Get All Employee no Exists And To Team")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = ""),
+            @ApiResponse(responseCode = "404",description = "")
     })
-    public ResponseEntity<List<EmployeDto>> getEmployeNoToTeam(@PathVariable("id") UUID idEmploye){
-            List<EmployeDto> employeDtos = employeService.getEmployeNoToTeam(idEmploye);
+    public ResponseEntity<List<EmployeDto>> getAllEmployeeNoExistsToTeam(@PathVariable("id") UUID idTeam){
+        List<EmployeDto> employeDtos = employeService.getAllEmployeeNoExitsAndTeam(idTeam);
         if (!employeDtos.isEmpty()){
             return new ResponseEntity<>(employeDtos,HttpStatus.OK);
         }

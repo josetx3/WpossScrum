@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
 @Service
 public class EmployeServiceImpl implements EmployeService{
     @Autowired
@@ -67,10 +68,11 @@ public class EmployeServiceImpl implements EmployeService{
         }).collect(Collectors.toList());
     }
 
+
     @Override
-    public List<EmployeDto> getEmployeNoToTeam(UUID idEmploye) {
-        return employeeRepository.getEmployeToTeam(idEmploye).stream().map(employee -> {
-            return modelMapper.map(employee,EmployeDto.class);
+    public List<EmployeDto> getAllEmployeeNoExitsAndTeam(UUID idTeam) {
+        return employeeRepository.getAllnoExistAndTeam(idTeam).stream().map(employeDto -> {
+            return modelMapper.map(employeDto,EmployeDto.class);
         }).collect(Collectors.toList());
     }
 
