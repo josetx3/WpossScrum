@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ManageSprintsComponent } from './pages/manage-sprints/manage-sprints.component';
 import { AddUserStorySprintComponent } from './pages/add-user-story-sprint/add-user-story-sprint.component';

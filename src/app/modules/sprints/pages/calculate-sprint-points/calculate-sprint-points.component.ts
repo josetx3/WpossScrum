@@ -114,11 +114,10 @@ export class CalculateSprintPointsComponent implements OnInit {
         idSprint: this.sprintId,
         percentage: this.sprintEmployeePercentage,
         daysLeave: this.sprintEmployeeDay,
-        observations: this.calculateSprintForm.get(
-          'sprintEmployeeDescription'
-        )?.value,
+        observations: this.calculateSprintForm.get('sprintEmployeeDescription')
+          ?.value,
 
-        employeePercentageFinal:
+        percentageFinal:
           (this.sprintEmployeePercentage *
             (this.sprintDays - this.sprintEmployeeDay)) /
           100,
