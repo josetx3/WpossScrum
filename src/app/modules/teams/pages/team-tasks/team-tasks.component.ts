@@ -51,7 +51,6 @@ export class TeamTasksComponent {
   }
 
   getAllTasksTeams(){
-    console.log("hola")
     this.teamTasksService.getAllTeamTasks().subscribe(resp => { // trae todas las tares por equipo
       this.tasksTeams = resp;
 
