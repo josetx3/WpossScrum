@@ -3,6 +3,7 @@ package com.wposs.scrum_back.sprintemployee.service;
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
+import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployee;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,8 +36,8 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
     }
 
     @Override
-    public Optional<SprintEmployeeDto> getBySprintEmployeeId(long idSprintEmploeye) {
-        return Optional.ofNullable(sprintEmployeeRepository.findById(idSprintEmploeye).map(sprintEmployee -> modelMapper.map(sprintEmployee,SprintEmployeeDto.class))
+    public Optional<SprintEmployeeDto> getBySprintEmployeeId(long idEmployee) {
+        return Optional.ofNullable(sprintEmployeeRepository.findById(idEmployee).map(sprintEmployee -> modelMapper.map(sprintEmployee,SprintEmployeeDto.class))
                 .orElseThrow(()->new MessageGeneric("","", HttpStatus.NOT_FOUND)));
     }
 
@@ -52,4 +54,5 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
             throw new InternalServerException("","",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

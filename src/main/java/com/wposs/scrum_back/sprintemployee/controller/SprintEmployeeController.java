@@ -1,6 +1,7 @@
 package com.wposs.scrum_back.sprintemployee.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
+import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.sprintemployee.service.SprintEmployeeService;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/sprintEmployee")
@@ -39,11 +41,11 @@ public class SprintEmployeeController {
     @GetMapping("/sprintemployee/{id}")
     @Operation(summary = "Get sprint Employee By Id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Get By Id Spint Employee"),
+            @ApiResponse(responseCode = "200",description = "Get By Id Sprint Employee"),
             @ApiResponse(responseCode = "404",description = "Not Found By Id Sprint Employee")
     })
-    public ResponseEntity<SprintEmployeeDto> getByIdSprintEmploye(@PathVariable("id") Long idSprintEmployee){
-        return sprintEmployeeService.getBySprintEmployeeId(idSprintEmployee).map(sprintEmployeeDto -> new ResponseEntity<>(sprintEmployeeDto,HttpStatus.OK)).orElse(null);
+    public ResponseEntity<SprintEmployeeDto> getByIdSprintEmploye(@PathVariable("id") long idEmployee){
+        return sprintEmployeeService.getBySprintEmployeeId(idEmployee).map(sprintEmployeeDto -> new ResponseEntity<>(sprintEmployeeDto,HttpStatus.OK)).orElse(null);
     }
 
 

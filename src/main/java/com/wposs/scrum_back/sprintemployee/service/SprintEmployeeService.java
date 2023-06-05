@@ -10,6 +10,6 @@ import java.util.UUID;
 
 public interface SprintEmployeeService {
     List<SprintEmployeeDto> getAllSprintEmployee();
-    Optional<SprintEmployeeDto> getBySprintEmployeeId(long idSprintEmploeye);
+    Optional<SprintEmployeeDto> getBySprintEmployeeId(long idEmployee);
     SprintEmployeeDto saveSprintEmployee(SprintEmployeeDto sprintEmployeeDto);
 }
