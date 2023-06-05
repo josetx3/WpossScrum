@@ -57,7 +57,7 @@
 
       <div class="table-responsive mt-3 mb-4">
           <table class="table table-condensed table-hover ">
-              <thead class="thead-ligth">
+              <thead class="thead-ligth text-center">
                   <tr>
                       <th scope="row" class="title_table">Empleado</th>
                       <th scope="row" class="title_table">Porcentaje(%)</th>
@@ -66,12 +66,12 @@
                       <th scope="row" class="title_table">Acciones</th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody class="text-center">
                   <tr *ngFor="let item of employeeListFinal">
-                      <td class="title_table">{{item.employeeSprint.employeeName}}</td>
-                      <td class="title_table">{{item.sprintEmployeePercentage}}</td>
-                      <td class="title_table">{{item.employeePercentageFinal}}</td>
-                      <td class="title_table">{{item.sprintEmployeeDescription}}</td>
+                      <td class="title_table">{{item.employeeName}}</td>
+                      <td class="title_table">{{item.percentage}}%</td>
+                      <td class="title_table">{{item.percentageFinal}}</td>
+                      <td class="title_table">{{item.observations}}</td>
                       <td class="icon">
                           <button type="button" class="btn btn-success"
                               [routerLink]="['/app/sprints/edit-add-employee-sprint/'+ item.sprintEmployeeId +'/'+this.sprintDays+'/'+this.sprintId+'/'+this.teamId]"><i

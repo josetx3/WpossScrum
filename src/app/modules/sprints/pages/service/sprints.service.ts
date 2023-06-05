@@ -46,7 +46,7 @@ export class SprintsService {
     sprintId: string | null
   ): Observable<any> {
     return this.httpClient.get(
-      'http://localhost:8020/employee/employeeexistonsprint/' + sprintId
+      'http://localhost:8020/sprintEmployee/allsprintemployee/'
     );
   }
   saveScoreSprintFinal(

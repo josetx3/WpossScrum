@@ -30,8 +30,10 @@ export class CalculateSprintPointsComponent implements OnInit {
   sprintEmployeeDay: any;
   employeeListFinal: any;
   employeePercentageFinal: any;
-
   employeeId: string = '';
+
+  listSprint: [] = [];
+
 
   constructor(
     public teamService: TeamsService,
@@ -94,9 +96,9 @@ export class CalculateSprintPointsComponent implements OnInit {
 
   getAllCalculationPercentageEmployee() {
     this.sprintService
-      .getAllEmployeesExistOnTeamBySprintId(this.sprintId)
-      .subscribe({
-        next: (resp) => {
+    .getAllEmployeesExistOnTeamBySprintId(this.sprintId)
+    .subscribe({
+      next: (resp) => {
           this.employeeListFinal = resp;
         },
       });
