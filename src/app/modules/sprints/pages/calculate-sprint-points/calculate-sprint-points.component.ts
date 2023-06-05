@@ -47,7 +47,7 @@ export class CalculateSprintPointsComponent implements OnInit {
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
 
     this.getAllCalculationPercentageEmployee();
-    this.getEmployeeByTeam();
+    // this.getEmployeeByTeam();
     this.getBySprintId();
     this.getTeamNameById();
     this.selectEmploye();
@@ -84,19 +84,17 @@ export class CalculateSprintPointsComponent implements OnInit {
     });
   }
 
-  getEmployeeByTeam() {
-    this.sprintService
-      .getAllEmployeesNoExistOnTeamBySprintId(this.sprintId)
-      .subscribe({
-        next: (resp) => {
-          this.employees = resp;
-        },
-      });
-  }
+  // getEmployeeByTeam() {
+  //   this.sprintService.getAllEmployeesNoExistOnTeamBySprintId(this.sprintId)
+  //     .subscribe({
+  //       next: (resp) => {
+  //         this.employees = resp;
+  //       },
+  //     });
+  // }
 
   getAllCalculationPercentageEmployee() {
-    this.sprintService
-    .getAllEmployeesExistOnTeamBySprintId(this.sprintId)
+    this.sprintService.getAllEmployeesExistOnTeamBySprintId(this.sprintId)
     .subscribe({
       next: (resp) => {
           this.employeeListFinal = resp;
@@ -127,8 +125,8 @@ export class CalculateSprintPointsComponent implements OnInit {
       this.sprintService.saveCalculationSprintPoints(data).subscribe({
         next: () => {
           this.calculateSprintForm.reset();
-          this.getAllCalculationPercentageEmployee();
-          this.getEmployeeByTeam();
+          // this.getAllCalculationPercentageEmployee();
+          // this.getEmployeeByTeam();
 
           Swal.fire(
             'Empleado Añadido Correctamente!',
@@ -150,9 +148,9 @@ export class CalculateSprintPointsComponent implements OnInit {
   calculateSprintPoints() {
     this.finalCalculation = 0;
     this.employeeListFinal.forEach(
-      (employeesFinalPoints: { employeePercentageFinal: any }) => {
+      (employeesFinalPoints: {percentageFinal: any }) => {
         this.finalCalculation =
-          this.finalCalculation + employeesFinalPoints.employeePercentageFinal;
+          this.finalCalculation + employeesFinalPoints.percentageFinal;
       }
     );
     const data = {
