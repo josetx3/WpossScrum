@@ -1,25 +1,28 @@
-<div class="title">
-  <p class="subtitle">Historias de usuario</p>
-</div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Historias de usuario</h1>
 
-<div class="table-responsive">
-  <table class="table table-condensed table-hover ">
-    <thead class="thead-ligth">
-    <tr>
-      <th scope="row" class="title_table">#</th>
-      <th scope="row" class="title_table">Nombre Historias de Usuario</th>
-      <th scope="row" class="title_table">Proyecto</th>
-      <th scope="row" class="title_table">Puntos</th>
-    </thead>
-    <tbody>
-    <tr  *ngFor="let item of pointUserStory; let i = index">
-      <td>{{i+1}}</td>
-      <td>{{item.userStoryName}}</td>
-      <td>{{this.projectName}}</td>
-      <td><input class="mb-2" type="number"  value="{{item.userStoryScore}}" [(ngModel)]="item.userStoryScore"></td>
-    </tr>
-    </tbody>
-  </table>
-  <button type="button" class="btn btn-primary" >Puntuar Historias</button>
-  <!-- <button type="button" class="btn btn-primary" (click)="scoreStory()">Puntuar Historias</button> -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table">#</th>
+            <th scope="row" class="title_table">Nombre Historias de Usuario</th>
+            <th scope="row" class="title_table">Proyecto</th>
+            <th scope="row" class="title_table">Puntos</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of pointUserStory; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.userStoryName}}</td>
+            <td>{{this.projectName}}</td>
+            <td><input class="mb-2" type="number" value="{{item.userStoryScore}}" [(ngModel)]="item.userStoryScore"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-primary">Puntuar Historias</button>
+    </div>
+
+  </div>
 </div>

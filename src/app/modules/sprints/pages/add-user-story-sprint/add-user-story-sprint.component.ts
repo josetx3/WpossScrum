@@ -4,6 +4,7 @@ import { SprintsService } from '../service/sprints.service';
 import { AreaService } from 'src/app/modules/area/pages/service/area.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { userStoryService } from 'src/app/modules/userStory/pages/service/user-story.service';
 
 @Component({
   selector: 'app-add-user-story-sprint',
@@ -20,30 +21,29 @@ export class AddUserStorySprintComponent implements OnInit {
   arrayDataStory: any[] = [];
   projectName: string | null = '';
 
+  public sprint: any = [];
+
   constructor(
     public sprintService: SprintsService,
     public areaService: AreaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userStoyeService: userStoryService
   ) {}
 
   ngOnInit(): void {
     this.areaId = this.route.snapshot.paramMap.get('areaId');
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
-    this.getAllUserStory();
+    //this.getAllUserStory();
+    this.getAllSprint();
   }
 
-  filterUserStory() {
-    this.pointUserStory = this.arrayStory.filter(
-      (r) =>
-        r.userStoryState.userStoryStateName == 'Refinado' &&
-        r.userStoryScore == 0
-    );
-  }
-
-  getAllUserStory() {
+  agetAllUserStory() {
     this.areaService.getArea(this.areaId).subscribe((resp) => {
+      console.log("RTA:   " + JSON.stringify(resp));
       resp.projects.forEach(
         (projectsArray: { subProjects: any[]; projectName: string | null }) => {
+          console.log("ASD:   " + projectsArray);
+
           projectsArray.subProjects.forEach(
             (subprojectsArray: { userStories: any[] }) => {
               subprojectsArray.userStories.forEach((userStorys: any) => {
@@ -57,6 +57,44 @@ export class AddUserStorySprintComponent implements OnInit {
       );
     });
   }
+   //! ================================================================================================================================================================ !\\
+
+   getAllSprint(){
+    this.sprintService.getSprintById(this.sprintId).subscribe({
+      next: (resp) => {
+        this.sprint = resp;
+        console.log("RESP:  " + JSON.stringify(resp))
+        console.log("ASDASD:  " + resp.areaId)
+      }
+    })
+   }
+   getUserStoryId(){
+    this.userStoyeService.getAllUser_story
+   }
+    //! ================================================================================================================================================================ !\\
+
+
+
+
+  filterUserStory() {
+    this.pointUserStory = this.arrayStory.filter(
+      (r) =>
+        r.userStoryState.userStoryStateName == 'Refinado' &&
+        r.userStoryScore == 0
+    );
+  }
+
+  //! ================================================================================================================================================================ !\\
+  getHuSubproject(subProjectId: string){
+    this.userStoyeService.getUserStorySubproject(subProjectId).subscribe((resp) => {
+      this.pointUserStory = resp;
+      console.log("RESP:    " + resp);
+
+    })
+  }
+  //! ================================================================================================================================================================ !\\
+
+
 
   scoreStory() {
     this.pointUserStory.forEach(
@@ -84,5 +122,6 @@ export class AddUserStorySprintComponent implements OnInit {
         },
       });
   }
+
 
 }

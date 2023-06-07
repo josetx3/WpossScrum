@@ -33,15 +33,16 @@ export class SprintsService {
     );
   }
   getAllCalculationPercentageEmployee(): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/sprint-employee/all');
+    return this.httpClient.get(this.API_SERVER + '/sprint/employee/all');
   }
-  getAllEmployeesNoExistOnTeamBySprintId(
-    sprintId: string | null
-  ): Observable<any> {
-    return this.httpClient.get(
-      'http://localhost:8020/employee/employeenoexistonsprint/' + sprintId
-    );
-  }
+
+  // getAllEmployeesNoExistOnTeamBySprintId(
+  //   sprintId: string | null
+  // ): Observable<any> {
+  //   return this.httpClient.get(
+  //     'http://localhost:8020/employee/employeenoexistonsprint/' + sprintId
+  //   );
+  // }
   getAllEmployeesExistOnTeamBySprintId(
     sprintId: string | null
   ): Observable<any> {
@@ -49,6 +50,7 @@ export class SprintsService {
       'http://localhost:8020/sprintEmployee/allsprintemployee/'
     );
   }
+  
   saveScoreSprintFinal(
     sprintId: string | null,
     sprintScoreFinal: any
