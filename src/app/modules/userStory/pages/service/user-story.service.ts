@@ -37,7 +37,7 @@ export class userStoryService {
   }
 
   public getUserStoryToTeam(teamId: string){
-    return this.httpClient.get(this.API_SERVER+'/userstoryteam/'+teamId)
+    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/'+teamId)
   }
 
 

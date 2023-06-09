@@ -31,14 +31,14 @@ getAllImprovements(){
   })
 }
 
-
-
-  abrirModalImprovements(): void {
-    const dialogRef = this.dialog.open(ManageImprovementsAddComponent, {width: '500px', maxHeight: '600px' });
-
-    dialogRef.afterClosed().subscribe(resul =>  {
-    })
-  }
+AddImprovementsModal():void{
+  const dialogRef = this.dialog.open(ManageImprovementsAddComponent, {width: '500px', maxHeight: '600px'})
+  dialogRef.afterClosed().subscribe({
+    next: (resp)=>{
+      this.getAllImprovements();
+    }
+  })
+}
   seeModalImprovements(): void {
     const dialogRef = this.dialog.open(ManageImprovementsSeeComponent, {width: '800px', maxHeight: '400px' });
 
@@ -67,9 +67,8 @@ getAllImprovements(){
                 showConfirmButton: false,
                  timer: 1500
                })
-
+                //this.tasksForm.reset();
                 this.getAllImprovements();
-
             }})
 
         }

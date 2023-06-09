@@ -36,7 +36,7 @@
     </div>
 
     <div class="form-group col-sm-4">
-      <span>Seleccionar observación</span>
+      <span>Seleccionar tipo de observación</span>
       <select class="form-select" formControlName="observationId">
         <option *ngFor="let item of observations" value="{{item.observationId}}">{{item.observationName}}</option>
       </select>
@@ -47,7 +47,7 @@
       <textarea class="form-control" rows="3" formControlName="observationn"></textarea>
     </div>
 
-    <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="improvementsForm.invalid">Guardar</button><br>
+    <button class="btn btn btn-primary mb-2 " type="submit" >Guardar</button><br>
       </form>
     </div>
 
