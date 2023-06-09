@@ -40,9 +40,6 @@ public class UserStoryDto {
     @NotNull(message = "la fecha maxima no puede ser null")
     private Date fechaMaxima;
 
-    @JsonProperty(value = "projectName",access = JsonProperty.Access.READ_ONLY)
-    private String projectName;
-
     public Date getFechaMaxima() {
         return fechaMaxima;
     }
@@ -105,13 +102,5 @@ public class UserStoryDto {
 
     public void setSubProjectId(UUID subProjectId) {
         this.subProjectId = subProjectId;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
     }
 }
