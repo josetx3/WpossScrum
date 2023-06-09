@@ -50,7 +50,7 @@ export class SprintsService {
       'http://localhost:8020/sprintEmployee/allsprintemployee/'
     );
   }
-  
+
   saveScoreSprintFinal(
     sprintId: string | null,
     sprintScoreFinal: any

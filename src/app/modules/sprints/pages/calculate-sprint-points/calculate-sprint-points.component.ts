@@ -121,6 +121,7 @@ export class CalculateSprintPointsComponent implements OnInit {
           (this.sprintEmployeePercentage *
             (this.sprintDays - this.sprintEmployeeDay)) /
           100,
+
       };
       this.sprintService.saveCalculationSprintPoints(data).subscribe({
         next: () => {
