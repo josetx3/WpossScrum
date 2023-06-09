@@ -19,7 +19,7 @@ export class ImprovementsService {
   }
 
   public saveImprovements(improvements: any): Observable<any> {
-    return this.httpClient.post(this.API_SERVER + 'saveimprovements', improvements)
+    return this.httpClient.post(this.API_SERVER + '/saveimprovements', improvements)
   }
 
   deleteImprovements(id: string):Observable<ManageImprovements[]>{

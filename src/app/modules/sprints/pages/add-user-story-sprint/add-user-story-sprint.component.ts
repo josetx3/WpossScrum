@@ -66,7 +66,6 @@ export class AddUserStorySprintComponent implements OnInit {
     );
   }
 
-  //! ================================================================================================================================================================ !\\
   getHuSubproject(subProjectId: string) {
     this.userStoyeService
       .getUserStorySubproject(subProjectId)
@@ -75,7 +74,6 @@ export class AddUserStorySprintComponent implements OnInit {
         console.log('RESP:    ' + resp);
       });
   }
-  //! ================================================================================================================================================================ !\\
 
   scoreStory() {
     this.pointUserStory.forEach(

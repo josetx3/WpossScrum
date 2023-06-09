@@ -14,6 +14,7 @@ import { ManageImprovementsSeeComponent } from '../manage-improvements-see/manag
 export class ManageImprovementsComponent implements OnInit {
   improvements: ManageImprovements[]=[];
 
+
   constructor(
     private dialog: MatDialog,
     private improvementsService : ImprovementsService,
