@@ -34,8 +34,10 @@ export class AddUserStorySprintComponent implements OnInit {
     this.areaId = this.route.snapshot.paramMap.get('areaId');
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
     //this.getAllUserStory();
-    this.getAllSprint();
+    //this.getAllSprint();
   }
+
+  //?
 
   agetAllUserStory() {
     this.areaService.getArea(this.areaId).subscribe((resp) => {
@@ -57,20 +59,22 @@ export class AddUserStorySprintComponent implements OnInit {
       );
     });
   }
+//?
    //! ================================================================================================================================================================ !\\
-
+/*
    getAllSprint(){
-    this.sprintService.getSprintById(this.sprintId).subscribe({
+    this.userStoyeService.getUserStoryToTeam(this.sprintId).subscribe({
       next: (resp) => {
         this.sprint = resp;
         console.log("RESP:  " + JSON.stringify(resp))
-        console.log("ASDASD:  " + resp.areaId)
+        console.log("ASDASD:  " + resp.teamId)
       }
     })
    }
    getUserStoryId(){
     this.userStoyeService.getAllUser_story
    }
+   */
     //! ================================================================================================================================================================ !\\
 
 
