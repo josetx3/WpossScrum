@@ -91,5 +91,4 @@ export class SubprojetcEditComponent implements OnInit {
     this.dialogRef.close();
 
   }
-
 }

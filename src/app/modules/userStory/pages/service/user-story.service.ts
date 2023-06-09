@@ -26,7 +26,7 @@ export class userStoryService {
     return this.httpClient.get("http://localhost:8020/userstory/"+id);
   }
   updateUserStory(id:string,dataUserStory:any){
-    return this.httpClient.put(this.API_SERVER+"/"+id,dataUserStory);
+    return this.httpClient.put("http://localhost:8020/userstory/"+id,dataUserStory);
   }
   public getAllUserStoryToSubproject(subProjectId: string | null):Observable<UserStory>{
     return this.httpClient.get<UserStory>(this.API_SERVER+"/subproject/"+subProjectId)

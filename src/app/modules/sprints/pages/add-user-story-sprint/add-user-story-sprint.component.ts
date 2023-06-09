@@ -13,7 +13,6 @@ import { userStoryService } from 'src/app/modules/userStory/pages/service/user-s
 })
 export class AddUserStorySprintComponent implements OnInit {
   public areas: AreaInterface[] = [];
-  areaId: string | null = '';
   teamId: string | null = '';
   arrayStory: any[] = [];
   pointUserStory: any;
@@ -31,16 +30,17 @@ export class AddUserStorySprintComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.areaId = this.route.snapshot.paramMap.get('areaId');
-    this.sprintId = this.route.snapshot.paramMap.get('sprintId');
     this.teamId = this.route.snapshot.paramMap.get('teamId');
+    this.sprintId = this.route.snapshot.paramMap.get('sprintId');
     this.getAllUserStory();
   }
 
+
+/*
   getAllUserStory() {
     this.areaService.getArea(this.areaId).subscribe((resp) => {
       console.log('RTA:   ' + JSON.stringify(resp));
-      resp.projects.forEach(
+      resp.forEach(
         (projectsArray: { subProjects: any[]; projectName: string | null }) => {
           console.log('ASD:   ' + projectsArray);
 
@@ -57,6 +57,25 @@ export class AddUserStorySprintComponent implements OnInit {
       );
     });
   }
+  */
+
+
+  getAllUserStory():void{
+  this.userStoyeService.getAllSubprojects().subscribe(resp =>{
+    resp.forEach((item: any) => {
+      console.log("ITEM:" + JSON.stringify(item));
+      //this.pointUserStory = resp;
+      this.userStoyeService.getUserStoryToTeam(item.teamId).forEach(team =>{
+        console.log("ITEMID:  " + this.teamId);
+        this.teamId =item.teamName;
+        console.log("NOMBRE TEAM:  " + this.teamId);
+      })
+    })
+    this.pointUserStory = resp;
+    console.log("|====PRUEBA:====|" + JSON.stringify(this.pointUserStory));
+  })
+}
+
 
   filterUserStory() {
     this.pointUserStory = this.arrayStory.filter(

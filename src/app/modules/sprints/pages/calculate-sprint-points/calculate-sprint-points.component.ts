@@ -34,7 +34,6 @@ export class CalculateSprintPointsComponent implements OnInit {
 
   listSprint: [] = [];
 
-
   constructor(
     public teamService: TeamsService,
     public sprintService: SprintsService,
@@ -47,7 +46,7 @@ export class CalculateSprintPointsComponent implements OnInit {
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
 
     this.getAllCalculationPercentageEmployee();
-    // this.getEmployeeByTeam();
+    //this.getEmployeeByTeam();
     this.getBySprintId();
     this.getTeamNameById();
     this.selectEmploye();
@@ -94,9 +93,10 @@ export class CalculateSprintPointsComponent implements OnInit {
   // }
 
   getAllCalculationPercentageEmployee() {
-    this.sprintService.getAllEmployeesExistOnTeamBySprintId(this.sprintId)
-    .subscribe({
-      next: (resp) => {
+    this.sprintService
+      .getAllEmployeesExistOnTeamBySprintId(this.sprintId)
+      .subscribe({
+        next: (resp) => {
           this.employeeListFinal = resp;
         },
       });
@@ -121,7 +121,6 @@ export class CalculateSprintPointsComponent implements OnInit {
           (this.sprintEmployeePercentage *
             (this.sprintDays - this.sprintEmployeeDay)) /
           100,
-
       };
       this.sprintService.saveCalculationSprintPoints(data).subscribe({
         next: () => {
@@ -149,11 +148,12 @@ export class CalculateSprintPointsComponent implements OnInit {
   calculateSprintPoints() {
     this.finalCalculation = 0;
     this.employeeListFinal.forEach(
-      (employeesFinalPoints: {percentageFinal: any }) => {
+      (employeesFinalPoints: { percentageFinal: any }) => {
         this.finalCalculation =
           this.finalCalculation + employeesFinalPoints.percentageFinal;
       }
     );
+    this.getAllCalculationPercentageEmployee();
     const data = {
       sprintScore: this.finalCalculation,
     };

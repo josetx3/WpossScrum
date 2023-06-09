@@ -13,10 +13,10 @@
           </tr>
         </thead>
         <tbody class="text-center">
-          <tr *ngFor="let item of pointUserStory; let i = index">
+          <tr *ngFor="let item of pointUserStory  ; let i = index">
             <td>{{i+1}}</td>
-            <td>{{item.userStoryName}}</td>
-            <td>{{this.projectName}}</td>
+            <td>{{item.projectName}}</td>
+            <td>{{item.userStoryStateName}}</td>
             <td><input class="mb-2" type="number" value="{{item.userStoryScore}}" [(ngModel)]="item.userStoryScore"></td>
           </tr>
         </tbody>

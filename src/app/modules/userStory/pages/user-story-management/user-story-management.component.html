@@ -1,67 +1,105 @@
-<div class="card">
-  <div class="card-body">
-    <h1 class="card-title">Editar historia de usuario</h1>
+<div class="container">
+  <div class="title">
+    <p> Editar historia de usuario</p>
+  </div>
 
+  <div class="form-row align-items-center">
     <form class="subprojects-form" [formGroup]="userStoryForm" (ngSubmit)="edit()">
 
-      <div class="row">
-        <div class="col-12">
+      <div class="form-group mb-3">
+        <label class="mr-sm"> Nombre historia de usuario</label>
+        <input type="text" class="form-control" formControlName="userStoryName">
+      </div>
 
-
-          <div class="row col-12">
-            <label for="inputEmail" class="col-6 col-form-label">Nombre de la historia de usuario:</label>
-            <div class="col-12">
-              <input type="text" class="form-control" formControlName="userStoryName">
-            </div>
-          </div>
-
-
-          <div class="row col-12">
-            <label class="col-6 col-form-label">Estado: </label>
-            <div class="col-12">
-              <select class="form-control form-select" formControlName="userStoryStateId">
-                <option *ngFor="let item of userStoryState" value="{{item.userStoryStateId}}">{{
-                  item.userStoryStateName}}
-                </option>
-              </select>
-            </div>
-          </div>
-
-
-
-          <div class="row col-12">
-            <label for="inputDate" class="col-6 col-form-label">Fecha final</label>
-            <div class="col-12">
-              <input type="date" class="form-control" formControlName="fechaMaxima">
-            </div>
-          </div>
-
-
-          <div class="row col-12">
-            <label for="inputEmail" class="col-6 col-form-label">Puntos historia de usuario:</label>
-            <div class="col-12">
-              <input type="number" class="form-control" formControlName="userStoryScore">
-            </div>
-          </div>
-
-
-          <div class="row col-12">
-            <label for="inputNumber" class="col-6 col-form-label">Subir archivo</label>
-            <div class="col-12">
-              <input type="file" class="form-control" formControlName="userStoryArchive">
-            </div>
-          </div>
-
-
-          <div class="row col-6 mt-3 m-1">
-            <button class="btn btn btn-primary mb-2" type="submit" [disabled]="userStoryForm.invalid">Editar</button>
-          </div>
-
-
+      <div class="form-group mb-3" >
+        <span class="mr-sm">Estado</span>
+        <div class="label-text">
+          <select class="form-control" formControlName="userStoryStateId">
+            <option  *ngFor="let item of userStoryState" value="{{item.userStoryStateId}}">{{ item.userStoryStateName}}</option>
+         </select>
         </div>
       </div>
 
-    </form>
+      <div class="form-group mb-3">
+        <label class="mr-sm">Fecha maxima</label>
+        <input type="date" class="form-control" formControlName="fechaMaxima">
+      </div>
 
+      <div class="form-group mb-3">
+        <label>Puntos historia de usuario</label>
+        <input type="text" class="form-control" placeholder="Ingrese los puntos" formControlName="userStoryScore">
+      </div>
+
+      <div class="input-group mb-3">
+        <form>
+          <div class="form-group">
+            <label class="mr-sm ">Archivo</label>
+            <input type="file" class="form-control-file" formControlName="userStoryArchive">
+          </div>
+        </form>
+      </div>
+
+
+
+      <button class="btn btn btn-primary mb-2 " type="submit" >Editar</button>
+    </form>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="container">-->
+<!--  <div>-->
+<!--    <form class="subproject-form" [formGroup]="userStoryForm" (ngSubmit)="edit()">-->
+
+<!--      <div class="input-group">-->
+<!--        <div class="input-fill">-->
+<!--          <span>Elija el subproyecto</span>-->
+
+<!--          <select formControlName="subProjectId">-->
+<!--            <option value="1">Enlace store</option>-->
+<!--            <option value="2">Eon</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="input-group">-->
+<!--        <div class="input-fill">-->
+<!--          <span>Estado</span>-->
+<!--          <select formControlName="userStoryStateId">-->
+<!--            <option value="1">Creado</option>-->
+<!--            <option value="2">En Desarrollo</option>-->
+<!--            <option value="3">Desarrollado</option>-->
+<!--            <option value="4">Anulado</option>-->
+<!--            <option value="5">Refinado</option>-->
+<!--            <option value="6">Pausado</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="input-group">-->
+<!--        <div class="input-fill_file">-->
+<!--          <span>Archivo</span>-->
+<!--          <input type="file" formControlName="userStoryArchive">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="input-group">-->
+<!--        <div class="input-fill">-->
+<!--          <span>Nombre historia de usuario</span>-->
+<!--          <input type="text"  formControlName="userStoryName" >-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <button mat-flat-button class="btn-login" type="submit" (click)="edit()">Editar Historia</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->

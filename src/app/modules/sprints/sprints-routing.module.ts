@@ -14,7 +14,7 @@ const routes: Routes = [
     component: ManageSprintsComponent
   },
   {
-    path:'add-userStory-sprint/:areaId/:sprintId',
+    path:'add-userStory-sprint/:sprintId/:areaId',
     component: AddUserStorySprintComponent
   },
   {
