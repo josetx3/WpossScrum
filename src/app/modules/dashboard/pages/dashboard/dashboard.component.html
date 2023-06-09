@@ -1,24 +1,37 @@
-<div class="pagetitle">
-  <h1>Dashboard</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/app">Home</a></li>
-      <li class="breadcrumb-item active">Dashboard</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
+<div class="row">
+  <div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/app">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
 
-<section class="section dashboard">
-  <div class="row">
+  <div class="col-12">
+    <div class="row">
 
-    <div class="col-12">
-      <div class="row">
+      <div class="col-md-4 col-sm-6" *ngFor="let item of project">
+        <div class="card info-card sales-card">
+          <div class="card-body">
+            <h2 class="card-title text-center"> {{item.projectName}} </h2>
+            <div class="text-center">
+              <img [src]=item.archive class="img-dash img-fluid">
+            </div>
+            <div class="text-justify">
+              <ul><h2>Proyecto:{{item.projectName}}</h2></ul>
+              <ul><h2>Area:{{item.areaId}}</h2></ul>
+              <ul><h2>Cliente:{{item.clientId}}</h2></ul>
+              <div class="text-center">
+                <input type="button" class="btn btn-info" value="Ver Proyectos" routerLink="proyect/">
+              </div>
+            </div>
 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, impedit quia aperiam ratione hic nobis
-          vitae delectus earum neque incidunt ab ad. Quisquam adipisci modi possimus ipsam fugit expedita dolorem.</p>
-
+          </div>
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
-</section>
+</div>

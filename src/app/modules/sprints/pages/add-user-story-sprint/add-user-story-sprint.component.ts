@@ -33,18 +33,16 @@ export class AddUserStorySprintComponent implements OnInit {
   ngOnInit(): void {
     this.areaId = this.route.snapshot.paramMap.get('areaId');
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
-    //this.getAllUserStory();
-    //this.getAllSprint();
+    this.teamId = this.route.snapshot.paramMap.get('teamId');
+    this.getAllUserStory();
   }
 
-  //?
-
-  agetAllUserStory() {
+  getAllUserStory() {
     this.areaService.getArea(this.areaId).subscribe((resp) => {
-      console.log("RTA:   " + JSON.stringify(resp));
+      console.log('RTA:   ' + JSON.stringify(resp));
       resp.projects.forEach(
         (projectsArray: { subProjects: any[]; projectName: string | null }) => {
-          console.log("ASD:   " + projectsArray);
+          console.log('ASD:   ' + projectsArray);
 
           projectsArray.subProjects.forEach(
             (subprojectsArray: { userStories: any[] }) => {
@@ -59,26 +57,6 @@ export class AddUserStorySprintComponent implements OnInit {
       );
     });
   }
-//?
-   //! ================================================================================================================================================================ !\\
-/*
-   getAllSprint(){
-    this.userStoyeService.getUserStoryToTeam(this.sprintId).subscribe({
-      next: (resp) => {
-        this.sprint = resp;
-        console.log("RESP:  " + JSON.stringify(resp))
-        console.log("ASDASD:  " + resp.teamId)
-      }
-    })
-   }
-   getUserStoryId(){
-    this.userStoyeService.getAllUser_story
-   }
-   */
-    //! ================================================================================================================================================================ !\\
-
-
-
 
   filterUserStory() {
     this.pointUserStory = this.arrayStory.filter(
@@ -89,16 +67,15 @@ export class AddUserStorySprintComponent implements OnInit {
   }
 
   //! ================================================================================================================================================================ !\\
-  getHuSubproject(subProjectId: string){
-    this.userStoyeService.getUserStorySubproject(subProjectId).subscribe((resp) => {
-      this.pointUserStory = resp;
-      console.log("RESP:    " + resp);
-
-    })
+  getHuSubproject(subProjectId: string) {
+    this.userStoyeService
+      .getUserStorySubproject(subProjectId)
+      .subscribe((resp) => {
+        this.pointUserStory = resp;
+        console.log('RESP:    ' + resp);
+      });
   }
   //! ================================================================================================================================================================ !\\
-
-
 
   scoreStory() {
     this.pointUserStory.forEach(
@@ -126,6 +103,4 @@ export class AddUserStorySprintComponent implements OnInit {
         },
       });
   }
-
-
 }

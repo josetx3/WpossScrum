@@ -77,6 +77,7 @@ export class ManageImprovementsAddComponent implements OnInit{
 
     })
   }
+
   getAllObservations(){
     this.improvementsService.GetAllObservations().subscribe(resp => {
       this.observations = resp;
@@ -98,7 +99,7 @@ export class ManageImprovementsAddComponent implements OnInit{
         userStoryId: this.improvementsForm.get('userStoryId')?.value,
         taskId: this.improvementsForm.get('taskId')?.value,
         observationId: this.improvementsForm.get('observationId')?.value,
-        observationn: this.improvementsForm.get('observationn')?.value
+        observationn: this.improvementsForm.get('observationn')?.value,
       }
       this.improvementsService.saveImprovements(improvements).subscribe((resp=>{
         Swal.fire({
@@ -119,7 +120,6 @@ export class ManageImprovementsAddComponent implements OnInit{
         this.dialogRef.close();
         this.improvementsForm.reset();
         this.getAllImprovements();
-        location.reload();
 
       }))
 
