@@ -151,4 +151,5 @@ public class Improvements {
     public void setUserStory(UserStory userStory) {
         this.userStory = userStory;
     }
+
 }

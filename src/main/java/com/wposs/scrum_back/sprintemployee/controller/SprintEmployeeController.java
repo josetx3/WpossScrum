@@ -3,6 +3,7 @@ package com.wposs.scrum_back.sprintemployee.controller;
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
+import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
 import com.wposs.scrum_back.sprintemployee.service.SprintEmployeeService;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -61,4 +62,17 @@ public class SprintEmployeeController {
         }
         return new ResponseEntity<>(sprintEmployeeService.saveSprintEmployee(sprintEmployeeDto),HttpStatus.CREATED);
     }
+/*
+    @PutMapping("/sprintemployee/{id}")
+    @Operation(summary = "Update the sprint employee")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Return the updated employee"),
+            @ApiResponse(responseCode = "404",description = "Employe Not Found")
+    })
+    public ResponseEntity<SprintEmployeeDto> updateSprintEmployee(@PathVariable("id") long idEmployee,@RequestBody @Valid SprintEmployeeDto sprintEmployeeDto,BindingResult result) {
+        if (result.hasErrors()){
+            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(sprintEmployeeService.updateSprintEmployee(idEmployee, sprintEmployeeDto),HttpStatus.OK);
+    }*/
 }

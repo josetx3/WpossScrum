@@ -3,6 +3,7 @@ package com.wposs.scrum_back.sprintemployee.service;
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
+import com.wposs.scrum_back.area.dto.AreaDto;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployee;
@@ -54,5 +55,20 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
             throw new InternalServerException("","",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /*
+    @Override
+    public SprintEmployeeDto updateSprintEmployee(long idEmployee, SprintEmployeeDto sprintEmployeeDto) {
+        if(!existsSprintEmployeeById(sprintEmployeeDto.getIdEmployee())){
+            return sprintEmployeeRepository.findById(idEmployee).map(sprintEmployee -> {
+                sprintEmployee.setPercentage((sprintEmployeeDto.getPercentage()!=null)?sprintEmployeeDto.getPercentage():sprintEmployee.getPercentage());
+                sprintEmployee.setDaysLeave((sprintEmployeeDto.getDaysLeave()!=null)?sprintEmployeeDto.getDaysLeave():sprintEmployee.getDaysLeave());
+                sprintEmployee.setObservations((sprintEmployeeDto.getObservations()!=null)?sprintEmployeeDto.getObservations():sprintEmployee.getObservations());
+                return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDto.class);
+            }).orElseThrow(()->new MessageGeneric("No se encontro el sprint de empleado a actualizar","404",HttpStatus.NOT_FOUND));
+        }
+        throw new MessageGeneric("","409",HttpStatus.CONFLICT);
+    }*/
+
 
 }

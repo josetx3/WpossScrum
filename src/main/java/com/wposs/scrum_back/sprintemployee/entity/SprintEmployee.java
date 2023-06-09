@@ -19,6 +19,10 @@ public class SprintEmployee {
     private String observations;
     private Double percentageFinal;
 
+    //private UUID idEmployee;
+    //private UUID idSprint;
+
+
     @ManyToOne
     @JoinColumn(name = "fk_Sprint_id",insertable = false,updatable = false)
     private Sprint sprint;

@@ -28,6 +28,7 @@ public class ImprovementsDto implements Serializable {
     @JsonProperty(value = "observationn")
     @NotBlank
     private String observationn;
+
     @JsonProperty(value = "areaName",access = JsonProperty.Access.READ_ONLY)
     private String areaName;
     @JsonProperty(value = "teamName",access = JsonProperty.Access.READ_ONLY)
@@ -39,46 +40,6 @@ public class ImprovementsDto implements Serializable {
     @JsonProperty(value = "observationName",access = JsonProperty.Access.READ_ONLY)
     private String observationName;
 
-    public String getAreaName() {
-        return areaName;
-    }
-
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
-    }
-
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public String getUserStoryName() {
-        return userStoryName;
-    }
-
-    public void setUserStoryName(String userStoryName) {
-        this.userStoryName = userStoryName;
-    }
-
-    public String getNameTask() {
-        return nameTask;
-    }
-
-    public void setNameTask(String nameTask) {
-        this.nameTask = nameTask;
-    }
-
-    public String getObservationName() {
-        return observationName;
-    }
-
-    public void setObservationName(String observationName) {
-        this.observationName = observationName;
-    }
-
     public UUID getImprovementsId() {
         return improvementsId;
     }
@@ -87,12 +48,12 @@ public class ImprovementsDto implements Serializable {
         this.improvementsId = improvementsId;
     }
 
-    public UUID getAreaIdImpro() {
+    public UUID getAreaId() {
         return areaId;
     }
 
-    public void setAreaIdImpro(UUID areaIdImpro) {
-        this.areaId = areaIdImpro;
+    public void setAreaId(UUID areaId) {
+        this.areaId = areaId;
     }
 
     public UUID getTeamId() {
@@ -135,11 +96,44 @@ public class ImprovementsDto implements Serializable {
         this.observationn = observationn;
     }
 
-    public UUID getAreaId() {
-        return areaId;
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setAreaId(UUID areaId) {
-        this.areaId = areaId;
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public String getUserStoryName() {
+        return userStoryName;
+    }
+
+    public void setUserStoryName(String userStoryName) {
+        this.userStoryName = userStoryName;
+    }
+
+    public String getNameTask() {
+        return nameTask;
+    }
+
+    public void setNameTask(String nameTask) {
+        this.nameTask = nameTask;
+    }
+
+    public String getObservationName() {
+        return observationName;
+    }
+
+    public void setObservationName(String observationName) {
+        this.observationName = observationName;
+    }
+
 }
