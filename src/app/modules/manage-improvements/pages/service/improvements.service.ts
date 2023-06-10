@@ -36,7 +36,7 @@ export class ImprovementsService {
   }
 
   GetAllTask():Observable<any>{
-    return this.httpClient.get('http://localhost:8020/task/all')
+    return this.httpClient.get('http://localhost:8020/taskteam/all')
   }
   GetAllObservations():Observable<any>{
     return this.httpClient.get('http://localhost:8020/observation/all')

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Area } from 'src/app/modules/area/pages/Interface/interface-area';
 import { ProjectService } from '../service/project.service';
 import { Router } from '@angular/router';
@@ -11,15 +11,18 @@ import { Client } from 'src/app/modules/customer/pages/interface/customer';
 @Component({
   selector: 'app-proyect-add',
   templateUrl: './proyect-add.component.html',
-  styleUrls: ['./proyect-add.component.scss']
+  styleUrls: ['./proyect-add.component.scss'],
 })
 export class ProyectAddComponent implements OnInit {
 
   projectAddForm: FormGroup = new FormGroup({
-    projectName: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
+    projectName: new FormControl(null, [
+      Validators.required,
+      Validators.maxLength(20),
+    ]),
     projectClient: new FormControl(null, [Validators.required]),
     projectArea: new FormControl(null, [Validators.required]),
-    archive: new FormControl(null)
+    archive: new FormControl(null),
   });
 
   public clients: Client[] = [];
@@ -28,15 +31,12 @@ export class ProyectAddComponent implements OnInit {
   public base64String: any;
 
   constructor(
-
     private projectService: ProjectService,
     private route: Router,
-    private dialogRef: MatDialogRef<ProyectModule>,
-  ) {
-  }
+    private dialogRef: MatDialogRef<ProyectModule>
+  ) {}
 
   ngOnInit(): void {
-
     this.getAllClient();
     this.getAllAreas();
   }
@@ -45,16 +45,16 @@ export class ProyectAddComponent implements OnInit {
     this.projectService.getArea().subscribe({
       next: (resp) => {
         this.areas = resp;
-
-      }
-    })
+      },
+    });
   }
+
   getAllClient(): void {
     this.projectService.getClient().subscribe({
       next: (resp) => {
         this.clients = resp;
-      }
-    })
+      },
+    });
   }
 
   saveProject(): void {
@@ -64,7 +64,7 @@ export class ProyectAddComponent implements OnInit {
         clientId: this.projectAddForm.get('projectClient')?.value,
         areaId: this.projectAddForm.get('projectArea')?.value,
         archive: this.base64String,
-      }
+      };
       this.projectService.saveProyect(data).subscribe((resp) => {
         Swal.fire({
           position: 'top-end',
@@ -79,10 +79,10 @@ export class ProyectAddComponent implements OnInit {
             icon: 'my-swal-icon',
           },
           background: '#E6F4EA',
-        })
+        });
         this.dialogRef.close();
-        this.projectAddForm.reset()
-      },);
+        this.projectAddForm.reset();
+      });
     }
   }
 
@@ -90,7 +90,7 @@ export class ProyectAddComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  upload_image(event : any) {
+  upload_image(event: any) {
     let archive = event.target.files;
     let reader = new FileReader();
 
@@ -107,4 +107,5 @@ export class ProyectAddComponent implements OnInit {
       document.body.appendChild(imageElement);
     };
   }
+
 }
