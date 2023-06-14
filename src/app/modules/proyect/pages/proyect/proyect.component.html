@@ -2,22 +2,12 @@
   <div class="card-body">
     <h1 class="card-title">Proyectos</h1>
     <div class="row">
-      <h2 class="col-4">Agregar un nuevo proyecto</h2>
-      <h4 class="col-2">
-        <button type="button" class="btn btn-primary" (click)="addProjetModal()">Agregar proyecto
-        </button>
-      </h4>
-      <!-- <div class="col-2"></div>
-      <div class="col-4">
-        <div class="row">
-          <div class="col-5">
-            <input class="form-control col-6" type="search" placeholder="Buscar proyecto" aria-label="Search">
-          </div>
-          <div class="col-1">
-            <button type="submit" class="btn btn-primary btn-sm "><i class="fa-solid fa-magnifying-glass"></i></button>
-          </div>
-        </div>
-      </div> -->
+      <div class="col-12">
+        <h2 class="">Agregar un nuevo proyecto</h2>
+      </div>
+      <div class="col-8">
+        <button type="button" class="btn btn-primary" (click)="addProjetModal()">Agregar proyecto</button>
+      </div>
     </div>
   </div>
 </div>
@@ -41,12 +31,12 @@
             <td>{{item.projectName}}</td>
             <td>{{item.areaId}}</td>
             <td>{{item.clientId}}</td>
-            <td class="icon">
+            <td class="icon text-center">
 
 
-              <button type="button" class="btn btn-success" (click)="editProjetModal(item.projectId)"><i
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editProjetModal(item.projectId)"><i
                   class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-primary mx-2" [routerLink]="['subproject']"><i
+              <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['subproject']"><i
                   class="fa fa-eye"></i></button>
 
             </td>

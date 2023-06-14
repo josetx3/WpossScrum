@@ -8,6 +8,10 @@
   scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
@@ -32,6 +36,8 @@ h5,
 h6 {
   font-family: "Nunito", sans-serif;
 }
+
+
 
 /*--------------------------------------------------------------
 # Main
@@ -95,9 +101,7 @@ h6 {
   opacity: 1;
 }
 
-/*--------------------------------------------------------------
-# Override some default Bootstrap stylings
---------------------------------------------------------------*/
+
 /* Dropdown menus */
 .dropdown-menu {
   border-radius: 4px;

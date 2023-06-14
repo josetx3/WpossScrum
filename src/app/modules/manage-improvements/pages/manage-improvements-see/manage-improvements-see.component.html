@@ -1,66 +1,62 @@
-<div class="container">
-  <div class="title">
-    <p>Visualizar Mejoras</p>
-  </div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Visualizar mejoras</h1>
+    <div class="row">
+      <div class="col-10">
+
+        <div class="form-row align-items-center">
+          <form class="form" [formGroup]="improvementsForm">
 
 
-  <div class="form-row align-items-center">
-    <form class="form" [formGroup]="improvementsForm">
+            <div class="form-col">
+              <div class="form-group">
+                <label>Area</label>
+                <input type="text" id="areaName" class="form-control" formControlName="areaName">
+              </div>
+            </div>
 
-      <div class="form-row">
-        <div class="form-col">
-          <div class="form-group">
-            <label>Area</label>
-            <input type="text" id="areaName" class="form-control" formControlName="areaName">
-          </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label>Equipo</label>
+                <input type="text" id="teamName" class="form-control" formControlName="teamName">
+              </div>
+            </div>
+
+            <div class="form-col">
+              <div class="form-group">
+                <label for="teamName">Historia de usuario</label>
+                <input type="text" id="teamName" class="form-control" formControlName="userStoryName">
+              </div>
+            </div>
+
+            <div class="form-col">
+              <div class="form-group">
+                <label>Tarea</label>
+                <input type="text" id="teamName" class="form-control" formControlName="nameTask">
+              </div>
+            </div>
+
+            <div class="form-col">
+              <div class="form-group">
+                <label>Tipo de observación</label>
+                <input type="text" id="teamName" class="form-control" formControlName="observationName">
+              </div>
+            </div>
+
+            <div class="form-col">
+              <div class="form-group">
+                <label>descripción</label>
+                <textarea id="teamName" class="form-control" formControlName="observationn" cols="30"
+                  rows="3"></textarea>
+              </div>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-primary w-100 mt-3" [routerLink]="'/app/improvements'">Volver</button>
+            </div>
+          </form>
         </div>
-        <div class="form-col">
-          <div class="form-group">
-            <label>Equipo</label>
-            <input type="text" id="teamName" class="form-control" formControlName="teamName">
-          </div>
-        </div>
-
-        <div class="form-col">
-          <div class="form-group">
-            <label for="teamName">Historia de usuario</label>
-            <input type="text" id="teamName" class="form-control" formControlName="userStoryName">
-          </div>
-        </div>
-
-        <div class="form-col">
-          <div class="form-group">
-            <label>Tarea</label>
-            <input type="text" id="teamName" class="form-control" formControlName="nameTask">
-          </div>
-        </div>
-
-        <div class="form-col">
-          <div class="form-group">
-            <label>Tipo de observación</label>
-            <input type="text" id="teamName" class="form-control" formControlName="observationName">
-          </div>
-        </div>
-
-        <div class="form-col">
-          <div class="form-group">
-            <label>descripción</label>
-            <input type="text" id="teamName" class="form-control" formControlName="observationn">
-          </div>
-        </div>
-
-
-
-
 
       </div>
-
-
-
-
-
-      <button class="btn btn-primary w-100 mt-3" [routerLink]="'/app/improvements'">Volver</button>
-    </form>
+    </div>
   </div>
-
 </div>

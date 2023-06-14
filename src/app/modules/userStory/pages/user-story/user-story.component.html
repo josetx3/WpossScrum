@@ -2,23 +2,12 @@
   <div class="card-body">
     <h1 class="card-title">Historias de Usuario</h1>
     <div class="row">
-      <h2 class="col-4">Agregar una nueva historia de usuario</h2>
-      <h4 class="col-2">
-        <button type="button" class="btn btn-primary" (click)="addUserStoryModal()">Agregar historia
-        </button>
-      </h4>
-      <!-- <div class="col-2"></div>
-      <div class="col-4">
-        <div class="row">
-          <div class="col-6">
-            <input class="form-control col-6" type="search" placeholder="Buscar historia de usuario"
-              aria-label="Search">
-          </div>
-          <div class="col-1">
-            <button type="submit" class="btn btn-primary btn-sm "><i class="fa-solid fa-magnifying-glass"></i></button>
-          </div>
-        </div>
-      </div> -->
+      <div class="col-12">
+        <h2>Agregar una nueva historia de usuario</h2>
+      </div>
+      <div class="col-8">
+        <button type="button" class="btn btn-primary" (click)="addUserStoryModal()">Agregar historia</button>
+      </div>
     </div>
     <hr>
     <div class="table-responsive">
@@ -38,8 +27,8 @@
             <td>{{item.userStoryStateName}}</td>
             <td>{{item.fechaMaxima}}</td>
             <td>{{item.userStoryScore}}</td>
-            <td class="icon">
-              <button type="button" class="btn btn-success" (click)="editUserStoryModal(item.userStoryId)">
+            <td class="icon text-center">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editUserStoryModal(item.userStoryId)">
                 <i class="fas fa-edit"></i></button>
             </td>
           </tr>

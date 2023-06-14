@@ -1,9 +1,10 @@
 <div class="card">
   <div class="card-body">
-    <div class="row col-12">
-      <h1 class="card-title"> Gestion de Clientes </h1>
-      <button type="button" class="btn btn-primary mb-2 mx-2 btn-sm col-2" (click)="addCustomerModal()">Agregar
-        cliente</button>
+    <h1 class="card-title"> Gestion de Clientes </h1>
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-primary" (click)="addCustomerModal()">Agregar cliente</button>
+      </div>
     </div>
   </div>
 </div>
@@ -25,7 +26,7 @@
             <td>{{item.clientNit}}</td>
             <td>{{item.client_name}}</td>
             <td class="icon">
-              <button type="button" class="btn btn-success" (click)="editCustomerModal(item.clientNit)">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editCustomerModal(item.clientNit)">
                 <i class="fas fa-edit"></i></button>
             </td>
           </tr>

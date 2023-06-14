@@ -2,22 +2,12 @@
   <div class="card-body">
     <h1 class="card-title">Subproyectos</h1>
     <div class="row">
-      <h2 class="col-4">Agregar un nuevo subproyecto</h2>
-      <h4 class="col-4">
-        <button type="button" class="btn btn-primary" (click)="addSubprojetModal()">Agregar subproyecto
-        </button>
-      </h4>
-      <!-- <div class="col-2"></div>
-      <div class="col-4">
-        <div class="row">
-          <div class="col-5">
-            <input class="form-control col-6" type="search" placeholder="Buscar subproyecto" aria-label="Search">
-          </div>
-          <div class="col-1">
-            <button type="submit" class="btn btn-primary btn-sm "><i class="fa-solid fa-magnifying-glass"></i></button>
-          </div>
-        </div>
-      </div> -->
+      <div class="col-12">
+        <h2>Agregar un nuevo subproyecto</h2>
+      </div>
+      <div class="col-9">
+        <button type="button" class="btn btn-primary" (click)="addSubprojetModal()">Agregar subproyecto</button>
+      </div>
     </div>
   </div>
 </div>
@@ -42,12 +32,12 @@
             <td>{{item.subProjectName}}</td>
             <td>{{item.projectName}}</td>
             <td>{{item.teamName}}</td>
-            <td class="icon">
-              <button type="button" class="btn btn-success" (click)="editSubProjetModal(item.subProjectId)"
+            <td class="icon text-center">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editSubProjetModal(item.subProjectId)"
                 title="Editar Subproyecto"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-primary mx-2" [routerLink]="['/app/user-story']"
+              <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['/app/user-story']"
                 title="Visualizar subproyecto"><i class="fa fa-eye"></i></button>
-              <button type="button" class="btn btn-warning  mx-1" (click)="addUserStoryModal()"
+              <button type="button" class="btn btn-success btn-sm m-1" (click)="addUserStoryModal()"
                 title="Agregar historia de usuario"><i class="fa fa-plus"></i></button>
             </td>
           </tr>
