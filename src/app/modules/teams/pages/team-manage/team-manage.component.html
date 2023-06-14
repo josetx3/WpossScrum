@@ -12,7 +12,7 @@
     <hr>
     <div class="table-responsive">
       <table class="table table-bordered table-hover ">
-        <thead class="thead-ligth">
+        <thead class="thead-ligth text-center ">
           <tr>
             <th scope="row" class="title_table">#</th>
             <th scope="row" class="title_table">Nombre del Equipo</th>
@@ -20,15 +20,15 @@
             <th scope="row" class="title_table icon">Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center" >
           <tr *ngFor="let item of team;let i = index">
             <td>{{i + 1}}</td>
             <td>{{item.teamName}}</td>
             <td>{{item.areaName}}</td>
             <td class="icon m">
-              <button class="btn btn-warning ml-1" (click)="editTeamModal(item.teamId)">
+              <button class="btn btn-warning btn-sm m-1" (click)="editTeamModal(item.teamId)">
                 <i class="fas fa-edit"></i></button>
-              <button class="btn btn-success ml-1" [routerLink]="['add-employee.ts-team',item.teamId]">
+              <button class="btn btn-success btn-sm m-1" [routerLink]="['add-employee.ts-team',item.teamId]">
                 <i class="fa-solid fa-user-plus"></i></button>
             </td>
           </tr>

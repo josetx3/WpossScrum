@@ -1,22 +1,14 @@
 <div class="card">
   <div class="card-body">
-    <h1 class="card-title">Gestioanar Empleados</h1>
+    <h1 class="card-title">Gestionar Empleados</h1>
     <div class="row">
-      <!-- <div class="col-12 row">
-        <div class="col-3">
-          <input class="form-control" type="search" placeholder="Buscar empleado" aria-label="Search">
-        </div>
-        <div class="col-2">
-          <button type="submit" class="btn btn-primary ">Consultar</button>
-        </div>
-      </div> -->
       <div class="col-12 mt-2">
         <button type="button" class="btn btn-primary" (click)="addEmployeeModal()">Agregar Empleado</button>
       </div>
     </div>
     <hr>
     <div class="table-responsive">
-      <table class="table table-bordered table-hover ">
+      <table class="table table-bordered table-hover text-center">
         <thead class="thead-ligth">
           <tr>
             <th scope="row" class="title_table">Nombre del empleado</th>
@@ -26,14 +18,14 @@
             <th scope="row" class="title_table icon">Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
           <tr *ngFor="let item of employee">
             <td>{{item.employeeName}}</td>
             <td>{{item.employeeCharge}}</td>
             <td>{{item.employeeEmail}}</td>
             <td>{{item.employeeKnowledge}}</td>
             <td class="icon">
-              <button type="button" class="btn btn-success" (click)="editEmployeeModal(item.employeeId)">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editEmployeeModal(item.employeeId)">
                 <i class="fas fa-edit"></i></button>
             </td>
           </tr>

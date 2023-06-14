@@ -55,12 +55,9 @@ export class CalculateSprintPointsComponent implements OnInit {
   //----------------------------------------------
 
   selectEmploye() {
-    //!this.teamId = this.calculateSprintForm.get('teamId')?.value;
-    //!console.log('asd  ' + this.teamId);
     this.employeesService.getEmployeeToTeam(this.teamId).subscribe({
       next: (r) => {
         this.employees = r;
-        //!console.log('Select employe   ' + this.employees);
       },
     });
   }

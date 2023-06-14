@@ -36,7 +36,6 @@ export class TeamAddEmployeeComponent implements OnInit {
     let employeesAdd = this.employees.filter(
       (resp: { checked: boolean }) => resp.checked === true
     );
-    console.log(employeesAdd);
 
     //* Agrega los empleados seleccionados
     employeesAdd.forEach((element: { employeeId: any }) => {

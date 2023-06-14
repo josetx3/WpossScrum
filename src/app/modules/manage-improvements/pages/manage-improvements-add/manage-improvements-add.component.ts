@@ -74,8 +74,6 @@ export class ManageImprovementsAddComponent implements OnInit{
   getAllTask(){
     this.improvementsService.GetAllTask().subscribe(resp => {
       this.task = resp;
-      console.log("TAREAS:  " + JSON.stringify(resp));
-
     })
   }
 

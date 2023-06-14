@@ -53,8 +53,6 @@ export class BoardEditComponent implements OnInit {
     this.idBoard = this.data.idBoard;
     this.boardService.getAllBoardById(this.idBoard).subscribe({
       next: (resp)=>{
-        console.log(resp);
-
         this.boardEditFrom.patchValue({
           employeeId : resp.employeeId,
           userStoryId : resp.userStoryId,
@@ -83,7 +81,7 @@ export class BoardEditComponent implements OnInit {
     this.boardService.getAllTaskTeam().subscribe((data)=> {
       this.taskTeam = data;
     })
-    console.log(this.idBoard);
+    //console.log(this.idBoard);
   }
 
 

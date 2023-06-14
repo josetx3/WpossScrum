@@ -11,14 +11,12 @@
     </div>
   </div>
 </div>
-
-
 <div class="card">
   <div class="card-body">
     <h1 class="card-title">Lista de proyectos</h1>
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
-        <thead class="thead-ligth">
+        <thead class="thead-ligth text-center">
           <tr>
             <th scope="row" class="title_table">Nombre del proyecto</th>
             <th scope="row" class="title_table">Área</th>
@@ -26,22 +24,18 @@
             <th scope="row" class="title_table icon">Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center" >
           <tr *ngFor="let item of proyect">
             <td>{{item.projectName}}</td>
             <td>{{item.areaId}}</td>
             <td>{{item.clientId}}</td>
             <td class="icon text-center">
-
-
               <button type="button" class="btn btn-warning btn-sm m-1" (click)="editProjetModal(item.projectId)"><i
                   class="fas fa-edit"></i></button>
               <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['subproject']"><i
                   class="fa fa-eye"></i></button>
-
             </td>
           </tr>
-
         </tbody>
       </table>
     </div>

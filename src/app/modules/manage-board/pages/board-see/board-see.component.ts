@@ -67,8 +67,6 @@ export class BoardSeeComponent implements OnInit{
   this.boardService.getTeamArea(this.areaId).subscribe({  //Trae los equipos segun el area
     next: (r)=>{
       this.teams = r;
-      console.log(this.teams);
-
     }
   })
  }

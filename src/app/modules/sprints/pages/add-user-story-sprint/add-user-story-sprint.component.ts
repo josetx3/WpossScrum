@@ -63,16 +63,16 @@ export class AddUserStorySprintComponent implements OnInit {
   getAllUserStory():void{
   this.userStoyeService.getAllSubprojects().subscribe(resp =>{
     resp.forEach((item: any) => {
-      console.log("ITEM:" + JSON.stringify(item));
+      //console.log("ITEM:" + JSON.stringify(item));
       //this.pointUserStory = resp;
       this.userStoyeService.getUserStoryToTeam(item.teamId).forEach(team =>{
-        console.log("ITEMID:  " + this.teamId);
+        //console.log("ITEMID:  " + this.teamId);
         this.teamId =item.teamName;
-        console.log("NOMBRE TEAM:  " + this.teamId);
+        //console.log("NOMBRE TEAM:  " + this.teamId);
       })
     })
     this.pointUserStory = resp;
-    console.log("|====PRUEBA:====|" + JSON.stringify(this.pointUserStory));
+    //console.log("|====PRUEBA:====|" + JSON.stringify(this.pointUserStory));
   })
 }
 
@@ -90,7 +90,7 @@ export class AddUserStorySprintComponent implements OnInit {
       .getUserStorySubproject(subProjectId)
       .subscribe((resp) => {
         this.pointUserStory = resp;
-        console.log('RESP:    ' + resp);
+        //console.log('RESP:    ' + resp);
       });
   }
 

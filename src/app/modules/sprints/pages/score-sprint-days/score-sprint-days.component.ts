@@ -61,7 +61,7 @@ export class ScoreSprintDaysComponent implements OnInit {
           }
           this.currentDate.setDate(this.currentDate.getDate() + 1);
         }
-        console.log(this.arrayDates);
+        //console.log(this.arrayDates);
       },
     });
   }
@@ -83,7 +83,7 @@ export class ScoreSprintDaysComponent implements OnInit {
       (sum, value) => sum + parseFloat(value),
       0
     );
-    console.log('Total:', this.totalScore.toFixed(1));
+    //console.log('Total:', this.totalScore.toFixed(1));
   }
 
 

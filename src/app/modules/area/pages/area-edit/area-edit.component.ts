@@ -34,7 +34,6 @@ export class AreaEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.areaId = this.data.areaId;
-    console.log(this.areaId)
     this.getArea(this.areaId);
 
   }

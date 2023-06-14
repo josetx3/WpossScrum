@@ -4,7 +4,7 @@
     <button type="submit" class="btn btn-primary" (click)="AddImprovementsModal()">Agregar una mejora</button>
     <hr>
     <div class="table-responsive">
-      <table class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover text-center">
         <thead class="thead-ligth">
           <tr>
             <th scope="row" class="title_table">Area</th>
@@ -23,9 +23,9 @@
             <td>{{item.nameTask}}</td>
             <td>{{item.observationName}}</td>
             <td class="icon">
-              <button type="button" class="btn btn-primary mx-2" [routerLink]="['see', item.improvementsId]"><i
+              <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['see', item.improvementsId]"><i
                   class="fa fa-eye"></i></button>
-              <button type="button" class="btn btn-danger mx-2" (click)="deleteImprovements(item.improvementsId)"><i
+              <button type="button" class="btn btn-danger btn-sm m-1" (click)="deleteImprovements(item.improvementsId)"><i
                   class="fas fa-trash"></i></button>
             </td>
           </tr>

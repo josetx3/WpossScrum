@@ -70,7 +70,6 @@ export class UserStoryManagementComponent implements OnInit {
         userStoryScore: this.userStoryForm.get('userStoryScore')?.value,
         fechaMaxima: this.userStoryForm.get('fechaMaxima')?.value
       }
-      console.log("ASD: " + data);
       this.userStoryService.updateUserStory(this.id, data).subscribe(
 
         (resp) => {

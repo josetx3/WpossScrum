@@ -14,14 +14,14 @@
     <h1 class="car-title">Lista de Clientes</h1>
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
-        <thead class="thead-ligth">
+        <thead class="thead-ligth text-center ">
           <tr>
             <th scope="row" class="title_table">NIT</th>
             <th scope="row" class="title_table">Razón social</th>
             <th scope="row" class="title_table icon">Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center" >
           <tr *ngFor="let item of customer">
             <td>{{item.clientNit}}</td>
             <td>{{item.client_name}}</td>

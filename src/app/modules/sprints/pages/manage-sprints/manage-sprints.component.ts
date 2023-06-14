@@ -35,8 +35,6 @@ export class ManageSprintsComponent implements OnInit {
   }
 
   sendToChosenButton(sprint: Sprints, route: string) {
-    console.log(sprint);
-
     let dateSprintEnd = new Date(sprint.sprintEnd)
     dateSprintEnd.setDate(dateSprintEnd.getDate() + 1);
     if (dateSprintEnd >= this.currenDate) {

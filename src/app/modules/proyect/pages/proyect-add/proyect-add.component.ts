@@ -99,8 +99,6 @@ export class ProyectAddComponent implements OnInit {
       // Obtener la URL de datos codificada en base64 de la imagen cargada
       let imageDataURL = reader.result;
       this.base64String = imageDataURL;
-      console.log(imageDataURL);
-
       // Mostrar la imagen en la interfaz de usuario
       let imageElement = document.createElement('img');
       //imageElement.src = imageDataURL;

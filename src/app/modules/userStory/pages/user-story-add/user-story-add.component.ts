@@ -51,7 +51,6 @@ export class UserStoryAddComponent implements OnInit {
   getAllSubprojects() {
     this.subProjectService.getAllSubprojects().subscribe(resp => {
       this.subProjects = resp;
-      console.log("respuesta:  " + resp);
     })
   }
 
