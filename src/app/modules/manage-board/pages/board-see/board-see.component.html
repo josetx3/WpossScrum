@@ -12,11 +12,12 @@
     <div class="row">
       <div class="col-6">
         <form [formGroup]="boardFrom" (ngSubmit)="filterboard()">
-          <div class="row mb-3">
-            <label class="col-4 col-form-label">
+
+          <div class="row col-12">
+            <label class="col-5 col-form-label">
               <h2>Seleccionar area</h2>
             </label>
-            <div class="col-sm-7">
+            <div class="col-7">
               <select class="form-select" aria-label="Default select example" formControlName="areaId"
                 (change)="selectArea()">
                 <option selected>Seleccione</option>
@@ -24,11 +25,12 @@
               </select>
             </div>
           </div>
-          <div class="row mb-3">
-            <label class="col-4 col-form-label">
+
+          <div class="row col-12">
+            <label class="col-5 col-form-label">
               <h2>Seleccionar equipo</h2>
             </label>
-            <div class="col-sm-7">
+            <div class="col-7">
               <select class="form-select" aria-label="Default select example" formControlName="teamId"
                 (change)="selectTeam()">
                 <option selected>Seleccionar equipo</option>
@@ -36,8 +38,9 @@
               </select>
             </div>
           </div>
-          <div class="row mb-3">
-            <label class="col-4 col-form-label">
+
+          <div class="row col-12">
+            <label class="col-5 col-form-label">
               <h2>Seleccionar H usuario</h2>
             </label>
             <div class="col-sm-7">
@@ -48,8 +51,13 @@
             </div>
           </div>
           <div class="btn-new">
-            <button class="btn btn-primary mx-2 mb-2" (click)="filterboard()">Filtrar</button>
-            <button class="btn btn-primary mx-2 mb-2 bnt" (click)="addBoardModal()">añadir tablero</button>
+            <div class="col-12 text-center">
+              <button class="btn btn-primary mx-2 mb-2" (click)="filterboard()">Filtrar</button>
+            </div>
+            <hr>
+            <div class="col-12">
+              <button class="btn btn-primary mx-2 mb-2 bnt" (click)="addBoardModal()">añadir tablero</button>
+            </div>
           </div>
         </form>
       </div>

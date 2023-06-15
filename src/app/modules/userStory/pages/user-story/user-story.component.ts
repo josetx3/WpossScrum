@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SubprojectService } from 'src/app/modules/proyect/pages/service/subproject.service';
 import { UserStoryAddComponent } from '../user-story-add/user-story-add.component';
 import { UserStoryManagementComponent } from '../user-story-management/user-story-management.component';
+import { auto } from '@popperjs/core';
 
 @Component({
   selector: 'app-user-story',
@@ -81,7 +82,6 @@ export class UserStoryComponent implements OnInit {
 
   addUserStoryModal(): void {
     const dialogRef = this.dialog.open(UserStoryAddComponent, {
-      maxHeight: '580px',
     });
 
     dialogRef.afterClosed().subscribe((resul) => {
@@ -92,7 +92,6 @@ export class UserStoryComponent implements OnInit {
   editUserStoryModal(userStoryId: string): void {
     const dialogRef = this.dialog.open(UserStoryManagementComponent, {
       data: { userStoryId: userStoryId },
-      maxHeight: '580px',
     });
 
     dialogRef.afterClosed().subscribe({
