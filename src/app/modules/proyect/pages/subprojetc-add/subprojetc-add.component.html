@@ -1,22 +1,15 @@
 <div class="card">
   <div class="card-body">
     <h1 class="card-title">Agregar subproyecto</h1>
-
-
     <form class="userStory-form" [formGroup]="subprojectAddForm" (ngSubmit)="saveSubProject()">
-
       <div class="row">
         <div class="col-12">
-
-
           <div class="row col-12">
             <label for="inputEmail" class="col-6 col-form-label">Nombre del subproyecto</label>
             <div class="col-12">
               <input type="text" class="form-control" formControlName="subProjectName">
             </div>
           </div>
-
-
           <div class="row col-12">
             <label class="col-6 col-form-label">Seleccione el proyecto: </label>
             <div class="col-12">
@@ -25,8 +18,6 @@
               </select>
             </div>
           </div>
-
-
           <div class="row col-12">
             <label class="col-6 col-form-label">Seleccione el equipo: </label>
             <div class="col-12">
@@ -35,18 +26,12 @@
               </select>
             </div>
           </div>
-
-
           <div class="row col-6 mt-3 m-1">
             <button class="btn btn-primary" type="submit" [disabled]="subprojectAddForm.invalid"
               (click)="closeModal()">Agregar</button>
           </div>
-
-
         </div>
       </div>
-
     </form>
-
   </div>
 </div>

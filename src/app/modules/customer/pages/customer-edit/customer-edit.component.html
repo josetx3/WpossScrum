@@ -4,26 +4,21 @@
     <form class="customer-form" [formGroup]="customerForm" (ngSubmit)="edit()">
       <div class="row">
         <div class="col-12">
-
           <div class="row col-12">
             <label for="inputEmail" class="col-6 col-form-label">NIT de la empresa:</label>
             <div class="col-12">
               <input type="text" class="form-control" formControlName="clientNit">
             </div>
           </div>
-
-
           <div class="row col-12">
             <label for="inputEmail" class="col-6 col-form-label">Razón social:</label>
             <div class="col-12">
               <input type="text" class="form-control" formControlName="client_name">
             </div>
           </div>
-
           <div class="row col-6 mt-3 m-1">
             <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="customerForm.invalid">Editar</button>
           </div>
-
         </div>
       </div>
     </form>

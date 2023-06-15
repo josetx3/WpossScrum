@@ -4,21 +4,15 @@
     <form [formGroup]="teamsEditForm" (ngSubmit)="edit()">
       <div class="row">
         <div class="col-12">
-
-
           <div class="row col-12">
             <label for="inputEmail" class="col-6 col-form-label">Nombre del equipo</label>
             <div class="col-12">
               <input type="text" class="form-control" formControlName="teamName">
             </div>
           </div>
-
-
           <div class="row col-6 mt-3 m-1">
             <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="teamsEditForm.invalid">Editar</button>
           </div>
-
-
         </div>
       </div>
     </form>

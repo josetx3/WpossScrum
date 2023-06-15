@@ -4,7 +4,6 @@
     <div class="row">
       <div class="col-6">
         <form class="customer-form" [formGroup]="tasksForm" (ngSubmit)="saveTasks()">
-
           <div class="row mb-3">
             <label class="col-sm-3 col-form-label">
               <h2>Equipo</h2>
@@ -16,7 +15,6 @@
               </select>
             </div>
           </div>
-
           <div class="row mb-3">
             <label for="inputText" class="col-sm-3 col-form-label">
               <h2>Tarea</h2>
@@ -25,8 +23,6 @@
               <input type="text" class="form-control" formControlName="taskName">
             </div>
           </div>
-
-
           <div class="row mb-3">
             <div class="col-sm-9">
               <button type="submit" class="btn btn-primary">Guardar</button>
@@ -34,7 +30,6 @@
           </div>
         </form>
       </div>
-
     </div>
     <hr>
     <div class="table-responsive">

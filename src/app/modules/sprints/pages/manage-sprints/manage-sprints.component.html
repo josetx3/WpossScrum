@@ -2,8 +2,6 @@
   <div class="card-body">
     <h1 class="card-title">Gestionar Sprint</h1>
     <button class="btn btn-primary mx-2 mb-3 " (click)="AddSprintModal()">Agregar un sprint</button>
-
-
     <div class="table-responsive">
       <table class="table table-bordered table-hover text-center ">
         <thead class="thead-ligth">
@@ -25,10 +23,9 @@
             <td class="content_table">{{item.sprintStart}}</td>
             <td class="content_table">{{item.sprintEnd}}</td>
             <td class="content_table">{{item.sprintDay}}</td>
-
             <td class="icon">
-              <button type="button" class="btn btn-primary btn-sm" (click)="sendToChosenButton(item,'score-sprint-days')"><i
-                  class="fa-solid fa-calendar"></i></button>
+              <button type="button" class="btn btn-primary btn-sm"
+                (click)="sendToChosenButton(item,'score-sprint-days')"><i class="fa-solid fa-calendar"></i></button>
             </td>
             <td class="icon">
               <button type="button" class="btn btn-primary btn-sm"
@@ -36,15 +33,13 @@
                   class="fa-solid fa-calculator"></i></button>
             </td>
             <td class="icon">
-              <button type="button" class="btn btn-primary btn-sm" (click)="sendToChosenButton(item,'add-userStory-sprint')"><i
+              <button type="button" class="btn btn-primary btn-sm"
+                (click)="sendToChosenButton(item,'add-userStory-sprint')"><i
                   class="fa-solid fa-address-book"></i></button>
             </td>
-
           </tr>
         </tbody>
       </table>
     </div>
-
-
   </div>
 </div>

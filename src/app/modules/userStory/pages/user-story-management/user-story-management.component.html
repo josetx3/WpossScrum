@@ -2,34 +2,29 @@
   <div class="title">
     <p> Editar historia de usuario</p>
   </div>
-
   <div class="form-row align-items-center">
     <form class="subprojects-form" [formGroup]="userStoryForm" (ngSubmit)="edit()">
-
       <div class="form-group mb-3">
         <label class="mr-sm"> Nombre historia de usuario</label>
         <input type="text" class="form-control" formControlName="userStoryName">
       </div>
-
-      <div class="form-group mb-3" >
+      <div class="form-group mb-3">
         <span class="mr-sm">Estado</span>
         <div class="label-text">
           <select class="form-control" formControlName="userStoryStateId">
-            <option  *ngFor="let item of userStoryState" value="{{item.userStoryStateId}}">{{ item.userStoryStateName}}</option>
-         </select>
+            <option *ngFor="let item of userStoryState" value="{{item.userStoryStateId}}">{{ item.userStoryStateName}}
+            </option>
+          </select>
         </div>
       </div>
-
       <div class="form-group mb-3">
         <label class="mr-sm">Fecha maxima</label>
         <input type="date" class="form-control" formControlName="fechaMaxima">
       </div>
-
       <div class="form-group mb-3">
         <label>Puntos historia de usuario</label>
         <input type="text" class="form-control" placeholder="Ingrese los puntos" formControlName="userStoryScore">
       </div>
-
       <div class="input-group mb-3">
         <form>
           <div class="form-group">
@@ -38,10 +33,7 @@
           </div>
         </form>
       </div>
-
-
-
-      <button class="btn btn btn-primary mb-2 " type="submit" >Editar</button>
+      <button class="btn btn btn-primary mb-2 " type="submit">Editar</button>
     </form>
   </div>
 </div>
