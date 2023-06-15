@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImprovementsService } from '../service/improvements.service';
 import { ActivatedRoute } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manage-improvements-see',
@@ -23,11 +24,12 @@ export class ManageImprovementsSeeComponent implements OnInit {
 
   constructor(
     private improvementsService: ImprovementsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject (MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit(): void {
-    this.improvementsId = this.route.snapshot.paramMap.get('improvementsId');
+    this.improvementsId = this.data.improvementsId;
 
     this.getImprovementsById(this.improvementsId);
   }
@@ -35,7 +37,6 @@ export class ManageImprovementsSeeComponent implements OnInit {
   getImprovementsById(id: string) {
     this.improvementsService.getImprovementsById(id).subscribe((resp) => {
       this.improvements = resp;
-
       this.improvementsForm.patchValue({
         areaName: this.improvements.areaName,
         teamName: this.improvements.teamName,

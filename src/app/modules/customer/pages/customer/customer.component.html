@@ -1,6 +1,14 @@
 <div class="card">
   <div class="card-body">
-    <h1 class="card-title"> Gestion de Clientes </h1>
+    <div class="pagetitle m-2">
+      <h1>Clientes</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Clientes</li>
+        </ol>
+      </nav>
+    </div>
     <div class="row">
       <div class="col-12">
         <button type="button" class="btn btn-primary" (click)="addCustomerModal()">Agregar cliente</button>

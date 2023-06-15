@@ -9,71 +9,74 @@ import { ManageImprovementsSeeComponent } from '../manage-improvements-see/manag
 @Component({
   selector: 'app-manage-improvements',
   templateUrl: './manage-improvements.component.html',
-  styleUrls: ['./manage-improvements.component.scss']
+  styleUrls: ['./manage-improvements.component.scss'],
 })
 export class ManageImprovementsComponent implements OnInit {
-  improvements: ManageImprovements[]=[];
-
+  improvements: ManageImprovements[] = [];
   constructor(
     private dialog: MatDialog,
-    private improvementsService : ImprovementsService,
-  ){
+    private improvementsService: ImprovementsService
+  ) {}
+
+  ngOnInit(): void {
+    this.getAllImprovements();
   }
 
-ngOnInit(): void {
-
-
-  this.getAllImprovements();
-}
-getAllImprovements(){
-  this.improvementsService.getAllImprovements().subscribe(resp => {
-    this.improvements = resp;
-  })
-}
-
-AddImprovementsModal():void{
-  const dialogRef = this.dialog.open(ManageImprovementsAddComponent, {width: '500px', maxHeight: '600px'})
-  dialogRef.afterClosed().subscribe({
-    next: (resp)=>{
-      this.getAllImprovements();
-    }
-  })
-}
-  seeModalImprovements(): void {
-    const dialogRef = this.dialog.open(ManageImprovementsSeeComponent, {width: '800px', maxHeight: '400px' });
-
-    dialogRef.afterClosed().subscribe(resul =>  {
-    })
+  getAllImprovements() {
+    this.improvementsService.getAllImprovements().subscribe((resp) => {
+      this.improvements = resp;
+    });
   }
 
+  AddImprovementsModal(): void {
+    const dialogRef = this.dialog.open(ManageImprovementsAddComponent, {
+      width: '500px',
+      maxHeight: '600px',
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (resp) => {
+        this.getAllImprovements();
+      },
+    });
+  }
 
-  deleteImprovements(id: string){
+  viewMejora(id: string): void {
+    const dialogRef = this.dialog.open(ManageImprovementsSeeComponent, {
+      width: '400px',
+      maxHeight: '600px',
+      data: { improvementsId: id },
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (resp) => {
+        this.getAllImprovements();
+      },
+    });
+  }
+
+  deleteImprovements(id: string) {
     Swal.fire({
       title: 'Desea eliminar esta mejora?',
-      text: " La información eliminada no se puede recuperar",
+      text: ' La información eliminada no se puede recuperar',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-       confirmButtonText: 'si, eliminar!'
+      confirmButtonText: 'si, eliminar!',
     }).then((result) => {
-        if (result.isConfirmed) {
-          this.improvementsService.deleteImprovements(id).subscribe({
-            next: (resp) => {
-              Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'mejora eliminada',
-                showConfirmButton: false,
-                 timer: 1500
-               })
-                //this.tasksForm.reset();
-                this.getAllImprovements();
-            }})
-
-        }
-      })
-
-
+      if (result.isConfirmed) {
+        this.improvementsService.deleteImprovements(id).subscribe({
+          next: (resp) => {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'mejora eliminada',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.getAllImprovements();
+          },
+        });
+      }
+    });
   }
 }

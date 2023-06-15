@@ -1,6 +1,14 @@
 <div class="card">
   <div class="card-body">
-    <h1 class="card-title">Gestionar Sprint</h1>
+    <div class="pagetitle m-2">
+      <h1>Sprint</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Sprint</li>
+        </ol>
+      </nav>
+    </div>
     <button class="btn btn-primary mx-2 mb-3 " (click)="AddSprintModal()">Agregar un sprint</button>
     <div class="table-responsive">
       <table class="table table-bordered table-hover text-center ">

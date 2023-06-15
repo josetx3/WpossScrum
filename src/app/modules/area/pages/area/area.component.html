@@ -1,6 +1,14 @@
 <div class="card">
   <div class="card-body">
-    <h1 class="card-title">Gestion de Areas</h1>
+    <div class="pagetitle m-2">
+      <h1>Areas</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Areas</li>
+        </ol>
+      </nav>
+    </div>
     <form [formGroup]="areaForm" (ngSubmit)="saveArea()">
       <div class="row mb-12">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Agregar una area nueva</label>
@@ -29,12 +37,12 @@
             <th scope="row" class="title_table icon">Acciones</th>
           </tr>
         </thead>
-        <tbody class="text-center" >
+        <tbody class="text-center">
           <tr *ngFor="let item of area; let i = index">
             <td>{{i+1}}</td>
             <td>{{item.areaName}}</td>
-            <td class="icon text-center"><button type="button" class="btn btn-warning btn-sm m-1" (click)="editAreaModal(item.areaId)"><i
-                  class="fas fa-edit"></i></button>
+            <td class="icon text-center"><button type="button" class="btn btn-warning btn-sm m-1"
+                (click)="editAreaModal(item.areaId)"><i class="fas fa-edit"></i></button>
               <button type="button" class="btn btn-danger btn-sm m-1" (click)="deleteArea(item.areaId)"><i
                   class="fas fa-trash"></i></button>
             </td>
