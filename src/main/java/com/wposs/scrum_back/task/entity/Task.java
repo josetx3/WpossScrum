@@ -18,16 +18,6 @@ public class Task {
     @Column(name = "name_task",nullable = false,length = 30,unique = true)
     private String nameTask;
 
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REMOVE})
-    private List<Improvements>  improvements;
-
-    public List<Improvements> getImprovements() {
-        return improvements;
-    }
-
-    public void setImprovements(List<Improvements> improvements) {
-        this.improvements = improvements;
-    }
 
     public UUID getTaskId() {
         return taskId;

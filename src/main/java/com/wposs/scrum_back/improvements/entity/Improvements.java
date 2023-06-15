@@ -3,6 +3,7 @@ package com.wposs.scrum_back.improvements.entity;
 import com.wposs.scrum_back.area.entity.Area;
 import com.wposs.scrum_back.observation.entity.Observation;
 import com.wposs.scrum_back.task.entity.Task;
+import com.wposs.scrum_back.taskteam.entity.TaskTeam;
 import com.wposs.scrum_back.team.entity.Team;
 import com.wposs.scrum_back.userstory.entity.UserStory;
 import org.hibernate.annotations.GenericGenerator;
@@ -36,7 +37,7 @@ public class Improvements {
     private Area area;
     @ManyToOne
     @JoinColumn(name = "fk_task_id",insertable = false,updatable = false)
-    private Task task;
+    private TaskTeam taskTeam;
 
     @ManyToOne
     @JoinColumn(name = "fk_observation_id",insertable = false,updatable = false)
@@ -120,12 +121,12 @@ public class Improvements {
         this.area = area;
     }
 
-    public Task getTask() {
-        return task;
+    public TaskTeam getTaskTeam() {
+        return taskTeam;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setTaskTeam(TaskTeam taskTeam) {
+        this.taskTeam = taskTeam;
     }
 
     public Observation getObservation() {

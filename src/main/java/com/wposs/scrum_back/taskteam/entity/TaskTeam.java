@@ -1,6 +1,7 @@
 package com.wposs.scrum_back.taskteam.entity;
 
 import com.wposs.scrum_back.board.entity.Board;
+import com.wposs.scrum_back.improvements.entity.Improvements;
 import com.wposs.scrum_back.team.entity.Team;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,6 +28,17 @@ public class TaskTeam {
 
     @OneToMany(mappedBy = "taskTeam",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REMOVE})
     private List<Board> boards;
+
+    @OneToMany(mappedBy = "taskTeam",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REMOVE})
+    private List<Improvements>  improvements;
+
+    public List<Improvements> getImprovements() {
+        return improvements;
+    }
+
+    public void setImprovements(List<Improvements> improvements) {
+        this.improvements = improvements;
+    }
 
     public List<Board> getBoards() {
         return boards;

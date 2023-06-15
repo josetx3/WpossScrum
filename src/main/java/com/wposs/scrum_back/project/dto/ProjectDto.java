@@ -36,7 +36,6 @@ public class ProjectDto {
     private String clientId;
 
     @JsonProperty(value = "archive")
-    @Lob
     private String archive;
 
     public String getArchive() {

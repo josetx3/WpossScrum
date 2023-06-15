@@ -5,6 +5,7 @@ import com.wposs.scrum_back.client.entity.Client;
 import com.wposs.scrum_back.subProject.entity.SubProject;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.core.codec.ByteArrayEncoder;
+import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,8 +30,7 @@ public class Project {
     @Column(name = "client_id")
     private String clientId;
 
-    @Column(name = "project_img")
-    @Lob
+    @Column(name = "project_img", columnDefinition = "text null")
     private String archive;
 
     @ManyToOne
