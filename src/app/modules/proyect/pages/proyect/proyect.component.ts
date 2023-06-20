@@ -43,6 +43,7 @@ export class ProyectComponent implements OnInit {
         }
       );
       this.proyect = resp;
+
     });
   }
 

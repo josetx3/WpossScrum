@@ -46,8 +46,10 @@ export class EditEmployeeSprintComponent implements OnInit{
     this.getAllEmployeeSprint();
   }
   getAllEmployeeSprint(){
+    console.log("ASD");
     this.sprintService.getAllEmployeeSprint(this.sprintEmployeeId).subscribe({
       next:(data)=>{
+
         this.employee=data;
         this.employeeName=data.employeeSprint.employeeName;
         this.employeeSprintEditForm.patchValue({

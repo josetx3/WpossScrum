@@ -43,13 +43,25 @@ export class SprintsService {
   //     'http://localhost:8020/employee/employeenoexistonsprint/' + sprintId
   //   );
   // }
+
+  getAllEmployeesExistOnTeamBySprintId(
+    teamId: string | null
+  ): Observable<any> {
+    return this.httpClient.get(
+      'http://localhost:8020/employee/employeteam/'+ teamId
+      //'http://localhost:8020/sprintEmployee/allsprintemployee/'
+    );
+  }
+
+/*
   getAllEmployeesExistOnTeamBySprintId(
     sprintId: string | null
   ): Observable<any> {
     return this.httpClient.get(
-      'http://localhost:8020/sprintEmployee/allsprintemployee/'
+      'http://localhost:8020/sprintEmployee/sprintemployee/' + sprintId
     );
   }
+*/
 
   saveScoreSprintFinal(
     sprintId: string | null,
@@ -62,7 +74,7 @@ export class SprintsService {
   }
   getAllEmployeeSprint(sprintEmployeeId: string | null): Observable<any> {
     return this.httpClient.get(
-      this.API_SERVER + '/sprint-employee/id/' + sprintEmployeeId
+      this.API_SERVER + '/sprintemployee/id/' + sprintEmployeeId
     );
   }
   updateEmployeeSprint(
@@ -70,7 +82,7 @@ export class SprintsService {
     sprintEmployee: any
   ): Observable<any> {
     return this.httpClient.put(
-      this.API_SERVER + '/sprint-employee/update/' + sprintEmployeeId,
+      this.API_SERVER + '/sprintemployee/update/' + sprintEmployeeId,
       sprintEmployee
     );
   }

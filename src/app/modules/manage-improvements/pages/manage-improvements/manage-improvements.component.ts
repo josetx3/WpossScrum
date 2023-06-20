@@ -69,9 +69,16 @@ export class ManageImprovementsComponent implements OnInit {
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: 'mejora eliminada',
+              title: 'Mejora Eliminada',
               showConfirmButton: false,
               timer: 1500,
+              toast: true,
+              customClass: {
+                container: 'my-swal-container',
+                title: 'my-swal-title',
+                icon: 'my-swal-icon',
+              },
+              background: '#c6edb9',
             });
             this.getAllImprovements();
           },

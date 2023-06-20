@@ -5,6 +5,8 @@ import { SprintsService } from '../service/sprints.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { EmployeesService } from 'src/app/modules/employees/pages/service/employees.service';
+import { EditEmployeeSprintComponent } from '../edit-employee-sprint/edit-employee-sprint.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-calculate-sprint-points',
@@ -38,7 +40,8 @@ export class CalculateSprintPointsComponent implements OnInit {
     public teamService: TeamsService,
     public sprintService: SprintsService,
     public route: ActivatedRoute,
-    public employeesService: EmployeesService
+    public employeesService: EmployeesService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -91,10 +94,11 @@ export class CalculateSprintPointsComponent implements OnInit {
 
   getAllCalculationPercentageEmployee() {
     this.sprintService
-      .getAllEmployeesExistOnTeamBySprintId(this.sprintId)
+      .getAllEmployeesExistOnTeamBySprintId(this.teamId)
       .subscribe({
         next: (resp) => {
           this.employeeListFinal = resp;
+          console.log('ASD  ' + JSON.stringify(resp));
         },
       });
   }
@@ -122,7 +126,7 @@ export class CalculateSprintPointsComponent implements OnInit {
       this.sprintService.saveCalculationSprintPoints(data).subscribe({
         next: () => {
           this.calculateSprintForm.reset();
-          // this.getAllCalculationPercentageEmployee();
+          this.getAllCalculationPercentageEmployee();
           // this.getEmployeeByTeam();
 
           Swal.fire(
@@ -164,4 +168,21 @@ export class CalculateSprintPointsComponent implements OnInit {
       },
     });
   }
+
+  editEmployeeTeamSprint(employeeId: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = { projectId: employeeId };
+
+    const dialogRef = this.dialog.open(
+      EditEmployeeSprintComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getAllCalculationPercentageEmployee();
+    });
+  }
+
+
 }
