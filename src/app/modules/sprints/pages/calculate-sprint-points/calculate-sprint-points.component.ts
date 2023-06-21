@@ -94,26 +94,25 @@ export class CalculateSprintPointsComponent implements OnInit {
       .subscribe({
         next: (resp) => {
           this.employeeListFinal = resp;
-          console.log('ASD  ' + JSON.stringify(resp));
         },
       });
   }
 
   saveSprintPoints() {
     if (this.calculateSprintForm.valid) {
-      this.sprintEmployeeDay =
-        this.calculateSprintForm.get('sprintEmployeeDay')?.value;
-      this.sprintEmployeePercentage = this.calculateSprintForm.get(
-        'sprintEmployeePercentage'
-      )?.value;
+      this.sprintEmployeeDay = this.calculateSprintForm.get('sprintEmployeeDay')?.value;
+      this.sprintEmployeePercentage = this.calculateSprintForm.get('sprintEmployeePercentage')?.value;
+      this.employeeName = this.calculateSprintForm.get('employeeName')?.value;
+      console.log("EMPLOYEENAME   " +  this.employeeName);
+
       const data = {
         idEmployee: this.calculateSprintForm.get('employeeId')?.value,
         idSprint: this.sprintId,
-        percentage: this.sprintEmployeePercentage,
+        employeeName: this.calculateSprintForm.get('employeeName')?.value,
         daysLeave: this.sprintEmployeeDay,
         observations: this.calculateSprintForm.get('sprintEmployeeDescription')
           ?.value,
-
+        percentage: this.sprintEmployeePercentage,
         percentageFinal:
           (this.sprintEmployeePercentage *
             (this.sprintDays - this.sprintEmployeeDay)) /
@@ -179,6 +178,4 @@ export class CalculateSprintPointsComponent implements OnInit {
       this.getAllCalculationPercentageEmployee();
     });
   }
-
-
 }

@@ -48,8 +48,8 @@ export class SprintsService {
     teamId: string | null
   ): Observable<any> {
     return this.httpClient.get(
-      //'http://localhost:8020/employee/employeteam/'+ teamId
-      'http://localhost:8020/sprintEmployee/allsprintemployee/'
+      'http://localhost:8020/sprintEmployee/employeeteam/'+ teamId
+      //'http://localhost:8020/sprintEmployee/allsprintemployee/'
     );
   }
 
