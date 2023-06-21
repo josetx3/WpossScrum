@@ -62,6 +62,23 @@ public class SprintEmployeeController {
         }
         return new ResponseEntity<>(sprintEmployeeService.saveSprintEmployee(sprintEmployeeDto),HttpStatus.CREATED);
     }
+
+    @GetMapping("employeeteam/{id}")
+    @Operation(summary = "Get all employee to team")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Get all Success"),
+            @ApiResponse(responseCode = "404",description = "Not Found")
+    })
+    public ResponseEntity<List<SprintEmployeeDto>> getAllEmployeToTeam(@PathVariable("id") UUID idTeam){
+        List<SprintEmployeeDto> sprintEmployeeDtos = sprintEmployeeService.getEmployeToTeam(idTeam);
+        if (!sprintEmployeeDtos.isEmpty()){
+            return new ResponseEntity<>(sprintEmployeeDtos,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+
 /*
     @PutMapping("/sprintemployee/{id}")
     @Operation(summary = "Update the sprint employee")

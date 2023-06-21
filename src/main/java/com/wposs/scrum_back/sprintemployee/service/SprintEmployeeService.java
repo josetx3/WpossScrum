@@ -14,6 +14,8 @@ public interface SprintEmployeeService {
     List<SprintEmployeeDto> getAllSprintEmployee();
     Optional<SprintEmployeeDto> getBySprintEmployeeId(long idEmployee);
     SprintEmployeeDto saveSprintEmployee(SprintEmployeeDto sprintEmployeeDto);
+
+    List<SprintEmployeeDto> getEmployeToTeam(UUID idTeam);
     //SprintEmployeeDto updateSprintEmployee(long idEmployee, SprintEmployeeDto sprintEmployeeDto);
     //Boolean existsSprintEmployeeById(long idEmployee);
 }

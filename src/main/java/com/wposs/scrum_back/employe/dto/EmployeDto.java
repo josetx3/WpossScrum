@@ -40,7 +40,6 @@ public class EmployeDto {
     @Pattern(regexp = "[a-zA-Z]+",message = "El campo employeeKnowledge solo se admiten letras")
     private String employeeKnowledge;
 
-
     public UUID getEmployeeId() {
         return employeeId;
     }

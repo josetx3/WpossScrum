@@ -12,5 +12,6 @@ public interface EmployeService {
     EmployeDto seveEmploye(EmployeDto employeDto);
     EmployeDto updateEmploye(UUID idEmploye, EmployeDto employeDto);
     List<EmployeDto> getEmployeToTeam(UUID idTeam);
+    List<EmployeDto> getEmployeToTeam2(UUID idTeam);
     List<EmployeDto> getAllEmployeeNoExitsAndTeam(UUID idTeam);
 }

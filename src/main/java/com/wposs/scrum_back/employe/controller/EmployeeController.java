@@ -80,6 +80,20 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("employeetoteam/{id}")
+    @Operation(summary = "Get all employee to team")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Get all Success"),
+            @ApiResponse(responseCode = "404",description = "Not Found")
+    })
+    public ResponseEntity<List<EmployeDto>> getAllEmployeToTeam2(@PathVariable("id") UUID idTeam){
+        List<EmployeDto> employeDtos = employeService.getEmployeToTeam2(idTeam);
+        if (!employeDtos.isEmpty()){
+            return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 
     @GetMapping("employeenoteam/{id}")
     @Operation(summary = "Get All Employee no Exists And To Team")

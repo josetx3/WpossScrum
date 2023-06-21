@@ -11,11 +11,13 @@ import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
 import com.wposs.scrum_back.sprintemployee.repository.SprintEmployeeRepository;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
 import com.wposs.scrum_back.userstory.entity.UserStory;
+import net.bytebuddy.implementation.bytecode.constant.IntegerConstant;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -55,6 +57,31 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
             throw new InternalServerException("","",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public List<SprintEmployeeDto> getEmployeToTeam(UUID idTeam) {
+        List<Object[]> SprintEmployee = sprintEmployeeRepository.getEmployeToTeam(idTeam);
+        List<SprintEmployeeDto> sprintEmployeeDtos = new ArrayList<>();
+       if(SprintEmployee.isEmpty()){
+           throw new MessageGeneric("","",HttpStatus.NOT_FOUND);
+       }
+        for (Object[] sprintEmployee:SprintEmployee) {
+            SprintEmployeeDto sprintEmployeeDto = new SprintEmployeeDto(
+                    sprintEmployee[0].toString(),
+                    Integer.parseInt(sprintEmployee[1].toString()),
+                    sprintEmployee[2].toString(),
+                    Double.parseDouble(sprintEmployee[3].toString()),
+                    Double.parseDouble(sprintEmployee[4].toString())
+            );
+            sprintEmployeeDtos.add(sprintEmployeeDto);
+        }
+        return sprintEmployeeDtos;
+
+    }
+
+    /*return SprintEmployee.stream().map(objects -> {
+            return modelMapper.map(objects, SprintEmployeeDto.class);
+        }).collect(Collectors.toList());
 
     /*
     @Override

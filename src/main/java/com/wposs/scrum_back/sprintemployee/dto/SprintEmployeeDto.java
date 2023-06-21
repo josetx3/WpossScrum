@@ -8,25 +8,34 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class SprintEmployeeDto implements Serializable {
-    @JsonProperty(value = "idEmployee")
-    @NotNull
-    private UUID idEmployee;
-    @JsonProperty(value = "idSprint")
-    @NotNull
-    private UUID idSprint;
-    @JsonProperty(value = "percentage")
-    @DecimalMin(value = "0.01")
-    private Double percentage;
+//    @JsonProperty(value = "idEmployee")
+//    @NotNull
+//    private UUID idEmployee;
+//    @JsonProperty(value = "idSprint")
+//    @NotNull
+//    private UUID idSprint;
+
+    @JsonProperty(value = "employeeName")
+    private String employeeName;
     @JsonProperty(value = "daysLeave")
     @DecimalMin(value = "1")
     private Integer daysLeave;
     @JsonProperty(value = "observations")
     private String observations;
+    @JsonProperty(value = "percentage")
+    @DecimalMin(value = "0.01")
+    private Double percentage;
     @JsonProperty(value = "percentageFinal")
     private Double percentageFinal;
-    @JsonProperty(value = "employeeName")
-    private String employeeName;
 
+
+    public SprintEmployeeDto(String employeeName, Integer daysLeave, String observations, Double percentage, Double percentageFinal) {
+        this.employeeName = employeeName;
+        this.daysLeave = daysLeave;
+        this.observations = observations;
+        this.percentage = percentage;
+        this.percentageFinal = percentageFinal;
+    }
 
     public String getObservations() {
         return observations;
@@ -50,22 +59,6 @@ public class SprintEmployeeDto implements Serializable {
 
     public void setDaysLeave(Integer daysLeave) {
         this.daysLeave = daysLeave;
-    }
-
-    public UUID getIdEmployee() {
-        return idEmployee;
-    }
-
-    public void setIdEmployee(UUID idEmployee) {
-        this.idEmployee = idEmployee;
-    }
-
-    public UUID getIdSprint() {
-        return idSprint;
-    }
-
-    public void setIdSprint(UUID idSprint) {
-        this.idSprint = idSprint;
     }
 
     public Double getPercentageFinal() {
