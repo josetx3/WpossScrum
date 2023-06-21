@@ -27,11 +27,10 @@ export class EmployeeAddComponent implements OnInit{
     private employeesService: EmployeesService,
     private dialogRef : MatDialogRef<EmployeeComponent>,
   ) {
+
   }
 
   ngOnInit(): void {
-
-
   }
 
 

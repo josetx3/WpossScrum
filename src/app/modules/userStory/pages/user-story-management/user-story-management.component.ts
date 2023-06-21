@@ -14,7 +14,7 @@ import { UserStoryComponent } from '../user-story/user-story.component';
 })
 export class UserStoryManagementComponent implements OnInit {
   userStoryForm: FormGroup = new FormGroup({
-    userStoryName: new FormControl(null, [Validators.required]),
+    userStoryName: new FormControl(null, [Validators.required,Validators.maxLength(30)]),
     userStoryArchive: new FormControl(null, []),
     userStoryStateId: new FormControl(null, [Validators.required]),
     userStoryScore: new FormControl(null, [Validators.required]),

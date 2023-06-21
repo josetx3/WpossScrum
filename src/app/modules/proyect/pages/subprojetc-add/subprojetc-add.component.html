@@ -8,6 +8,9 @@
             <label for="inputEmail" class="col-6 col-form-label">Nombre del subproyecto</label>
             <div class="col-12">
               <input type="text" class="form-control" formControlName="subProjectName">
+              <div *ngIf="subprojectAddForm.get('subProjectName')?.dirty || subprojectAddForm.get('subProjectName')?.touched">
+                <h3 *ngIf="subprojectAddForm.get('subProjectName')?.hasError('required')" class="form-red-validator m-1"> Este campo es requerido</h3>
+              </div>
             </div>
           </div>
           <div class="row col-12">

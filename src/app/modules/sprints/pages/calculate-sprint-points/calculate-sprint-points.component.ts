@@ -55,8 +55,6 @@ export class CalculateSprintPointsComponent implements OnInit {
     this.selectEmploye();
   }
 
-  //----------------------------------------------
-
   selectEmploye() {
     this.employeesService.getEmployeeToTeam(this.teamId).subscribe({
       next: (r) => {
@@ -64,8 +62,6 @@ export class CalculateSprintPointsComponent implements OnInit {
       },
     });
   }
-
-  //----------------------------------------------
 
   getBySprintId() {
     this.sprintService.getSprintById(this.sprintId).subscribe({

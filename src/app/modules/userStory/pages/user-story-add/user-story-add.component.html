@@ -7,7 +7,15 @@
           <div class="row col-12">
             <label for="inputEmail" class="col-8 col-form-label">Nombre de la historia de usuario:</label>
             <div class="col-12">
-              <input type="text" class="form-control" formControlName="userStoryName">
+              <input type="text" class="form-control" formControlName="userStoryName" maxlength="31">
+              <div *ngIf="userStoryForm.get('userStoryName')?.dirty || userStoryForm.get('userStoryName')?.touched">
+                <p *ngIf="userStoryForm.get('userStoryName')?.hasError('required')" class="form-red-validator m-1">
+                  Este campo es requerido
+                </p>
+                <p *ngIf="userStoryForm.get('userStoryName')?.hasError('maxlength')" class="form-red-validator m-1">
+                  El maximo de caracteres permitidos es de 30
+                </p>
+              </div>
             </div>
           </div>
           <div class="row col-12">

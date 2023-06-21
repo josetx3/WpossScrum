@@ -14,10 +14,7 @@ import Swal from 'sweetalert2';
 export class AreaComponent implements OnInit {
   areaForm: FormGroup = new FormGroup({
     areaId: new FormControl(null),
-    areaName: new FormControl(null, [
-      Validators.required,
-      Validators.maxLength(20),
-    ]),
+    areaName: new FormControl(null, [Validators.required,Validators.maxLength(20)])
   });
 
   area: AreaInterface[] = [];

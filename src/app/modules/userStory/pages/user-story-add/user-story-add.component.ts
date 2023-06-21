@@ -16,7 +16,7 @@ export class UserStoryAddComponent implements OnInit {
 
   userStoryForm: FormGroup = new FormGroup({
     subProjectId: new FormControl(null, [Validators.required]),
-    userStoryName: new FormControl(null, [Validators.required]),
+    userStoryName: new FormControl(null, [Validators.required,Validators.maxLength(30)]),
     userStoryArchive: new FormControl(),
     userStoryStateId: new FormControl(null, [Validators.required]),
     userStoryScore: new FormControl(null, Validators.required),

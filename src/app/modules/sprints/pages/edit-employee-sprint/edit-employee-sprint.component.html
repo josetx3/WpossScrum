@@ -10,8 +10,7 @@
               max="31">
             <div
               *ngIf="employeeSprintEditForm.get('sprintEmployeePercentage')?.dirty || employeeSprintEditForm.get('sprintEmployeePercentage')?.touched">
-              <p *ngIf="employeeSprintEditForm.get('sprintEmployeePercentage')?.hasError('required')"
-                style="color: red">
+              <p *ngIf="employeeSprintEditForm.get('sprintEmployeePercentage')?.hasError('required')" class="form-red-validator m-1">
                 Este campo es requerido
               </p>
             </div>
