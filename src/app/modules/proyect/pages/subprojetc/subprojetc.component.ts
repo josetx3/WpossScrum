@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SubprojetcAddComponent } from '../subprojetc-add/subprojetc-add.component';
 import { SubprojetcEditComponent } from '../subprojetc-edit/subprojetc-edit.component';
 import { UserStoryAddComponent } from 'src/app/modules/userStory/pages/user-story-add/user-story-add.component';
+import {SubprojectUserStoryComponent} from "../subproject-user-story/subproject-user-story.component";
 
 @Component({
   selector: 'app-subprojetc',
@@ -50,4 +51,14 @@ export class SubprojetcComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((resul) => {});
   }
+
+  viewSubprojectsUserStory(subProjectId: string){
+    const dialogRef = this.dialog.open(SubprojectUserStoryComponent,{
+      data: {subProjectId: subProjectId}
+    });
+    dialogRef.afterClosed().subscribe((resul) => {
+      this.getAllSubproject();
+    });
+  }
+
 }

@@ -12,7 +12,7 @@ import {AreaModule} from "../../../area/area.module";
   styleUrls: ['./proyect-subproject.component.scss'],
 })
 export class ProyectSubprojectComponent implements OnInit {
-  subproject: SubprojectProyect[]=[]
+  subproject: SubprojectProyect[]=[];
   projectId: string='';
 
   constructor(

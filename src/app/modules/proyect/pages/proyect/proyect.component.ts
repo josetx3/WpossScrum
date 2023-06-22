@@ -69,10 +69,8 @@ export class ProyectComponent implements OnInit {
     const dialogRef = this.dialog.open(ProyectSubprojectComponent,{
       data: {projectId: projectId}
     });
-    console.log("JOSE " + projectId);
     dialogRef.afterClosed().subscribe((resul) => {
       this.getAllProject();
-
     });
   }
 

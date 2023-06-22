@@ -7,6 +7,7 @@ import { SubprojetcComponent } from './pages/subprojetc/subprojetc.component';
 import { SubprojetcAddComponent } from './pages/subprojetc-add/subprojetc-add.component';
 import { SubprojetcEditComponent } from './pages/subprojetc-edit/subprojetc-edit.component';
 import { ProyectSubprojectComponent } from './pages/proyect-subproject/proyect-subproject.component';
+import {SubprojectUserStoryComponent} from "./pages/subproject-user-story/subproject-user-story.component";
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
     component: ProyectAddComponent
   },
   {
+    path: 'proyect-subproject',
+    component: ProyectSubprojectComponent
+  },
+  {
     path: 'subproject',
     component: SubprojetcComponent
   },
@@ -35,9 +40,10 @@ const routes: Routes = [
     component: SubprojetcEditComponent
   },
   {
-    path: 'proyect-subproject',
-    component: ProyectSubprojectComponent
+    path: 'subproject-user-story',
+    component: SubprojectUserStoryComponent
   }
+
 ];
 
 @NgModule({

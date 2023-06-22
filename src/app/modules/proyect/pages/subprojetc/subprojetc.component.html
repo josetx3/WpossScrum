@@ -40,8 +40,10 @@
             <td class="icon text-center">
               <button type="button" class="btn btn-warning btn-sm m-1" (click)="editSubProjetModal(item.subProjectId)"
                 title="Editar Subproyecto"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['/app/user-story']"
-                title="Visualizar subproyecto"><i class="fa fa-eye"></i></button>
+<!--              <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['/app/user-story']"
+                title="Visualizar subproyecto"><i class="fa fa-eye"></i></button>-->
+              <button type="button" class="btn btn-primary btn-sm m-1" (click)="viewSubprojectsUserStory(item.subProjectId)"
+                      title="Visualizar Historias de usuario"><i class="fa fa-eye"></i></button>
               <button type="button" class="btn btn-success btn-sm m-1" (click)="addUserStoryModal()"
                 title="Agregar historia de usuario"><i class="fa fa-plus"></i></button>
             </td>

@@ -1,0 +1,16 @@
+.template-no-userStory{
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: initial;
+  text-align: center;
+
+  .template-no-userStory-content{
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .template-no-userStory-content{
+    font-size: 2px;
+  }
+}

@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-body" *ngIf="userStory.length > 0; else emptyState">
+    <h1 class="card-title"> Historias de usuario </h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+        <tr>
+          <th scope="row" class="title_table">Nombre de la historia</th>
+          <th scope="row" class="title_table">Estado</th>
+          <th scope="row" class="title_table">Fecha maxima</th>
+          <th scope="row" class="title_table icon">Puntos</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        <tr *ngFor="let item of userStory">
+          <td>{{item.userStoryName}}</td>
+          <td>{{item.userStoryStateName}}</td>
+          <td>{{item.fechaMaxima}}</td>
+          <td>{{item.userStoryScore}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<ng-template #emptyState>
+  <div class="template-no-userStory">
+    <div class="template-no-userStory-content">
+      <h1>Este subproyecto aun no tiene historias de usuario</h1>
+      <h2>Agrega una historia de usuario</h2>
+      <button type="button" class="btn btn-primary btn-sm m-1" (click)="toUserStory()">Agregar Historia de usuario</button>
+    </div>
+  </div>
+</ng-template>

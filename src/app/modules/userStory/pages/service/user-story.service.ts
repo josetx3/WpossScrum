@@ -32,7 +32,7 @@ export class userStoryService {
     return this.httpClient.get<UserStory>(this.API_SERVER+"/subproject/"+subProjectId)
   }
 
-  public getUserStorySubproject(subProjectId: string | null){
+  public getUserStorySubproject(subProjectId: string):Observable<any>{
     return this.httpClient.get("http://localhost:8020/userstory/subproject/" + subProjectId)
   }
 
