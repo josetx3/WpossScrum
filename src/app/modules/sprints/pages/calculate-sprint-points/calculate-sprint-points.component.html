@@ -60,9 +60,6 @@
             <td class="title_table">{{item.percentageFinal}}</td>
             <td class="title_table">{{item.observations}}</td>
             <td class="icon">
-              <!-- <button type="button" class="btn btn-success"
-                [routerLink]="['/app/sprints/edit-add-employee-sprint/'+ item.sprintEmployeeId +'/'+this.sprintDays+'/'+this.sprintId+'/'+this.teamId]"><i
-                  class="fas fa-edit"></i></button> -->
               <button type="button" class="btn btn-success btn-sm m-1" (click)="editEmployeeTeamSprint(item.employeeId)" ><i class="fas fa-edit"></i></button>
             </td>
           </tr>

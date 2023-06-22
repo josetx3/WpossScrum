@@ -35,4 +35,9 @@ export class SubprojectService {
   getTeam(): Observable<any>{
     return this.httpClient.get('http://localhost:8020/team/all');
   }
+
+  getSubprojectToProyect(projectId: string):Observable<any>{
+    return this.httpClient.get(this.API_SERVER+'/project/'+projectId);
+  }
+
 }

@@ -28,7 +28,6 @@ export class SprintAddComponent implements OnInit {
   areas: AreaInterface[]=[];
   teams: Team[]=[];
   areaId: string='';
-
   teamId: string='';
   sprints: Sprints[]=[];
   sprintDay: any;
@@ -62,6 +61,7 @@ export class SprintAddComponent implements OnInit {
       },
     );
   }
+
   saveSprint(): void {
     if (this.sprintsForm.valid) {
       this.sprintStart = this.sprintsForm.get('sprintStart')?.value;

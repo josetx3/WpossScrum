@@ -12,3 +12,11 @@ export interface SubprojectById{
   projectName: string;
 }
 
+export interface SubprojectProyect{
+  subProjectId:string;
+  subProjectName:string;
+  projectId:string;
+  teamId: string;
+  projectName:string;
+  teamName:string;
+}

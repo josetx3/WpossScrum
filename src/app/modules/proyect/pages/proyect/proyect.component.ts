@@ -6,6 +6,7 @@ import { Proyect } from '../interface/proyect';
 import { ProyectAddComponent } from '../proyect-add/proyect-add.component';
 import { ProyectEditComponent } from '../proyect-edit/proyect-edit.component';
 import { CustomerService } from 'src/app/modules/customer/pages/service/customer.service';
+import { ProyectSubprojectComponent } from '../proyect-subproject/proyect-subproject.component';
 
 @Component({
   selector: 'app-proyect',
@@ -63,4 +64,16 @@ export class ProyectComponent implements OnInit {
       this.getAllProject();
     });
   }
+
+  viewSubprojectsToProyect(projectId: number) {
+    const dialogRef = this.dialog.open(ProyectSubprojectComponent,{
+      data: {projectId: projectId}
+    });
+    console.log("JOSE " + projectId);
+    dialogRef.afterClosed().subscribe((resul) => {
+      this.getAllProject();
+
+    });
+  }
+
 }

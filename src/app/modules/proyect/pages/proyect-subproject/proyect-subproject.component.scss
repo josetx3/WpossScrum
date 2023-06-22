@@ -1,0 +1,16 @@
+.template-no-subproject{
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: initial;
+  text-align: center;
+
+  .template-no-subproject-content{
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .template-no-subproject-content{
+    font-size: 2px;
+  }
+}

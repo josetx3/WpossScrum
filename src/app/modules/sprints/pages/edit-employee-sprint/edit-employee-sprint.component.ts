@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import { SprintsService } from '../service/sprints.service';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-edit-employee-sprint',
   templateUrl: './edit-employee-sprint.component.html',
@@ -20,8 +19,6 @@ export class EditEmployeeSprintComponent implements OnInit{
   employee:any;
   employeeName:string | null = '';
 
-
-
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -35,8 +32,6 @@ export class EditEmployeeSprintComponent implements OnInit{
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
     this.sprintEmployeeId = this.route.snapshot.paramMap.get('sprintEmployeeId');
     this.sprintDays = this.route.snapshot.paramMap.get('sprintDays');
-
-
 
     this.employeeSprintEditForm = this.formBuilder.group({
       sprintEmployeePercentage: new FormControl(null, [Validators.required,Validators.min(1),Validators.max(100),Validators.maxLength(3)]),

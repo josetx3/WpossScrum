@@ -8,6 +8,7 @@ import { SubprojetcAddComponent } from './pages/subprojetc-add/subprojetc-add.co
 import { SubprojetcEditComponent } from './pages/subprojetc-edit/subprojetc-edit.component';
 import { ProyectRoutingModule } from './proyect-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ProyectSubprojectComponent } from './pages/proyect-subproject/proyect-subproject.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SubprojetcComponent,
     SubprojetcAddComponent,
     SubprojetcEditComponent,
+    ProyectSubprojectComponent,
   ],
   imports: [CommonModule, ProyectRoutingModule, SharedModule],
 })

@@ -86,9 +86,6 @@ export class ProyectAddComponent implements OnInit {
     }
   }
 
-  CloseModal(): void {
-    this.dialogRef.close();
-  }
 
   upload_image(event: any) {
     let archive = event.target.files;

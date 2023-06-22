@@ -49,7 +49,6 @@ export class CalculateSprintPointsComponent implements OnInit {
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
 
     this.getAllCalculationPercentageEmployee();
-    //this.getEmployeeByTeam();
     this.getBySprintId();
     this.getTeamNameById();
     this.selectEmploye();
@@ -78,15 +77,6 @@ export class CalculateSprintPointsComponent implements OnInit {
       },
     });
   }
-
-  // getEmployeeByTeam() {
-  //   this.sprintService.getAllEmployeesNoExistOnTeamBySprintId(this.sprintId)
-  //     .subscribe({
-  //       next: (resp) => {
-  //         this.employees = resp;
-  //       },
-  //     });
-  // }
 
   getAllCalculationPercentageEmployee() {
     this.sprintService
@@ -122,7 +112,6 @@ export class CalculateSprintPointsComponent implements OnInit {
         next: () => {
           this.calculateSprintForm.reset();
           this.getAllCalculationPercentageEmployee();
-          // this.getEmployeeByTeam();
 
           Swal.fire(
             'Empleado Añadido Correctamente!',
