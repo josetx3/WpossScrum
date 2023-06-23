@@ -7,7 +7,29 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class SprintEmployeeDto implements Serializable {
+public class SprintEmployeeDtoRequest implements Serializable {
+    @JsonProperty(value = "idEmployee")
+    @NotNull
+    private UUID idEmployee;
+    @JsonProperty(value = "idSprint")
+    @NotNull
+    private UUID idSprint;
+
+    public UUID getIdSprint() {
+        return idSprint;
+    }
+
+    public void setIdSprint(UUID idSprint) {
+        this.idSprint = idSprint;
+    }
+
+    public UUID getIdEmployee() {
+        return idEmployee;
+    }
+
+    public void setIdEmployee(UUID idEmployee) {
+        this.idEmployee = idEmployee;
+    }
 
     @JsonProperty(value = "employeeName")
     private String employeeName;
@@ -22,14 +44,6 @@ public class SprintEmployeeDto implements Serializable {
     @JsonProperty(value = "percentageFinal")
     private Double percentageFinal;
 
-
-    public SprintEmployeeDto(String employeeName, Integer daysLeave, String observations, Double percentage, Double percentageFinal) {
-        this.employeeName = employeeName;
-        this.daysLeave = daysLeave;
-        this.observations = observations;
-        this.percentage = percentage;
-        this.percentageFinal = percentageFinal;
-    }
 
     public String getObservations() {
         return observations;

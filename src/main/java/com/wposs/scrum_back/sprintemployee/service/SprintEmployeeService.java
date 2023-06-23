@@ -3,6 +3,7 @@ package com.wposs.scrum_back.sprintemployee.service;
 import com.wposs.scrum_back.area.dto.AreaDto;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
+import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
 
@@ -11,11 +12,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface SprintEmployeeService {
-    List<SprintEmployeeDto> getAllSprintEmployee();
-    Optional<SprintEmployeeDto> getBySprintEmployeeId(long idEmployee);
-    SprintEmployeeDto saveSprintEmployee(SprintEmployeeDto sprintEmployeeDto);
+    List<SprintEmployeeDtoRequest> getAllSprintEmployee();
+    Optional<SprintEmployeeDtoRequest> getBySprintEmployeeId(Long idEmployee);
+    //SprintEmployeeDto saveSprintEmployee(SprintEmployeeDto sprintEmployeeDto);
+    SprintEmployeeDtoRequest saveSprintEmployee(SprintEmployeeDtoRequest sprintEmployeeDtoRequest);
 
-    List<SprintEmployeeDto> getEmployeToTeam(UUID idTeam);
-    //SprintEmployeeDto updateSprintEmployee(long idEmployee, SprintEmployeeDto sprintEmployeeDto);
-    //Boolean existsSprintEmployeeById(long idEmployee);
+    List<SprintEmployeeDto> getEmployeToTeam(UUID idSprint, UUID idTeam);
+    //SprintEmployeeDtoRequest updateSprintEmployee(Long idEmployee, SprintEmployeeDtoRequest sprintEmployeeDtoRequest);
+    //Boolean existsSprintEmployeeById(Long idEmployee);
 }

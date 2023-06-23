@@ -6,6 +6,7 @@ import com.wposs.scrum_back.Exception.exceptions.RequestException;
 import com.wposs.scrum_back.area.dto.AreaDto;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
+import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployee;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
 import com.wposs.scrum_back.sprintemployee.repository.SprintEmployeeRepository;
@@ -31,19 +32,19 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
     private SprintEmployeeRepository sprintEmployeeRepository;
 
     @Override
-    public List<SprintEmployeeDto> getAllSprintEmployee() {
+    public List<SprintEmployeeDtoRequest> getAllSprintEmployee() {
         return sprintEmployeeRepository.findAll().stream()
                 .map(sprintEmployee -> {
-                    return modelMapper.map(sprintEmployee,SprintEmployeeDto.class);
+                    return modelMapper.map(sprintEmployee,SprintEmployeeDtoRequest.class);
                 }).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<SprintEmployeeDto> getBySprintEmployeeId(long idEmployee) {
-        return Optional.ofNullable(sprintEmployeeRepository.findById(idEmployee).map(sprintEmployee -> modelMapper.map(sprintEmployee,SprintEmployeeDto.class))
+    public Optional<SprintEmployeeDtoRequest> getBySprintEmployeeId(Long idEmployee) {
+        return Optional.ofNullable(sprintEmployeeRepository.findById(idEmployee).map(sprintEmployee -> modelMapper.map(sprintEmployee,SprintEmployeeDtoRequest.class))
                 .orElseThrow(()->new MessageGeneric("","", HttpStatus.NOT_FOUND)));
     }
-
+/*
     @Override
     public SprintEmployeeDto saveSprintEmployee(SprintEmployeeDto sprintEmployeeDto) {
         SprintEmployee sprintEmployee = modelMapper.map(sprintEmployeeDto,SprintEmployee.class);
@@ -56,14 +57,31 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
         }catch (Exception ex){
             throw new InternalServerException("","",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 
     @Override
-    public List<SprintEmployeeDto> getEmployeToTeam(UUID idTeam) {
-        List<Object[]> SprintEmployee = sprintEmployeeRepository.getEmployeToTeam(idTeam);
+    public SprintEmployeeDtoRequest saveSprintEmployee(SprintEmployeeDtoRequest sprintEmployeeDtoRequest) {
+        SprintEmployee sprintEmployee = modelMapper.map(sprintEmployeeDtoRequest,SprintEmployee.class);
+        SprintEmployeePk sprintEmployeePk = new SprintEmployeePk(sprintEmployee.getId().getEmployeeId(),sprintEmployee.getId().getSprintId());
+        if (sprintEmployeeRepository.existsById(sprintEmployeePk)){
+            throw new MessageGeneric("","",HttpStatus.CONFLICT);
+        }
+        try {
+            return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDtoRequest.class);
+        }catch (Exception ex){
+            throw new InternalServerException("","",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+
+    @Override
+    public List<SprintEmployeeDto> getEmployeToTeam(UUID idSprint, UUID idTeam) {
+        List<Object[]> SprintEmployee = sprintEmployeeRepository.getEmployeToTeam(idSprint,idTeam);
         List<SprintEmployeeDto> sprintEmployeeDtos = new ArrayList<>();
        if(SprintEmployee.isEmpty()){
-           throw new MessageGeneric("","",HttpStatus.NOT_FOUND);
+           throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
        }
         for (Object[] sprintEmployee:SprintEmployee) {
             SprintEmployeeDto sprintEmployeeDto = new SprintEmployeeDto(
@@ -78,24 +96,18 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
         return sprintEmployeeDtos;
 
     }
-
-    /*return SprintEmployee.stream().map(objects -> {
-            return modelMapper.map(objects, SprintEmployeeDto.class);
-        }).collect(Collectors.toList());
-
-    /*
+/*
     @Override
-    public SprintEmployeeDto updateSprintEmployee(long idEmployee, SprintEmployeeDto sprintEmployeeDto) {
-        if(!existsSprintEmployeeById(sprintEmployeeDto.getIdEmployee())){
+    public SprintEmployeeDtoRequest updateSprintEmployee(UUID idEmployee, SprintEmployeeDtoRequest sprintEmployeeDtoRequest) {
+        if(!existsSprintEmployeeById(sprintEmployeeDtoRequest.getIdEmployee())){
             return sprintEmployeeRepository.findById(idEmployee).map(sprintEmployee -> {
-                sprintEmployee.setPercentage((sprintEmployeeDto.getPercentage()!=null)?sprintEmployeeDto.getPercentage():sprintEmployee.getPercentage());
-                sprintEmployee.setDaysLeave((sprintEmployeeDto.getDaysLeave()!=null)?sprintEmployeeDto.getDaysLeave():sprintEmployee.getDaysLeave());
-                sprintEmployee.setObservations((sprintEmployeeDto.getObservations()!=null)?sprintEmployeeDto.getObservations():sprintEmployee.getObservations());
-                return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDto.class);
+                sprintEmployee.setPercentage((sprintEmployeeDtoRequest.getPercentage()!=null)?sprintEmployeeDtoRequest.getPercentage():sprintEmployee.getPercentage());
+                sprintEmployee.setDaysLeave((sprintEmployeeDtoRequest.getDaysLeave()!=null)?sprintEmployeeDtoRequest.getDaysLeave():sprintEmployee.getDaysLeave());
+                sprintEmployee.setObservations((sprintEmployeeDtoRequest.getObservations()!=null)?sprintEmployeeDtoRequest.getObservations():sprintEmployee.getObservations());
+                return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDtoRequest.class);
             }).orElseThrow(()->new MessageGeneric("No se encontro el sprint de empleado a actualizar","404",HttpStatus.NOT_FOUND));
         }
         throw new MessageGeneric("","409",HttpStatus.CONFLICT);
     }*/
-
 
 }
