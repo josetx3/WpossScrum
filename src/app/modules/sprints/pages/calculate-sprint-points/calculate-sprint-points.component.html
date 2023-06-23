@@ -17,7 +17,8 @@
           <div class="row col-12">
             <label for="inputEmail" class="col-6 col-form-label">Porcentaje</label>
             <div class="col-12">
-              <input class="form-control" type="number" formControlName="sprintEmployeePercentage">
+              <input class="form-control" type="number" formControlName="sprintEmployeePercentage" maxlength="4">
+              <div *ngIf="calculateSprintForm.get('sprintEmployeePercentage')?.hasError('max')" class="form-red-validator m-1">El valor máximo permitido es 100.</div>
             </div>
           </div>
           <div class="row col-12">

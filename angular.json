@@ -36,7 +36,7 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap-icons.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/boxicons/css/boxicons.min.css",
               "node_modules/remixicon/fonts/remixicon.css"
             ],

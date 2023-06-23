@@ -16,7 +16,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export class CalculateSprintPointsComponent implements OnInit {
   calculateSprintForm: FormGroup = new FormGroup({
     employeeId: new FormControl(null, [Validators.required]),
-    sprintEmployeePercentage: new FormControl(null, [Validators.required]),
+    sprintEmployeePercentage: new FormControl(null, [Validators.required,Validators.max(100)]),
     sprintEmployeeDescription: new FormControl(null, [Validators.required]),
     sprintEmployeeDay: new FormControl(null, [Validators.required]),
   });
