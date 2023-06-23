@@ -22,7 +22,7 @@ public interface SprintEmployeeRepository extends JpaRepository<SprintEmployee, 
 
 
     //@Query(value = "SELECT em.employee_name, se.days_leave, se.observations,  se.percentage, se.percentage_final from wposs.team te INNER JOIN wposs.team_employee tem ON te.team_id = tem.team_id INNER JOIN wposs.employee em ON tem.employee_id = em.employee_id INNER JOIN wposs.sprints_employee se ON em.employee_id = se.fk_employee_id WHERE te.team_id =?1",nativeQuery = true)
-    @Query(value = "SELECT em.employee_name, se.days_leave, se.observations, se.percentage, se.percentage_final from wposs.team te inner join wposs.team_employee tem on te.team_id = tem.team_id inner join wposs.employee em ON em.employee_id = tem.employee_id inner join wposs.sprints_employee se ON se.fk_employee_id = em.employee_id where se.fk_sprint_id = ?1 and tem.team_id = ?1",nativeQuery = true)
+    @Query(value = "SELECT em.employee_name, se.days_leave, se.observations, se.percentage, se.percentage_final from wposs.team te inner join wposs.team_employee tem on te.team_id = tem.team_id inner join wposs.employee em ON em.employee_id = tem.employee_id inner join wposs.sprints_employee se ON se.fk_employee_id = em.employee_id where se.fk_sprint_id = ?1 and tem.team_id = ?2",nativeQuery = true)
     List<Object[]> getEmployeToTeam(UUID idSprint, UUID idTeam);
 
 
