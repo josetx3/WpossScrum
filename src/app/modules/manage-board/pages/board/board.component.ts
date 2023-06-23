@@ -11,6 +11,8 @@ import { EmployeesService } from 'src/app/modules/employees/pages/service/employ
 import { BoardService } from '../service/board.service';
 import { TeamsTasksService } from 'src/app/modules/teams/pages/service/teams-tasks.service';
 import { Router } from '@angular/router';
+import {AreaInterface} from "../../../area/pages/Interface/interface-area";
+import {AreaService} from "../../../area/pages/service/area.service";
 
 @Component({
   selector: 'app-board',
@@ -19,22 +21,28 @@ import { Router } from '@angular/router';
 })
 export class BoardComponent implements OnInit {
   boardFrom: FormGroup = new FormGroup({
+    areaId: new FormControl(null, [Validators.required]),
     teamId: new FormControl(null, [Validators.required]),
     userStoryId: new FormControl(null, [Validators.required]),
     taskTeamId: new FormControl(null, [Validators.required]),
     employeeId: new FormControl(null, [Validators.required]),
     date: new FormControl(null, [Validators.required]),
   });
-  teams: Team[] = [];
-  userStory: UserStory[] = [];
-  employees: Employee[] = [];
+  areaId:any;
   teamId: string = '';
-  taskTeam: Tasks[] = [];
   userStoryTeam: UserStory[] = [];
   board: IBoard[] = [];
 
+
+  areas: AreaInterface[]= [];
+  teams: Team[] = [];
+  userStory: any;
+  taskTeam: any;
+  employees: Employee[] = [];
+
   constructor(
     private teamService: TeamsService,
+    private areaService : AreaService,
     private userStoryService: userStoryService,
     private employeesService: EmployeesService,
     private boardService: BoardService,
@@ -43,9 +51,27 @@ export class BoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.teamService.getAllTeams().subscribe((resp) => {
+    this.areaService.getAllArea().subscribe((data) => {
+        this.areas = data;
+      },
+    );
+    this.getAllTask();
+  }
+
+  selectArea(){
+    this.areaId = this.boardFrom.get('areaId')?.value;
+    this.boardService.getTeamArea(this.areaId).subscribe(resp =>{
       this.teams = resp;
-    });
+      console.log("TEAMS:   " + this.teams);
+    })
+  }
+
+  selectTeam(){
+    this.teamId = this.boardFrom.get('teamId')?.value;
+    this.userStoryService.getUserStoryToTeam(this.teamId).subscribe(resp =>{
+      this.userStory = resp;
+    })
+    this.getAllEmployeesTeam();
   }
 
   getAllEmployeesTeam() {
@@ -56,26 +82,15 @@ export class BoardComponent implements OnInit {
       });
   }
 
-  getAllTaskTeamByTeam(): void {
-    this.taskTeamService
-      .getAllTaskTeamByTeamId(this.teamId)
-      .subscribe((resp) => {
-        this.taskTeam = resp;
-      });
+  getAllTask(){
+    this.boardService.getAllTaskTeam().subscribe(resp =>{
+      this.taskTeam = resp;
+    })
   }
 
-  getUserStoryTeam() {
-    this.boardService.getUserStoryTeam(this.teamId).subscribe((data) => {
-      this.userStory = data;
-    });
-  }
 
-  selectTeam() {
-    this.teamId = this.boardFrom.get('teamId')?.value;
-    this.getAllEmployeesTeam();
-    this.getAllTaskTeamByTeam();
-    this.getUserStoryTeam();
-  }
+
+
 
   saveBoard(): void {
     if (this.boardFrom.valid) {

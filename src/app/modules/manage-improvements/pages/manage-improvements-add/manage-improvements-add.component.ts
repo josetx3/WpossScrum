@@ -59,10 +59,9 @@ export class ManageImprovementsAddComponent implements OnInit{
     this.areaId = this.improvementsForm.get('areaId')?.value;
     this.improvementsService.getTeamArea(this.areaId).subscribe( resp => {
       this.teams = resp;
-
     })
-
   }
+
   selectTeam(){
     this.teamId = this.improvementsForm.get('teamId')?.value;
     this.userStoryService.getUserStoryToTeam(this.teamId).subscribe(resp => {
@@ -88,7 +87,6 @@ export class ManageImprovementsAddComponent implements OnInit{
       this.improvements = resp;
     })
   }
-
 
   saveImprovements(): void {
     if(this.improvementsForm.valid) {
