@@ -49,19 +49,16 @@ export class SprintsService {
   ): Observable<any> {
     return this.httpClient.get(
       'http://localhost:8020/sprintEmployee/employeeteam/'+ teamId
-      //'http://localhost:8020/sprintEmployee/allsprintemployee/'
     );
   }
 
-/*
-  getAllEmployeesExistOnTeamBySprintId(
-    sprintId: string | null
-  ): Observable<any> {
+
+  getSprintEmployeeByTeamAndSprint(sprintId: string | null, teamId: string | null): Observable<any> {
     return this.httpClient.get(
-      'http://localhost:8020/sprintEmployee/sprintemployee/' + sprintId
+      'http://localhost:8020/sprintEmployee/employeeteam/' + sprintId +"/"+ teamId
     );
   }
-*/
+
 
   saveScoreSprintFinal(
     sprintId: string | null,

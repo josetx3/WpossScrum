@@ -79,11 +79,10 @@ export class CalculateSprintPointsComponent implements OnInit {
   }
 
   getAllCalculationPercentageEmployee() {
-    this.sprintService
-      .getAllEmployeesExistOnTeamBySprintId(this.teamId)
-      .subscribe({
-        next: (resp) => {
-          this.employeeListFinal = resp;
+    console.log("SPRINTID  " + this.sprintId);
+    console.log("TEAMID  " + this.teamId);
+    this.sprintService.getSprintEmployeeByTeamAndSprint(this.sprintId, this.teamId).subscribe({next: (resp) => {
+      this.employeeListFinal = resp;
         },
       });
   }
