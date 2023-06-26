@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserStory } from '../interface/userStory';
+import {UserStory, UserStoryToTeam} from '../interface/userStory';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +36,8 @@ export class userStoryService {
     return this.httpClient.get("http://localhost:8020/userstory/subproject/" + subProjectId)
   }
 
-  public getUserStoryToTeam(teamId: string){
-    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/'+teamId)
+  public getUserStoryToTeam(teamId: string): Observable<UserStoryToTeam[]>{
+    return this.httpClient.get<UserStoryToTeam[]>('http://localhost:8020/userstory/userstoryteam/'+teamId)
   }
 
 

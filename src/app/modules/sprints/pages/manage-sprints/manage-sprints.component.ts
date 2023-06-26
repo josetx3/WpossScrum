@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { SprintAddComponent } from '../sprint-add/sprint-add.component';
+import {AddUserStorySprintComponent} from "../add-user-story-sprint/add-user-story-sprint.component";
 
 @Component({
   selector: 'app-manage-sprints',
@@ -87,6 +88,15 @@ export class ManageSprintsComponent implements OnInit {
         this.getAllSprints();
       },
     });
+  }
+
+  viewUserStoryToTeam(teamId: string){
+    const dialogRef = this.dialog.open(AddUserStorySprintComponent ,{
+      data: {teamId: teamId}
+    });
+    dialogRef.afterClosed().subscribe( (resul) =>{
+      this.getAllSprints();
+    })
   }
 
 }

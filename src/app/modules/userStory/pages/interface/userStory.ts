@@ -14,3 +14,14 @@ export interface SubprojectUserStory {
   fechaMaxima:string;
   userStoryScore:string;
 }
+
+export interface UserStoryToTeam {
+  userStoryId: string;
+  userStoryName: string;
+  userStoryScore: number;
+  userStoryArchive: string;
+  userStoryStateId: number;
+  fechaMaxima?: Date;
+  userStoryStateName: string;
+  subProjectId: string;
+}

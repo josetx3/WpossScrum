@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 
 
-
 @NgModule({
   declarations: [
     AddUserStorySprintComponent,
@@ -19,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     EditEmployeeSprintComponent,
     ManageSprintsComponent,
     ScoreSprintDaysComponent,
-    SprintAddComponent
+    SprintAddComponent,
   ],
   imports: [
     CommonModule,

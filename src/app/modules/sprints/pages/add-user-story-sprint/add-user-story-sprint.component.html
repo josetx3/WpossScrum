@@ -5,18 +5,16 @@
       <table class="table table-bordered table-hover">
         <thead class="thead-ligth text-center">
           <tr>
-            <th scope="row" class="title_table">#</th>
             <th scope="row" class="title_table">Nombre Historias de Usuario</th>
-            <th scope="row" class="title_table">Proyecto</th>
+            <th scope="row" class="title_table">Fecha Maxima</th>
             <th scope="row" class="title_table">Puntos</th>
           </tr>
         </thead>
         <tbody class="text-center">
-          <tr *ngFor="let item of pointUserStory  ; let i = index">
-            <td>{{i+1}}</td>
-            <td>{{item.projectName}}</td>
-            <td>{{item.userStoryStateName}}</td>
-            <td><input class="mb-2" type="number" value="{{item.userStoryScore}}" [(ngModel)]="item.userStoryScore"></td>
+          <tr *ngFor="let item of teamStory">
+            <td>{{item.userStoryName}}</td>
+            <td>{{item.fechaMaxima}}</td>
+            <td> {{item.userStoryScore}} </td>
           </tr>
         </tbody>
       </table>
