@@ -62,7 +62,7 @@ export class BoardComponent implements OnInit {
     this.areaId = this.boardFrom.get('areaId')?.value;
     this.boardService.getTeamArea(this.areaId).subscribe(resp =>{
       this.teams = resp;
-      console.log("TEAMS:   " + this.teams);
+      console.log("TEAMS:  " + this.teams);
     })
   }
 
@@ -70,6 +70,9 @@ export class BoardComponent implements OnInit {
     this.teamId = this.boardFrom.get('teamId')?.value;
     this.userStoryService.getUserStoryToTeam(this.teamId).subscribe(resp =>{
       this.userStory = resp;
+    })
+    this.taskTeamService.getAllTaskTeamByTeamId(this.teamId).subscribe(resp =>{
+      this.taskTeam = resp;
     })
     this.getAllEmployeesTeam();
   }
@@ -87,9 +90,6 @@ export class BoardComponent implements OnInit {
       this.taskTeam = resp;
     })
   }
-
-
-
 
 
   saveBoard(): void {
