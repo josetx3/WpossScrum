@@ -88,4 +88,17 @@ public class BoardController {
     public ResponseEntity<BoardDto> getBoardById(@PathVariable("idboard")UUID boardId){
         return boardService.getBoardById(boardId).map(boardDto -> new ResponseEntity<>(boardDto,HttpStatus.OK)).orElse(null);
     }
+    @GetMapping("/boardFilter/{idarea}/{idteam}/{iduserhistory}")
+    @Operation(summary = "Get Board By area, team and userhistory")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Success Board"),
+            @ApiResponse(responseCode = "404",description = "Not Fount Board")
+    })
+    public ResponseEntity<List<BoardDto>> getBoardByTeamAndAreaAndUserStory(@PathVariable("idarea")UUID areaId,@PathVariable("idteam")UUID teamId,@PathVariable("iduserhistory")UUID userStoryId){
+        List<BoardDto> boardDtos = boardService.getAllBoardsByTeamAndAreaAndUserStory(areaId,teamId,userStoryId);
+        if (!boardDtos.isEmpty()){
+            return new ResponseEntity<>(boardDtos,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

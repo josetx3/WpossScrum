@@ -13,4 +13,6 @@ public interface BoardService {
     BoardDto updateBoard(UUID boardId,BoardDto boardDto);
     Boolean deleteBoard(UUID boardId);
     Optional<BoardDto> getBoardById(UUID boardId);
+
+    List<BoardDto> getAllBoardsByTeamAndAreaAndUserStory(UUID areaId, UUID teamId, UUID userStoryId);
 }
