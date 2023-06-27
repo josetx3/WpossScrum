@@ -45,15 +45,17 @@ export class BoardSeeComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getAllBoard();
+    // this.getAllBoard();
     this.getAllArea();
   }
 
-  getAllBoard(){
-     this.boardService.getAllBoard().subscribe(resp =>{ //Trae todos los tabkeros
-      this.board = resp;
-    })
-  }
+  // getAllBoard(){
+  //    this.boardService.getAllBoard().subscribe(resp =>{ //Trae todos los tabkeros
+  //     this.board = resp;
+  //   })
+  // }
+
+  
 
   getAllArea(){
     this.areaServise.getAllArea().subscribe({  //Trae todas las areas
@@ -83,18 +85,28 @@ export class BoardSeeComponent implements OnInit{
 
   filterboard(): void {
     if (this.boardFrom.valid) {
+      // this.boardFrom.reset()
       const data = {
         teamId: this.boardFrom.get('teamId')?.value,
         userStoryId: this.boardFrom.get('userStoryId')?.value,
-        employeeId: this.boardFrom.get('areaId')?.value,
+        areaId: this.boardFrom.get('areaId')?.value,
       }
-      this.boardService.saveBoard(data).subscribe((resp) => {
-          this.boardFrom.reset()
-          this.route.navigateByUrl('app/board');
-        },
-      );
-    }
+        this.boardService.getBoardByAreaIdTeamIdUserStoryId(data.areaId, data.teamId, data.userStoryId).subscribe((resp)=>{
+        this.board = resp;
+        this.route.navigateByUrl('app/board');
+          },
+          err => {
+            Swal.fire({
+              title: 'Infomracion no exites?',
+              icon: 'warning',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            })
+
+          })      
+    };
   }
+  
 
   deleteBoard(id: string): void{
     Swal.fire({
@@ -135,14 +147,14 @@ export class BoardSeeComponent implements OnInit{
   editBoardModal(idBoard: String) {
     const dialogRef = this.dialog.open(BoardEditComponent, {width: '500px', maxHeight: '600px',   data:{idBoard: idBoard }});
      dialogRef.afterClosed().subscribe(resul => {
-      this.getAllBoard();
+    //  this.getAllBoard();
      })
   }
 
   addBoardModal() {
     const dialogRef = this.dialog.open(BoardComponent, {width: '500px', maxHeight:'600px'});
      dialogRef.afterClosed().subscribe(resul => {
-      this.getAllBoard();
+    //  this.getAllBoard();
      })
   }
 

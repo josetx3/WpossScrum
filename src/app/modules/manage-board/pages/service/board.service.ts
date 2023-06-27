@@ -66,6 +66,10 @@ export class BoardService {
     );
   }
 
+  getBoardByAreaIdTeamIdUserStoryId(areaId: string, teamId: string, userStoryId: string): Observable<any> {
+    return this.httpClient.get(this.API_SERVER + '/boardFilter/'+ areaId+ '/' + teamId +'/'+ userStoryId);
+  }
+
 
 
 }

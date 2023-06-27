@@ -71,9 +71,9 @@ export class BoardComponent implements OnInit {
     this.userStoryService.getUserStoryToTeam(this.teamId).subscribe(resp =>{
       this.userStory = resp;
     })
-    this.taskTeamService.getAllTaskTeamByTeamId(this.teamId).subscribe(resp =>{
-      this.taskTeam = resp;
-    })
+    // this.taskTeamService.getAllTaskTeamByTeamId(this.teamId).subscribe(resp =>{
+    //   this.taskTeam = resp;
+    // })
     this.getAllEmployeesTeam();
   }
 
