@@ -3,6 +3,7 @@ package com.wposs.scrum_back.userstory.service;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
+import com.wposs.scrum_back.userstory.dto.UserStoryDtoRequest;
 import com.wposs.scrum_back.userstory.entity.UserStory;
 import com.wposs.scrum_back.userstory.repository.UserStoryRepository;
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +80,29 @@ public class UserStoryServiceImpl implements UserStoryService{
                 .map(userStory -> {
                     return modelMapper.map(userStory,UserStoryDto.class);
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserStoryDtoRequest> getAllUserStoryRef(UUID idTeam, UUID idArea) {
+        List<Object[]> UserStory = userStoryRepository.getAllUserStoryRef(idTeam,idArea);
+        List<UserStoryDtoRequest> userStoryDtoRequests = new ArrayList<>();
+        if(UserStory.isEmpty()){
+            throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
+        }
+        for (Object[] userStory:UserStory) {
+            UserStoryDtoRequest userStoryDtoRequest = new UserStoryDtoRequest(
+                    userStory[0].toString(),
+                    Integer.parseInt(userStory[1].toString()),
+                    userStory[2].toString(),
+                    userStory[3].toString(),
+                    userStory[4].toString(),
+                    userStory[5].toString(),
+                    userStory[6].toString()
+            );
+            userStoryDtoRequests.add(userStoryDtoRequest);
+        }
+        return userStoryDtoRequests;
+
     }
 
 

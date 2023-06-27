@@ -16,4 +16,15 @@ public interface UserStoryRepository extends JpaRepository<UserStory, UUID> {
                 "INNER JOIN wposs.user_story us ON us.sub_project_id = sp.sub_project_id\n" +
                 "WHERE te.team_id=?1",nativeQuery = true)
         List<UserStory> getAllSserStoryToTeam(UUID tidTeam);
+
+        @Query(value = "SELECT us.user_story_name, us.user_story_score, uss.user_story_status_name, sp.sub_project_name,\n" +
+                "pro.project_name, ar.area_name, te.team_name\n" +
+                "FROM wposs.user_story us INNER JOIN wposs.user_story_status uss \n" +
+                "ON us.user_story_status_id = uss.user_story_status_id INNER JOIN wposs.sub_project sp\n" +
+                "ON sp.sub_project_id = us.sub_project_id INNER JOIN wposs.project pro \n" +
+                "ON sp.project_id = pro.project_id INNER JOIN wposs.area ar \n" +
+                "ON ar.area_id = pro.area_id INNER JOIN wposs.team te ON te.area_id = ar.area_id \n" +
+                "where te.team_id =?1 and ar.area_id = ?2 \n" +
+                "and uss.user_story_status_name = 'Inicio';", nativeQuery = true)
+        List<Object[]> getAllUserStoryRef(UUID idTeam, UUID idArea);
 }

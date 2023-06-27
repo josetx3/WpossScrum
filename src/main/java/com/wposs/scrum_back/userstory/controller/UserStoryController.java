@@ -1,8 +1,11 @@
 package com.wposs.scrum_back.userstory.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
+import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
+import com.wposs.scrum_back.userstory.dto.UserStoryDtoRequest;
 import com.wposs.scrum_back.userstory.entity.UserStory;
+import com.wposs.scrum_back.userstory.repository.UserStoryRepository;
 import com.wposs.scrum_back.userstory.service.UserStoryService;
 import com.wposs.scrum_back.userstory.service.UserStoryServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -99,5 +102,19 @@ public class UserStoryController {
             new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+    }
+
+    @GetMapping("/userstoryteam/{idTeam}/{idArea}")
+    @Operation(summary = "Get UserStory to team and area")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Get all Success"),
+            @ApiResponse(responseCode = "404",description = "Not Found")
+    })
+    public ResponseEntity<List<UserStoryDtoRequest>> getAllUserStoryRef(@PathVariable("idTeam") UUID idTeam, @PathVariable("idArea") UUID idArea){
+        List<UserStoryDtoRequest> userStoryDtoRequests = userStoryService.getAllUserStoryRef(idTeam, idArea);
+        if (!userStoryDtoRequests.isEmpty()){
+            return new ResponseEntity<>(userStoryDtoRequests,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
