@@ -9,6 +9,12 @@ import { Router } from '@angular/router';
 export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if(token==='' || token===null || token===undefined){
+
+    }else{
+      this.router.navigate(['/app'])
+    }
     let body = document.body;
     let script = document.createElement('script');
     script.innerHTML = '';

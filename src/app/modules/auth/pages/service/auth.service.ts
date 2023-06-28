@@ -11,9 +11,17 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   public PostEmailAndClave(employee: any): Observable<any> {
-    
+
     return this.httpClient.post(this.API_SERVER+'/login', employee);
 
+  }
+  public isAuthenticated():boolean{
+    const token = localStorage.getItem('token');
+    if(token==='' || token===null || token===undefined){
+      return false;
+    }else{
+      return true;
+    }
   }
 
 }

@@ -22,28 +22,28 @@
                     <div class="input-group">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
                       <input type="email" class="form-control" formControlName="employeeEmail" id="yourUserEmail">
-                      <div *ngIf="loginForm.get('employeeEmail')?.dirty || loginForm.get('employeeEmail')?.touched">
-                        <p *ngIf="loginForm.get('employeeEmail')?.hasError('required')"
-                          class="form-red-validator m-1">
-                          Debe escribir su Email
-                        </p>
-                      </div>
                     </div>
-                  
+                    <div *ngIf="loginForm.get('employeeEmail')?.dirty || loginForm.get('employeeEmail')?.touched">
+                      <p *ngIf="loginForm.get('employeeEmail')?.hasError('required')"
+                        class="form-red-validator m-1">
+                        Debe escribir su Email
+                      </p>
+                    </div>
+
                   </div>
                   <div class="col-12">
-                    <label for="yourEmployeePassword" class="form-label">Contraseña</label>
+                    <label for="youremployeePassword" class="form-label">Contraseña</label>
 
-                      <input type="password" class="form-control" formControlName="employeePassword" id="yourEmployeePassword">
-                      <div *ngIf="loginForm.get('EmployeePasswor')?.dirty || loginForm.get('EmployeePasswor')?.touched">
-                        <p *ngIf="loginForm.get('EmployeePasswor')?.hasError('required')"
+                      <input type="password" class="form-control" formControlName="employeePassword" id="youremployeePassword">
+                      <div *ngIf="loginForm.get('employeePassword')?.dirty || loginForm.get('employeePassword')?.touched">
+                        <p *ngIf="loginForm.get('employeePassword')?.hasError('required')"
                           class="form-red-validator m-1">
                           Debe escribir su contraseña
                         </p>
                     </div>
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Login</button>
+                    <button class="btn btn-primary w-100"  [disabled]="loginForm.invalid" type="submit">Login</button>
                   </div>
                   <div class="col-12">
                     <p class="small mb-0">No tienes cuenta? <a href="auth/register">Crea una cuenta</a></p>

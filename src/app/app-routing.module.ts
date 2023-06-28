@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './layout/landing-page/landing-page.component';
 import { MainComponent } from './layout/main/main.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
+    canActivate:[AuthGuard],
     component: MainComponent,
     children: [
       {
@@ -57,8 +59,18 @@ const routes: Routes = [
       {
         path: 'proyect',
         loadChildren: () => import('./modules/proyect/proyect.module').then(m => m.ProyectModule)
+      },
+      {
+        path:'**',
+        redirectTo:'/app',
+        pathMatch:'full'
       }
     ]
+  },
+  {
+    path:'**',
+    redirectTo:'',
+    pathMatch:'full'
   }
 ];
 
