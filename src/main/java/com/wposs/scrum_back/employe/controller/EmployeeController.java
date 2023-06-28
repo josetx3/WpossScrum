@@ -3,6 +3,7 @@ package com.wposs.scrum_back.employe.controller;
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.employe.service.EmployeService;
+import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,6 +23,9 @@ public class EmployeeController {
     @Autowired
     private EmployeService employeService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @GetMapping("/{id}")
     @Operation(summary = "Get employee by UUID")
     @ApiResponse(responseCode = "200",description = "success")
@@ -32,13 +36,23 @@ public class EmployeeController {
     @GetMapping("/all")
     @Operation(summary = "Get all employees")
     @ApiResponse(responseCode = "200",description = "success")
-    public ResponseEntity<List<EmployeDto>> findAll() {
-        List<EmployeDto> employeDtos = employeService.getAllEmploye();
-        if (!employeDtos.isEmpty()){
-            return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+    public ResponseEntity<List<EmployeDto>> findAll(@RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<EmployeDto> employeDtos = employeService.getAllEmploye();
+                if (!employeDtos.isEmpty()){
+                    return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
+
 
     @PostMapping("/save/")
     @Operation(summary = "Create employee")

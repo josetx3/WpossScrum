@@ -33,6 +33,10 @@ public class EmployeDto {
     @Email(message = "email mal estructurado")
     private String employeeEmail;
 
+    @JsonProperty(value = "employeePassword")
+    @NotEmpty
+    @Size(max = 64,message = "el password del empleado no puede exceder los 20 caracteres")
+    private String employeePassword;
     @JsonProperty(value = "employeeKnowledge")
     @NotNull(message = "El conocimiento del Empleado no puede ser null")
     @NotEmpty
@@ -80,4 +84,11 @@ public class EmployeDto {
         this.employeeKnowledge = employeeKnowledge;
     }
 
+    public String getEmployeePassword() {
+        return employeePassword;
+    }
+
+    public void setEmployeePassword(String employeePassword) {
+        this.employeePassword = employeePassword;
+    }
 }
