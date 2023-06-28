@@ -16,25 +16,37 @@
                   <h5 class="card-title text-center pb-0 fs-4">Ingresa a tu cuenta</h5>
                   <p class="text-center small">Ingresa tu usuario y contraseña</p>
                 </div>
-                <form class="row g-3 needs-validation" novalidate>
+                <form class="row g-3 needs-validation" [formGroup]="loginForm" (ngSubmit)="login()">
                   <div class="col-12">
                     <label for="yourUsername" class="form-label">Usuario</label>
-                    <div class="input-group has-validation">
+                    <div class="input-group">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
-                      <input type="text" name="username" class="form-control" id="yourUsername" required>
-                      <div class="invalid-feedback">Ingresa tu usuario</div>
+                      <input type="email" class="form-control" formControlName="employeeEmail" id="yourUserEmail">
+                      <div *ngIf="loginForm.get('employeeEmail')?.dirty || loginForm.get('employeeEmail')?.touched">
+                        <p *ngIf="loginForm.get('employeeEmail')?.hasError('required')"
+                          class="form-red-validator m-1">
+                          Debe escribir su Email
+                        </p>
+                      </div>
                     </div>
+                  
                   </div>
                   <div class="col-12">
-                    <label for="yourPassword" class="form-label">Contraseña</label>
-                    <input type="password" name="password" class="form-control" id="yourPassword" required>
-                    <div class="invalid-feedback">Ingresa tu contraseña</div>
+                    <label for="yourEmployeePassword" class="form-label">Contraseña</label>
+
+                      <input type="password" class="form-control" formControlName="EmployeePassword" id="yourEmployeePassword">
+                      <div *ngIf="loginForm.get('EmployeePasswor')?.dirty || loginForm.get('EmployeePasswor')?.touched">
+                        <p *ngIf="loginForm.get('EmployeePasswor')?.hasError('required')"
+                          class="form-red-validator m-1">
+                          Debe escribir su contraseña
+                        </p>
+                    </div>
                   </div>
                   <div class="col-12">
                     <button class="btn btn-primary w-100" type="submit">Login</button>
                   </div>
                   <div class="col-12">
-                    <p class="small mb-0">No tienes cuenta? <a href="app">Crea una cuenta</a></p>
+                    <p class="small mb-0">No tienes cuenta? <a href="auth/register">Crea una cuenta</a></p>
                   </div>
                 </form>
               </div>
