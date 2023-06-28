@@ -30,8 +30,20 @@ public class Employee {
     @Column(name = "employee_email", nullable = false, length = 100)
     private String employeeEmail;
 
+    @Column(name = "employee_password", length = 20)
+    private String employeePassword;
+
+    public String getEmployeePassword() {
+        return employeePassword;
+    }
+
+    public void setEmployeePassword(String employeePassword) {
+        this.employeePassword = employeePassword;
+    }
+
     @Column(name = "employee_knowledge", nullable = false, length = 200)
     private String employeeKnowledge;
+
     
     @ManyToMany(mappedBy = "employees")
     private List<Area> areas;
