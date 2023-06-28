@@ -34,7 +34,7 @@
                   <div class="col-12">
                     <label for="yourEmployeePassword" class="form-label">Contraseña</label>
 
-                      <input type="password" class="form-control" formControlName="EmployeePassword" id="yourEmployeePassword">
+                      <input type="password" class="form-control" formControlName="employeePassword" id="yourEmployeePassword">
                       <div *ngIf="loginForm.get('EmployeePasswor')?.dirty || loginForm.get('EmployeePasswor')?.touched">
                         <p *ngIf="loginForm.get('EmployeePasswor')?.hasError('required')"
                           class="form-red-validator m-1">
