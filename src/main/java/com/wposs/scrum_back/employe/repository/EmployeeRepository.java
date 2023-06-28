@@ -25,4 +25,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
     @Query(value = "SELECT em.* FROM wposs.employee em LEFT JOIN wposs.team_employee te ON te.employee_id = em.employee_id AND te.team_id=?1  WHERE te.employee_id IS NULL",nativeQuery=true)
     List<Employee> getAllnoExistAndTeam(UUID idTeam);
 
+    Employee findByEmployeeEmail(String employeeEmail);
+
 }

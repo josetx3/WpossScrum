@@ -5,9 +5,13 @@ import com.wposs.scrum_back.Exception.exceptions.RequestException;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.employe.entity.Employee;
 import com.wposs.scrum_back.employe.repository.EmployeeRepository;
+import com.wposs.scrum_back.utils.JWTUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +26,13 @@ public class EmployeServiceImpl implements EmployeService{
     private EmployeeRepository employeeRepository;
     @Autowired
     private ModelMapper modelMapper;
-
+    @Autowired
+    private JWTUtil jwtUtil;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public List<EmployeDto> getAllEmploye() {
+
         return employeeRepository.findAll().stream().map(employee -> {
             return modelMapper.map(employee,EmployeDto.class);
         }).collect(Collectors.toList());
@@ -39,7 +47,9 @@ public class EmployeServiceImpl implements EmployeService{
 
     @Override
     public EmployeDto seveEmploye(EmployeDto employeDto) {
+
         Employee employee = modelMapper.map(employeDto,Employee.class);
+        employee.setEmployeePassword(passwordEncoder.encode(employee.getEmployeePassword()));
         if (employeeRepository.existsByEmployeeName(employee.getEmployeeName())){
             throw new MessageGeneric("El empleado con este Nombre: "+employee.getEmployeeName()+" Ya se encuentra Registrado","409",HttpStatus.CONFLICT);
         }
@@ -81,6 +91,20 @@ public class EmployeServiceImpl implements EmployeService{
         return employeeRepository.getAllnoExistAndTeam(idTeam).stream().map(employeDto -> {
             return modelMapper.map(employeDto,EmployeDto.class);
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity login(String employeEmail, String employePassword) {
+        try{
+            Employee employee = employeeRepository.findByEmployeeEmail(employeEmail);
+            if(passwordEncoder.matches(employePassword,employee.getEmployeePassword())){
+                String token = jwtUtil.create(String.valueOf(employee.getEmployeeId()), employee.getEmployeeEmail());
+                return ResponseEntity.ok(token);
+            }
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

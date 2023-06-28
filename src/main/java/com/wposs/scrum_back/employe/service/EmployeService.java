@@ -1,6 +1,7 @@
 package com.wposs.scrum_back.employe.service;
 
 import com.wposs.scrum_back.employe.dto.EmployeDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +15,7 @@ public interface EmployeService {
     List<EmployeDto> getEmployeToTeam(UUID idTeam);
     List<EmployeDto> getEmployeToTeam2(UUID idTeam);
     List<EmployeDto> getAllEmployeeNoExitsAndTeam(UUID idTeam);
+
+    ResponseEntity login(String correo, String password);
+
 }
