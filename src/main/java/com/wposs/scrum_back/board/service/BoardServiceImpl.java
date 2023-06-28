@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -72,6 +73,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    @Transactional
     public List<BoardDto> getAllBoardsByTeamAndAreaAndUserStory(UUID areaId, UUID teamId, UUID userStoryId) {
         return boardRepository.getAllBoardsByTeamAndAreaAndUserStory(areaId,teamId,userStoryId).stream().map(board -> {
             return modelMapper.map(board,BoardDto.class);
