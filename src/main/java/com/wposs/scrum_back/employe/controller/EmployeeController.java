@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 @RequestMapping("/employee")
 public class EmployeeController {
 

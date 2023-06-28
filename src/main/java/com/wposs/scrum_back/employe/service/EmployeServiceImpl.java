@@ -4,8 +4,10 @@ import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.employe.entity.Employee;
+import com.wposs.scrum_back.employe.entity.response;
 import com.wposs.scrum_back.employe.repository.EmployeeRepository;
 import com.wposs.scrum_back.utils.JWTUtil;
+import net.minidev.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -99,7 +101,9 @@ public class EmployeServiceImpl implements EmployeService{
             Employee employee = employeeRepository.findByEmployeeEmail(employeEmail);
             if(passwordEncoder.matches(employePassword,employee.getEmployeePassword())){
                 String token = jwtUtil.create(String.valueOf(employee.getEmployeeId()), employee.getEmployeeEmail());
-                return ResponseEntity.ok(token);
+                response respon= new response();
+                respon.setToken(token);
+                return ResponseEntity.ok(respon);
             }
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
