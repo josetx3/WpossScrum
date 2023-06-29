@@ -16,12 +16,12 @@
       <li class="nav-item dropdown pe-3">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
           <img src="assets/img/persona.jpeg" width="40px" height="40px" alt="Profile" class="rounded-circle">
-          <span class="d-none d-md-block dropdown-toggle ps-2">Jose L.</span>
+          <span class="d-none d-md-block dropdown-toggle ps-2">{{nameE}}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
-            <h6>Jose Leonardo</h6>
-            <span>Front</span>
+            <h6>{{nameE}}</h6>
+            <span>{{charge}}</span>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -29,7 +29,7 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="#">
               <i class="bi bi-person"></i>
-              <span>mi perfil</span>
+              <span>Mi perfil</span>
             </a>
           </li>
           <li>
@@ -46,7 +46,7 @@
             <hr class="dropdown-divider">
           </li>
           <li>
-            <a class="dropdown-item d-flex align-items-center" routerLink="">
+            <a class="dropdown-item d-flex align-items-center" (click)="logout()" routerLink="">
               <i class="bi bi-box-arrow-right"></i>
               <span>Cerrar</span>
             </a>

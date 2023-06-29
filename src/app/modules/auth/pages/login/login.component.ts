@@ -33,10 +33,12 @@ export class LoginComponent implements OnInit{
         employeeEmail:this.loginForm.get('employeeEmail')?.value,
         employeePassword:this.loginForm.get('employeePassword')?.value,
       }
-      console.log(JSON.stringify(data))
+      //console.log(JSON.stringify(data))
         this.authService.PostEmailAndClave(data).subscribe(resp => {
         localStorage.setItem('token', resp.token);
-        console.log('resp contiene: '+resp.token);
+        localStorage.setItem('name', resp.nameE);
+        localStorage.setItem('charge', resp.charge);
+        //console.log('resp contiene: '+resp.token);
         this.router.navigate(['/app'])
       })
     }
