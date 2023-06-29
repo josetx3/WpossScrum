@@ -30,8 +30,16 @@ public class EmployeeController {
     @GetMapping("/{id}")
     @Operation(summary = "Get employee by UUID")
     @ApiResponse(responseCode = "200",description = "success")
-    public ResponseEntity<EmployeDto> findById(@PathVariable("id") UUID idEmploye) {
+    public ResponseEntity<EmployeDto> findById(@PathVariable("id") UUID idEmploye, @RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
         return employeService.getEmployeId(idEmploye).map(employeDto -> new ResponseEntity<>(employeDto,HttpStatus.OK)).orElse(null);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
     }
 
     @GetMapping("/all")
@@ -74,11 +82,19 @@ public class EmployeeController {
             @ApiResponse(responseCode = "200",description = "Return the updated employee"),
             @ApiResponse(responseCode = "404",description = "Employe Not Found")
     })
-    public ResponseEntity<EmployeDto> updateEmployee(@PathVariable("id") UUID employeeId,@RequestBody @Valid EmployeDto employeeDto,BindingResult result) {
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<EmployeDto> updateEmployee(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID employeeId,@RequestBody @Valid EmployeDto employeeDto,BindingResult result) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(employeService.updateEmploye(employeeId,employeeDto),HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(employeService.updateEmploye(employeeId,employeeDto),HttpStatus.OK);
     }
 
     @GetMapping("employeteam/{id}")
@@ -87,12 +103,20 @@ public class EmployeeController {
             @ApiResponse(responseCode = "200",description = "Get all Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
-    public ResponseEntity<List<EmployeDto>> getAllEmployeToTeam(@PathVariable("id") UUID idTeam){
-        List<EmployeDto> employeDtos = employeService.getEmployeToTeam(idTeam);
-        if (!employeDtos.isEmpty()){
-            return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+    public ResponseEntity<List<EmployeDto>> getAllEmployeToTeam(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID idTeam){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<EmployeDto> employeDtos = employeService.getEmployeToTeam(idTeam);
+                if (!employeDtos.isEmpty()){
+                    return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("employeetoteam/{id}")
@@ -101,12 +125,20 @@ public class EmployeeController {
             @ApiResponse(responseCode = "200",description = "Get all Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
-    public ResponseEntity<List<EmployeDto>> getAllEmployeToTeam2(@PathVariable("id") UUID idTeam){
-        List<EmployeDto> employeDtos = employeService.getEmployeToTeam2(idTeam);
-        if (!employeDtos.isEmpty()){
-            return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+    public ResponseEntity<List<EmployeDto>> getAllEmployeToTeam2(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID idTeam){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<EmployeDto> employeDtos = employeService.getEmployeToTeam2(idTeam);
+                if (!employeDtos.isEmpty()){
+                    return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
@@ -116,12 +148,20 @@ public class EmployeeController {
             @ApiResponse(responseCode = "200",description = ""),
             @ApiResponse(responseCode = "404",description = "")
     })
-    public ResponseEntity<List<EmployeDto>> getAllEmployeeNoExistsToTeam(@PathVariable("id") UUID idTeam){
-        List<EmployeDto> employeDtos = employeService.getAllEmployeeNoExitsAndTeam(idTeam);
-        if (!employeDtos.isEmpty()){
-            return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+    public ResponseEntity<List<EmployeDto>> getAllEmployeeNoExistsToTeam(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID idTeam){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<EmployeDto> employeDtos = employeService.getAllEmployeeNoExitsAndTeam(idTeam);
+                if (!employeDtos.isEmpty()){
+                    return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
