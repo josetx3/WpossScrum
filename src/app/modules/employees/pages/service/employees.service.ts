@@ -21,22 +21,32 @@ export class EmployeesService {
   }
 
   getEmployeeById(id: string | null): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/' + id);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);  
+    return this.httpClient.get(this.API_SERVER + '/' + id, {headers});
   }
 
   updateEmployee(id: string, employee: any) {
-    return this.httpClient.put(this.API_SERVER + '/' + id, employee);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);  
+    return this.httpClient.put(this.API_SERVER + '/' + id, employee, {headers});
   }
 
   getEmployeesAddToTeam(teamId: string | null): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/employeteam/' + teamId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);  
+    return this.httpClient.get(this.API_SERVER + '/employeteam/' + teamId, {headers});
   }
 
   getEmployeeToTeam(teamId: string | null): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/employeteam/' + teamId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);  
+    return this.httpClient.get(this.API_SERVER + '/employeteam/' + teamId, {headers});
   }
 
   getAllnoExistAndTeam(teamId: string | null): Observable<any>{
-    return this.httpClient.get(this.API_SERVER + '/employeenoteam/' + teamId)
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);  
+    return this.httpClient.get(this.API_SERVER + '/employeenoteam/' + teamId,{headers})
   }
 }
