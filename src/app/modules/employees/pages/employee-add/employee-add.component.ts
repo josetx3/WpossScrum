@@ -19,6 +19,7 @@ export class EmployeeAddComponent implements OnInit{
     employeeCharge: new FormControl(null, [Validators.required]),
     employeeEmail: new FormControl(null, [Validators.required, Validators.email]),
     employeeKnowledge: new FormControl(null, [Validators.required]),
+    employeePassword: new FormControl(null, [Validators.required]),
     employeeId: new FormControl()
   });
   employee: Employee | any;
@@ -41,7 +42,8 @@ export class EmployeeAddComponent implements OnInit{
         employeeName: this.employeeForm.get('employeeName')?.value,
         employeeCharge: this.employeeForm.get('employeeCharge')?.value,
         employeeEmail: this.employeeForm.get('employeeEmail')?.value,
-        employeeKnowledge: this.employeeForm.get('employeeKnowledge')?.value
+        employeeKnowledge: this.employeeForm.get('employeeKnowledge')?.value,
+        employeePassword: this.employeeForm.get('employeePassword')?.value
       }
       this.employeesService.saveEmployee(data).subscribe(
         (resp => {

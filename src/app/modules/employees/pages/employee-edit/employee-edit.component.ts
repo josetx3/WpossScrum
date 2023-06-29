@@ -13,17 +13,19 @@ import Swal from 'sweetalert2';
 })
 export class EmployeeEditComponent implements OnInit{
 
-
   employeeEditForm: FormGroup = new FormGroup({
     employeeName: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
     employeeCharge: new FormControl(null, [Validators.required]),
     employeeEmail: new FormControl(null, [Validators.required, Validators.email]),
     employeeKnowledge: new FormControl(null, [Validators.required]),
-    employeeId: new FormControl()
+    employeeId: new FormControl(),
+
   })
 
   employee: any;
+  employeePassword: any;
   id: any;
+
 
   constructor(
     private employeesService: EmployeesService,
@@ -43,12 +45,13 @@ export class EmployeeEditComponent implements OnInit{
   getEmployeeById(id: string | null) {
     this.employeesService.getEmployeeById(id).subscribe(resp => {
       this.employee = resp;
-
+      this.employeePassword= resp.employeePassword;
       this.employeeEditForm.patchValue({
         employeeName: resp.employeeName,
         employeeCharge: resp.employeeCharge,
         employeeEmail: resp.employeeEmail,
         employeeKnowledge: resp.employeeKnowledge,
+
       })
     })
   }
@@ -60,6 +63,7 @@ export class EmployeeEditComponent implements OnInit{
         employeeName: this.employeeEditForm.get('employeeName')?.value,
         employeeCharge: this.employeeEditForm.get('employeeCharge')?.value,
         employeeEmail: this.employeeEditForm.get('employeeEmail')?.value,
+        employeePassword:this.employeePassword,
         employeeKnowledge: this.employeeEditForm.get('employeeKnowledge')?.value,
       }
 

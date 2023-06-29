@@ -29,18 +29,6 @@
             </div>
           </div>
           <div class="row col-12">
-            <label for="inputEmail" class="col-6 col-form-label">Email</label>
-            <div class="col-12">
-              <input type="email" class="form-control" formControlName="employeeEmail">
-                            <div *ngIf="employeeForm.get('employeeEmail')?.dirty || employeeForm.get('employeeEmail')?.touched">
-                <p *ngIf="employeeForm.get('employeeEmail')?.hasError('required')"
-                  class="form-red-validator m-1">
-                  Este campo es requerido
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row col-12">
             <label for="inputEmail" class="col-6 col-form-label">Conocimiento en:</label>
             <div class="col-12">
               <input type="text" class="form-control" formControlName="employeeKnowledge">
@@ -52,6 +40,28 @@
               </div>
             </div>
           </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Email</label>
+            <div class="col-12">
+              <input type="email" class="form-control" formControlName="employeeEmail">
+                            <div *ngIf="employeeForm.get('employeeEmail')?.dirty || employeeForm.get('employeeEmail')?.touched">
+                <p *ngIf="employeeForm.get('employeeEmail')?.hasError('required')"
+                  class="form-red-validator m-1">
+                  Este campo es requerido
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="youremployeePassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" formControlName="employeePassword" id="youremployeePassword">
+              <div *ngIf="employeeForm.get('employeePassword')?.dirty || employeeForm.get('employeePassword')?.touched">
+                <p *ngIf="employeeForm.get('employeePassword')?.hasError('required')"
+                  class="form-red-validator m-1">
+                  Debe escribir su contraseña
+                </p>
+            </div>
+        </div>
           <div class="row col-6 mt-3 m-1">
             <button class="btn btn-primary" type="submit" [disabled]="employeeForm.invalid">Guardar</button>
           </div>
