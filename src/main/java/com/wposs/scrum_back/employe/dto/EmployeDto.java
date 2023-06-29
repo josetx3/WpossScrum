@@ -34,6 +34,7 @@ public class EmployeDto {
     private String employeeEmail;
 
     @JsonProperty(value = "employeePassword")
+    @NotNull(message = "La contrasena del Empleado no puede ser vacia")
     @NotEmpty
     @Size(max = 64,message = "el password del empleado no puede exceder los 20 caracteres")
     private String employeePassword;

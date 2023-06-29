@@ -30,7 +30,7 @@ public class Employee {
     @Column(name = "employee_email", nullable = false, length = 100)
     private String employeeEmail;
 
-    @Column(name = "employee_password", length = 64)
+    @Column(name = "employee_password", nullable = false, length = 64)
     private String employeePassword;
 
     public String getEmployeePassword() {
