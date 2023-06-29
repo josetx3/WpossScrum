@@ -11,7 +11,7 @@ import { EmployeeEditComponent } from '../employee-edit/employee-edit.component'
   styleUrls: ['./employee.component.scss']
 })
 export class EmployeeComponent implements OnInit{
-
+  
   employee: Employee[] = [];
   employeeId: string= '';
 
@@ -28,7 +28,11 @@ export class EmployeeComponent implements OnInit{
     this.getAllEmployee();
   }
 
+ 
   getAllEmployee() {
+
+    const token = localStorage.getItem('token');
+  
     this.employeesService.getAllEmployee().subscribe(resp => {
       this.employee = resp;
 

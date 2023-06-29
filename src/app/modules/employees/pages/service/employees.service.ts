@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,11 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class EmployeesService {
   private API_SERVER = 'http://localhost:8020/employee';
-
+  
   constructor(private httpClient: HttpClient) {}
 
   public getAllEmployee(): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);  
+  return this.httpClient.get(this.API_SERVER + '/all', {headers});
   }
 
   public saveEmployee(employee: any): Observable<any> {
