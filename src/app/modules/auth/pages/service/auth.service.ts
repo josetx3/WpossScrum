@@ -24,4 +24,9 @@ export class AuthService {
     }
   }
 
+  public register(employee: any): Observable<any> {
+    return this.httpClient.post('http://localhost:8020/employee' + '/save/', employee);
+  }
+
+
 }
