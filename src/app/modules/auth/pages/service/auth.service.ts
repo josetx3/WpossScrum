@@ -7,6 +7,7 @@ import { Observable, map } from 'rxjs';
 })
 export class AuthService {
   private API_SERVER = 'http://localhost:8020/auth';
+  private tokenExpiration: number= 3600000;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -28,5 +29,25 @@ export class AuthService {
     return this.httpClient.post('http://localhost:8020/employee' + '/save/', employee);
   }
 
+  setTokenExpiration(expiration: number): void {
+    this.tokenExpiration = expiration;
+  }
 
+  checkTokenExpiration(): boolean {
+    
+    const horaInicioSesion = localStorage.getItem('horaInicio');
+    if (horaInicioSesion) {
+      const horaInicio = new Date(horaInicioSesion);
+      const horaActual = new Date();
+
+      const diferenciaTiempo = horaActual.getTime() - horaInicio.getTime();
+
+      if (diferenciaTiempo >= this.tokenExpiration) {
+        return true;
+      }else {
+        return false;
+      }
+      } 
+      return false;
+}
 }

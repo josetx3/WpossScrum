@@ -35,10 +35,12 @@ export class LoginComponent implements OnInit{
       }
       //console.log(JSON.stringify(data))
         this.authService.PostEmailAndClave(data).subscribe(resp => {
-        localStorage.setItem('token', resp.token);
+        const currentTime= new Date();
+         localStorage.setItem('token', resp.token);
         localStorage.setItem('name', resp.nameE);
         localStorage.setItem('charge', resp.charge);
-        //console.log('resp contiene: '+resp.token);
+        localStorage.setItem('horaInicio', currentTime.toString() )
+        // console.log('resp contiene: '+resp.token);
         this.router.navigate(['/app'])
       })
     }

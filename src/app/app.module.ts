@@ -9,7 +9,7 @@ import { LandingPageComponent } from './layout/landing-page/landing-page.compone
 import { MainComponent } from './layout/main/main.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { SharedModule } from './shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule, LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -23,6 +23,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { TokenExpirationInterceptor } from './interceptors/token-expiration.interceptor';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,11 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass:TokenExpirationInterceptor,
+      multi: true
+    }
   ],
   exports: [FilterAddEmployeesTeamPipe],
   bootstrap: [AppComponent],
