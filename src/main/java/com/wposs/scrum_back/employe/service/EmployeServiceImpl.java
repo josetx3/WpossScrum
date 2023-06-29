@@ -103,6 +103,8 @@ public class EmployeServiceImpl implements EmployeService{
                 String token = jwtUtil.create(String.valueOf(employee.getEmployeeId()), employee.getEmployeeEmail());
                 response respon= new response();
                 respon.setToken(token);
+                respon.setNameE(employee.getEmployeeName());
+                respon.setCharge(employee.getEmployeeKnowledge());
                 return ResponseEntity.ok(respon);
             }
         }catch (Exception e){
