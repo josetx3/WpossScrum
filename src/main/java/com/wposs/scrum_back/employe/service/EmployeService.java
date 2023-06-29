@@ -12,6 +12,7 @@ public interface EmployeService {
     Optional<EmployeDto> getEmployeId(UUID idEmploye);
     EmployeDto seveEmploye(EmployeDto employeDto);
     EmployeDto updateEmploye(UUID idEmploye, EmployeDto employeDto);
+    EmployeDto updateEmployePass(UUID idEmploye,String password, EmployeDto employeDto);
     List<EmployeDto> getEmployeToTeam(UUID idTeam);
     List<EmployeDto> getEmployeToTeam2(UUID idTeam);
     List<EmployeDto> getAllEmployeeNoExitsAndTeam(UUID idTeam);

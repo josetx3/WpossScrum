@@ -74,6 +74,26 @@ public class EmployeServiceImpl implements EmployeService{
     }
 
     @Override
+    public EmployeDto updateEmployePass(UUID idEmploye,String password, EmployeDto employeDto) {
+        try {
+            Employee employee1 = employeeRepository.findByEmployeeEmail(employeDto.getEmployeeEmail());
+            if (passwordEncoder.matches(password, employee1.getEmployeePassword())) {
+                return employeeRepository.findById(idEmploye).map(employee -> {
+                    employee.setEmployeeName((employeDto.getEmployeeName() != null) ? employeDto.getEmployeeName() : employee.getEmployeeName());
+                    employee.setEmployeeCharge((employeDto.getEmployeeCharge() != null) ? employeDto.getEmployeeCharge() : employee.getEmployeeCharge());
+                    employee.setEmployeeEmail((employeDto.getEmployeeEmail() != null) ? employeDto.getEmployeeEmail() : employee.getEmployeeEmail());
+                    employee.setEmployeePassword((employeDto.getEmployeePassword() != null) ? employeDto.getEmployeePassword() : employee.getEmployeePassword());
+                    employee.setEmployeeKnowledge((employeDto.getEmployeeKnowledge() != null) ? employeDto.getEmployeeKnowledge() : employee.getEmployeeKnowledge());
+                    return modelMapper.map(employeeRepository.save(employee), EmployeDto.class);
+                }).orElseThrow(() -> new MessageGeneric("No se encontro el Empleado a Actualizar", "404", HttpStatus.NOT_FOUND));
+            }
+            return employeDto;
+        }catch (Exception e){
+            return employeDto;
+        }
+    }
+
+    @Override
     public List<EmployeDto> getEmployeToTeam(UUID idTeam) {
         return employeeRepository.getEmployeToTeam(idTeam).stream().map(employee -> {
             return modelMapper.map(employee,EmployeDto.class);
@@ -105,6 +125,7 @@ public class EmployeServiceImpl implements EmployeService{
                 respon.setToken(token);
                 respon.setNameE(employee.getEmployeeName());
                 respon.setCharge(employee.getEmployeeKnowledge());
+                respon.setIdE(String.valueOf(employee.getEmployeeId()));
                 return ResponseEntity.ok(respon);
             }
         }catch (Exception e){

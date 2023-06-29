@@ -5,6 +5,16 @@ public class response {
     public String nameE;
     public  String charge;
 
+    public  String idE;
+
+    public String getIdE() {
+        return idE;
+    }
+
+    public void setIdE(String idE) {
+        this.idE = idE;
+    }
+
     public String getNameE() {
         return nameE;
     }
