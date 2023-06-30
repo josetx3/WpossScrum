@@ -82,13 +82,16 @@ public class EmployeServiceImpl implements EmployeService{
                     employee.setEmployeeName((employeDto.getEmployeeName() != null) ? employeDto.getEmployeeName() : employee.getEmployeeName());
                     employee.setEmployeeCharge((employeDto.getEmployeeCharge() != null) ? employeDto.getEmployeeCharge() : employee.getEmployeeCharge());
                     employee.setEmployeeEmail((employeDto.getEmployeeEmail() != null) ? employeDto.getEmployeeEmail() : employee.getEmployeeEmail());
+                    employeDto.setEmployeePassword(passwordEncoder.encode(employeDto.getEmployeePassword()));
                     employee.setEmployeePassword((employeDto.getEmployeePassword() != null) ? employeDto.getEmployeePassword() : employee.getEmployeePassword());
                     employee.setEmployeeKnowledge((employeDto.getEmployeeKnowledge() != null) ? employeDto.getEmployeeKnowledge() : employee.getEmployeeKnowledge());
                     return modelMapper.map(employeeRepository.save(employee), EmployeDto.class);
                 }).orElseThrow(() -> new MessageGeneric("No se encontro el Empleado a Actualizar", "404", HttpStatus.NOT_FOUND));
             }
+            employeDto.setEmployeePassword(password);
             return employeDto;
         }catch (Exception e){
+            employeDto.setEmployeePassword(password);
             return employeDto;
         }
     }
@@ -124,7 +127,7 @@ public class EmployeServiceImpl implements EmployeService{
                 response respon= new response();
                 respon.setToken(token);
                 respon.setNameE(employee.getEmployeeName());
-                respon.setCharge(employee.getEmployeeKnowledge());
+                respon.setCharge(employee.getEmployeeCharge());
                 respon.setIdE(String.valueOf(employee.getEmployeeId()));
                 return ResponseEntity.ok(respon);
             }

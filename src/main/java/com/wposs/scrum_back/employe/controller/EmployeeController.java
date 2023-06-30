@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
@@ -89,6 +90,27 @@ public class EmployeeController {
                     throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
                 return new ResponseEntity<>(employeService.updateEmploye(employeeId,employeeDto),HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
+    }
+
+    @PutMapping("/{id}/{password}")
+    @Operation(summary = "Update the employee with new password")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Return the updated employee"),
+            @ApiResponse(responseCode = "404",description = "Employe Not Found")
+    })
+    public ResponseEntity<EmployeDto> updateEmployeePass(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID employeeId,@PathVariable("password") String password,@RequestBody @Valid EmployeDto employeeDto,BindingResult result) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(employeService.updateEmployePass(employeeId,password,employeeDto),HttpStatus.OK);
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){
