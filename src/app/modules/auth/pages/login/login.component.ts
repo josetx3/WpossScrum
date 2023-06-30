@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 
@@ -43,6 +44,21 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('id', resp.idE)
         // console.log('resp contiene: '+resp.token);
         this.router.navigate(['/app'])
+      },err =>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'warning',
+          title: 'Las credenciales de acceso son incorrectas',
+          showConfirmButton: false,
+          timer: 1500,
+          toast: true,
+          customClass: {
+            container: 'my-swal-container',
+            title: 'my-swal-title',
+            icon: 'my-swal-icon',
+            popup: 'my-swal-popup',
+          },
+        })
       })
     }
   }

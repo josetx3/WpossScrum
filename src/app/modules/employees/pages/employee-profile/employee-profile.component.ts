@@ -12,8 +12,7 @@ import Swal from 'sweetalert2';
 export class EmployeeProfileComponent implements OnInit{
   myProfile:  Employee2[]=[];
   id: any;
- 
-  
+
 
   perfilEditForm: FormGroup = new FormGroup({
     employeeName: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
@@ -32,12 +31,13 @@ export class EmployeeProfileComponent implements OnInit{
 
    ngOnInit(): void {
     this.id= localStorage.getItem('id');
-    this.getEmployeeById(this.id)    
+    this.getEmployeeById(this.id)
   }
 
   getEmployeeById(id: string | null) {
     this.employeeService.getEmployeeById(id).subscribe(resp => {
       this.myProfile = resp;
+      console.log(this.myProfile);
       this.perfilEditForm.patchValue({
         employeeName: resp.employeeName,
         employeeCharge: resp.employeeCharge,
@@ -59,31 +59,37 @@ export class EmployeeProfileComponent implements OnInit{
 
       const employeeCurrentPassword= this.perfilEditForm.get('employeeCurrentPassword')?.value;
 
-      this.employeeService.updateEmployee2(this.id, employeeCurrentPassword,  data).subscribe((res) =>{
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Empleado editado',
-          showConfirmButton: false,
-          timer: 1500,
-          toast: true,
-          customClass: {
-            container: 'my-swal-container',
-            title: 'my-swal-title',
-            icon: 'my-swal-icon',
-            popup: 'my-swal-popup',
-          },
-        }),
-        this.perfilEditForm.reset();
-      })
-
+      this.employeeService.updateEmployee2(this.id, employeeCurrentPassword,data).subscribe((resp) =>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Datos de acceso editados',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+              popup: 'my-swal-popup',
+            },
+          })
+        },err =>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'La contraseña diligenciada no es la actual',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+              popup: 'my-swal-popup',
+            },
+          })
+        })
     }
-
   }
-
-
-
-
-  
-
 }
