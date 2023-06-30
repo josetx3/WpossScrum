@@ -20,6 +20,8 @@ export class EmployeeProfileComponent implements OnInit{
     employeeEmail: new FormControl(null, [Validators.required, Validators.email]),
     employeeKnowledge: new FormControl(null, [Validators.required]),
     employeeId: new FormControl(),
+    employeeCurrentPassword: new FormControl(null, [Validators.required]),
+    employeeNewPassword: new FormControl(null, [Validators.required])
 
   })
 
