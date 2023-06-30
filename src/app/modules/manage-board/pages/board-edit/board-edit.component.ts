@@ -100,7 +100,7 @@ export class BoardEditComponent implements OnInit {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Proyecto aditado',
+            title: 'Proyecto editado',
             showConfirmButton: false,
             timer: 1500
           })

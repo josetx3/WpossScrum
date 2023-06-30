@@ -32,6 +32,12 @@ export class EmployeesService {
     return this.httpClient.put(this.API_SERVER + '/' + id, employee, {headers});
   }
 
+  updateEmployee2(id: string, actual:string, employee: any) {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put(this.API_SERVER + '/' + id + '/' +actual, employee, {headers});
+  }
+
   getEmployeesAddToTeam(teamId: string | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);

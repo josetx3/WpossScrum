@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('name', resp.nameE);
         localStorage.setItem('charge', resp.charge);
         localStorage.setItem('horaInicio', currentTime.toString() )
+        localStorage.setItem('id', resp.idE)
         // console.log('resp contiene: '+resp.token);
         this.router.navigate(['/app'])
       })

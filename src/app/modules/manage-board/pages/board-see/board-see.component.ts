@@ -97,7 +97,7 @@ export class BoardSeeComponent implements OnInit{
           },
           err => {
             Swal.fire({
-              title: 'Infomracion no exites?',
+              title: 'El tablero que ha intentado buscar no existe.',
               icon: 'warning',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK'

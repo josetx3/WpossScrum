@@ -7,12 +7,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmployeeProfileComponent } from './pages/employee-profile/employee-profile.component';
+
 
 @NgModule({
   declarations: [
     EmployeeComponent,
     EmployeeAddComponent,
     EmployeeEditComponent,
+    EmployeeProfileComponent
+
   ],
   imports: [
     CommonModule,
