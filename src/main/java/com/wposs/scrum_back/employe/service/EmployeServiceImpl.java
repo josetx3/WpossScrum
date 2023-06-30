@@ -76,8 +76,8 @@ public class EmployeServiceImpl implements EmployeService{
     @Override
     public EmployeDto updateEmployePass(UUID idEmploye,String password, EmployeDto employeDto) {
         try {
-            Employee employee1 = employeeRepository.findByEmployeeEmail(employeDto.getEmployeeEmail());
-            if (passwordEncoder.matches(password, employee1.getEmployeePassword())) {
+            Optional<Employee> employee1 = employeeRepository.findById(idEmploye);
+            if (passwordEncoder.matches(password, employee1.get().getEmployeePassword())) {
                 return employeeRepository.findById(idEmploye).map(employee -> {
                     employee.setEmployeeName((employeDto.getEmployeeName() != null) ? employeDto.getEmployeeName() : employee.getEmployeeName());
                     employee.setEmployeeCharge((employeDto.getEmployeeCharge() != null) ? employeDto.getEmployeeCharge() : employee.getEmployeeCharge());
