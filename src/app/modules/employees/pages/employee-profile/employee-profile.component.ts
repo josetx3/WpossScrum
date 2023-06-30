@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class EmployeeProfileComponent implements OnInit{
   myProfile:  Employee2[]=[];
   id: any;
+ 
   
 
   perfilEditForm: FormGroup = new FormGroup({
