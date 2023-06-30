@@ -88,11 +88,13 @@ public class EmployeServiceImpl implements EmployeService{
                     return modelMapper.map(employeeRepository.save(employee), EmployeDto.class);
                 }).orElseThrow(() -> new MessageGeneric("No se encontro el Empleado a Actualizar", "404", HttpStatus.NOT_FOUND));
             }
-            employeDto.setEmployeePassword(password);
-            return employeDto;
+            throw new MessageGeneric("CONTRASEÑA NO VALIDA","",HttpStatus.NOT_FOUND);
+            //employeDto.setEmployeePassword(password);
+            //return employeDto;
         }catch (Exception e){
-            employeDto.setEmployeePassword(password);
-            return employeDto;
+            throw new MessageGeneric("CONTRASEÑA NO VALIDA","",HttpStatus.NOT_FOUND);
+            //employeDto.setEmployeePassword(password);
+            //return employeDto;
         }
     }
 

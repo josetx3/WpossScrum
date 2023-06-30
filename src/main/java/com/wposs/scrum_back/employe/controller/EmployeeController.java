@@ -107,10 +107,15 @@ public class EmployeeController {
     public ResponseEntity<EmployeDto> updateEmployeePass(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID employeeId,@PathVariable("password") String password,@RequestBody @Valid EmployeDto employeeDto,BindingResult result) {
         try{
             if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                try {
+                    if (result.hasErrors()){
+                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                    }
+                    return new ResponseEntity<>(employeService.updateEmployePass(employeeId,password,employeeDto),HttpStatus.OK);
+                }catch (Exception e){
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
-                return new ResponseEntity<>(employeService.updateEmployePass(employeeId,password,employeeDto),HttpStatus.OK);
+
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){
