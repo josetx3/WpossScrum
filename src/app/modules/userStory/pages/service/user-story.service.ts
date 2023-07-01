@@ -39,7 +39,7 @@ export class userStoryService {
   updateUserStory(id:string,dataUserStory:any){
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.put("http://localhost:8020/userstory/"+id,dataUserStory);
+    return this.httpClient.put("http://localhost:8020/userstory/"+id,dataUserStory, {headers});
   }
 
   public getAllUserStoryToSubproject(subProjectId: string | null):Observable<UserStory>{
