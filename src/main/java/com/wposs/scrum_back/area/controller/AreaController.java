@@ -3,6 +3,7 @@ package com.wposs.scrum_back.area.controller;
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.area.dto.AreaDto;
 import com.wposs.scrum_back.area.service.AreaServiceImpl;
+import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,22 +23,43 @@ public class AreaController {
     @Autowired
     private AreaServiceImpl areaService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @GetMapping("/{id}")
     @Operation(summary = "Get Area to Id")
     @ApiResponse(responseCode = "200", description = "Area Success")
-    public ResponseEntity<AreaDto> findById(@PathVariable UUID id) {
-        return areaService.getAreaId(id).map(areaDto -> new ResponseEntity<>(areaDto, HttpStatus.OK)).orElse(null);
+    public ResponseEntity<AreaDto> findById(@PathVariable UUID id, @RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                return areaService.getAreaId(id).map(areaDto -> new ResponseEntity<>(areaDto, HttpStatus.OK)).orElse(null);
+
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
     }
 
     @GetMapping("/all")
     @Operation(summary = "Get all areas")
     @ApiResponse(responseCode = "200", description = "Get All List Success")
-    public ResponseEntity<List<AreaDto>> findAll() {
-        List<AreaDto> areaDtos = areaService.getAllArea();
-        if (!areaDtos.isEmpty()) {
-            return new ResponseEntity<>(areaDtos, HttpStatus.OK);
+    public ResponseEntity<List<AreaDto>> findAll(@RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<AreaDto> areaDtos = areaService.getAllArea();
+                if (!areaDtos.isEmpty()) {
+                    return new ResponseEntity<>(areaDtos, HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/save/")
@@ -46,11 +68,20 @@ public class AreaController {
             @ApiResponse(responseCode = "201", description = "Created Area"),
             @ApiResponse(responseCode = "400", description = "Area Bad Request")
     })
-    public ResponseEntity<AreaDto> create(@Valid @RequestBody AreaDto areaDto, BindingResult result) {
-        if(result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted a ingresado: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<AreaDto> create(@Valid @RequestBody AreaDto areaDto, BindingResult result, @RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if(result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted a ingresado: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(areaService.saveArea(areaDto),HttpStatus.CREATED);
+
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(areaService.saveArea(areaDto),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -59,11 +90,20 @@ public class AreaController {
             @ApiResponse(responseCode = "200", description = "Return the updated area"),
             @ApiResponse(responseCode = "404", description = "Area Not Found")
     })
-    public ResponseEntity<AreaDto> updateArea(@RequestBody AreaDto areaDto, @PathVariable("id") UUID areaId,BindingResult result) {
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted a ingresado: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<AreaDto> updateArea(@RequestBody AreaDto areaDto, @PathVariable("id") UUID areaId,BindingResult result, @RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted a ingresado: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(areaService.updateArea(areaId, areaDto), HttpStatus.OK);
+
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(areaService.updateArea(areaId, areaDto), HttpStatus.OK);
     }
 
 
@@ -73,10 +113,19 @@ public class AreaController {
             @ApiResponse(responseCode = "200",description = "DELETE SUCCESS"),
             @ApiResponse(responseCode = "404",description = "AREA NOT FOUND")
     })
-    public ResponseEntity deleteArea(@PathVariable("id")UUID idArea){
-        if (areaService.deleteArea(idArea)) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity deleteArea(@PathVariable("id")UUID idArea, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (areaService.deleteArea(idArea)) {
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
