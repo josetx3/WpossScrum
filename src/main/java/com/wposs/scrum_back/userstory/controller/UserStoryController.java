@@ -116,7 +116,7 @@ public class UserStoryController {
         }
     }
 
-    @Transactional
+
     @GetMapping("/subproject/{subprojectId}")
     @Operation(summary = "Get all user stories by subproject id")
     @ApiResponse(responseCode = "200",description = "successful search")

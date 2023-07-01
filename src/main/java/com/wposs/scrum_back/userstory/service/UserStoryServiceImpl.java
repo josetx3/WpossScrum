@@ -33,6 +33,7 @@ public class UserStoryServiceImpl implements UserStoryService{
     }
 
     @Override
+    @Transactional
     public List<UserStoryDto> getAllUserStoryToSubProject(UUID idSubProject) {
         return userStoryRepository.findBySubProjectId(idSubProject).stream()
                 .map(userStory -> {

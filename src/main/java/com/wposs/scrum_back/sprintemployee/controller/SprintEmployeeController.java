@@ -115,11 +115,16 @@ public class SprintEmployeeController {
     public ResponseEntity<List<SprintEmployeeDto>> getAllEmployeToTeam(@PathVariable("idSprint") UUID idSprint, @PathVariable("idTeam") UUID idTeam,@RequestHeader(value="Authorization") String token){
         try{
             if(jwtUtil.getKey(token) != null) {
-                List<SprintEmployeeDto> sprintEmployeeDtos = sprintEmployeeService.getEmployeToTeam(idSprint, idTeam);
-                if (!sprintEmployeeDtos.isEmpty()){
-                    return new ResponseEntity<>(sprintEmployeeDtos,HttpStatus.OK);
+                try{
+                    List<SprintEmployeeDto> sprintEmployeeDtos = sprintEmployeeService.getEmployeToTeam(idSprint, idTeam);
+                    if (!sprintEmployeeDtos.isEmpty()){
+                        return new ResponseEntity<>(sprintEmployeeDtos,HttpStatus.OK);
+                    }
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }catch (Exception e){
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){
