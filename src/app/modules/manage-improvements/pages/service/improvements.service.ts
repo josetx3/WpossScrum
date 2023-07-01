@@ -7,7 +7,7 @@ import { ManageImprovements } from '../interface/improvements';
   providedIn: 'root'
 })
 export class ImprovementsService {
-  private API_SERVER = 'http://localhost:8020/improvements/';
+  private API_SERVER = 'http://localhost:8020/improvements';
 
   constructor(
     private httpClient: HttpClient
@@ -29,13 +29,13 @@ export class ImprovementsService {
   deleteImprovements(id: string):Observable<ManageImprovements[]>{
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.delete<ManageImprovements[]>(this.API_SERVER +'deleteimprovements/'+id, {headers})
+    return this.httpClient.delete<ManageImprovements[]>(this.API_SERVER +'/deleteimprovements/'+id, {headers})
   }
 
   getImprovementsById(improvementsId: string):Observable<ManageImprovements[]>{
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get<ManageImprovements[]>(this.API_SERVER+'improvementsId/'+improvementsId, {headers});
+    return this.httpClient.get<ManageImprovements[]>(this.API_SERVER+'/improvementsId/'+improvementsId, {headers});
   }
 
   getTeamArea(areaId: string): Observable<any>{

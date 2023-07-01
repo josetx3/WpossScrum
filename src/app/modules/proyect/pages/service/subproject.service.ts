@@ -15,7 +15,7 @@ export class SubprojectService {
   public getAllSubprojects():Observable<any>{
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get(this.API_SERVER+"/all");
+    return this.httpClient.get(this.API_SERVER+"/all",{headers} );
   }
 
 
