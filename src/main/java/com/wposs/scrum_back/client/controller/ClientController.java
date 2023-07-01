@@ -5,6 +5,8 @@ import com.wposs.scrum_back.client.dto.ClientDto;
 import com.wposs.scrum_back.client.entity.Client;
 import com.wposs.scrum_back.client.service.ClientServiceImpl;
 import com.wposs.scrum_back.client.service.ClienteService;
+import com.wposs.scrum_back.employe.dto.EmployeDto;
+import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,29 +23,46 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.*;
 
 @RestController
 @RequestMapping("/client")
 public class ClientController {
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private JWTUtil jwtUtil;
 
     @GetMapping("/{id}")
     @Operation(summary = "Get client by String")
     @ApiResponse(responseCode = "200",description = "successful search")
-    public ResponseEntity<ClientDto> findById(@PathVariable String id){
-        return clienteService.getClienteId(id).map(clientDto -> new ResponseEntity<>(clientDto,HttpStatus.OK)).orElse(null);
+    public ResponseEntity<ClientDto> findById(@PathVariable String id,@RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                return clienteService.getClienteId(id).map(clientDto -> new ResponseEntity<>(clientDto,HttpStatus.OK)).orElse(null);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @GetMapping("/all")
     @Operation(summary = "Get all clients")
     @ApiResponse(responseCode = "200",description = "successful search")
-    public ResponseEntity<List<ClientDto>> findAll(){
-        List<ClientDto> clients = clienteService.gatAllCliente();
-        if (!clients.isEmpty()){
-            return new ResponseEntity<>(clients,HttpStatus.OK);
+    public ResponseEntity<List<ClientDto>> findAll(@RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<ClientDto> clients = clienteService.gatAllCliente();
+                if (!clients.isEmpty()){
+                    return new ResponseEntity<>(clients,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/save/")
@@ -52,11 +71,18 @@ public class ClientController {
             @ApiResponse(responseCode = "201",description = "Client Created"),
             @ApiResponse(responseCode = "400",description = "client bad request")
     })
-    public ResponseEntity<ClientDto> create(@Valid @RequestBody ClientDto clientDto, BindingResult result){
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ClientDto> create(@Valid @RequestBody ClientDto clientDto, BindingResult result, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(clienteService.saveCliente(clientDto),HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(clienteService.saveCliente(clientDto),HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -66,11 +92,23 @@ public class ClientController {
             @ApiResponse(responseCode = "400",description = "Returns the data sent is invalid"),
             @ApiResponse(responseCode = "404",description = "Cliente Not Found")
     })
-    public ResponseEntity<ClientDto> updateClient(@Valid @RequestBody ClientDto clientDto, @PathVariable("id") String clientId,BindingResult result) {
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ClientDto> updateClient(@Valid @RequestBody ClientDto clientDto, @PathVariable("id") String clientId,BindingResult result,@RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                try {
+                    if (result.hasErrors()){
+                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                    }
+                    return new ResponseEntity<>(clienteService.updateCliente(clientId,clientDto),HttpStatus.OK);
+                }catch (Exception e){
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(clienteService.updateCliente(clientId,clientDto),HttpStatus.OK);
+
     }
 
 }
