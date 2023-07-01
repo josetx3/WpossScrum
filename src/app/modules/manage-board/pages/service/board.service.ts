@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IBoard } from '../interface/board';
@@ -16,60 +16,75 @@ export class BoardService {
   constructor(private httpClient: HttpClient) {}
 
   public getAllBoard(): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/allboards');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/allboards', {headers});
   }
+
   public saveBoard(board: any): Observable<any> {
-    return this.httpClient.post(this.API_SERVER + '/saveboard', board);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post(this.API_SERVER + '/saveboard', board, {headers});
   }
 
 
 
   getUserStoryTeam(teamId: string): Observable<any> {
-    return this.httpClient.get(
-      'http://localhost:8020/userstory/userstoryteam/' + teamId
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/' + teamId,{headers});
   }
+
   getTeamArea(areaId: string): Observable<any> {
-    return this.httpClient.get('http://localhost:8020/team/area/' + areaId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/team/area/' + areaId, {headers});
   }
 
   deleteBoard(id: string): Observable<IBoard[]> {
-    return this.httpClient.delete<IBoard[]>(
-      this.API_SERVER + '/deleteboard/' + id
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.delete<IBoard[]>(this.API_SERVER + '/deleteboard/' + id, {headers});
   }
 
   updateBoard(idBoard: String, dataBoard: any) {
-    return this.httpClient.put(
-      this.API_SERVER + '/updateboard/' + idBoard,
-      dataBoard
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put(this.API_SERVER + '/updateboard/' + idBoard,dataBoard,{headers});
   }
 
   getAllBoardById(idBoard: string | null): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/boardid/' + idBoard);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/boardid/' + idBoard, {headers});
   }
 
   getEmployees(): Observable<Employee> {
-    return this.httpClient.get<Employee>('http://localhost:8020/employee/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get<Employee>('http://localhost:8020/employee/all', {headers});
   }
 
   getAllTeam(): Observable<Team> {
-    return this.httpClient.get<Team>('http://localhost:8020/team/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get<Team>('http://localhost:8020/team/all', {headers});
   }
+
   getAllTaskTeam(): Observable<Tasks> {
-    return this.httpClient.get<Tasks>('http://localhost:8020/taskteam/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get<Tasks>('http://localhost:8020/taskteam/all', {headers});
   }
   getAllUserStory(): Observable<UserStory> {
-    return this.httpClient.get<UserStory>(
-      'http://localhost:8020/userstory/userstory/all'
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get<UserStory>('http://localhost:8020/userstory/userstory/all',  {headers} );
   }
 
   getBoardByAreaIdTeamIdUserStoryId(areaId: string, teamId: string, userStoryId: string): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/boardFilter/'+ areaId+ '/' + teamId +'/'+ userStoryId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/boardFilter/'+ areaId+ '/' + teamId +'/'+ userStoryId,  {headers});
   }
-
-
-
 }
