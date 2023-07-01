@@ -4,6 +4,7 @@ import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException
 import com.wposs.scrum_back.improvements.dto.ImprovementsDto;
 import com.wposs.scrum_back.improvements.entity.Improvements;
 import com.wposs.scrum_back.improvements.service.ImprovementsService;
+import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,18 +24,29 @@ public class ImprovementsController {
     @Autowired
     private ImprovementsService improvementsService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @GetMapping("/all")
     @Operation(summary = "Get All Improvements")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get All Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Improvements")
     })
-    public ResponseEntity<List<ImprovementsDto>> getAllImprovements(){
-        List<ImprovementsDto> improvementsDtos = improvementsService.getAllImprovements();
-        if (!improvementsDtos.isEmpty()){
-            return new ResponseEntity<>(improvementsDtos, HttpStatus.OK);
+    public ResponseEntity<List<ImprovementsDto>> getAllImprovements(@RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<ImprovementsDto> improvementsDtos = improvementsService.getAllImprovements();
+                if (!improvementsDtos.isEmpty()){
+                    return new ResponseEntity<>(improvementsDtos, HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/saveimprovements")
@@ -43,11 +55,19 @@ public class ImprovementsController {
             @ApiResponse(responseCode = "201",description = "Save Improvements Success"),
             @ApiResponse(responseCode = "400",description = "JSON Bad Request")
     })
-    public ResponseEntity<ImprovementsDto> saveImprovements(@Valid @RequestBody ImprovementsDto improvementsDto, BindingResult result){
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ImprovementsDto> saveImprovements(@Valid @RequestBody ImprovementsDto improvementsDto, BindingResult result,@RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(improvementsService.saveImprovements(improvementsDto),HttpStatus.CREATED);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(improvementsService.saveImprovements(improvementsDto),HttpStatus.CREATED);
     }
 
     @GetMapping("/improvementsId/{id}")
@@ -56,10 +76,18 @@ public class ImprovementsController {
             @ApiResponse(responseCode = "200",description = "Improvements Success"),
             @ApiResponse(responseCode = "404",description = "Improvements Not Found")
     })
-    public ResponseEntity<ImprovementsDto> getByIdImprovements(@PathVariable("id")UUID idImprovemets){
-        return improvementsService.getByIdimprovements(idImprovemets)
-                .map(improvementsDto -> new ResponseEntity<>(improvementsDto,HttpStatus.OK))
-                .orElse(null);
+    public ResponseEntity<ImprovementsDto> getByIdImprovements(@PathVariable("id")UUID idImprovemets,@RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                return improvementsService.getByIdimprovements(idImprovemets)
+                        .map(improvementsDto -> new ResponseEntity<>(improvementsDto,HttpStatus.OK))
+                        .orElse(null);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
     }
 
     @DeleteMapping("/deleteimprovements/{idimprovements}")
@@ -68,10 +96,18 @@ public class ImprovementsController {
             @ApiResponse(responseCode = "204",description = "Delete Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Improvements")
     })
-    public ResponseEntity deleteImprovements(@PathVariable("idimprovements") UUID idImprovements){
-        if (improvementsService.deleteImprovements(idImprovements)){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity deleteImprovements(@PathVariable("idimprovements") UUID idImprovements,@RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (improvementsService.deleteImprovements(idImprovements)){
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
