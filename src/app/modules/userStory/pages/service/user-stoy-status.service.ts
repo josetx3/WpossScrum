@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable, observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,8 @@ export class UserStoyStatusService {
   constructor( private httpCliente: HttpClient) { }
 
   public getAlluser_story_status(): Observable<UserStoyStatusService>{
-    return this.httpCliente.get<UserStoyStatusService>(this.API_SERVER+"/statusall")
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpCliente.get<UserStoyStatusService>(this.API_SERVER+"/statusall", {headers})
   }
 }

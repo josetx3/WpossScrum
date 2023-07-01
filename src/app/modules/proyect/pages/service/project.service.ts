@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -13,23 +13,35 @@ export class ProjectService {
   ) { }
 
   public getAllProyect():Observable<any>{
-    return this.httpClient.get(this.API_SERVER+"/all");
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER+"/all", {headers});
   }
   public saveProyect(proyect:any):Observable<any>{
-    return this.httpClient.post(this.API_SERVER+"/save",proyect);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post(this.API_SERVER+"/save",proyect, {headers});
   }
   getProyectById(idProyect:string | null):Observable<any>{
-    return this.httpClient.get(this.API_SERVER+"/"+idProyect);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER+"/"+idProyect, {headers});
   }
   updateProyect(idProyect:string,dataProyect:any){
-    return this.httpClient.put(this.API_SERVER+"/"+idProyect,dataProyect);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put(this.API_SERVER+"/"+idProyect,dataProyect, {headers});
   }
 
   getClient():Observable<any>{
-    return this.httpClient.get('http://localhost:8020/client/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/client/all', {headers});
   }
 
   getArea(): Observable<any>{
-    return this.httpClient.get('http://localhost:8020/area/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/area/all', {headers});
   }
 }

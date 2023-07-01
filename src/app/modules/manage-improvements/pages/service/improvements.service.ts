@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ManageImprovements } from '../interface/improvements';
@@ -15,30 +15,43 @@ export class ImprovementsService {
   }
 
   public getAllImprovements(): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + "/all");
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + "/all",  {headers});
   }
 
   public saveImprovements(improvements: any): Observable<any> {
-    return this.httpClient.post(this.API_SERVER + '/saveimprovements', improvements)
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post(this.API_SERVER + '/saveimprovements', improvements, {headers})
   }
 
   deleteImprovements(id: string):Observable<ManageImprovements[]>{
-    console.log(id);
-    return this.httpClient.delete<ManageImprovements[]>(this.API_SERVER +'deleteimprovements/'+id)
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.delete<ManageImprovements[]>(this.API_SERVER +'deleteimprovements/'+id, {headers})
   }
 
   getImprovementsById(improvementsId: string):Observable<ManageImprovements[]>{
-    return this.httpClient.get<ManageImprovements[]>(this.API_SERVER+'improvementsId/'+improvementsId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get<ManageImprovements[]>(this.API_SERVER+'improvementsId/'+improvementsId, {headers});
   }
 
   getTeamArea(areaId: string): Observable<any>{
-    return this.httpClient.get('http://localhost:8020/team/area/'+areaId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/team/area/'+areaId, {headers});
   }
 
   GetAllTask():Observable<any>{
-    return this.httpClient.get('http://localhost:8020/taskteam/all')
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/taskteam/all', {headers})
   }
   GetAllObservations():Observable<any>{
-    return this.httpClient.get('http://localhost:8020/observation/all')
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/observation/all', {headers})
   }
 }

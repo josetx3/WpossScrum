@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {SubprojectById} from '../interface/subprojects';
 
@@ -13,31 +13,45 @@ export class SubprojectService {
   constructor(private httpClient : HttpClient) { }
 
   public getAllSubprojects():Observable<any>{
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.get(this.API_SERVER+"/all");
   }
 
 
   public saveSubProject(subProyect:any):Observable<any>{
-    return this.httpClient.post(this.API_SERVER+"/save",subProyect);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post(this.API_SERVER+"/save",subProyect, {headers});
   }
 
   getSubProjectById(idSubProyect:string | null):Observable<SubprojectById>{
-    return this.httpClient.get<SubprojectById>(this.API_SERVER+"/"+idSubProyect);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get<SubprojectById>(this.API_SERVER+"/"+idSubProyect, {headers});
   }
   updateSubProject(idSubProyect:string,dataSubProyect:any){
-    return this.httpClient.put(this.API_SERVER+"/"+idSubProyect,dataSubProyect);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put(this.API_SERVER+"/"+idSubProyect,dataSubProyect, {headers});
   }
 
   getProyecto():Observable<any>{
-    return this.httpClient.get('http://localhost:8020/project/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/project/all', {headers});
   }
 
   getTeam(): Observable<any>{
-    return this.httpClient.get('http://localhost:8020/team/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/team/all', {headers});
   }
 
   getSubprojectToProyect(projectId: string):Observable<any>{
-    return this.httpClient.get(this.API_SERVER+'/project/'+projectId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER+'/project/'+projectId, {headers});
   }
 
 }

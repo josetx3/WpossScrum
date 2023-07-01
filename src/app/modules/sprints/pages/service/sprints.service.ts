@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -11,13 +11,21 @@ export class SprintsService {
   constructor(private httpClient: HttpClient) {}
 
   public getAllASprint(): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/all', {headers});
   }
+
   public saveSprint(sprint: any): Observable<any> {
-    return this.httpClient.post(this.API_SERVER + '/savesprint', sprint);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post(this.API_SERVER + '/savesprint', sprint, {headers});
   }
+  
   getSprintById(sprintId: string | null): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/sprint/' + sprintId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/sprint/' + sprintId, {headers});
   }
 
   // updateSprint(idSprint:string| null,userStorySprint:any){
@@ -25,15 +33,20 @@ export class SprintsService {
   // }
 
   getTeamArea(areaId: string): Observable<any> {
-    return this.httpClient.get('http://localhost:8020/team/area/' + areaId);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/team/area/' + areaId, {headers});
   }
+
   saveCalculationSprintPoints(dataPointsSprint: any): Observable<any> {
-    return this.httpClient.post('http://localhost:8020/sprintEmployee/savesprintemployee',
-      dataPointsSprint
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post('http://localhost:8020/sprintEmployee/savesprintemployee',dataPointsSprint, {headers});
   }
   getAllCalculationPercentageEmployee(): Observable<any> {
-    return this.httpClient.get(this.API_SERVER + '/sprint/employee/all');
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/sprint/employee/all',{headers});
   }
 
   // getAllEmployeesNoExistOnTeamBySprintId(
@@ -44,58 +57,45 @@ export class SprintsService {
   //   );
   // }
 
-  getAllEmployeesExistOnTeamBySprintId(
-    teamId: string | null
-  ): Observable<any> {
-    return this.httpClient.get(
-      'http://localhost:8020/sprintEmployee/employeeteam/'+ teamId
-    );
+  getAllEmployeesExistOnTeamBySprintId(teamId: string | null ): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/sprintEmployee/employeeteam/'+ teamId, {headers} );
   }
 
 
   getSprintEmployeeByTeamAndSprint(sprintId: string | null, teamId: string | null): Observable<any> {
-    return this.httpClient.get(
-      'http://localhost:8020/sprintEmployee/employeeteam/' + sprintId +"/"+ teamId
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/sprintEmployee/employeeteam/' + sprintId +"/"+ teamId, {headers});
   }
 
 
-  saveScoreSprintFinal(
-    sprintId: string | null,
-    sprintScoreFinal: any
-  ): Observable<any> {
-    return this.httpClient.put(
-      'http://localhost:8020/sprintday/update-score/' + sprintId,
-      sprintScoreFinal
-    );
+  saveScoreSprintFinal(sprintId: string | null, sprintScoreFinal: any ): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put('http://localhost:8020/sprintday/update-score/' + sprintId, sprintScoreFinal, {headers});
   }
+
   getAllEmployeeSprint(sprintEmployeeId: string | null): Observable<any> {
-    return this.httpClient.get(
-      this.API_SERVER + '/sprintemployee/id/' + sprintEmployeeId
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/sprintemployee/id/' + sprintEmployeeId, {headers});
   }
-  updateEmployeeSprint(
-    sprintEmployeeId: string | null,
-    sprintEmployee: any
-  ): Observable<any> {
-    return this.httpClient.put(
-      this.API_SERVER + '/sprintemployee/update/' + sprintEmployeeId,
-      sprintEmployee
-    );
+
+  updateEmployeeSprint(sprintEmployeeId: string | null,sprintEmployee: any ): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put(this.API_SERVER + '/sprintemployee/update/' + sprintEmployeeId, sprintEmployee, {headers});
   }
   scoreUserStory(sprintId: string | null, dataUserStory: any): Observable<any> {
-    return this.httpClient.put(this.API_SERVER + '/' + sprintId, dataUserStory);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put(this.API_SERVER + '/' + sprintId, dataUserStory, {headers});
   }
   getAllDatesSprint(sprintId: string | null): Observable<any> {
-    return this.httpClient.get(
-      'http://localhost:8020/sprintday/sprint/' + sprintId
-    );
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+     return this.httpClient.get('http://localhost:8020/sprintday/sprint/' + sprintId, {headers});
   }
 }
-
-
-
-//employeeId 0ab1c469-6711-4217-85db-2915dbca4d2e
-//sprintId: 291d8565-998f-4acf-8968-b50726316d33
-//areaId: 20be06ff-614c-4279-b064-def63fbf5ef6
-//teamId: c33faf49-9d2e-4997-8af7-189e9ca90fea
