@@ -3,6 +3,7 @@ package com.wposs.scrum_back.task.controller;
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.task.dto.TaskDto;
 import com.wposs.scrum_back.task.service.TaskService;
+import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,18 +22,28 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
     @GetMapping("/all")
     @Operation(summary = "Get All Task")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get All Succes"),
             @ApiResponse(responseCode = "404",description = "Not Found Task")
     })
-    public ResponseEntity<List<TaskDto>> getAll() {
-        List<TaskDto> taskDtos = taskService.getAllTask();
-        if (!taskDtos.isEmpty()) {
-            return new ResponseEntity<>(taskDtos, HttpStatus.OK);
+    public ResponseEntity<List<TaskDto>> getAll(@RequestHeader(value="Authorization") String token) {
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<TaskDto> taskDtos = taskService.getAllTask();
+                if (!taskDtos.isEmpty()) {
+                    return new ResponseEntity<>(taskDtos, HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/savetask")
@@ -41,10 +52,18 @@ public class TaskController {
             @ApiResponse(responseCode = "201",description = "Save Success"),
             @ApiResponse(responseCode = "400",description = "JSON mal estructurtado")
     })
-    public ResponseEntity<TaskDto> saveTask(@Valid @RequestBody TaskDto taskDto, BindingResult result){
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<TaskDto> saveTask(@Valid @RequestBody TaskDto taskDto, BindingResult result, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(taskService.saveTask(taskDto),HttpStatus.CREATED);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(taskService.saveTask(taskDto),HttpStatus.CREATED);
     }
 }

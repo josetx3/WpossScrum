@@ -8,6 +8,7 @@ import com.wposs.scrum_back.userstory.entity.UserStory;
 import com.wposs.scrum_back.userstory.repository.UserStoryRepository;
 import com.wposs.scrum_back.userstory.service.UserStoryService;
 import com.wposs.scrum_back.userstory.service.UserStoryServiceImpl;
+import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,6 +30,8 @@ import java.util.stream.Collectors;
 public class UserStoryController {
     @Autowired
     private UserStoryService userStoryService;
+    @Autowired
+    private JWTUtil jwtUtil;
 
     @GetMapping("/{userStoryId}")
     @Operation(summary = "Get UserStory To Id")
@@ -37,20 +40,36 @@ public class UserStoryController {
             @ApiResponse(responseCode = "404",description = "Not Found UserStory")
     })
     @ApiResponse(responseCode = "200",description = "")
-    public ResponseEntity<UserStoryDto> finById(@PathVariable("userStoryId") UUID userStoryId){
-        return userStoryService.getUserStoryById(userStoryId)
-                .map(userStoryDto -> new ResponseEntity<>(userStoryDto,HttpStatus.OK)).orElse(null);
+    public ResponseEntity<UserStoryDto> finById(@PathVariable("userStoryId") UUID userStoryId, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                return userStoryService.getUserStoryById(userStoryId)
+                        .map(userStoryDto -> new ResponseEntity<>(userStoryDto,HttpStatus.OK)).orElse(null);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
     }
 
     @GetMapping("/userstory/all")
     @Operation(summary = "Get all User Stories")
     @ApiResponse(responseCode = "200",description = "successful search")
-    public ResponseEntity<List<UserStoryDto>> findAll(){
-        List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStory();
-        if(!userStoryDtos.isEmpty()){
-            return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+    public ResponseEntity<List<UserStoryDto>> findAll(@RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStory();
+                if(!userStoryDtos.isEmpty()){
+                    return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/save")
@@ -59,11 +78,19 @@ public class UserStoryController {
             @ApiResponse(responseCode = "201",description = "user story created"),
             @ApiResponse(responseCode = "400",description = "user story bad request")
     })
-    public ResponseEntity<UserStoryDto> create(@Valid @RequestBody UserStoryDto userStoryDto, BindingResult result){
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<UserStoryDto> create(@Valid @RequestBody UserStoryDto userStoryDto, BindingResult result, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(userStoryService.saveUserStory(userStoryDto),HttpStatus.CREATED);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(userStoryService.saveUserStory(userStoryDto),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -72,22 +99,38 @@ public class UserStoryController {
             @ApiResponse(responseCode = "200",description = "the updated User story"),
             @ApiResponse(responseCode = "400",description = "Story Not Found")
     })
-    public ResponseEntity<UserStoryDto> updateUserStory(@Valid @RequestBody UserStoryDto userStoryDto, @PathVariable("id") UUID userStoryId,BindingResult result){
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<UserStoryDto> updateUserStory(@Valid @RequestBody UserStoryDto userStoryDto, @PathVariable("id") UUID userStoryId,BindingResult result, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(userStoryService.updateUserStory(userStoryId,userStoryDto),HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(userStoryService.updateUserStory(userStoryId,userStoryDto),HttpStatus.OK);
     }
 
     @GetMapping("/subproject/{subprojectId}")
     @Operation(summary = "Get all user stories by subproject id")
     @ApiResponse(responseCode = "200",description = "successful search")
-    public ResponseEntity<List<UserStoryDto>> findAllUserStoriesBySubProjectId(@PathVariable("subprojectId") UUID subprojectId){
-        List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToSubProject(subprojectId);
-        if (!userStoryDtos.isEmpty()){
-            return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+    public ResponseEntity<List<UserStoryDto>> findAllUserStoriesBySubProjectId(@PathVariable("subprojectId") UUID subprojectId, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToSubProject(subprojectId);
+                if (!userStoryDtos.isEmpty()){
+                    return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/userstoryteam/{id}")
@@ -96,12 +139,20 @@ public class UserStoryController {
             @ApiResponse(responseCode = "200",description = "Get Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
-    public ResponseEntity<List<UserStoryDto>> getAllUserStoryToTeam(@PathVariable("id")UUID idTeam){
-        List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToTeam(idTeam);
-        if(userStoryDtos.isEmpty()){
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<UserStoryDto>> getAllUserStoryToTeam(@PathVariable("id")UUID idTeam, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToTeam(idTeam);
+                if(userStoryDtos.isEmpty()){
+                    new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
     }
 
     @GetMapping("/userstoryteam/{idTeam}/{idArea}")
@@ -110,11 +161,19 @@ public class UserStoryController {
             @ApiResponse(responseCode = "200",description = "Get all Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
-    public ResponseEntity<List<UserStoryDtoRequest>> getAllUserStoryRef(@PathVariable("idTeam") UUID idTeam, @PathVariable("idArea") UUID idArea){
-        List<UserStoryDtoRequest> userStoryDtoRequests = userStoryService.getAllUserStoryRef(idTeam, idArea);
-        if (!userStoryDtoRequests.isEmpty()){
-            return new ResponseEntity<>(userStoryDtoRequests,HttpStatus.OK);
+    public ResponseEntity<List<UserStoryDtoRequest>> getAllUserStoryRef(@PathVariable("idTeam") UUID idTeam, @PathVariable("idArea") UUID idArea, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<UserStoryDtoRequest> userStoryDtoRequests = userStoryService.getAllUserStoryRef(idTeam, idArea);
+                if (!userStoryDtoRequests.isEmpty()){
+                    return new ResponseEntity<>(userStoryDtoRequests,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

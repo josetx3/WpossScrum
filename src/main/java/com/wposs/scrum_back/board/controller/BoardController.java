@@ -6,6 +6,7 @@ import com.wposs.scrum_back.board.dto.BoardDto;
 import com.wposs.scrum_back.board.entity.Board;
 import com.wposs.scrum_back.board.service.BoardService;
 import com.wposs.scrum_back.improvements.entity.Improvements;
+import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,6 +26,8 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
     @PostMapping("/saveboard")
     @Operation(summary = "Save to Board")
     @ApiResponses(value = {
@@ -32,11 +35,19 @@ public class BoardController {
             @ApiResponse(responseCode = "400",description = ""),
             @ApiResponse(responseCode = "500",description = "")
     })
-    public ResponseEntity<BoardDto> saveBoard(@Valid @RequestBody BoardDto boardDto, BindingResult result){
-        if (result.hasErrors()){
-            throw new RequestException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<BoardDto> saveBoard(@Valid @RequestBody BoardDto boardDto, BindingResult result, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new RequestException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(boardService.saveBoard(boardDto),HttpStatus.CREATED);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(boardService.saveBoard(boardDto),HttpStatus.CREATED);
     }
 
     @GetMapping("/allboards")
@@ -45,12 +56,20 @@ public class BoardController {
             @ApiResponse(responseCode = "200",description = "Boards Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Boards")
     })
-    public ResponseEntity<List<BoardDto>> getAllBoards(){
-        List<BoardDto> boardDtos = boardService.getAllBoards();
-        if (!boardDtos.isEmpty()){
-            return new ResponseEntity<>(boardDtos,HttpStatus.OK);
+    public ResponseEntity<List<BoardDto>> getAllBoards(@RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<BoardDto> boardDtos = boardService.getAllBoards();
+                if (!boardDtos.isEmpty()){
+                    return new ResponseEntity<>(boardDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/updateboard/{idBoard}")
@@ -59,11 +78,19 @@ public class BoardController {
             @ApiResponse(responseCode = "200",description = "Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
-    public ResponseEntity<BoardDto> updateBoard(@PathVariable("idBoard")UUID boardId,@Valid @RequestBody BoardDto boardDto,BindingResult result){
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<BoardDto> updateBoard(@PathVariable("idBoard")UUID boardId,@Valid @RequestBody BoardDto boardDto,BindingResult result, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>( boardService.updateBoard(boardId,boardDto),HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>( boardService.updateBoard(boardId,boardDto),HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteboard/{idBoard}")
@@ -72,11 +99,19 @@ public class BoardController {
             @ApiResponse(responseCode = "204",description = "Not Contend Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Board")
     })
-    public ResponseEntity deleteBoard(@PathVariable("idBoard")UUID boardId){
-        if (boardService.deleteBoard(boardId)){
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+    public ResponseEntity deleteBoard(@PathVariable("idBoard")UUID boardId, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (boardService.deleteBoard(boardId)){
+                    return new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
+                return new ResponseEntity(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/boardid/{idboard}")
@@ -85,8 +120,16 @@ public class BoardController {
             @ApiResponse(responseCode = "200",description = "Success Board"),
             @ApiResponse(responseCode = "404",description = "Not Fount Board")
     })
-    public ResponseEntity<BoardDto> getBoardById(@PathVariable("idboard")UUID boardId){
-        return boardService.getBoardById(boardId).map(boardDto -> new ResponseEntity<>(boardDto,HttpStatus.OK)).orElse(null);
+    public ResponseEntity<BoardDto> getBoardById(@PathVariable("idboard")UUID boardId, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                return boardService.getBoardById(boardId).map(boardDto -> new ResponseEntity<>(boardDto,HttpStatus.OK)).orElse(null);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
     }
     @GetMapping("/boardFilter/{idarea}/{idteam}/{iduserhistory}")
     @Operation(summary = "Get Board By area, team and userhistory")
@@ -94,11 +137,19 @@ public class BoardController {
             @ApiResponse(responseCode = "200",description = "Success Board"),
             @ApiResponse(responseCode = "404",description = "Not Fount Board")
     })
-    public ResponseEntity<List<BoardDto>> getBoardByTeamAndAreaAndUserStory(@PathVariable("idarea")UUID areaId,@PathVariable("idteam")UUID teamId,@PathVariable("iduserhistory")UUID userStoryId){
-        List<BoardDto> boardDtos = boardService.getAllBoardsByTeamAndAreaAndUserStory(areaId,teamId,userStoryId);
-        if (!boardDtos.isEmpty()){
-            return new ResponseEntity<>(boardDtos,HttpStatus.OK);
+    public ResponseEntity<List<BoardDto>> getBoardByTeamAndAreaAndUserStory(@PathVariable("idarea")UUID areaId,@PathVariable("idteam")UUID teamId,@PathVariable("iduserhistory")UUID userStoryId, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                List<BoardDto> boardDtos = boardService.getAllBoardsByTeamAndAreaAndUserStory(areaId,teamId,userStoryId);
+                if (!boardDtos.isEmpty()){
+                    return new ResponseEntity<>(boardDtos,HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
