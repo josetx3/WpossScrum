@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AreaInterface } from '../Interface/interface-area';
@@ -13,23 +13,33 @@ export class AreaService {
 
 
   public getAllArea():Observable<AreaInterface[]>{
-    return this.httpClient.get<AreaInterface[]>(this.API_SERVER + "/all");
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get<AreaInterface[]>(this.API_SERVER + "/all",{headers});
   }
 
   saveArea(area:any):Observable<AreaInterface []>{
-    return this.httpClient.post<AreaInterface []>(this.API_SERVER+"/save/",area)
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post<AreaInterface []>(this.API_SERVER+"/save/",area, {headers})
   }
 
   getArea(id:string | null):Observable<any>{
-    return this.httpClient.get(this.API_SERVER+"/"+id);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER+"/"+id,{headers});
   }
 
   updateArea(id:string,dataArea:any){
-    return this.httpClient.put(this.API_SERVER+"/"+id,dataArea);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put(this.API_SERVER+"/"+id,dataArea, {headers});
   }
 
   deleteArea(id: string):Observable<AreaInterface[]>{
-    return this.httpClient.delete<AreaInterface[]>(this.API_SERVER+"/deletearea/"+id);
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.delete<AreaInterface[]>(this.API_SERVER+"/deletearea/"+id, {headers});
   }
 
 }
