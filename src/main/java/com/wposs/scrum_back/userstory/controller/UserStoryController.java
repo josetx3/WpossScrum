@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -114,6 +116,7 @@ public class UserStoryController {
         }
     }
 
+    @Transactional
     @GetMapping("/subproject/{subprojectId}")
     @Operation(summary = "Get all user stories by subproject id")
     @ApiResponse(responseCode = "200",description = "successful search")
