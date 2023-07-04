@@ -83,10 +83,11 @@ export class SprintsService {
     return this.httpClient.get('http://localhost:8020/sprintEmployee/sprintemployee/' + sprintEmployeeId +'/'+ sprintId, {headers});
   }
 
-  updateEmployeeSprint(sprintEmployeeId: string | null,sprintEmployee: any ): Observable<any> {
+  updateEmployeeSprint(sprintEmployeeId: string | null, sprintId: any, dataEmployeSprint: any): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.put(this.API_SERVER + '/sprintemployee/update/' + sprintEmployeeId, sprintEmployee, {headers});
+    console.log(dataEmployeSprint)
+    return this.httpClient.put('http://localhost:8020/sprintEmployee/updatesprintemployee/' + sprintEmployeeId +'/'+sprintId, dataEmployeSprint, {headers});
   }
   scoreUserStory(sprintId: string | null, dataUserStory: any): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')

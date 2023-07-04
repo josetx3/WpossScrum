@@ -68,17 +68,17 @@ export class EditEmployeeSprintComponent implements OnInit{
       const sprintDays = Number(this.sprintDays)
 
       const data = {
-        sprintId: this.sprintId,
-        sprintEmployeePercentage: sprintEmployeePercentage,
-        employeePercentageFinal: ((sprintEmployeePercentage) * ((sprintDays)-(sprintEmployeeDay)))/100,
-        sprintEmployeeDay:sprintEmployeeDay,
-        sprintEmployeeDescription: this.employeeSprintEditForm.get('sprintEmployeeDescription')?.value
+        idEmployee:this.sprintEmployeeId,
+        idSprint:this.sprintId,
+        percentage: sprintEmployeePercentage,
+        percentageFinal: ((sprintEmployeePercentage) * ((sprintDays)-(sprintEmployeeDay)))/100,
+        daysLeave:sprintEmployeeDay,
+        observations: this.employeeSprintEditForm.get('sprintEmployeeDescription')?.value
       }
-      this.sprintService.updateEmployeeSprint(this.sprintEmployeeId,data).subscribe({
+      this.sprintService.updateEmployeeSprint(this.sprintEmployeeId, this.sprintId,data).subscribe({
         next:()=>{
           this.routeSprintCalculation.navigateByUrl('/app/sprints/calculateSprintPoints/' + this.sprintId + '/' + this.teamId).then();
           this.employeeSprintEditForm.reset();
-
         }
       })
     }else {
