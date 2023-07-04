@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface SprintEmployeeService {
     List<SprintEmployeeDtoRequest> getAllSprintEmployee();
-    Optional<SprintEmployeeDtoRequest> getBySprintEmployeeId(Long idEmployee);
+    Optional<SprintEmployeeDtoRequest> getBySprintEmployeeId(UUID idEmployee,UUID idSprint);
     //SprintEmployeeDto saveSprintEmployee(SprintEmployeeDto sprintEmployeeDto);
     SprintEmployeeDtoRequest saveSprintEmployee(SprintEmployeeDtoRequest sprintEmployeeDtoRequest);
 

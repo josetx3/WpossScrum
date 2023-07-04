@@ -1,6 +1,7 @@
 package com.wposs.scrum_back.sprintemployee.entity;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -16,8 +17,10 @@ public class SprintEmployeePk implements Serializable {
     }
 
     @Column(name = "fk_employee_id",nullable = false)
+    @Type(type = "pg-uuid")
     private UUID employeeId;
     @Column(name = "fk_Sprint_id")
+    @Type(type = "pg-uuid")
     private UUID sprintId;
 
     public SprintEmployeePk() {}

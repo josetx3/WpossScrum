@@ -51,22 +51,17 @@ public class SprintEmployeeController {
         }
     }
 
-    @GetMapping("/sprintemployee/{id}")
+    @GetMapping("/sprintemployee/{id}/{idSprint}")
     @Operation(summary = "Get sprint Employee By Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get By Id Sprint Employee"),
             @ApiResponse(responseCode = "404",description = "Not Found By Id Sprint Employee")
     })
-    public ResponseEntity<SprintEmployeeDtoRequest> getByIdSprintEmploye(@PathVariable("id") Long idEmployee,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                 return sprintEmployeeService.getBySprintEmployeeId(idEmployee).map(SprintEmployeeDtoRequest -> new ResponseEntity<>(SprintEmployeeDtoRequest,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<SprintEmployeeDtoRequest> getByIdSprintEmploye(@PathVariable("id") UUID idEmployee,@PathVariable("idSprint") UUID idSprint,@RequestHeader(value="Authorization") String token){
 
-        }
+                 return sprintEmployeeService.getBySprintEmployeeId(idEmployee,idSprint).map(SprintEmployeeDtoRequest -> new ResponseEntity<>(SprintEmployeeDtoRequest,HttpStatus.OK)).orElse(null);
+
+
     }
 
 
@@ -79,10 +74,15 @@ public class SprintEmployeeController {
     public ResponseEntity<SprintEmployeeDtoRequest> saveSprintEmployee(@Valid @RequestBody SprintEmployeeDtoRequest sprintEmployeeDtoRequest, BindingResult result,@RequestHeader(value="Authorization") String token){
         try{
             if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException("error mal estructura en el JSON","400",HttpStatus.BAD_REQUEST);
+                try{
+                    if (result.hasErrors()){
+                        throw new MethodArgumentNotValidException("error mal estructura en el JSON","400",HttpStatus.BAD_REQUEST);
+                    }
+                    return new ResponseEntity<>(sprintEmployeeService.saveSprintEmployee(sprintEmployeeDtoRequest),HttpStatus.CREATED);
+                }catch (Exception e){
+                    return ResponseEntity.badRequest().build();
                 }
-                return new ResponseEntity<>(sprintEmployeeService.saveSprintEmployee(sprintEmployeeDtoRequest),HttpStatus.CREATED);
+
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){

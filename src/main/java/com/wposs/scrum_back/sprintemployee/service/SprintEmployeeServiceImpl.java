@@ -41,8 +41,11 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
     }
 
     @Override
-    public Optional<SprintEmployeeDtoRequest> getBySprintEmployeeId(Long idEmployee) {
-        return Optional.ofNullable(sprintEmployeeRepository.findById(idEmployee).map(sprintEmployee -> modelMapper.map(sprintEmployee,SprintEmployeeDtoRequest.class))
+    public Optional<SprintEmployeeDtoRequest> getBySprintEmployeeId(UUID idEmployee, UUID idSprint) {
+        SprintEmployeePk primaryKey = new SprintEmployeePk();
+        primaryKey.setSprintId(idSprint); // Establecer el valor del ID del Sprint
+        primaryKey.setEmployeeId(idEmployee);
+        return Optional.ofNullable(sprintEmployeeRepository.findByPrimaryKey(primaryKey).map(sprintEmployee -> modelMapper.map(sprintEmployee,SprintEmployeeDtoRequest.class))
                 .orElseThrow(()->new MessageGeneric("","", HttpStatus.NOT_FOUND)));
     }
 /*
