@@ -112,18 +112,20 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
         return sprintEmployeeDtos;
 
     }
-/*
+
     @Override
-    public SprintEmployeeDtoRequest updateSprintEmployee(UUID idEmployee, SprintEmployeeDtoRequest sprintEmployeeDtoRequest) {
-        if(!existsSprintEmployeeById(sprintEmployeeDtoRequest.getIdEmployee())){
-            return sprintEmployeeRepository.findById(idEmployee).map(sprintEmployee -> {
+    public SprintEmployeeDtoRequest updateSprintEmployee(UUID idEmployee,UUID idSprint, SprintEmployeeDtoRequest sprintEmployeeDtoRequest) {
+        SprintEmployeePk primaryKey = new SprintEmployeePk();
+        primaryKey.setSprintId(idSprint); // Establecer el valor del ID del Sprint
+        primaryKey.setEmployeeId(idEmployee);
+
+            return sprintEmployeeRepository.findByPrimaryKey(primaryKey).map(sprintEmployee -> {
                 sprintEmployee.setPercentage((sprintEmployeeDtoRequest.getPercentage()!=null)?sprintEmployeeDtoRequest.getPercentage():sprintEmployee.getPercentage());
                 sprintEmployee.setDaysLeave((sprintEmployeeDtoRequest.getDaysLeave()!=null)?sprintEmployeeDtoRequest.getDaysLeave():sprintEmployee.getDaysLeave());
                 sprintEmployee.setObservations((sprintEmployeeDtoRequest.getObservations()!=null)?sprintEmployeeDtoRequest.getObservations():sprintEmployee.getObservations());
                 return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDtoRequest.class);
             }).orElseThrow(()->new MessageGeneric("No se encontro el sprint de empleado a actualizar","404",HttpStatus.NOT_FOUND));
-        }
-        throw new MessageGeneric("","409",HttpStatus.CONFLICT);
-    }*/
+
+    }
 
 }

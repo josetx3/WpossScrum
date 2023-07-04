@@ -19,7 +19,7 @@ import java.util.UUID;
 @Repository
 public interface SprintEmployeeRepository extends JpaRepository<SprintEmployee, Long> {
     Boolean existsById( SprintEmployeePk id);
-    Boolean existsSprintEmployeeById(long idEmployee);
+    Boolean existsSprintEmployeeById(SprintEmployeePk primaryKey);
 
 
 
@@ -30,6 +30,9 @@ public interface SprintEmployeeRepository extends JpaRepository<SprintEmployee, 
 
     @Query("SELECT se FROM SprintEmployee se WHERE  se.id= :primaryKey")
     Optional<SprintEmployee> findByPrimaryKey(@Param("primaryKey") SprintEmployeePk primaryKey);
+
+    @Query("SELECT se FROM SprintEmployee se WHERE  se.id= :primaryKey")
+   SprintEmployee findByPrimaryKey1(@Param("primaryKey") SprintEmployeePk primaryKey);
 
     //@Query(value = "select * from wposs.sprints_employee where fk_employee_id = ?1 and fk_sprint_id = ?2",nativeQuery = true)
     //  Optional<SprintEmployeeDtoRequest> getEmploye(UUID idEmployee, UUID idSprint);

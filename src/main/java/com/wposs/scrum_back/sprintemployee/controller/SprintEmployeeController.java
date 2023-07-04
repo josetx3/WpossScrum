@@ -133,17 +133,17 @@ public class SprintEmployeeController {
         }
     }
 
-/*
-    @PutMapping("/updatesprintemployee/{id}")
+
+    @PutMapping("/updatesprintemployee/{id}/{idSprint}")
     @Operation(summary = "Update the sprint employee")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Return the updated employee"),
             @ApiResponse(responseCode = "404",description = "Employe Not Found")
     })
-    public ResponseEntity<SprintEmployeeDtoRequest> updateSprintEmployee(@PathVariable("id") Long idEmployee,@RequestBody @Valid SprintEmployeeDtoRequest sprintEmployeeDtoRequest,BindingResult result) {
+    public ResponseEntity<SprintEmployeeDtoRequest> updateSprintEmployee(@PathVariable("id") UUID idEmployee,@PathVariable("idSprint") UUID idSprint,@RequestBody @Valid SprintEmployeeDtoRequest sprintEmployeeDtoRequest,BindingResult result) {
         if (result.hasErrors()){
             throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(sprintEmployeeService.updateSprintEmployee(idEmployee, sprintEmployeeDtoRequest),HttpStatus.OK);
-    }*/
+        return new ResponseEntity<>(sprintEmployeeService.updateSprintEmployee(idEmployee,idSprint, sprintEmployeeDtoRequest),HttpStatus.OK);
+    }
 }
