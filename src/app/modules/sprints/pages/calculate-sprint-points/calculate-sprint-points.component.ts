@@ -117,7 +117,13 @@ export class CalculateSprintPointsComponent implements OnInit {
             'Presione el Boton (OK) para Continuar',
             'success'
           );
-        },
+        },error: () =>{
+          Swal.fire(
+            'Ese empleado ya esta registrado!',
+            'Presione el Boton (OK) para Continuar',
+            'warning'
+          );
+        }
       });
     } else {
       Swal.fire({

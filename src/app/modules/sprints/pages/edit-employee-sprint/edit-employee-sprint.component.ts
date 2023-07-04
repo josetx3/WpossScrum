@@ -28,10 +28,12 @@ export class EditEmployeeSprintComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.teamId = this.route.snapshot.paramMap.get('teamId');
+    this.teamId = this.route.snapshot.params['teamId'];//.get('');
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
     this.sprintEmployeeId = this.route.snapshot.paramMap.get('sprintEmployeeId');
     this.sprintDays = this.route.snapshot.paramMap.get('sprintDays');
+
+    console.log("team: "+ this.teamId+"  sprint "+ this.sprintId+ " employee "+this.sprintEmployeeId+ " days "+ this.sprintDays);
 
     this.employeeSprintEditForm = this.formBuilder.group({
       sprintEmployeePercentage: new FormControl(null, [Validators.required,Validators.min(1),Validators.max(100),Validators.maxLength(3)]),
@@ -41,7 +43,7 @@ export class EditEmployeeSprintComponent implements OnInit{
     this.getAllEmployeeSprint();
   }
   getAllEmployeeSprint(){
-    console.log("ASD");
+    //console.log("ASD");
     this.sprintService.getAllEmployeeSprint(this.sprintEmployeeId).subscribe({
       next:(data)=>{
 
