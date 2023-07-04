@@ -32,7 +32,7 @@ export class CalculateSprintPointsComponent implements OnInit {
   sprintEmployeeDay: any;
   employeeListFinal: any;
   employeePercentageFinal: any;
-  employeeId: string = '';
+  employeeId: number = 0;
 
   listSprint: [] = [];
 
@@ -83,6 +83,7 @@ export class CalculateSprintPointsComponent implements OnInit {
     console.log("TEAMID  " + this.teamId);
     this.sprintService.getSprintEmployeeByTeamAndSprint(this.sprintId, this.teamId).subscribe({next: (resp) => {
       this.employeeListFinal = resp;
+      console.log(this.employeeListFinal)
         },
       });
   }
@@ -160,9 +161,11 @@ export class CalculateSprintPointsComponent implements OnInit {
 
   editEmployeeTeamSprint(employeeId: number) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '500px';
-    dialogConfig.data = { projectId: employeeId };
 
+
+    dialogConfig.width = '500px';
+    dialogConfig.data = { projectId: employeeId, SprintId: this.sprintId};
+    console.log( dialogConfig.data)
     const dialogRef = this.dialog.open(
       EditEmployeeSprintComponent,
       dialogConfig

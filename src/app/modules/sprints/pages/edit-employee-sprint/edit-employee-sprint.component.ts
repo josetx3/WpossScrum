@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import { SprintsService } from '../service/sprints.service';
 import Swal from 'sweetalert2';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-employee-sprint',
@@ -23,14 +24,16 @@ export class EditEmployeeSprintComponent implements OnInit{
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     public sprintService:SprintsService,
-    private routeSprintCalculation : Router
+    private routeSprintCalculation : Router,
+    public dialogRef: MatDialogRef<EditEmployeeSprintComponent>,
+    @Inject(MAT_DIALOG_DATA) public data1: any
   ) {
   }
 
   ngOnInit(): void {
-    this.teamId = this.route.snapshot.params['teamId'];//.get('');
-    this.sprintId = this.route.snapshot.paramMap.get('sprintId');
-    this.sprintEmployeeId = this.route.snapshot.paramMap.get('sprintEmployeeId');
+    // this.teamId = this.route.snapshot.params['teamId'];//.get('');
+    this.sprintId = this.data1.SprintId;
+    this.sprintEmployeeId =  this.data1.projectId;
     this.sprintDays = this.route.snapshot.paramMap.get('sprintDays');
 
     console.log("team: "+ this.teamId+"  sprint "+ this.sprintId+ " employee "+this.sprintEmployeeId+ " days "+ this.sprintDays);
@@ -44,15 +47,16 @@ export class EditEmployeeSprintComponent implements OnInit{
   }
   getAllEmployeeSprint(){
     //console.log("ASD");
-    this.sprintService.getAllEmployeeSprint(this.sprintEmployeeId).subscribe({
+    this.sprintService.getAllEmployeeSprint(this.sprintEmployeeId, this.sprintId).subscribe({
       next:(data)=>{
-
+        console.log('data2:'+data)
         this.employee=data;
-        this.employeeName=data.employeeSprint.employeeName;
+        this.employeeName=data.employeeName;
+        console.log(data.employeeName)
         this.employeeSprintEditForm.patchValue({
-          sprintEmployeePercentage:this.employee.sprintEmployeePercentage,
-          sprintEmployeeDay:this.employee.sprintEmployeeDay,
-          sprintEmployeeDescription:this.employee.sprintEmployeeDescription
+          sprintEmployeePercentage:this.employee.percentage,
+          sprintEmployeeDay:this.employee.daysLeave,
+          sprintEmployeeDescription:this.employee.observations
         })
       }
     })

@@ -77,10 +77,10 @@ export class SprintsService {
     return this.httpClient.put('http://localhost:8020/sprintday/update-score/' + sprintId, sprintScoreFinal, {headers});
   }
 
-  getAllEmployeeSprint(sprintEmployeeId: string | null): Observable<any> {
+  getAllEmployeeSprint(sprintEmployeeId: string | null, sprintId: string | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get(this.API_SERVER + '/sprintemployee/id/' + sprintEmployeeId, {headers});
+    return this.httpClient.get('http://localhost:8020/sprintEmployee/sprintemployee/' + sprintEmployeeId +'/'+ sprintId, {headers});
   }
 
   updateEmployeeSprint(sprintEmployeeId: string | null,sprintEmployee: any ): Observable<any> {
