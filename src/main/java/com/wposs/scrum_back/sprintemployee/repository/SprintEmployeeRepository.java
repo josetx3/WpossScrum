@@ -28,7 +28,7 @@ public interface SprintEmployeeRepository extends JpaRepository<SprintEmployee, 
     List<Object[]> getEmployeToTeam(UUID idSprint, UUID idTeam);
 
 
-    @Query("SELECT se FROM SprintEmployee se WHERE  se.id= :prim nmaryKey")
+    @Query("SELECT se FROM SprintEmployee se WHERE  se.id= :primaryKey")
     Optional<SprintEmployee> findByPrimaryKey(@Param("primaryKey") SprintEmployeePk primaryKey);
 
     //@Query(value = "select * from wposs.sprints_employee where fk_employee_id = ?1 and fk_sprint_id = ?2",nativeQuery = true)
