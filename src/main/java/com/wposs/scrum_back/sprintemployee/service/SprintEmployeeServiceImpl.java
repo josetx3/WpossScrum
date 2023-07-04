@@ -5,6 +5,8 @@ import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
 import com.wposs.scrum_back.area.dto.AreaDto;
 import com.wposs.scrum_back.employe.dto.EmployeDto;
+import com.wposs.scrum_back.employe.entity.Employee;
+import com.wposs.scrum_back.employe.repository.EmployeeRepository;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployee;
@@ -31,6 +33,8 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
     private ModelMapper modelMapper;
     @Autowired
     private SprintEmployeeRepository sprintEmployeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     public List<SprintEmployeeDtoRequest> getAllSprintEmployee() {
@@ -89,12 +93,19 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
            throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
        }
         for (Object[] sprintEmployee:SprintEmployee) {
+            //UUID  uuid1=UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
+            Employee employee=employeeRepository.findByEmployeeEmail(sprintEmployee[1].toString());
+
+            //String UU = "38400000-8cf0-11bd-b23e-10b96e4ef00d";
+           // UUID uuid = UUID.fromString(UU);
             SprintEmployeeDto sprintEmployeeDto = new SprintEmployeeDto(
                     sprintEmployee[0].toString(),
-                    Integer.parseInt(sprintEmployee[1].toString()),
-                    sprintEmployee[2].toString(),
-                    Double.parseDouble(sprintEmployee[3].toString()),
-                    Double.parseDouble(sprintEmployee[4].toString())
+                    sprintEmployee[1].toString(),
+                    employee.getEmployeeId(),
+                    Integer.parseInt(sprintEmployee[2].toString()),
+                    sprintEmployee[3].toString(),
+                    Double.parseDouble(sprintEmployee[4].toString()),
+                    Double.parseDouble(sprintEmployee[5].toString())
             );
             sprintEmployeeDtos.add(sprintEmployeeDto);
         }
