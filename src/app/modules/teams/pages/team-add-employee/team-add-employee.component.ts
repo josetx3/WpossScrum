@@ -50,6 +50,7 @@ export class TeamAddEmployeeComponent implements OnInit {
       .addEmployeeTeam(this.teamId, this.teamEmployee)
       .subscribe((resp) => {
         this.getAllEmployeesAddToTeam(this.teamId);
+        this.teamEmployee= [];
       });
   }
 
