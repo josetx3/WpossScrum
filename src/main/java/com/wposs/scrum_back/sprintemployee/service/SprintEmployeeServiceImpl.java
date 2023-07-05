@@ -121,6 +121,7 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
 
             return sprintEmployeeRepository.findByPrimaryKey(primaryKey).map(sprintEmployee -> {
                 sprintEmployee.setPercentage((sprintEmployeeDtoRequest.getPercentage()!=null)?sprintEmployeeDtoRequest.getPercentage():sprintEmployee.getPercentage());
+                sprintEmployee.setPercentageFinal((sprintEmployeeDtoRequest.getPercentageFinal()!=null)?sprintEmployeeDtoRequest.getPercentageFinal():sprintEmployee.getPercentageFinal());
                 sprintEmployee.setDaysLeave((sprintEmployeeDtoRequest.getDaysLeave()!=null)?sprintEmployeeDtoRequest.getDaysLeave():sprintEmployee.getDaysLeave());
                 sprintEmployee.setObservations((sprintEmployeeDtoRequest.getObservations()!=null)?sprintEmployeeDtoRequest.getObservations():sprintEmployee.getObservations());
                 return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDtoRequest.class);
