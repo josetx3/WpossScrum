@@ -145,15 +145,17 @@ export class CalculateSprintPointsComponent implements OnInit {
       }
     );
     this.getAllCalculationPercentageEmployee();
-    const data = {
-      sprintScore: this.finalCalculation,
-    };
-    this.sprintService.saveScoreSprintFinal(this.sprintId, data).subscribe({
+
+    const dataScoreSpring={
+      
+      scoreSprint: this.finalCalculation,
+      sprintId: this.sprintId
+    }
+
+    this.sprintService.updateScoreSprint(this.sprintId, dataScoreSpring).subscribe({
       next: () => {
         Swal.fire(
-          'Puntos Establecidos!',
-          'Presione el Boton (OK) para Continuar',
-          'success'
+          'Los puntos del sprint son: '+ this.finalCalculation,
         );
       },
     });

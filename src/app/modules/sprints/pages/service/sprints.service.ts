@@ -70,13 +70,6 @@ export class SprintsService {
     return this.httpClient.get('http://localhost:8020/sprintEmployee/employeeteam/' + sprintId +"/"+ teamId, {headers});
   }
 
-
-  saveScoreSprintFinal(sprintId: string | null, sprintScoreFinal: any ): Observable<any> {
-    const token: string | null= ''+localStorage.getItem('token')
-    const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.put('http://localhost:8020/sprintday/update-score/' + sprintId, sprintScoreFinal, {headers});
-  }
-
   getAllEmployeeSprint(sprintEmployeeId: string | null, sprintId: string | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
@@ -98,5 +91,11 @@ export class SprintsService {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
      return this.httpClient.get('http://localhost:8020/sprintday/sprint/' + sprintId, {headers});
+  }
+
+  public updateScoreSprint(sprintId: string | null, dataScoreSpring: any): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put('http://localhost:8020/scoringSpring/update_score/' + sprintId, dataScoreSpring, {headers});
   }
 }
