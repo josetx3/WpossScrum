@@ -31,12 +31,12 @@ export class EditEmployeeSprintComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // this.teamId = this.route.snapshot.params['teamId'];//.get('');
+    this.teamId =  this.data1.teamId;
     this.sprintId = this.data1.SprintId;
     this.sprintEmployeeId =  this.data1.projectId;
-    this.sprintDays = this.route.snapshot.paramMap.get('sprintDays');
+    this.sprintDays = this.data1.sprintDays;
 
-    console.log("team: "+ this.teamId+"  sprint "+ this.sprintId+ " employee "+this.sprintEmployeeId+ " days "+ this.sprintDays);
+    //console.log("team: "+ this.teamId+"  sprint "+ this.sprintId+ " employee "+this.sprintEmployeeId+ " days "+ this.sprintDays);
 
     this.employeeSprintEditForm = this.formBuilder.group({
       sprintEmployeePercentage: new FormControl(null, [Validators.required,Validators.min(1),Validators.max(100),Validators.maxLength(3)]),
@@ -75,10 +75,27 @@ export class EditEmployeeSprintComponent implements OnInit{
         daysLeave:sprintEmployeeDay,
         observations: this.employeeSprintEditForm.get('sprintEmployeeDescription')?.value
       }
+      //console.log("el porcebtaje: "+data.percentageFinal+" dias sprint: "+sprintDays+" dias employee: "+sprintEmployeeDay);
       this.sprintService.updateEmployeeSprint(this.sprintEmployeeId, this.sprintId,data).subscribe({
         next:()=>{
-          this.routeSprintCalculation.navigateByUrl('/app/sprints/calculateSprintPoints/' + this.sprintId + '/' + this.teamId).then();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Datos actualizados',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#E6F4EA',
+          });
+          this.dialogRef.close();
           this.employeeSprintEditForm.reset();
+         // this.routeSprintCalculation.navigateByUrl('/app/sprints/calculateSprintPoints/' + this.sprintId).then();
+         // this.employeeSprintEditForm.reset();
         }
       })
     }else {

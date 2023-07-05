@@ -83,7 +83,7 @@ export class CalculateSprintPointsComponent implements OnInit {
     console.log("TEAMID  " + this.teamId);
     this.sprintService.getSprintEmployeeByTeamAndSprint(this.sprintId, this.teamId).subscribe({next: (resp) => {
       this.employeeListFinal = resp;
-      console.log(this.employeeListFinal)
+      //console.log(this.employeeListFinal)
         },
       });
   }
@@ -93,7 +93,7 @@ export class CalculateSprintPointsComponent implements OnInit {
       this.sprintEmployeeDay = this.calculateSprintForm.get('sprintEmployeeDay')?.value;
       this.sprintEmployeePercentage = this.calculateSprintForm.get('sprintEmployeePercentage')?.value;
       this.employeeName = this.calculateSprintForm.get('employeeName')?.value;
-      console.log("EMPLOYEENAME   " +  this.employeeName);
+     // console.log("EMPLOYEENAME   " +  this.employeeName);
 
       const data = {
         idEmployee: this.calculateSprintForm.get('employeeId')?.value,
@@ -147,7 +147,7 @@ export class CalculateSprintPointsComponent implements OnInit {
     this.getAllCalculationPercentageEmployee();
 
     const dataScoreSpring={
-      
+
       scoreSprint: this.finalCalculation,
       sprintId: this.sprintId
     }
@@ -166,7 +166,7 @@ export class CalculateSprintPointsComponent implements OnInit {
 
 
     dialogConfig.width = '500px';
-    dialogConfig.data = { projectId: employeeId, SprintId: this.sprintId};
+    dialogConfig.data = { projectId: employeeId, SprintId: this.sprintId, sprintDays:this.sprintDays};
     console.log( dialogConfig.data)
     const dialogRef = this.dialog.open(
       EditEmployeeSprintComponent,
