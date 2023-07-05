@@ -26,7 +26,7 @@ public class ScoringSprintDaysServiceImpl implements ScoringSprintDaysService  {
 
 
         if(scoringSprintsDaysRepository.existsBySprintId(idSprint)){
-            System.out.println("entraaaa");
+
             return scoringSprintsDaysRepository.findBySprintId(idSprint).map(scoringSprintDays -> {
                 scoringSprintDays.setScoreSprint((scoringSprintDaysDto.getScoreSprint()!=null)?scoringSprintDaysDto.getScoreSprint(): scoringSprintDays.getScoreSprint());
                 return modelMapper.map(scoringSprintsDaysRepository.save(scoringSprintDays),ScoringSprintDaysDto.class);
