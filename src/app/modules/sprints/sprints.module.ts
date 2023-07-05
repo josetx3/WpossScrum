@@ -9,6 +9,7 @@ import { SprintAddComponent } from './pages/sprint-add/sprint-add.component';
 import { SprintsRoutingModule } from './sprints-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { SprintUserStoryManageComponent } from './pages/sprint-user-story-manage/sprint-user-story-manage.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
     ManageSprintsComponent,
     ScoreSprintDaysComponent,
     SprintAddComponent,
+    SprintUserStoryManageComponent,
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,7 @@ import { CalculateSprintPointsComponent } from './pages/calculate-sprint-points/
 import { EditEmployeeSprintComponent } from './pages/edit-employee-sprint/edit-employee-sprint.component';
 import { ScoreSprintDaysComponent } from './pages/score-sprint-days/score-sprint-days.component';
 import { SprintAddComponent } from './pages/sprint-add/sprint-add.component';
+import { SprintUserStoryManageComponent } from './pages/sprint-user-story-manage/sprint-user-story-manage.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'sprint-add',
     component: SprintAddComponent
+  },
+  {
+    path: 'sprint-user-story/:sprintId',
+    component: SprintUserStoryManageComponent
   },
 ];
 
