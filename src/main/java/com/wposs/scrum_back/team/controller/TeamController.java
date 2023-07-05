@@ -135,10 +135,14 @@ public class TeamController {
     public ResponseEntity<?> saveEmployeeToTeam(@PathVariable("id") UUID idTeam,@RequestBody List<UUID> idEmployess,BindingResult result, @RequestHeader(value="Authorization") String token){
         try{
             if(jwtUtil.getKey(token) != null) {
-               if(result.hasErrors()){
-                    throw new MethodArgumentNotValidException("ocurrio un error inesperado en los datos recibidos","400",HttpStatus.BAD_REQUEST);
-               }
-                return new ResponseEntity<>(teamService.saveEmployeToTeam(idEmployess,idTeam),HttpStatus.CREATED);
+                try{
+                    if(result.hasErrors()){
+                        throw new MethodArgumentNotValidException("ocurrio un error inesperado en los datos recibidos","400",HttpStatus.BAD_REQUEST);
+                    }
+                    return new ResponseEntity<>(teamService.saveEmployeToTeam(idEmployess,idTeam),HttpStatus.CREATED);
+                }catch (Exception e) {
+                    return ResponseEntity.badRequest().body(e);
+                }
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){
