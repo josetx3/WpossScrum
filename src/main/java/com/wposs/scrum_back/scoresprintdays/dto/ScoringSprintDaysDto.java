@@ -15,16 +15,12 @@ public class ScoringSprintDaysDto {
     @JsonProperty(value = "scoreSprintId",access = JsonProperty.Access.READ_ONLY)
     private UUID scoreSprintId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @NotNull
-    private Date date;
-
     @JsonProperty(value = "scoreSprint")
     private Double scoreSprint;
 
-    @JsonProperty(value = "idSprint")
+    @JsonProperty(value = "sprintId")
     @NotNull
-    private UUID idSprint;
+    private UUID sprintId;
 
     public UUID getScoreSprintId() {
         return scoreSprintId;
@@ -32,14 +28,6 @@ public class ScoringSprintDaysDto {
 
     public void setScoreSprintId(UUID scoreSprintId) {
         this.scoreSprintId = scoreSprintId;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Double getScoreSprint() {
@@ -50,11 +38,11 @@ public class ScoringSprintDaysDto {
         this.scoreSprint = scoreSprint;
     }
 
-    public UUID getIdSprint() {
-        return idSprint;
+    public UUID getSprintId() {
+        return sprintId;
     }
 
-    public void setIdSprint(UUID idSprint) {
-        this.idSprint = idSprint;
+    public void setSprintId(UUID sprintId) {
+        this.sprintId = sprintId;
     }
 }

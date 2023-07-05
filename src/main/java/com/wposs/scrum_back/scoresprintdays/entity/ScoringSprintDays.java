@@ -1,7 +1,9 @@
 package com.wposs.scrum_back.scoresprintdays.entity;
 
 import com.wposs.scrum_back.sprint.entity.Sprint;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,8 +18,12 @@ public class ScoringSprintDays {
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private UUID scoreSprintId;
     @Column(name = "day_sprint",nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @CreationTimestamp
     private Date date;
+
+    @Column(name = "day_sprint_update" )
+    @UpdateTimestamp
+    private Date date_update;
     @Column(name = "score_sprint",nullable = false)
     private Double scoreSprint;
     @Column(name = "fk_sprint_id",nullable = false)
@@ -35,7 +41,7 @@ public class ScoringSprintDays {
         this.scoreSprintId = scoreSprintId;
     }
 
-    public Date getDate() {
+   public Date getDate() {
         return date;
     }
 
