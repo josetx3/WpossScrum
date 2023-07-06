@@ -16,7 +16,6 @@
       <div> <strong> Sprint: {{SprintDate.nuSprint}}</strong></div>
       <div> <strong> Puntos Sprint ideal: {{SprintDate.ScorePointSprint}}</strong></div>
     </div>
-
     <div class="row">
       <div class="col-12">
         <form [formGroup]="addUserStoryForm" (ngSubmit)="addUserStoryToSprint()">
@@ -40,11 +39,36 @@
             </div>
           </div>
           <div class="col-12 text-center mt-4">
-            <button class="btn btn-primary mx-2 mb-2" type="submit">Agregar</button>
+            <button class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="addUserStoryForm.invalid">Agregar</button>
           </div>
-
         </form>
       </div>
     </div>
+
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">H U</th>
+            <th scope="row" class="title_table icon">Proyectos</th>
+            <th scope="row" class="title_table icon">Subproyectos</th>
+            <th scope="row" class="title_table icon">Puntos HU</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let item of userStorysDes">
+            <td>{{item.userStoryName}}</td>
+            <td>{{item.employeeName}}</td>
+            <td>{{item.date}}</td>
+            <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
+                (click)="editBoardModal(item.idBoard)"><i class="fas fa-edit"></i></button>
+            </td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>

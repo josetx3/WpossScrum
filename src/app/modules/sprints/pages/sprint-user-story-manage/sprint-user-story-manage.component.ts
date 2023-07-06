@@ -4,6 +4,7 @@ import { SprintsService } from '../service/sprints.service';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class SprintUserStoryManageComponent {
   // SprintDate: SprintsDate[]=[];
   SprintDate: any;
   userStorys: any;
+  userStorysDes: any;
   areaId: String='';
   teamId: String='';
   points: number=0;
@@ -29,6 +31,7 @@ export class SprintUserStoryManageComponent {
   constructor(
     private route: ActivatedRoute,
     public sprintService: SprintsService,
+    private dialog: MatDialog
     ) { }
 
   ngOnInit() {
@@ -45,27 +48,69 @@ export class SprintUserStoryManageComponent {
     });
   }
 
-  getUseStoryRef(){ //trae hu segun el team y el area
+  getUseStoryRef(){ //trae hu ref segun el team y el area
     this.sprintService.getUseStoryRef(this.teamId, this.areaId).subscribe((data)=>{
        this.userStorys=data;
-       console.log(this.userStorys)
+  });
+  }
+
+  getUseStoryDes(){ //trae hu ref segun el team y el area
+    this.sprintService.getUseStoryDes().subscribe((data)=>{
+       this.userStorysDes=data;
   });
   }
 
   addUserStoryToSprint(){
     if (this.addUserStoryForm.valid) {
-      const dataSprintUserStory = 
-      {
-        idSprint:this.sprintId,
-        userStoryId:this.addUserStoryForm.get('userStoryId')?.value,
-        points: parseInt(this.addUserStoryForm.get('points')?.value)
-      }
-      console.log(dataSprintUserStory)
-      this.sprintService.addUserStoryToSprint(dataSprintUserStory).subscribe((resp)=>{
+      const pointsF=parseInt(this.addUserStoryForm.get('points')?.value);
+      console.log(pointsF)
+      if(pointsF<this.SprintDate.ScorePointSprint){
+        const dataSprintUserStory = 
+        {
+          idSprint:this.sprintId,
+          userStoryId:this.addUserStoryForm.get('userStoryId')?.value,
+          points: pointsF
+        }
+        console.log(dataSprintUserStory)
+        this.sprintService.addUserStoryToSprint(dataSprintUserStory).subscribe((resp)=>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Historia de usuario añadido al sprint exitosamente',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#E6F4EA',
+          })
+        this.ngOnInit();
+        this.addUserStoryForm.reset();
+        },
+        err=>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'La historia de usuario ya está agregada',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#F5B7B1',
+          })
+        })
+      }else{
         Swal.fire({
           position: 'top-end',
-          icon: 'success',
-          title: 'Historia de usuario añadido al sprint exitosamente',
+          icon: 'error',
+          title: 'No se puede agregar la Historia de Usuario, número de puntos Sprint superados',
           showConfirmButton: false,
           timer: 1500,
           toast: true,
@@ -74,11 +119,9 @@ export class SprintUserStoryManageComponent {
             title: 'my-swal-title',
             icon: 'my-swal-icon',
           },
-          background: '#E6F4EA',
+          background: '#F1948A',
         })
-      this.addUserStoryForm.reset();
-      })
- 
+      }
     };
 
   }

@@ -117,4 +117,10 @@ export class SprintsService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.post('http://localhost:8020/sprintuserstory/savesprintuserstory',dataSprintUserStory, {headers});
   }
+
+  public getUseStoryDes(): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/', {headers});
+  }
 }
