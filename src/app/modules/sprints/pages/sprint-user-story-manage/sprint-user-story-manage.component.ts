@@ -54,8 +54,8 @@ export class SprintUserStoryManageComponent {
   });
   }
 
-  getUseStoryDes(){ //trae hu ref segun el team y el area
-    this.sprintService.getUseStoryDes().subscribe((data)=>{
+  getUseStoryDes(){ //trae hu des segun el team y el area
+    this.sprintService.getUseStoryDes(this.sprintId).subscribe((data)=>{
        this.userStorysDes=data;
   });
   }

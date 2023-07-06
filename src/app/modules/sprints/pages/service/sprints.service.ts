@@ -112,15 +112,16 @@ export class SprintsService {
     return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/'+teamId+'/'+areaId , {headers});
   }
 
-  addUserStoryToSprint(dataSprintUserStory: any): Observable<any> {
+  public addUserStoryToSprint(dataSprintUserStory: any): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.post('http://localhost:8020/sprintuserstory/savesprintuserstory',dataSprintUserStory, {headers});
   }
 
-  public getUseStoryDes(): Observable<any> {
+  public getUseStoryDes(sprintId: String | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/', {headers});
+    //arreglar la ruta bb
+    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/'+ sprintId, {headers});
   }
 }
