@@ -4,10 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
+import com.wposs.scrum_back.area.entity.Area;
+import com.wposs.scrum_back.area.repository.AreaRepository;
 import com.wposs.scrum_back.sprint.dto.SprintDto;
 import com.wposs.scrum_back.sprint.dto.SprintDtoRequest;
 import com.wposs.scrum_back.sprint.entity.Sprint;
 import com.wposs.scrum_back.sprint.repository.SprintRepository;
+import com.wposs.scrum_back.team.entity.Team;
+import com.wposs.scrum_back.team.repository.TeamRepository;
 import io.swagger.v3.core.util.Json;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,11 @@ public class SprintServiceImpl implements SprintService{
     private ModelMapper modelMapper;
     @Autowired
     private SprintRepository sprintRepository;
+    @Autowired
+    private TeamRepository teamRepository;
+
+    @Autowired
+    private AreaRepository areaRepository;
 
     @Override
     public List<SprintDto> getAllSprint() {
@@ -73,10 +82,16 @@ public class SprintServiceImpl implements SprintService{
     public SprintDtoRequest getDataSprint(UUID idSprint) {
         List<Object[]> data = sprintRepository.getDataSprint(idSprint);
         SprintDtoRequest dataRequest=null;
+
         for (Object[] sprintData:data) {
+            Team team= teamRepository.getByTeamName(sprintData[1].toString());
+            Area area= areaRepository.getByAreaName(sprintData[0].toString());
+            System.out.println(team.getTeamId());
                 dataRequest = new SprintDtoRequest(
                         sprintData[0].toString(),
                         sprintData[1].toString(),
+                        area.getAreaId(),
+                        team.getTeamId(),
                         Integer.parseInt(sprintData[2].toString()),
                         Double.parseDouble(sprintData[3].toString())
                         );

@@ -14,5 +14,7 @@ import java.util.UUID;
 public interface TeamRepository extends JpaRepository<Team, UUID> {
 
     Boolean existsByTeamName(String teamName);
+
+    Team getByTeamName(String teamName);
     List<Team> getByAreaId(UUID areaId);
 }
