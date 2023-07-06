@@ -16,6 +16,8 @@ export class SprintUserStoryManageComponent {
   // SprintDate: SprintsDate[]=[];
   SprintDate: any;
   userStorys: any;
+  areaId: String='';
+  teamId: String='';
 
   addUserStory: FormGroup = new FormGroup({
     userStoryId: new FormControl(null, [Validators.required])
@@ -28,23 +30,31 @@ export class SprintUserStoryManageComponent {
 
   ngOnInit() {
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
-    this.getSprintDateById()
-    // Utiliza el dato obtenido en tus operaciones o asignaciones
+    this.getSprintDateById();
+
     console.log(this.sprintId);
+    
   }
 
   getSprintDateById() {
     this.sprintService.getSprintDateById(this.sprintId).subscribe((data) => {
       this.SprintDate = data;
-      console.log(this.SprintDate)
+      this.areaId= this.SprintDate.areaId;
+      this.teamId= this.SprintDate.teamId;
+      this.getUseStoryRef();
     });
+    
   }
 
   getUseStoryRef(){
-    this.sprintService.getUseStoryRef(this.SprintDate.areaId, this.SprintDate.teamId ).subscribe((data)=>{
+    this.sprintService.getUseStoryRef(this.areaId, this.teamId).subscribe((data)=>{
        this.userStorys=data;
+       console.log(this.userStorys)
   });
   }
+
+
+
 
   addUserStoryToSprint(){}
 

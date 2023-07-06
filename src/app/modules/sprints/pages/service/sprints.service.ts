@@ -108,6 +108,7 @@ export class SprintsService {
   public getUseStoryRef(teamId: String | null, areaId: String | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get('http://localhost:8020/userstory/'+teamId+'/'+areaId , {headers});
+    console.log('teamd id:'+ teamId+ "area ID"+ areaId);
+    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/'+teamId+'/'+areaId , {headers});
   }
 }
