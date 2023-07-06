@@ -166,13 +166,18 @@ public class UserStoryController {
     })
     public ResponseEntity<List<UserStoryDtoRequest>> getAllUserStoryRef(@PathVariable("idTeam") UUID idTeam, @PathVariable("idArea") UUID idArea, @RequestHeader(value="Authorization") String token){
         try{
-            if(jwtUtil.getKey(token) != null) {
-                List<UserStoryDtoRequest> userStoryDtoRequests = userStoryService.getAllUserStoryRef(idTeam, idArea);
-                if (!userStoryDtoRequests.isEmpty()){
-                    return new ResponseEntity<>(userStoryDtoRequests,HttpStatus.OK);
+            try {
+                if(jwtUtil.getKey(token) != null) {
+                    List<UserStoryDtoRequest> userStoryDtoRequests = userStoryService.getAllUserStoryRef(idTeam, idArea);
+                    if (!userStoryDtoRequests.isEmpty()){
+                        return new ResponseEntity<>(userStoryDtoRequests,HttpStatus.OK);
+                    }
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }catch (Exception e){
+                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+
             return ResponseEntity.badRequest().build();
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

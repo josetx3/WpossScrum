@@ -96,10 +96,20 @@ public class SprintController {
             @ApiResponse(responseCode = "404",description = "Sprint data Not Found")
     })
     public ResponseEntity<SprintDtoRequest> getDataSprint(@PathVariable("idsprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                try{
+                    return new ResponseEntity<>(sprintService.getDataSprint(idSprint),HttpStatus.OK);
+                }catch (Exception e){
+                    return ResponseEntity.badRequest().build();
+                }
 
-                return new ResponseEntity<>(sprintService.getDataSprint(idSprint),HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-
+        }
     }
 
     @PutMapping("/updatesprint/{idsprint}")
