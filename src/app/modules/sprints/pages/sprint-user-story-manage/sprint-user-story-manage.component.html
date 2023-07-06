@@ -9,13 +9,35 @@
             <li class="breadcrumb-item active">Añadir HU</li>
           </ol>
         </nav>
+      </div>
+      <div class="title" *ngIf="SprintDate">
+        <div> <strong> Area: {{SprintDate.areaName}}</strong> </div>
+        <div> <strong> Equipo:  {{SprintDate.teamName}}</strong></div>
+        <div> <strong> Sprint: {{SprintDate.nuSprint}}</strong></div>
+        <div> <strong> Puntos Sprint ideal:  {{SprintDate.ScorePointSprint}}</strong></div>
+      </div>
 
+      <div class="row">
+        <div class="col-6">
+          <form [formGroup]="addUserStory" (ngSubmit)="addUserStoryToSprint()">
+            <div class="row col-12">
+              <label class="col-5 col-form-label">
+                <h3>Historia de usuario</h3>
+              </label>
+              <div class="col-sm-7">
+                <select class="form-select" aria-label="Default select example" formControlName="userStoryId">
+                  <option selected>Seleccionar historia de usuario</option>
+                  <option value="{{item.userStoryId}}" *ngFor="let item of userStorys">{{item.userStoryName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 text-center">
+              <button class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="addUserStory.invalid" >Agregar</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <div>{{sprintId}}</div>
-        <div></div>
-        <div></div>
-      </div>
+
       
     </div>
   </div>

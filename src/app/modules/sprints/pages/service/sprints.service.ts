@@ -22,7 +22,7 @@ export class SprintsService {
     return this.httpClient.post(this.API_SERVER + '/savesprint', sprint, {headers});
   }
   
-  getSprintById(sprintId: string | null): Observable<any> {
+  getSprintById(sprintId: String | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.get(this.API_SERVER + '/sprint/' + sprintId, {headers});
@@ -97,5 +97,17 @@ export class SprintsService {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.put('http://localhost:8020/scoringSpring/update_score/' + sprintId, dataScoreSpring, {headers});
+  }
+
+  public getSprintDateById(sprintId: String | null): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER + '/sprintData/'+sprintId , {headers});
+  }
+
+  public getUseStoryRef(teamId: String | null, areaId: String | null): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/userstory/'+teamId+'/'+areaId , {headers});
   }
 }
