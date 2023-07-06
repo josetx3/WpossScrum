@@ -21,17 +21,7 @@ public class SprintUserstoryDto implements Serializable {
     @NotNull
     private UUID userStoryId;
 
-    @JsonProperty(value = "sprintUserstoryDate")
-    @NotNull
-    private Integer sprintUserstoryDate;
 
-
-    public SprintUserstoryDto(Integer points, UUID idSprint, UUID userStoryId, Integer sprintUserstoryDate){
-        this.points= points;
-        this.idSprint= idSprint;
-        this.userStoryId= userStoryId;
-        this.sprintUserstoryDate= sprintUserstoryDate;
-    }
 
     public Integer getPoints() {
         return points;
@@ -57,11 +47,5 @@ public class SprintUserstoryDto implements Serializable {
         this.userStoryId = userStoryId;
     }
 
-    public Integer getSprintUserstoryDate() {
-        return sprintUserstoryDate;
-    }
 
-    public void setSprintUserstoryDate(Integer sprintUserstoryDate) {
-        this.sprintUserstoryDate = sprintUserstoryDate;
-    }
 }

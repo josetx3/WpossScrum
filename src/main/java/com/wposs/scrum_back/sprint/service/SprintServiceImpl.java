@@ -86,7 +86,7 @@ public class SprintServiceImpl implements SprintService{
         for (Object[] sprintData:data) {
             Team team= teamRepository.getByTeamName(sprintData[1].toString());
             Area area= areaRepository.getByAreaName(sprintData[0].toString());
-            System.out.println(team.getTeamId());
+            //System.out.println(team.getTeamId());
                 dataRequest = new SprintDtoRequest(
                         sprintData[0].toString(),
                         sprintData[1].toString(),

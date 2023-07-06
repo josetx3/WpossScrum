@@ -13,10 +13,10 @@ import java.util.UUID;
 
 @Embeddable
 public class SprintUserstoryPk implements Serializable {
-    public SprintUserstoryPk(UUID userStoryId, UUID sprintId, Date sprintUserstoryDate) {
+    public SprintUserstoryPk(UUID userStoryId, UUID sprintId) {
         this.userStoryId = userStoryId;
         this.sprintId = sprintId;
-        this.sprintUserstoryDate = sprintUserstoryDate;
+
     }
 
     @Column(name = "fk_user_story_id",nullable = false)
@@ -26,9 +26,7 @@ public class SprintUserstoryPk implements Serializable {
     @Type(type = "pg-uuid")
     private UUID sprintId;
 
-    @Column(name = "sprint_userstory_date", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date sprintUserstoryDate;
+
 
     @Override
     public boolean equals(Object o) {
@@ -40,10 +38,7 @@ public class SprintUserstoryPk implements Serializable {
     }
 
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getSprintId(), getUserStoryId(),  getSprintUserstoryDate());
-    }
+
     public UUID getUserStoryId() {
         return userStoryId;
     }
@@ -62,11 +57,5 @@ public class SprintUserstoryPk implements Serializable {
 
     public SprintUserstoryPk() {}
 
-    public Date getSprintUserstoryDate() {
-        return sprintUserstoryDate;
-    }
 
-    public void setSprintUserstoryDate(Date sprintUserstoryDate) {
-        this.sprintUserstoryDate = sprintUserstoryDate;
-    }
 }
