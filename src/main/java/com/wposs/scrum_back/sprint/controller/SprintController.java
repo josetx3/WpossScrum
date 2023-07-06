@@ -1,7 +1,9 @@
 package com.wposs.scrum_back.sprint.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.sprint.dto.SprintDto;
+import com.wposs.scrum_back.sprint.dto.SprintDtoRequest;
 import com.wposs.scrum_back.sprint.service.SprintService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -74,13 +76,29 @@ public class SprintController {
     @GetMapping("/sprint/{idsprint}")
     @Operation(summary = "Get Sprint By Id")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200",description = "Get Succes Sprint"),
+            @ApiResponse(responseCode = "200",description = "Get Succes Sprint"),
             @ApiResponse(responseCode = "404",description = "Sprint Not Found")
     })
     public ResponseEntity<SprintDto> getSprintByid(@PathVariable("idsprint") UUID idSprint,@RequestHeader(value="Authorization") String token){
         try{
             if(jwtUtil.getKey(token) != null) {
                 return sprintService.sprintById(idSprint).map(sprintDto -> new ResponseEntity<>(sprintDto,HttpStatus.OK)).orElse(null);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
+    } @GetMapping("/sprintData/{idsprint}")
+    @Operation(summary = "Get Sprint data By Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Get Succes Sprint"),
+            @ApiResponse(responseCode = "404",description = "Sprint data Not Found")
+    })
+    public ResponseEntity<SprintDtoRequest> getDataSprint(@PathVariable("idsprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                return new ResponseEntity<>(sprintService.getDataSprint(idSprint),HttpStatus.OK);
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){

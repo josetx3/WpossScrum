@@ -1,14 +1,19 @@
 package com.wposs.scrum_back.sprint.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.sprint.dto.SprintDto;
+import com.wposs.scrum_back.sprint.dto.SprintDtoRequest;
 import com.wposs.scrum_back.sprint.entity.Sprint;
 import com.wposs.scrum_back.sprint.repository.SprintRepository;
+import io.swagger.v3.core.util.Json;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -62,5 +67,21 @@ public class SprintServiceImpl implements SprintService{
             sprint.setSprintCount((sprintDto.getTeamId()==sprint.getTeamId()?sprint.getSprintCount():(sprint.getSprintCount()+1)));
             return modelMapper.map(sprintRepository.save(sprint),SprintDto.class);
         }).orElseThrow(()->new MessageGeneric("no esta disponible el Sprint que quiere actualizar","404",HttpStatus.NOT_FOUND));
+    }
+
+    @Override
+    public SprintDtoRequest getDataSprint(UUID idSprint) {
+        List<Object[]> data = sprintRepository.getDataSprint(idSprint);
+        SprintDtoRequest dataRequest=null;
+        for (Object[] sprintData:data) {
+                dataRequest = new SprintDtoRequest(
+                        sprintData[0].toString(),
+                        sprintData[1].toString(),
+                        Integer.parseInt(sprintData[2].toString()),
+                        Double.parseDouble(sprintData[3].toString())
+                        );
+
+        }
+        return dataRequest;
     }
 }
