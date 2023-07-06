@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SprintsService } from '../service/sprints.service';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,9 +19,11 @@ export class SprintUserStoryManageComponent {
   userStorys: any;
   areaId: String='';
   teamId: String='';
+  points: number=0;
 
-  addUserStory: FormGroup = new FormGroup({
-    userStoryId: new FormControl(null, [Validators.required])
+  addUserStoryForm: FormGroup = new FormGroup({
+    userStoryId: new FormControl(null, [Validators.required]),
+    points: new FormControl(null, [Validators.required])
   })
   
   constructor(
@@ -31,31 +34,38 @@ export class SprintUserStoryManageComponent {
   ngOnInit() {
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
     this.getSprintDateById();
-
-    console.log(this.sprintId);
-    
   }
 
   getSprintDateById() {
-    this.sprintService.getSprintDateById(this.sprintId).subscribe((data) => {
-      this.SprintDate = data;
+    this.sprintService.getSprintDateById(this.sprintId).subscribe((resp) => {
+      this.SprintDate = resp;
       this.areaId= this.SprintDate.areaId;
       this.teamId= this.SprintDate.teamId;
       this.getUseStoryRef();
     });
-    
   }
 
-  getUseStoryRef(){
-    this.sprintService.getUseStoryRef(this.areaId, this.teamId).subscribe((data)=>{
+  getUseStoryRef(){ //trae hu segun el team y el area
+    this.sprintService.getUseStoryRef(this.teamId, this.areaId).subscribe((data)=>{
        this.userStorys=data;
-       console.log(this.userStorys)
   });
   }
 
+  addUserStoryToSprint(){
+    if (this.addUserStoryForm.valid) {
+      const dataSprintUserStory = 
+      {
+        Idsprint:this.sprintId,
+        userStoryId: this.addUserStoryForm.get('userStoryId')?.value,
+        points:this.addUserStoryForm.get('points')?.value
+      }
+      console.log(dataSprintUserStory)
+      this.sprintService.addUserStoryToSprint(dataSprintUserStory).subscribe((resp)=>{
 
+      })
+ 
+    };
 
-
-  addUserStoryToSprint(){}
+  }
 
 }

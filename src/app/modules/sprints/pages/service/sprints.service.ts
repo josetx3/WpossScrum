@@ -43,6 +43,7 @@ export class SprintsService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.post('http://localhost:8020/sprintEmployee/savesprintemployee',dataPointsSprint, {headers});
   }
+
   getAllCalculationPercentageEmployee(): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
@@ -108,7 +109,12 @@ export class SprintsService {
   public getUseStoryRef(teamId: String | null, areaId: String | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    console.log('teamd id:'+ teamId+ "area ID"+ areaId);
     return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/'+teamId+'/'+areaId , {headers});
+  }
+
+  addUserStoryToSprint(dataSprintUserStory: any): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.post('http://localhost:8020/sprintuserstory/savesprintuserstory',dataSprintUserStory, {headers});
   }
 }
