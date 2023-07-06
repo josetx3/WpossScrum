@@ -48,6 +48,7 @@ export class SprintUserStoryManageComponent {
   getUseStoryRef(){ //trae hu segun el team y el area
     this.sprintService.getUseStoryRef(this.teamId, this.areaId).subscribe((data)=>{
        this.userStorys=data;
+       console.log(this.userStorys)
   });
   }
 
@@ -55,13 +56,27 @@ export class SprintUserStoryManageComponent {
     if (this.addUserStoryForm.valid) {
       const dataSprintUserStory = 
       {
-        Idsprint:this.sprintId,
-        userStoryId: this.addUserStoryForm.get('userStoryId')?.value,
-        points:this.addUserStoryForm.get('points')?.value
+        idSprint:this.sprintId,
+        userStoryId:this.addUserStoryForm.get('userStoryId')?.value,
+        points: parseInt(this.addUserStoryForm.get('points')?.value)
       }
       console.log(dataSprintUserStory)
       this.sprintService.addUserStoryToSprint(dataSprintUserStory).subscribe((resp)=>{
-
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Historia de usuario añadido al sprint exitosamente',
+          showConfirmButton: false,
+          timer: 1500,
+          toast: true,
+          customClass: {
+            container: 'my-swal-container',
+            title: 'my-swal-title',
+            icon: 'my-swal-icon',
+          },
+          background: '#E6F4EA',
+        })
+      this.addUserStoryForm.reset();
       })
  
     };
