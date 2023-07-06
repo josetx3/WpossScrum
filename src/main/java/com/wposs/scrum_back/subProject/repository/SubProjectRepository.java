@@ -17,5 +17,7 @@ public interface SubProjectRepository  extends JpaRepository<SubProject, UUID> {
 
     Boolean existsBySubProjectName(String subProjectName);
 
+    SubProject getBySubProjectName( String subProjectName);
+
     List<SubProject> getByProjectId(UUID projectId);
 }

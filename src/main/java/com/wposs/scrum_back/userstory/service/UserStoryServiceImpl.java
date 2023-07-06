@@ -2,6 +2,8 @@ package com.wposs.scrum_back.userstory.service;
 
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
+import com.wposs.scrum_back.subProject.entity.SubProject;
+import com.wposs.scrum_back.subProject.repository.SubProjectRepository;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
 import com.wposs.scrum_back.userstory.dto.UserStoryDtoRequest;
 import com.wposs.scrum_back.userstory.entity.UserStory;
@@ -22,6 +24,9 @@ import java.util.stream.Collectors;
 public class UserStoryServiceImpl implements UserStoryService{
     @Autowired
     private UserStoryRepository userStoryRepository;
+
+    @Autowired
+    private SubProjectRepository subProjectRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -84,13 +89,18 @@ public class UserStoryServiceImpl implements UserStoryService{
     }
 
     @Override
+    @Transactional
     public List<UserStoryDtoRequest> getAllUserStoryRef(UUID idTeam, UUID idArea) {
         List<Object[]> UserStory = userStoryRepository.getAllUserStoryRef(idTeam,idArea);
         List<UserStoryDtoRequest> userStoryDtoRequests = new ArrayList<>();
+
         if(UserStory.isEmpty()){
             throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
         }
         for (Object[] userStory:UserStory) {
+            SubProject subProject= subProjectRepository.getBySubProjectName( userStory[3].toString());
+            UUID subprojectId=subProject.getSubProjectId();
+            UserStory userStory1= userStoryRepository.getByUserStoryNameAndSubProjectId(userStory[0].toString(), subprojectId);
             UserStoryDtoRequest userStoryDtoRequest = new UserStoryDtoRequest(
                     userStory[0].toString(),
                     Integer.parseInt(userStory[1].toString()),
@@ -98,7 +108,8 @@ public class UserStoryServiceImpl implements UserStoryService{
                     userStory[3].toString(),
                     userStory[4].toString(),
                     userStory[5].toString(),
-                    userStory[6].toString()
+                    userStory[6].toString(),
+                    userStory1.getUserStoryId()
             );
             userStoryDtoRequests.add(userStoryDtoRequest);
         }

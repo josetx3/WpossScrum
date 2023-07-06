@@ -24,6 +24,8 @@ public class UserStoryDtoRequest {
     @JsonProperty(value = "userStoryStateName",access = JsonProperty.Access.READ_ONLY)
     private String userStoryStateName;
 
+    @JsonProperty(value = "userstoryId")
+    private UUID userstoryId;
     @JsonProperty(value = "subProjectName")
     private String subProjectName;
 
@@ -38,7 +40,7 @@ public class UserStoryDtoRequest {
     private String teamName;
 
 
-    public UserStoryDtoRequest(String userStoryName, Integer userStoryScore, String userStoryStateName, String subProjectName, String projectName, String areaName, String teamName) {
+    public UserStoryDtoRequest(String userStoryName, Integer userStoryScore, String userStoryStateName, String subProjectName, String projectName, String areaName, String teamName, UUID userstoryId) {
         this.userStoryName = userStoryName;
         this.userStoryScore = userStoryScore;
         this.userStoryStateName = userStoryStateName;
@@ -46,6 +48,7 @@ public class UserStoryDtoRequest {
         this.projectName = projectName;
         this.areaName = areaName;
         this.teamName = teamName;
+        this.userstoryId=userstoryId;
     }
 
     public String getUserStoryName() {
