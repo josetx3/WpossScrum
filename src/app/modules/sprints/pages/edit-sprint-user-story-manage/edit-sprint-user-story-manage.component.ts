@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SprintsService } from '../service/sprints.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-sprint-user-story-manage',
@@ -32,8 +33,6 @@ export class EditSprintUserStoryManageComponent implements OnInit{
     this.pointsTot= this.data.pointsTot;
     this.points=this.data.points;
     this.scorePointSprint= this.data.scorePointSprint;
-    console.log('scorepoint'+ this.scorePointSprint)
-    console.log('El id del sprint es'+this.idSprint+ 'El id del UserStory es'+this.userStoryId+ 'Los puntos totales son'+this.pointsTot)
     this.editPointForm.patchValue({
       pointsHU: this.points   
     })
@@ -43,20 +42,103 @@ export class EditSprintUserStoryManageComponent implements OnInit{
     if (this.editPointForm.valid) {
         let pointForm= parseInt(this.editPointForm.get('pointsHU')?.value);
         let editPoints= pointForm- this.points;
-        let newPoints= this.pointsTot+ editPoints ;
-        if(this.points>pointForm){
-
-        }
+        let newPoints= this.pointsTot+ editPoints ;    
         if(pointForm === 0){
-            console.log('eliminar del sprintuserstory puntos dejando su estado en refinado')
-            //actualizar puntos normalmente
+            Swal.fire({
+              title: 'Eliminacion de la HU del sprint',
+              text: ' Al digitar una puntuación de cero la historia se eliminara del sprint y su estado volvera a REFINADA',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#1ABC9C',
+              cancelButtonColor: '#F1948A',
+              confirmButtonText: 'Sí eliminar!',
+              customClass: {
+                container: 'my-swal-container',
+                title: 'my-swal-title',
+                icon: 'my-swal-icon',
+              },
+              background: '#E6F4EA'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.sprintService.deleteSprintUserstory(this.idSprint,this.userStoryId).subscribe({
+                  next: (resp)=>{
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Historia de usuario eliminadas del sprint.',
+                      showConfirmButton: false,
+                      timer: 1500,
+                      toast: true,
+                      customClass: {
+                        container: 'my-swal-container',
+                        title: 'my-swal-title',
+                        icon: 'my-swal-icon',
+                      },
+                      background: '#E6F4EA'
+                    })
+                  }
+                })
+                this.dialogRef.close();
+            }
+          })
+        } else if(pointForm < 0){
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'El numero ingresado es menor que cero, ingrese un número valido.',
+            showConfirmButton: false,
+            timer: 2500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#F1948A',
+          })
         }
         else if(newPoints < this.scorePointSprint)
         {
-          console.log('actualizar puntos dejando su estado en desarrollo')
-            //
+          const dataSprintUserStory = 
+          {
+            idSprint:this.idSprint,
+            userStoryId:this.userStoryId,
+            points: this.editPointForm.get('pointsHU')?.value
+          }
+          this.sprintService.updateSprintUserstory( this.idSprint,this.userStoryId, dataSprintUserStory).subscribe({
+            next: (resp)=>{
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Puntos de historia de usuario actualizados',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true,
+                customClass: {
+                  container: 'my-swal-container',
+                  title: 'my-swal-title',
+                  icon: 'my-swal-icon',
+                },
+                background: '#E6F4EA',
+              })
+              this.dialogRef.close();
+            }
+          })
         }else{
-          console.log('puntos mayores que el sprint ideal')
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'La puntuacion ingresada es mayor a los puntos del sprint ideal',
+            showConfirmButton: false,
+            timer: 3000,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#F1948A',
+          })
         }
     }
   }

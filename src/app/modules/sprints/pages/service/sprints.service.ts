@@ -123,4 +123,17 @@ export class SprintsService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.get('http://localhost:8020/sprintuserstory/sprintuserstory/'+ sprintId, {headers});
   }
+
+  public updateSprintUserstory(sprintId: String | null, userstoryId: String | null, dataSprintUserstory: any): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put('http://localhost:8020/sprintuserstory/updatesprintuserstory/' + sprintId +'/'+userstoryId, dataSprintUserstory, {headers});
+  }
+
+  public deleteSprintUserstory(sprintId: String | null, userstoryId: String | null): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    //arreglar ruta
+    return this.httpClient.delete('http://localhost:8020/sprintuserstory/deletesprintuserstory/' + sprintId +'/'+userstoryId, {headers});
+  }
 }
