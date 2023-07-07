@@ -121,7 +121,6 @@ export class SprintsService {
   public getUseStoryDes(sprintId: String | null): Observable<any> {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    //arreglar la ruta bb
-    return this.httpClient.get('http://localhost:8020/userstory/userstoryteam/'+ sprintId, {headers});
+    return this.httpClient.get('http://localhost:8020/sprintuserstory/sprintuserstory/'+ sprintId, {headers});
   }
 }

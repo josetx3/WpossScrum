@@ -38,7 +38,7 @@ export class SprintUserStoryManageComponent {
   ngOnInit() {
     this.sprintId = this.route.snapshot.paramMap.get('sprintId');
     this.getSprintDateById();
-    //this.getUseStoryDes();
+    this.getUseStoryDes();
   }
 
   getSprintDateById() {
@@ -59,6 +59,7 @@ export class SprintUserStoryManageComponent {
   getUseStoryDes(){ //trae hu des segun el team y el area
     this.sprintService.getUseStoryDes(this.sprintId).subscribe((data)=>{
        this.userStorysDes=data;
+       console.log('esots datos get useStoryDesa'+this.userStorysDes)
   });
   }
 

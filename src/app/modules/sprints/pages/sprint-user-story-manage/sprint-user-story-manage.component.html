@@ -58,15 +58,15 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let item of userStorysDes">
+          <tr *ngFor="let item of userStorysDes">
+            <td>{{item.userStoryName}}</td>
             <td>{{item.projectName}}</td>
-            <td>{{item.employeeName}}</td>
             <td>{{item.subProjectName}}</td>
-            <td>{{item.subProjectName}}</td>
+            <td>{{item.points}}</td>
             <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
                 (click)="editSprintUserStoryManageModal(item.idSprint, item.userStoryId)"><i class="fas fa-edit"></i></button>
             </td>
-          </tr> -->
+          </tr>
         </tbody>
       </table>
     </div>
