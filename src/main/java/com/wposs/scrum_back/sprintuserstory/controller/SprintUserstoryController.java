@@ -101,7 +101,7 @@ public class SprintUserstoryController {
             @ApiResponse(responseCode = "200",description = "Delete Success"),
             @ApiResponse(responseCode = "404",description = "sprintuserstory Not Found")
     })
-    public ResponseEntity deleteTaskTeam(@PathVariable("idUserStory") UUID idUserStory,@PathVariable("idSprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
+    public ResponseEntity deletesSprintUserStory(@PathVariable("idUserStory") UUID idUserStory,@PathVariable("idSprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
         try{
             if(jwtUtil.getKey(token) != null) {
                 try{

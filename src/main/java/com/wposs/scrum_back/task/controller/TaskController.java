@@ -21,7 +21,6 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
-
     @Autowired
     private JWTUtil jwtUtil;
     @GetMapping("/all")
