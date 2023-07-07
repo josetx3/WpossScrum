@@ -38,8 +38,9 @@
               </div>
             </div>
           </div>
-          <div class="col-12 text-center mt-4">
-            <button class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="addUserStoryForm.invalid">Agregar</button>
+          <div class="col-12 text-center mt-4 d-flex justify-content-around bd-highlight">
+            <button mat-raised-button color="primary" class="btn btn-primary m-3" type="submit" [disabled]="addUserStoryForm.invalid">Agregar</button>
+            <button mat-raised-button color="primary" class="btn btn btn-primary m-3" routerLink="/app/sprints">Volver</button>
           </div>
         </form>
       </div>
@@ -64,7 +65,7 @@
             <td>{{item.subProjectName}}</td>
             <td>{{item.points}}</td>
             <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
-                (click)="editSprintUserStoryManageModal(item.idSprint, item.userStoryId)"><i class="fas fa-edit"></i></button>
+                (click)="editSprintUserStoryManageModal(item.sprintId, item.userstoryId, item.points)"><i class="fas fa-edit"></i></button>
             </td>
           </tr>
         </tbody>

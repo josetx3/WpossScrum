@@ -49,10 +49,8 @@ export class EditEmployeeSprintComponent implements OnInit{
     //console.log("ASD");
     this.sprintService.getAllEmployeeSprint(this.sprintEmployeeId, this.sprintId).subscribe({
       next:(data)=>{
-        console.log('data2:'+data)
         this.employee=data;
         this.employeeName=data.employeeName;
-        console.log(data.employeeName)
         this.employeeSprintEditForm.patchValue({
           sprintEmployeePercentage:this.employee.percentage,
           sprintEmployeeDay:this.employee.daysLeave,

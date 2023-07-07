@@ -22,8 +22,8 @@ export class SprintUserStoryManageComponent {
   areaId: String='';
   teamId: String='';
   pointsTot: number=0;
-
-
+  scorePointSprint: Number=0;
+ 
   addUserStoryForm: FormGroup = new FormGroup({
     userStoryId: new FormControl(null, [Validators.required]),
     points: new FormControl(null, [Validators.required])
@@ -46,6 +46,7 @@ export class SprintUserStoryManageComponent {
       this.SprintDate = resp;
       this.areaId= this.SprintDate.areaId;
       this.teamId= this.SprintDate.teamId;
+      this.scorePointSprint= this.SprintDate.ScorePointSprint;
       this.getUseStoryRef();
   
     });
@@ -101,23 +102,24 @@ export class SprintUserStoryManageComponent {
           },
           error:
             err=>{
-              Swal.fire({
-                position: 'top-end',
-                icon: 'warning',
-                title: 'La historia de usuario ya está agregada',
-                showConfirmButton: false,
-                timer: 1500,
-                toast: true,
-                customClass: {
-                  container: 'my-swal-container',
-                  title: 'my-swal-title',
-                  icon: 'my-swal-icon',
-                },
-                background: '#F5B7B1',
+              err.status({400: 
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'warning',
+                  title: 'Error, numero de puntos no validos',
+                  showConfirmButton: false,
+                  timer: 1500,
+                  toast: true,
+                  customClass: {
+                    container: 'my-swal-container',
+                    title: 'my-swal-title',
+                    icon: 'my-swal-icon',
+                  },
+                  background: '#F5B7B1',
+                })
               })
               this.ngOnInit();
             }
-            
         })
       }else{
         this.pointsTot=this.pointsTot-pointHu;
@@ -141,9 +143,16 @@ export class SprintUserStoryManageComponent {
 
   }
 
-  editSprintUserStoryManageModal(idSprint: String, userStoryId:String) {
+  editSprintUserStoryManageModal(idSprint: String, userStoryId:String, points: Number) {
     const dialogRef = this.dialog.open(EditSprintUserStoryManageComponent,
-    {width: '500px', maxHeight: '600px', data:{idSprint: idSprint, userStoryId: userStoryId, pointsTo:this.pointsTot }});
+
+    {width: '500px', maxHeight: '600px', 
+    data:{
+        idSprint: idSprint,
+        userStoryId: userStoryId,
+        points:points,
+        scorePointSprint: this.scorePointSprint,
+        pointsTot:this.pointsTot }});
      dialogRef.afterClosed().subscribe(resul => {
       this.getUseStoryDes();
      })

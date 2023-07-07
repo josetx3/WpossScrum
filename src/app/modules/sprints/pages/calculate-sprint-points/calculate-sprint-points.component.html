@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="row col-3 mt-3 m-1">
-            <button class="btn btn btn-primary mb-2 " type="submit">Guardar</button>
+            <button mat-raised-button color="primary" class="btn btn btn-primary mb-2 " type="submit">Guardar</button>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
             <td class="title_table">{{item.percentageFinal}}</td>
             <td class="title_table">{{item.observations}}</td>
             <td class="icon">
-              <button type="button" class="btn btn-success btn-sm m-1" (click)="editEmployeeTeamSprint(item.employeeId)" ><i class="fas fa-edit"></i></button>
+              <button  type="button" class="btn btn-warning btn-sm m-1" (click)="editEmployeeTeamSprint(item.employeeId)" ><i class="fas fa-edit"></i></button>
             </td>
           </tr>
         </tbody>
@@ -73,11 +73,9 @@
       <span>("{{finalCalculation}}")</span>
       <br> -->
       <div class="col-12">
-        <button class="btn btn btn-primary m-3  col-3" (click)="calculateSprintPoints()">Calcular Puntos</button>
-        <button class="btn btn btn-primary m-3  col-3" routerLink="/app/sprints">Volver</button>
+        <button mat-raised-button color="primary" class="btn btn btn-primary m-3  col-3" (click)="calculateSprintPoints()">Calcular Puntos</button>
+        <button mat-raised-button color="primary" class="btn btn btn-primary m-3  col-3" routerLink="/app/sprints">Volver</button>
       </div>
-
-      
     </div>
     
   </div>
