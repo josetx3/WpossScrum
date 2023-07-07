@@ -1,1 +1,22 @@
-<p>edit-sprint-user-story-manage works!</p>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Editar puntos de la HU</h1>
+            <form [formGroup]="editPointForm" (ngSubmit)="editPonitHUSprint">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="col-6 col-form-label">Digite los puntos de la HU</label>
+                    <input type="text" class="form-control" formControlName="points" maxlength="3">
+                    <div *ngIf="editPointForm.get('points')?.dirty || editPointForm.get('points')?.touched">
+                      <h3 *ngIf="editPointForm.get('points')?.hasError('required')" class="form-red-validator m-1"> Este
+                        campo es requerido</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-center mt-4">
+                  <button class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="editPointForm.invalid">Agregar</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>

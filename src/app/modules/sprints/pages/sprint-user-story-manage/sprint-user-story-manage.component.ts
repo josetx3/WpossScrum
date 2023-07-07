@@ -47,6 +47,7 @@ export class SprintUserStoryManageComponent {
       this.areaId= this.SprintDate.areaId;
       this.teamId= this.SprintDate.teamId;
       this.getUseStoryRef();
+  
     });
   }
 
@@ -59,14 +60,17 @@ export class SprintUserStoryManageComponent {
   getUseStoryDes(){ //trae hu des segun el team y el area
     this.sprintService.getUseStoryDes(this.sprintId).subscribe((data)=>{
        this.userStorysDes=data;
-       console.log('esots datos get useStoryDesa'+this.userStorysDes)
+       this.pointsTot=0;
+       this.userStorysDes.forEach((obj: { points: number; })=>{
+          this.pointsTot+=obj.points;
+       })
   });
   }
 
   addUserStoryToSprint(){
     if (this.addUserStoryForm.valid) {
-      this.pointsTot=this.pointsTot+ parseInt(this.addUserStoryForm.get('points')?.value);
-      console.log(this.pointsTot)
+      let pointHu=parseInt(this.addUserStoryForm.get('points')?.value);
+      this.pointsTot+=pointHu;
       if(this.pointsTot<this.SprintDate.ScorePointSprint){
         const dataSprintUserStory = 
         {
@@ -111,9 +115,12 @@ export class SprintUserStoryManageComponent {
                 },
                 background: '#F5B7B1',
               })
+              this.ngOnInit();
             }
+            
         })
       }else{
+        this.pointsTot=this.pointsTot-pointHu;
         Swal.fire({
           position: 'top-end',
           icon: 'error',
@@ -128,8 +135,9 @@ export class SprintUserStoryManageComponent {
           },
           background: '#F1948A',
         })
+        this.ngOnInit();
       }
-    };
+    }
 
   }
 

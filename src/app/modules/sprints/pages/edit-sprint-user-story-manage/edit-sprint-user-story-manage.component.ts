@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-sprint-user-story-manage',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class EditSprintUserStoryManageComponent {
 
+  editPointForm: FormGroup = new FormGroup({
+    points: new FormControl(null, [Validators.required])
+  })
+
+  editPonitHUSprint(){};
 }
