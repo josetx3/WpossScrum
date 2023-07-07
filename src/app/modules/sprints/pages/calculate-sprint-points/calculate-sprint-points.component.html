@@ -67,13 +67,17 @@
         </tbody>
       </table>
     </div>
-    <div class="points_final"  role="toolbar">
+    <div class="points_final row"  role="toolbar">
       <!-- <label>Los puntos del sprint son</label>
       <br>
       <span>("{{finalCalculation}}")</span>
       <br> -->
-      <button class="btn btn btn-primary mb-2 mt-3 mr-2" (click)="calculateSprintPoints()">Calcular Puntos</button>
-      <button class="btn btn btn-primary mb-2 mt-3 ml-3" routerLink="/app/sprints">Volver</button>
+      <div class="col-12">
+        <button class="btn btn btn-primary m-3  col-3" (click)="calculateSprintPoints()">Calcular Puntos</button>
+        <button class="btn btn btn-primary m-3  col-3" routerLink="/app/sprints">Volver</button>
+      </div>
+
+      
     </div>
     
   </div>
