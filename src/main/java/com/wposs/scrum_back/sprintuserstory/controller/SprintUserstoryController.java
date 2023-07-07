@@ -63,10 +63,34 @@ public class SprintUserstoryController {
             @ApiResponse(responseCode = "404",description = "user story data Not Found")
     })
     public ResponseEntity<List<SprintUserstoryDtoRequest>> getDataSprint(@PathVariable("idsprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
-
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                try{
                     return new ResponseEntity<>(sprintUserstoryService.getAllSprintUserstoryBySprint(idSprint),HttpStatus.OK);
+                }catch (Exception e){
+                    return ResponseEntity.badRequest().build();
+                }
 
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
+        }
+    }
+
+    @DeleteMapping("/deletesprintuserstory/{idSprint}/{idUserStory}")
+    @Operation(summary = "Delete sprintuserstory")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Delete Success"),
+            @ApiResponse(responseCode = "404",description = "sprintuserstory Not Found")
+    })
+    public ResponseEntity deleteTaskTeam(@PathVariable("idUserStory") UUID idUserStory,@PathVariable("idSprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
+
+                if (sprintUserstoryService.deleteSpringUserStory(idSprint,idUserStory)){
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
 }

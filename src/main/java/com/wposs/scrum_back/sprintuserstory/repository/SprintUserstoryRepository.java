@@ -23,4 +23,6 @@ public interface SprintUserstoryRepository extends JpaRepository<SprintUserstory
                    "inner join wposs.project pr on sp.project_id= pr.project_id\n" +
                    "where spr.sprint_id = ?1",nativeQuery = true)
     List<Object[]> findAllBySprint(UUID IdSprint);
+
+    void deleteById(SprintUserstoryPk sprintUserstoryPk);
 }

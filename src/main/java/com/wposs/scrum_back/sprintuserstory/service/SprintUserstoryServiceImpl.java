@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,9 +49,7 @@ public class SprintUserstoryServiceImpl implements SprintUserstoryService {
     private ModelMapper modelMapper;
     @Override
     public SprintUserstoryDto saveSprintUserStory(SprintUserstoryDto sprintUserstoryDto) {
-
         SprintUserstory sprintUserstory = modelMapper.map(sprintUserstoryDto,SprintUserstory.class);
-
        Optional<UserStory> userStory= userStoryRepository.findById(sprintUserstory.getId().getUserStoryId());
        UserStoryStatus userStoryStatus = userStoryStatusRepository.findByUserStoryStateName("DESARROLLO");
        Long p= Long.valueOf(userStoryStatus.getUserStoryStateId());
@@ -70,6 +69,7 @@ public class SprintUserstoryServiceImpl implements SprintUserstoryService {
     }
 
     @Override
+    @Transactional
     public List<SprintUserstoryDtoRequest> getAllSprintUserstoryBySprint(UUID sprintId) {
         List<Object[]> UserStorySprint = sprintUserstoryRepository.findAllBySprint(sprintId);
         List<SprintUserstoryDtoRequest> sprintUserstoryDtoRequests = new ArrayList<>();
@@ -97,5 +97,22 @@ public class SprintUserstoryServiceImpl implements SprintUserstoryService {
         return sprintUserstoryDtoRequests;
     }
 
+    @Override
+    @Transactional
+    public Boolean deleteSpringUserStory(UUID idSprint,UUID iDUserStory) {
+
+
+        SprintUserstoryPk sprintUserstoryPk = new SprintUserstoryPk(iDUserStory,idSprint);
+        if (sprintUserstoryRepository.existsById(sprintUserstoryPk)){
+            sprintUserstoryRepository.deleteById(sprintUserstoryPk);
+            Optional<UserStory> userStory= userStoryRepository.findById(iDUserStory);
+            UserStoryStatus userStoryStatus = userStoryStatusRepository.findByUserStoryStateName("REFINADA");
+            Long p= Long.valueOf(userStoryStatus.getUserStoryStateId());
+            userStory.get().setUserStoryStateId(p);
+            userStoryRepository.save(userStory.get());
+            return true;
+        }
+        return false;
+    }
 
 }

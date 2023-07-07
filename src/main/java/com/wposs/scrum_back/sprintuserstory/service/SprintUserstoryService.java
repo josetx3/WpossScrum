@@ -10,6 +10,6 @@ public interface SprintUserstoryService {
 
     SprintUserstoryDto saveSprintUserStory(SprintUserstoryDto sprintUserstoryDto);
 
-
+    Boolean deleteSpringUserStory(UUID idSprint,UUID iDUserStory);
     List<SprintUserstoryDtoRequest> getAllSprintUserstoryBySprint(UUID sprintId);
 }
