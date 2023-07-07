@@ -89,7 +89,8 @@ public class SprintController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         }
-    } @GetMapping("/sprintData/{idsprint}")
+    }
+    @GetMapping("/sprintData/{idsprint}")
     @Operation(summary = "Get Sprint data By Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get Succes Sprint"),

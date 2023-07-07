@@ -2,13 +2,21 @@ package com.wposs.scrum_back.sprintuserstory.service;
 
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
-import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
-import com.wposs.scrum_back.sprintemployee.entity.SprintEmployee;
-import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
+import com.wposs.scrum_back.area.entity.Area;
+import com.wposs.scrum_back.area.repository.AreaRepository;
+
+import com.wposs.scrum_back.sprint.entity.Sprint;
+import com.wposs.scrum_back.sprint.repository.SprintRepository;
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDto;
+import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDtoRequest;
 import com.wposs.scrum_back.sprintuserstory.entity.SprintUserstory;
 import com.wposs.scrum_back.sprintuserstory.entity.SprintUserstoryPk;
 import com.wposs.scrum_back.sprintuserstory.repository.SprintUserstoryRepository;
+import com.wposs.scrum_back.subProject.entity.SubProject;
+import com.wposs.scrum_back.subProject.repository.SubProjectRepository;
+import com.wposs.scrum_back.team.entity.Team;
+import com.wposs.scrum_back.team.repository.TeamRepository;
+import com.wposs.scrum_back.userstory.dto.UserStoryDtoRequest;
 import com.wposs.scrum_back.userstory.entity.UserStory;
 import com.wposs.scrum_back.userstory.repository.UserStoryRepository;
 import com.wposs.scrum_back.userstorystatus.entity.UserStoryStatus;
@@ -18,7 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SprintUserstoryServiceImpl implements SprintUserstoryService {
@@ -30,6 +41,9 @@ public class SprintUserstoryServiceImpl implements SprintUserstoryService {
 
     @Autowired
     private UserStoryStatusRepository userStoryStatusRepository;
+
+    @Autowired
+    private SubProjectRepository subProjectRepository;
     @Autowired
     private ModelMapper modelMapper;
     @Override
@@ -54,4 +68,34 @@ public class SprintUserstoryServiceImpl implements SprintUserstoryService {
         }
 
     }
+
+    @Override
+    public List<SprintUserstoryDtoRequest> getAllSprintUserstoryBySprint(UUID sprintId) {
+        List<Object[]> UserStorySprint = sprintUserstoryRepository.findAllBySprint(sprintId);
+        List<SprintUserstoryDtoRequest> sprintUserstoryDtoRequests = new ArrayList<>();
+
+        if(UserStorySprint.isEmpty()){
+            throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
+        }
+        for (Object[] sprintUserStory:UserStorySprint) {
+
+            SubProject subProject= subProjectRepository.getBySubProjectName( sprintUserStory[2].toString());
+            UUID subprojectId=subProject.getSubProjectId();
+            UserStory userStory1= userStoryRepository.getByUserStoryNameAndSubProjectId(sprintUserStory[0].toString(), subprojectId);
+
+
+            SprintUserstoryDtoRequest sprintUserstoryDtoRequest = new SprintUserstoryDtoRequest(
+                    sprintUserStory[0].toString(),
+                    sprintUserStory[1].toString(),
+                    sprintUserStory[2].toString(),
+                    Integer.parseInt(sprintUserStory[3].toString()),
+                    sprintId,
+                    userStory1.getUserStoryId()
+            );
+            sprintUserstoryDtoRequests.add(sprintUserstoryDtoRequest);
+        }
+        return sprintUserstoryDtoRequests;
+    }
+
+
 }

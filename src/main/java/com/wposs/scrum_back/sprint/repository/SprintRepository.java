@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface SprintRepository extends JpaRepository<Sprint, UUID> {
     Integer countByAreaIdAndTeamId(UUID idArea,UUID idTeam);
 
+    Optional<Sprint> getByTeamIdAndSprintCount(UUID idTeam, Integer number);
     Optional<Sprint> getBySprintCountIsNull();
 
     @Query(value = "select ar.area_name, te.team_name, sp.numero_sprint, sc.score_sprint\n" +

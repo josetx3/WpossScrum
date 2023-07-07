@@ -1,9 +1,12 @@
 package com.wposs.scrum_back.sprintuserstory.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
+import com.wposs.scrum_back.sprint.dto.SprintDtoRequest;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDto;
+import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDtoRequest;
 import com.wposs.scrum_back.sprintuserstory.service.SprintUserstoryService;
+import com.wposs.scrum_back.userstory.service.UserStoryService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -49,5 +54,19 @@ public class SprintUserstoryController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         }
+    }
+
+    @GetMapping("/sprintuserstory/{idsprint}")
+    @Operation(summary = "Get user story by sprint")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Get Succes user story"),
+            @ApiResponse(responseCode = "404",description = "user story data Not Found")
+    })
+    public ResponseEntity<List<SprintUserstoryDtoRequest>> getDataSprint(@PathVariable("idsprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
+
+                    return new ResponseEntity<>(sprintUserstoryService.getAllSprintUserstoryBySprint(idSprint),HttpStatus.OK);
+
+
+
     }
 }
