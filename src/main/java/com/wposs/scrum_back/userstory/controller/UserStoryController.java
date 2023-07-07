@@ -83,10 +83,15 @@ public class UserStoryController {
     public ResponseEntity<UserStoryDto> create(@Valid @RequestBody UserStoryDto userStoryDto, BindingResult result, @RequestHeader(value="Authorization") String token){
         try{
             if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                try {
+                    if (result.hasErrors()){
+                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                    }
+                    return new ResponseEntity<>(userStoryService.saveUserStory(userStoryDto),HttpStatus.CREATED);
+                }catch (Exception e){
+                    return ResponseEntity.badRequest().build();
                 }
-                return new ResponseEntity<>(userStoryService.saveUserStory(userStoryDto),HttpStatus.CREATED);
+
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){

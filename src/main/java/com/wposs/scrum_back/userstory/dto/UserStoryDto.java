@@ -20,7 +20,7 @@ public class UserStoryDto {
     @NotNull(message = "La historia de usuario no debe ser null")
     @NotEmpty
     @Size(max = 100,message = "La HU debe no debe contener mas 100 caracteres")
-    @Pattern(regexp = "^[a-zA-Z ]+$",message = "El nombre de la historia solo debe contener letras y espacios")
+    @Pattern(regexp = "^[a-zA-Z \\d ]+$",message = "El nombre de la historia solo debe contener letras y espacios")
     private String userStoryName;
 
     @NotNull(message = "historia de usuario no debe ser null")

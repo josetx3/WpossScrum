@@ -2,11 +2,6 @@ package com.wposs.scrum_back.sprintuserstory.service;
 
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
-import com.wposs.scrum_back.area.entity.Area;
-import com.wposs.scrum_back.area.repository.AreaRepository;
-
-import com.wposs.scrum_back.sprint.entity.Sprint;
-import com.wposs.scrum_back.sprint.repository.SprintRepository;
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDto;
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDtoRequest;
 import com.wposs.scrum_back.sprintuserstory.entity.SprintUserstory;
@@ -14,9 +9,6 @@ import com.wposs.scrum_back.sprintuserstory.entity.SprintUserstoryPk;
 import com.wposs.scrum_back.sprintuserstory.repository.SprintUserstoryRepository;
 import com.wposs.scrum_back.subProject.entity.SubProject;
 import com.wposs.scrum_back.subProject.repository.SubProjectRepository;
-import com.wposs.scrum_back.team.entity.Team;
-import com.wposs.scrum_back.team.repository.TeamRepository;
-import com.wposs.scrum_back.userstory.dto.UserStoryDtoRequest;
 import com.wposs.scrum_back.userstory.entity.UserStory;
 import com.wposs.scrum_back.userstory.repository.UserStoryRepository;
 import com.wposs.scrum_back.userstorystatus.entity.UserStoryStatus;
@@ -36,13 +28,10 @@ import java.util.UUID;
 public class SprintUserstoryServiceImpl implements SprintUserstoryService {
     @Autowired
     private SprintUserstoryRepository sprintUserstoryRepository;
-
     @Autowired
     private UserStoryRepository userStoryRepository;
-
     @Autowired
     private UserStoryStatusRepository userStoryStatusRepository;
-
     @Autowired
     private SubProjectRepository subProjectRepository;
     @Autowired
@@ -66,6 +55,11 @@ public class SprintUserstoryServiceImpl implements SprintUserstoryService {
             throw new InternalServerException("","",HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @Override
+    public SprintUserstoryDto updateUserstoryService(UUID idSprint, UUID iDUserStory) {
+        return null;
     }
 
     @Override
