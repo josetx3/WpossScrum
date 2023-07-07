@@ -86,7 +86,7 @@ public class SprintUserstoryController {
                 if (result.hasErrors()){
                     throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
-                return new ResponseEntity<>(sprintUserstoryService.updateUserstoryService(idSprint,idUserStory),HttpStatus.OK);
+                return new ResponseEntity<>(sprintUserstoryService.updateUserstoryService(idSprint,idUserStory,sprintUserstoryDto),HttpStatus.OK);
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){

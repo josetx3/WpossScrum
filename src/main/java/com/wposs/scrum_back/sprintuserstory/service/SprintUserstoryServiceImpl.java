@@ -2,6 +2,8 @@ package com.wposs.scrum_back.sprintuserstory.service;
 
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
+import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
+import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDto;
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDtoRequest;
 import com.wposs.scrum_back.sprintuserstory.entity.SprintUserstory;
@@ -58,8 +60,16 @@ public class SprintUserstoryServiceImpl implements SprintUserstoryService {
     }
 
     @Override
-    public SprintUserstoryDto updateUserstoryService(UUID idSprint, UUID iDUserStory) {
-        return null;
+    @Transactional
+    public SprintUserstoryDto updateUserstoryService(UUID idSprint, UUID idUserStory,SprintUserstoryDto sprintUserstoryDto) {
+        SprintUserstoryPk primaryKey = new SprintUserstoryPk();
+        primaryKey.setSprintId(idSprint);// Establecer el valor del ID del Sprint
+        primaryKey.setUserStoryId(idUserStory);
+
+        return sprintUserstoryRepository.findByPrimaryKey1(primaryKey).map(sprintUserstory -> {
+            sprintUserstory.setPoints((sprintUserstoryDto.getPoints()!=null)?sprintUserstoryDto.getPoints():sprintUserstory.getPoints());
+            return modelMapper.map(sprintUserstoryRepository.save(sprintUserstory), SprintUserstoryDto.class);
+        }).orElseThrow(()->new MessageGeneric("No se encontro los datos a actualizar","404",HttpStatus.NOT_FOUND));
     }
 
     @Override

@@ -37,7 +37,10 @@ public class SprintUserstoryPk implements Serializable {
                 Objects.equals(getUserStoryId(), that.getUserStoryId());
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSprintId(), getUserStoryId());
+    }
 
     public UUID getUserStoryId() {
         return userStoryId;
