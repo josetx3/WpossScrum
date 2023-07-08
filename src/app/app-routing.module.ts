@@ -61,6 +61,10 @@ const routes: Routes = [
         loadChildren: () => import('./modules/proyect/proyect.module').then(m => m.ProyectModule)
       },
       {
+        path: 'tasks',
+        loadChildren: () => import('./modules/tasks/tasks.module').then(m => m.TasksModule)
+      },
+      {
         path:'**',
         redirectTo:'/app',
         pathMatch:'full'
