@@ -9,12 +9,12 @@
               </ol>
             </nav>
           </div>
-        <!-- <form [formGroup]="addEstimateHU" >
+        <form [formGroup]="addEstimateHU" (ngSubmit)="getStoryUserbyTeam()">
             <div class="row">
                 <div class="col-12">
                     <div class="row col-12">
-                        <label class="col-6 col-form-label">Seleccione el equipo </label>
-                        <div class="col-12">
+                        <label class="col-2 col-form-label">Seleccione el equipo </label>
+                        <div class="col-4">
                             <select class="form-select mt-2 mb-2" formControlName="teamId">
                                 <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}
                                 </option>
@@ -24,9 +24,9 @@
                 </div>
             </div>
             <div class="col-12 text-center mt-4">
-                <button class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="addEstimateHU.invalid">Editar</button>
+                <button mat-raised-button color="primary"  class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="addEstimateHU.invalid">Buscar</button>
             </div>
-        </form>  -->
+        </form> 
     </div>
 </div>
 
