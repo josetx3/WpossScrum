@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Agregar Cliente</h1>
+    <form class="customer-form" [formGroup]="customerForm" (ngSubmit)="saveCustomer()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">NIT de la empresa:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="clientNit">
+              <div *ngIf="customerForm.get('clientNit')?.dirty || customerForm.get('clientNit')?.touched">
+                <p *ngIf="customerForm.get('clientNit')?.hasError('required')" class="form-red-validator m-1">
+                  Este campo es requerido
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Razón social:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="clientName">
+              <div *ngIf="customerForm.get('clientName')?.dirty || customerForm.get('clientName')?.touched">
+                <p *ngIf="customerForm.get('clientName')?.hasError('required')" class="form-red-validator m-1">
+                  Este campo es requerido
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="customerForm.invalid">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

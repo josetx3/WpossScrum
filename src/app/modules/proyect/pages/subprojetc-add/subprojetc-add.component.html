@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Agregar subproyecto</h1>
+    <form class="userStory-form" [formGroup]="subprojectAddForm" (ngSubmit)="saveSubProject()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Nombre del subproyecto</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="subProjectName">
+              <div *ngIf="subprojectAddForm.get('subProjectName')?.dirty || subprojectAddForm.get('subProjectName')?.touched">
+                <h3 *ngIf="subprojectAddForm.get('subProjectName')?.hasError('required')" class="form-red-validator m-1"> Este campo es requerido</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el proyecto: </label>
+            <div class="col-12">
+              <select type="text" class="form-control form-select" formControlName="projectId">
+                <option *ngFor="let item of projects" value="{{item.projectId}}">{{item.projectName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el equipo: </label>
+            <div class="col-12">
+              <select type="text" class="form-control form-select" formControlName="teamId">
+                <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn-primary" type="submit" [disabled]="subprojectAddForm.invalid"
+              (click)="closeModal()">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

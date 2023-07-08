@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Visualizar mejoras</h1>
+    <div class="row">
+      <div class="col-10">
+        <div class="form-row align-items-center">
+          <form class="form" [formGroup]="improvementsForm">
+            <div class="form-col mb-2">
+              <div class="form-group">
+                <label>Area</label>
+                <input type="text" id="areaName" class="form-control" formControlName="areaName">
+              </div>
+            </div>
+            <div class="form-col mb-2">
+              <div class="form-group">
+                <label>Equipo</label>
+                <input type="text" id="teamName" class="form-control" formControlName="teamName">
+              </div>
+            </div>
+            <div class="form-col mb-2">
+              <div class="form-group">
+                <label for="teamName">Historia de usuario</label>
+                <input type="text" id="teamName" class="form-control" formControlName="userStoryName">
+              </div>
+            </div>
+            <div class="form-col mb-2">
+              <div class="form-group">
+                <label>Tarea</label>
+                <input type="text" id="teamName" class="form-control" formControlName="nameTask">
+              </div>
+            </div>
+            <div class="form-col mb-2">
+              <div class="form-group">
+                <label>Tipo de observación</label>
+                <input type="text" id="teamName" class="form-control" formControlName="observationName">
+              </div>
+            </div>
+            <div class="form-col mb-2">
+              <div class="form-group">
+                <label>descripción</label>
+                <textarea id="teamName" class="form-control" formControlName="observationn" cols="30"
+                  rows="3"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

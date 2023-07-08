@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Editar Areas</h1>
+      <form class="" [formGroup]="areaEditForm" (ngSubmit)="editArea()">
+        <div class="input-group col-12">
+          <label class="col-12 ">
+            <input id="first-name" type="text" class="form-control" placeholder="Ingrese el nuevo nombre"
+              formControlName="areaName" autocomplete="off">
+              <div *ngIf="areaEditForm.get('areaName')?.dirty || areaEditForm.get('areaName')?.touched">
+                <h3 *ngIf="areaEditForm.get('areaName')?.hasError('required')" class="form-red-validator m-1"> Este campo es requerido</h3>
+                <p *ngIf="areaEditForm.get('areaName')?.hasError('maxlength')" class="form-red-validator m-1">El maximo de caracteres permitidos es de 20</p>
+              </div>
+          </label>
+          <button class="btn btn-primary col-4 mt-4 ml-3" type="submit" [disabled]="areaEditForm.invalid">Editar</button>
+        </div>
+      </form>
+    </div>
+  </div>

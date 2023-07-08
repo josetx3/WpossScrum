@@ -1,0 +1,59 @@
+<main>
+  <div class="container">
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="d-flex justify-content-center py-4">
+              <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">Scrum Manage</span>
+              </a>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Ingresa a tu cuenta</h5>
+                  <p class="text-center small">Ingresa tu usuario y contraseña</p>
+                </div>
+                <form class="row g-3 needs-validation" [formGroup]="loginForm" (ngSubmit)="login()">
+                  <div class="col-12">
+                    <label for="yourUsername" class="form-label">Usuario</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
+                      <input type="email" class="form-control" formControlName="employeeEmail" id="yourUserEmail">
+                    </div>
+                    <div *ngIf="loginForm.get('employeeEmail')?.dirty || loginForm.get('employeeEmail')?.touched">
+                      <p *ngIf="loginForm.get('employeeEmail')?.hasError('required')"
+                        class="form-red-validator m-1">
+                        Debe escribir su Email
+                      </p>
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+                    <label for="youremployeePassword" class="form-label">Contraseña</label>
+
+                      <input type="password" class="form-control" formControlName="employeePassword" id="youremployeePassword">
+                      <div *ngIf="loginForm.get('employeePassword')?.dirty || loginForm.get('employeePassword')?.touched">
+                        <p *ngIf="loginForm.get('employeePassword')?.hasError('required')"
+                          class="form-red-validator m-1">
+                          Debe escribir su contraseña
+                        </p>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary w-100"  [disabled]="loginForm.invalid" type="submit">Login</button>
+                  </div>
+                  <div class="col-12">
+                    <p class="small mb-0">No tienes cuenta? <a routerLink='/auth/register'>Crea una cuenta</a></p>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

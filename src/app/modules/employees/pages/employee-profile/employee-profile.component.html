@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Mi perfil</h1>
+    <form class="userStory-form" [formGroup]="perfilEditForm" (ngSubmit)="editPerfilEmployee()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label for="" class="col-6 col-form-label">Nombre</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="employeeName" readonly>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="" class="col-6 col-form-label">Cargo</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="employeeCharge" readonly>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="" class="col-6 col-form-label">Conocimiento en:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="employeeKnowledge" readonly>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Email</label>
+            <div class="col-12">
+              <input type="email" class="form-control" formControlName="employeeEmail">
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="youremployeePassword" class="form-label">Contraseña actual</label>
+              <input type="password" class="form-control" formControlName="employeeCurrentPassword" id="youremployeePassword">
+              <div *ngIf="perfilEditForm.get('employeeCurrentPassword')?.dirty || perfilEditForm.get('employeeCurrentPassword')?.touched">
+                <p *ngIf="perfilEditForm.get('employeeCurrentPassword')?.hasError('required')"
+                  class="form-red-validator m-1">
+                  Debe escribir su contraseña
+                </p>
+            </div>
+        </div>
+        <div class="col-12">
+          <label for="youremployeePassword2" class="form-label">Contraseña nueva</label>
+            <input type="password" class="form-control" formControlName="employeeNewPassword" id="youremployeePassword2">
+            <div *ngIf="perfilEditForm.get('employeeNewPassword')?.dirty || perfilEditForm.get('employeeNewPassword')?.touched">
+              <p *ngIf="perfilEditForm.get('employeeNewPassword')?.hasError('required')"
+                class="form-red-validator m-1">
+                Debe escribir su contraseña
+              </p>
+          </div>
+      </div>
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn btn-primary " [disabled]="perfilEditForm.invalid" type="submit">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

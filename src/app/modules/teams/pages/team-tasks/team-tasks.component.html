@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Tareas por equipo</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Tareas por equipo</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <form class="customer-form" [formGroup]="tasksForm" (ngSubmit)="saveTasks()">
+          <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+              <h2>Equipo</h2>
+            </label>
+            <div class="col-sm-9">
+              <select class="form-select" aria-label="Default select example" formControlName="teamId">
+                <option selected>Seleccione</option>
+                <option value="{{item.teamId}}" *ngFor="let item of teams">{{item.teamName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-3 col-form-label">
+              <h2>Tarea</h2>
+            </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" formControlName="taskName">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-sm-9">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table">#</th>
+            <th scope="row" class="title_table">Tareas</th>
+            <th scope="row" class="title_table">Equipo</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of tasksTeams;let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{item.taskName}}</td>
+            <td>{{item.teamName}}</td>
+            <td class="icon">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editTaskModal(item.taskTeamId)"><i
+                  class="fas fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-danger btn-sm m-1" (click)="deleteTasks(item.taskTeamId)"><i
+                  class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

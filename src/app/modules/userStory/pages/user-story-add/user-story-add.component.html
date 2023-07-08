@@ -1,0 +1,64 @@
+<div class="card scroll-per">
+  <div class="card-body">
+    <h1 class="card-title">Agregar historia de usuario</h1>
+    <form class="userStory-form" [formGroup]="userStoryForm" (ngSubmit)="saveStory()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label for="inputEmail" class="col-8 col-form-label">Nombre de la historia de usuario:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="userStoryName" maxlength="31">
+              <div *ngIf="userStoryForm.get('userStoryName')?.dirty || userStoryForm.get('userStoryName')?.touched">
+                <p *ngIf="userStoryForm.get('userStoryName')?.hasError('required')" class="form-red-validator m-1">
+                  Este campo es requerido
+                </p>
+                <p *ngIf="userStoryForm.get('userStoryName')?.hasError('maxlength')" class="form-red-validator m-1">
+                  El maximo de caracteres permitidos es de 30
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Elija el subproyecto: </label>
+            <div class="col-12">
+              <select class="form-control form-select" formControlName="subProjectId">
+                <option *ngFor="let item of subProjects" value="{{item.subProjectId}}">{{ item.subProjectName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Estado: </label>
+            <div class="col-12">
+              <select class="form-control form-select" formControlName="userStoryStateId">
+                <option *ngFor="let item of userStoryState" value="{{item.userStoryStateId}}">{{
+                  item.userStoryStateName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputDate" class="col-6 col-form-label">Fecha final</label>
+            <div class="col-12">
+              <input type="date" class="form-control" formControlName="fechaMaxima">
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Puntos historia de usuario:</label>
+            <div class="col-12">
+              <input type="number" class="form-control" formControlName="userStoryScore">
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputNumber" class="col-6 col-form-label">Subir archivo</label>
+            <div class="col-12">
+              <input type="file" class="form-control" formControlName="userStoryArchive"
+                (change)="upload_image($event)">
+            </div>
+          </div>
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn btn-primary mb-2" type="submit" [disabled]="userStoryForm.invalid">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

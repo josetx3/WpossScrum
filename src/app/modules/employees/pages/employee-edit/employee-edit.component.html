@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Editar Empleado</h1>
+    <form class="userStory-form" [formGroup]="employeeEditForm" (ngSubmit)="editEmployee()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label for="text" class="col-6 col-form-label">Nombre</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="employeeName">
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="text" class="col-6 col-form-label">Cargo</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="employeeCharge">
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Email</label>
+            <div class="col-12">
+              <input type="email" class="form-control" formControlName="employeeEmail">
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Conocimiento en:</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="employeeKnowledge">
+            </div>
+          </div>
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn btn-primary " [disabled]="employeeEditForm.invalid" type="submit">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

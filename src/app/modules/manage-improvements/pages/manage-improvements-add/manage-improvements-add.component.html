@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Gestionar mejoras</h1>
+    <div class="row">
+      <div class="col-12">
+        <form class="form" [formGroup]="improvementsForm" (ngSubmit)="saveImprovements()">
+          <div class="form-group col-12">
+            <span>Seleccionar área</span>
+            <select class="form-select " formControlName="areaId" (change)="selectArea()">
+              <option *ngFor="let item of areas " value="{{item.areaId}}">{{item.areaName}}</option>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <span>Seleccionar equipo</span>
+            <select class="form-select" formControlName="teamId" (change)="selectTeam()">
+              <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}</option>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <span>Seleccionar historia de usuario</span>
+            <select class="form-select" formControlName="userStoryId">
+              <option *ngFor="let item of userStorys" value="{{item.userStoryId}}">{{item.userStoryName}}</option>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <span>Seleccionar tarea</span>
+            <select class="form-select" formControlName="taskId">
+              <option *ngFor="let item of task" value="{{item.taskTeamId}}">{{item.taskName}}</option>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <span>Seleccionar tipo de observación</span>
+            <select class="form-select" formControlName="observationId">
+              <option *ngFor="let item of observations" value="{{item.observationId}}">{{item.observationName}}</option>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <span>Digite las observaciones</span>
+            <textarea class="form-control" rows="3" formControlName="observationn"></textarea>
+          </div>
+          <button class="btn btn btn-primary mb-2 mt-2 " type="submit">Guardar</button><br>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

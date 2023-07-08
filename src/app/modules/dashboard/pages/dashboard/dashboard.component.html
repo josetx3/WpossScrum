@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="pagetitle m-2">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="">Inicio</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-12">
+    <div class="row">
+      <div class="col-md-4 col-sm-6" *ngFor="let item of project">
+        <div class="card info-card sales-card">
+          <div class="card-body">
+            <h2 class="card-title text-center"> {{item.projectName}} </h2>
+            <div class="text-center">
+              <img [src]=item.archive class="img-dash img-fluid">
+            </div>
+            <div class="text-justify">
+              <ul><h2>Proyecto:{{item.projectName}}</h2></ul>
+              <ul><h2>Area:{{item.areaId}}</h2></ul>
+              <ul><h2>Cliente:{{item.clientId}}</h2></ul>
+              <div class="text-center">
+                <input type="button" class="btn btn-info" value="Ver Proyectos" routerLink="proyect/">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
