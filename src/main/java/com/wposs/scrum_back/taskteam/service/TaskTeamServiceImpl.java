@@ -2,7 +2,10 @@ package com.wposs.scrum_back.taskteam.service;
 
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
+import com.wposs.scrum_back.employe.entity.Employee;
+import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.taskteam.dto.TaskTeamDto;
+import com.wposs.scrum_back.taskteam.dto.TaskTeamDtoRequest;
 import com.wposs.scrum_back.taskteam.entity.TaskTeam;
 import com.wposs.scrum_back.taskteam.repository.TaskTeamRepository;
 import org.modelmapper.ModelMapper;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,12 +34,30 @@ public class TaskTeamServiceImpl implements TaskTeamService{
     }
 
     @Override
+    public List<TaskTeamDtoRequest> getTaskTeamToIdTeamAndUserStory(UUID teamId, UUID userStoryId) {
+        List<Object[]> TaskTeam=taskTeamRepository.getDataTaskByTeamAndUserStory(teamId,userStoryId);
+        List<TaskTeamDtoRequest> taskTeamDtoRequests = new ArrayList<>();
+        if(TaskTeam.isEmpty()){
+            throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
+        }
+        for (Object[] taskTeam:TaskTeam) {
+
+            TaskTeamDtoRequest taskTeamDtoRequest = new TaskTeamDtoRequest(
+                    taskTeam[0].toString(),
+                    Integer.parseInt(taskTeam[1].toString())
+
+            );
+            taskTeamDtoRequests.add(taskTeamDtoRequest);
+        }
+        return taskTeamDtoRequests;
+    }
+
+    @Override
     public List<TaskTeamDto> getTaskTeamToIdTeam(UUID idTeam) {
         return taskTeamRepository.getByTeamId(idTeam).stream().map(taskTeam -> {
             return modelMapper.map(taskTeam,TaskTeamDto.class);
         }).collect(Collectors.toList());
     }
-
     @Override
     public Optional<TaskTeamDto> getTaskTeamById(UUID idTaskTeam) {
         return Optional.ofNullable(taskTeamRepository.findById(idTaskTeam)

@@ -15,4 +15,7 @@ public interface TaskTeamRepository extends JpaRepository<TaskTeam, UUID> {
     List<TaskTeam> getAllTaskTeam();
     List<TaskTeam> getByTeamId(UUID teamId);
     Boolean existsByTaskNameAndTeamId(String taskTeamName,UUID teamId);
+
+    @Query(value = "",nativeQuery = true)
+    List<Object[]> getDataTaskByTeamAndUserStory(UUID teamId, UUID userStoryId);
 }
