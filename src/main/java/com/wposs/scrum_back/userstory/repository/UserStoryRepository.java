@@ -30,4 +30,10 @@ public interface UserStoryRepository extends JpaRepository<UserStory, UUID> {
                 "where te.team_id =?1 and ar.area_id = ?2 \n" +
                 "and uss.user_story_status_name = 'REFINADA';", nativeQuery = true)
         List<Object[]> getAllUserStoryRef(UUID idTeam, UUID idArea);
+
+        @Query(value = "SELECT ust.* FROM   wposs.team te inner join wposs.board bo on  te.team_id =bo.fk_team\n" +
+                "inner join wposs.user_story ust on  bo.fk_user_story=ust.user_story_id\n" +
+                "inner join wposs.sprint_userstory sus on ust.user_story_id = sus.fk_user_story_id\n" +
+                "where  te.team_id = ?1 ",nativeQuery = true)
+        List<UserStory> getUserStoryByTeamAndBoard(UUID teamId);
 }

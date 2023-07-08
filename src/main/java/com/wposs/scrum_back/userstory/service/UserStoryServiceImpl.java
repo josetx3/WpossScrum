@@ -2,6 +2,7 @@ package com.wposs.scrum_back.userstory.service;
 
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
+import com.wposs.scrum_back.sprint.dto.SprintDto;
 import com.wposs.scrum_back.subProject.entity.SubProject;
 import com.wposs.scrum_back.subProject.repository.SubProjectRepository;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
@@ -115,6 +116,16 @@ public class UserStoryServiceImpl implements UserStoryService{
         }
         return userStoryDtoRequests;
 
+    }
+
+
+    @Override
+    @Transactional
+    public List<UserStoryDto> getAllUserStoryByTeam(UUID teamId) {
+        return userStoryRepository.getUserStoryByTeamAndBoard(teamId).stream()
+                .map(userStory -> {
+                    return modelMapper.map(userStory, UserStoryDto.class);
+                }).collect(Collectors.toList());
     }
 
 

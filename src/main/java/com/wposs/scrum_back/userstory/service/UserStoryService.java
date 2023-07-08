@@ -1,5 +1,6 @@
 package com.wposs.scrum_back.userstory.service;
 
+import com.wposs.scrum_back.sprint.dto.SprintDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
 import com.wposs.scrum_back.userstory.dto.UserStoryDtoRequest;
@@ -22,4 +23,6 @@ public interface UserStoryService {
     List<UserStoryDto> getAllUserStoryToTeam(UUID idTeam);
 
     List<UserStoryDtoRequest> getAllUserStoryRef(UUID idTeam, UUID idArea);
+
+    List<UserStoryDto> getAllUserStoryByTeam(UUID teamId);
 }

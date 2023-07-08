@@ -1,6 +1,7 @@
 package com.wposs.scrum_back.userstory.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
+import com.wposs.scrum_back.sprint.dto.SprintDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
 import com.wposs.scrum_back.userstory.dto.UserStoryDtoRequest;
@@ -74,6 +75,21 @@ public class UserStoryController {
         }
     }
 
+    @GetMapping("/allByTeam/{teamId}")
+    @Operation(summary = "Get All Use Story By team")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Get All success"),
+            @ApiResponse(responseCode = "404",description = "Not Found Users stories")
+    })
+    public ResponseEntity<List<UserStoryDto>> getAllUserStoryByTeam(@PathVariable("teamId") UUID teamId, @RequestHeader(value="Authorization") String token){
+
+                List<UserStoryDto> userStoryDto = userStoryService.getAllUserStoryByTeam(teamId);
+                if(!userStoryDto.isEmpty()){
+                    return new ResponseEntity<>(userStoryDto, HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
     @PostMapping("/save")
     @Operation(summary = "Create User Story")
     @ApiResponses(value = {
