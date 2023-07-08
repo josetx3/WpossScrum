@@ -71,7 +71,7 @@ export class EmployeeEditComponent implements OnInit{
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Empleado editado',
+          title: 'Empleado editado con exito',
           showConfirmButton: false,
           timer: 1500,
           toast: true,
