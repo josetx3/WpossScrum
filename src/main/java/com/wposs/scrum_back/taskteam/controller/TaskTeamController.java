@@ -2,6 +2,7 @@ package com.wposs.scrum_back.taskteam.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.taskteam.dto.TaskTeamDto;
+import com.wposs.scrum_back.taskteam.dto.TaskTeamDtoRequest;
 import com.wposs.scrum_back.taskteam.entity.TaskTeam;
 import com.wposs.scrum_back.taskteam.service.TaskTeamService;
 import com.wposs.scrum_back.taskteam.service.TaskTeamServiceImpl;
@@ -146,6 +147,32 @@ public class TaskTeamController {
                     return new ResponseEntity<>(taskTeamDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
+    }
+
+    @GetMapping("taskteam/{idTeam}/{idUserStory}")
+    @Operation(summary = "get All taskteam to Idteam and Iduserstory")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "get All Success"),
+            @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
+    })
+    public ResponseEntity<List<TaskTeamDtoRequest>> getAllTaskTeamToIdTeamAndIdUserStory(@PathVariable("idTeam") UUID idTeam,@PathVariable("idUserStory") UUID idUserStory, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                try {
+                    List<TaskTeamDtoRequest> taskTeamDtosR = teamService.getTaskTeamToIdTeamAndUserStory(idTeam, idUserStory);
+                    if (!taskTeamDtosR.isEmpty()) {
+                        return new ResponseEntity<>(taskTeamDtosR, HttpStatus.OK);
+                    }
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }catch (Exception e){
+                    return ResponseEntity.badRequest().build();
+                }
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){

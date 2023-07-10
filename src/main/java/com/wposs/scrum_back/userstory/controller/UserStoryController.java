@@ -82,12 +82,24 @@ public class UserStoryController {
             @ApiResponse(responseCode = "404",description = "Not Found Users stories")
     })
     public ResponseEntity<List<UserStoryDto>> getAllUserStoryByTeam(@PathVariable("teamId") UUID teamId, @RequestHeader(value="Authorization") String token){
-
-                List<UserStoryDto> userStoryDto = userStoryService.getAllUserStoryByTeam(teamId);
-                if(!userStoryDto.isEmpty()){
-                    return new ResponseEntity<>(userStoryDto, HttpStatus.OK);
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                try {
+                        List<UserStoryDto> userStoryDto = userStoryService.getAllUserStoryByTeam(teamId);
+                        if(!userStoryDto.isEmpty()){
+                            return new ResponseEntity<>(userStoryDto, HttpStatus.OK);
+                        }
+                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }catch (Exception e){
+                    return ResponseEntity.badRequest().build();
                 }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
 
     }
     @PostMapping("/save")
