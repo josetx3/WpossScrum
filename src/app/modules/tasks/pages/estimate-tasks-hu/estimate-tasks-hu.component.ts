@@ -14,6 +14,8 @@ export class EstimateTasksHuComponent {
   teams: any='';
   teamId: String | null='';
   userStoryTeam: any='';
+  taskByUserStory: any [][]=[];
+  //userStoryId: String | null='';
 
   addEstimateHU: FormGroup = new FormGroup({
     teamId: new FormControl(null, [Validators.required]),
@@ -41,11 +43,11 @@ export class EstimateTasksHuComponent {
 
   getStoryUserbyTeam(){
     this.teamId= this.addEstimateHU.get('teamId')?.value;
-    console.log(this.teamId)
     this.tasksService.getStoryUserbyTeam(this.teamId).subscribe({
       next: (resp)=>{
         this.userStoryTeam= resp;
-        console.log(this.userStoryTeam)
+       // console.log(this.userStoryTeam)
+        this.getTasksByUserStory();
       }  
       ,error: (err)=>{
         Swal.fire({
@@ -66,4 +68,26 @@ export class EstimateTasksHuComponent {
       }
     })
   }
+
+  
+
+  getTasksByUserStory(){
+    
+    this.userStoryTeam.forEach((element: { userStoryId: any; }) => {
+      let userStoryId=element.userStoryId;
+     
+      this.tasksService.getTasksByUserStory(this.teamId, userStoryId).subscribe({
+
+        next: (resp)=> {
+          this.taskByUserStory[userStoryId]= resp;
+          //console.log(userStoryId);
+         // console.log(this.teamId)
+         console.log(this.taskByUserStory)
+        }
+      })
+    })
+   
+  }
+
+
 }

@@ -27,6 +27,47 @@
                 <button mat-raised-button color="primary"  class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="addEstimateHU.invalid">Buscar</button>
             </div>
         </form> 
+        <div class="col-12">
+            <!-- <label *ngFor="let item of taskByUserStory">
+               <p>Sprint: <strong>{{item.sprintNumber}}</strong></p> 
+            </label> -->
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+              <thead class="thead-ligth">
+                <tr>
+                  <th scope="row" class="title_table">Tareas/historias</th>
+                  <th scope="row" class="title_table icon">Puntos HU</th>
+                  <th scope="row" class="title_table icon">Horas</th>
+                  <th scope="row" class="title_table icon">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of userStoryTeam">
+                  <td class="title_table" >{{item.userStoryName}}
+                    <tr>
+                        
+                      <td *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center">
+                        {{item.taskName}} </td>
+                    </tr>
+                  </td>
+                  <td class="title_table" >{{item.userStoryScore}}</td>
+                  <td class="title_table" >HORAS
+                    <tr>
+                        <td>
+                          horas de las tareas
+                        </td>
+                      </tr>
+                  </td>
+                  <td class="title_table" > N/A
+                    <tr>
+                        <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button></td>
+                    </tr>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
     </div>
 </div>
 

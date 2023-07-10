@@ -57,7 +57,7 @@ export class TeamManageEditComponent implements OnInit {
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: 'Equipo editada',
+              title: 'Equipo editado',
               showConfirmButton: false,
               timer: 1500,
               toast: true,

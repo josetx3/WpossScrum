@@ -13,6 +13,11 @@ export class TasksService {
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.get('http://localhost:8020/userstory/allByTeam/'+ teamId, {headers});
+  }
 
+  public getTasksByUserStory(teamId: String |null, userStoryId: String |null): Observable<any>{
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('http://localhost:8020/taskteam/taskteam/'+ teamId +'/'+ userStoryId , {headers});
   }
 }
