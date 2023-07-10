@@ -45,18 +45,16 @@
               <tbody>
                 <tr *ngFor="let item of userStoryTeam">
                   <td class="title_table" >{{item.userStoryName}}
-                    <tr>
-                        
+                    <tr>  
                       <td *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center">
                         {{item.taskName}} </td>
                     </tr>
                   </td>
                   <td class="title_table" >{{item.userStoryScore}}</td>
-                  <td class="title_table" >HORAS
+                  <td class="title_table" >{{item.userStoryScore * 8}}
                     <tr>
-                        <td>
-                          horas de las tareas
-                        </td>
+                        <td *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center">
+                            {{item.taskHours}} </td>
                       </tr>
                   </td>
                   <td class="title_table" > N/A

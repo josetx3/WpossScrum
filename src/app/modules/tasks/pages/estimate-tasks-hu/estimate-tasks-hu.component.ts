@@ -17,6 +17,7 @@ export class EstimateTasksHuComponent {
   taskByUserStory: any [][]=[];
   //userStoryId: String | null='';
 
+
   addEstimateHU: FormGroup = new FormGroup({
     teamId: new FormControl(null, [Validators.required]),
   })
@@ -46,7 +47,7 @@ export class EstimateTasksHuComponent {
     this.tasksService.getStoryUserbyTeam(this.teamId).subscribe({
       next: (resp)=>{
         this.userStoryTeam= resp;
-       // console.log(this.userStoryTeam)
+       console.log(this.userStoryTeam)
         this.getTasksByUserStory();
       }  
       ,error: (err)=>{
@@ -73,13 +74,15 @@ export class EstimateTasksHuComponent {
 
   getTasksByUserStory(){
     
-    this.userStoryTeam.forEach((element: { userStoryId: any; }) => {
+    this.userStoryTeam.forEach((element: { userStoryId: any; userStoryScore:number }) => {
       let userStoryId=element.userStoryId;
-     
+      
+      
       this.tasksService.getTasksByUserStory(this.teamId, userStoryId).subscribe({
 
         next: (resp)=> {
           this.taskByUserStory[userStoryId]= resp;
+
           //console.log(userStoryId);
          // console.log(this.teamId)
          console.log(this.taskByUserStory)
