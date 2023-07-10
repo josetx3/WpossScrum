@@ -3,6 +3,7 @@ package com.wposs.scrum_back.taskteam.entity;
 import com.wposs.scrum_back.board.entity.Board;
 import com.wposs.scrum_back.improvements.entity.Improvements;
 import com.wposs.scrum_back.team.entity.Team;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class TaskTeam {
     @Column(name = "task_team_name")
     private String taskName;
 
+    @Column(name = "task_team_hours")
+    @ColumnDefault("0")
+    private Integer taskHours;
     @Column(name = "fk_team")
     private UUID teamId;
     @ManyToOne
@@ -70,6 +74,14 @@ public class TaskTeam {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
+    }
+
+    public Integer getTaskHours() {
+        return taskHours;
+    }
+
+    public void setTaskHours(Integer taskHours) {
+        this.taskHours = taskHours;
     }
 
     public UUID getTeamId() {

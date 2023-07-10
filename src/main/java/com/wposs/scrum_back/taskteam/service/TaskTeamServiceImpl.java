@@ -26,6 +26,7 @@ public class TaskTeamServiceImpl implements TaskTeamService{
     @Autowired
     private ModelMapper modelMapper;
 
+
     @Override
     public List<TaskTeamDto> getAllTaskTeam() {
         return taskTeamRepository.getAllTaskTeam().stream().map(taskTeam -> {
@@ -41,11 +42,13 @@ public class TaskTeamServiceImpl implements TaskTeamService{
             throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
         }
         for (Object[] taskTeam:TaskTeam) {
+            TaskTeam taskTeam1= taskTeamRepository.getByTaskNameAndTeamId(taskTeam[0].toString(),teamId);
 
             TaskTeamDtoRequest taskTeamDtoRequest = new TaskTeamDtoRequest(
+                    taskTeam1.getTaskTeamId(),
                     taskTeam[0].toString(),
-                    Integer.parseInt(taskTeam[1].toString())
-
+                    Integer.parseInt(taskTeam[1].toString()),
+                    Integer.parseInt(taskTeam[2].toString())
             );
             taskTeamDtoRequests.add(taskTeamDtoRequest);
         }

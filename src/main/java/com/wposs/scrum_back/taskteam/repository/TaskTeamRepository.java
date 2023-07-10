@@ -15,8 +15,9 @@ public interface TaskTeamRepository extends JpaRepository<TaskTeam, UUID> {
     List<TaskTeam> getAllTaskTeam();
     List<TaskTeam> getByTeamId(UUID teamId);
     Boolean existsByTaskNameAndTeamId(String taskTeamName,UUID teamId);
+    TaskTeam getByTaskNameAndTeamId(String taskTeamName,UUID teamId);
 
-    @Query(value = "SELECT tte.task_team_name, sp.numero_sprint FROM wposs.sprint sp inner join wposs.team te on sp.fk_team_id=te.team_id\n" +
+    @Query(value = "SELECT tte.task_team_name, tte.task_team_hours, sp.numero_sprint FROM wposs.sprint sp inner join wposs.team te on sp.fk_team_id=te.team_id\n" +
             " inner join wposs.task_team tte on  te.team_id=tte.fk_team\n" +
             "inner join wposs.board bo on  tte.task_team_id =bo.fk_task_team \n" +
             "inner join wposs.user_story ust on  bo.fk_user_story=ust.user_story_id \n" +

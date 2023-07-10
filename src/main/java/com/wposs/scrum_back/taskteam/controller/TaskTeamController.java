@@ -43,6 +43,7 @@ public class TaskTeamController {
                 if (result.hasErrors()){
                     throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
+                taskTeamDto.setTaskHours(0);
                 return new ResponseEntity<>(teamService.saveTaskTeam(taskTeamDto),HttpStatus.CREATED);
             }
             return ResponseEntity.badRequest().build();

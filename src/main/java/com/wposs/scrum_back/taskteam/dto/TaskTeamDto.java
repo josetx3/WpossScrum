@@ -19,6 +19,9 @@ public class TaskTeamDto {
     @Pattern(regexp = "^[a-zA-Z ]+$",message = "El nombre de la tarea solo debe contener letras")
     @Size(max = 100,message = "El nombre de la tarea no debe sobre pasar los 100 caracteres")
     private String taskName;
+
+    @JsonProperty(value = "taskHours")
+    private Integer taskHours;
     @JsonProperty(value = "teamId")
     private UUID teamId;
     @JsonProperty(value = "teamName",access = JsonProperty.Access.READ_ONLY)
@@ -30,6 +33,14 @@ public class TaskTeamDto {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public Integer getTaskHours() {
+        return taskHours;
+    }
+
+    public void setTaskHours(Integer taskHours) {
+        this.taskHours = taskHours;
     }
 
     public UUID getTeamId() {
