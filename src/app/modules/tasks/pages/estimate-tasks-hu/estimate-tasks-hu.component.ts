@@ -82,10 +82,6 @@ export class EstimateTasksHuComponent {
 
         next: (resp)=> {
           this.taskByUserStory[userStoryId]= resp;
-
-          //console.log(userStoryId);
-         // console.log(this.teamId)
-         console.log(this.taskByUserStory)
         }
       })
     })

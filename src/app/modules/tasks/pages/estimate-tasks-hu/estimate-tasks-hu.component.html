@@ -44,22 +44,22 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of userStoryTeam">
-                  <td class="title_table" >{{item.userStoryName}}
-                    <tr>  
-                      <td *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center">
-                        {{item.taskName}} </td>
-                    </tr>
+                  <td class="title_table" > <strong> {{item.userStoryName}}</strong> 
+                    <hr>
+                      <p *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center">
+                        {{item.taskName}} </p>
+                        
                   </td>
-                  <td class="title_table" >{{item.userStoryScore}}</td>
-                  <td class="title_table" >{{item.userStoryScore * 8}}
-                    <tr>
-                        <td *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center">
-                            {{item.taskHours}} </td>
-                      </tr>
+                  <td class="title_table" ><strong>{{item.userStoryScore}} </strong> </td>
+                  <td  > <strong>{{item.userStoryScore * 8}}</strong>
+                    <hr>
+                        <p *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center">
+                        {{item.taskHours}} </p>
                   </td>
-                  <td class="title_table" > N/A
+                  <td class="icon  text-center" > <p>N/A</p> 
+                    <hr>
                     <tr>
-                        <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button></td>
+                        <button type="button" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button>
                     </tr>
                   </td>
                 </tr>
