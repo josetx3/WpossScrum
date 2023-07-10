@@ -24,7 +24,7 @@ public class ClientDto {
     @NotNull(message = "El campo nombreCliente no puede ser null")
     @NotEmpty
     @Size(max = 20,message = "El campo nombreCliente debe tener menos de 20 carater")
-    @Pattern(regexp = "^[a-zA-Z ]+$",message = "El campo nombreCliente solo puede contener letras")
+    @Pattern(regexp = "^[a-zA-Z \\d]+$",message = "El campo nombreCliente solo puede contener letras numeros y espacios")
     private String clientName;
 
     public String getClientId() {

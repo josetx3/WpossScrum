@@ -32,7 +32,6 @@ public class ClientController {
     private ClienteService clienteService;
     @Autowired
     private JWTUtil jwtUtil;
-
     @GetMapping("/{id}")
     @Operation(summary = "Get client by String")
     @ApiResponse(responseCode = "200",description = "successful search")
@@ -74,13 +73,19 @@ public class ClientController {
     public ResponseEntity<ClientDto> create(@Valid @RequestBody ClientDto clientDto, BindingResult result, @RequestHeader(value="Authorization") String token){
         try{
             if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                try{
+                    if (result.hasErrors()){
+                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                    }
+                    return new ResponseEntity<>(clienteService.saveCliente(clientDto),HttpStatus.OK);
+                }catch (Exception e){
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 }
-                return new ResponseEntity<>(clienteService.saveCliente(clientDto),HttpStatus.OK);
+
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){
+           // System.out.println(e);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
