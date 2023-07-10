@@ -112,6 +112,26 @@ public class TaskTeamController {
 
         }
     }
+    @PutMapping("/updatetaskhours/{id}")
+    @Operation(summary = "Update Task Team")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Update Task Team Success"),
+            @ApiResponse(responseCode = "400",description = "Update Task Team Bad Request")
+    })
+    public ResponseEntity<TaskTeamDto> updateTaskTeamHours(@Valid @RequestBody TaskTeamDto taskTeamDto,@PathVariable("id") UUID idTaskTeam,BindingResult result, @RequestHeader(value="Authorization") String token){
+        try{
+            if(jwtUtil.getKey(token) != null) {
+                if (result.hasErrors()){
+                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(teamService.updateTaskTeamHours(idTaskTeam,taskTeamDto),HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
+    }
 
     @DeleteMapping("/deleteTaskTeam/{id}")
     @Operation(summary = "Delete Task Team To Id")

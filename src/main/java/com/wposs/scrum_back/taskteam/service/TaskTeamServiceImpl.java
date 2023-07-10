@@ -89,6 +89,14 @@ public class TaskTeamServiceImpl implements TaskTeamService{
             return modelMapper.map(taskTeamRepository.save(taskTeam),TaskTeamDto.class);
         }).orElseThrow(()->new MessageGeneric("Error,No se encontro la Tarea a Actualizar","404",HttpStatus.NOT_FOUND));
     }
+    @Override
+    public TaskTeamDto updateTaskTeamHours(UUID idTasTeam, TaskTeamDto taskTeamDto) {
+        return taskTeamRepository.findById(idTasTeam).map(taskTeam -> {
+            taskTeam.setTaskHours((taskTeamDto.getTaskHours()!=null)? taskTeamDto.getTaskHours() : taskTeam.getTaskHours());
+
+            return modelMapper.map(taskTeamRepository.save(taskTeam),TaskTeamDto.class);
+        }).orElseThrow(()->new MessageGeneric("Error,No se encontro la Tarea a Actualizar","404",HttpStatus.NOT_FOUND));
+    }
 
     @Override
     public Boolean deleteTaskTeam(UUID idTasTeam) {
