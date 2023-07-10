@@ -20,4 +20,11 @@ export class TasksService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.get('http://localhost:8020/taskteam/taskteam/'+ teamId +'/'+ userStoryId , {headers});
   }
+
+  public editTimeTasksByUseStory(tasksTeamId: String ): Observable<any>{
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    //arreglar la ruta 
+    return this.httpClient.get(''+ tasksTeamId , {headers});
+  }
 }

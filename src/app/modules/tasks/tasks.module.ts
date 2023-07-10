@@ -4,12 +4,15 @@ import { TasksRoutingModule } from './tasks-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EstimateTasksHuComponent } from './pages/estimate-tasks-hu/estimate-tasks-hu.component';
 import { MatButtonModule } from '@angular/material/button';
+import { EditEstimateTasksHuComponent } from './pages/edit-estimate-tasks-hu/edit-estimate-tasks-hu.component';
+
 
 
 
 @NgModule({
   declarations: [
-    EstimateTasksHuComponent
+    EstimateTasksHuComponent,
+    EditEstimateTasksHuComponent,
   ],
   imports: [
     CommonModule,

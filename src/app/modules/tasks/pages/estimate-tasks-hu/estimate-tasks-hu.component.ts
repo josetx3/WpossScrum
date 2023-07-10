@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TeamsService } from 'src/app/modules/teams/pages/service/teams.service';
 import { TasksService } from '../service/tasks.service';
 import Swal from 'sweetalert2';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogConfig } from '@angular/cdk/dialog';
+import { EditEstimateTasksHuComponent } from '../edit-estimate-tasks-hu/edit-estimate-tasks-hu.component';
 
 @Component({
   selector: 'app-estimate-tasks-hu',
@@ -24,7 +27,8 @@ export class EstimateTasksHuComponent {
 
   constructor(
     public teamService: TeamsService,
-    public tasksService: TasksService
+    public tasksService: TasksService,
+    private dialog: MatDialog
   ){
   }
 
@@ -47,7 +51,6 @@ export class EstimateTasksHuComponent {
     this.tasksService.getStoryUserbyTeam(this.teamId).subscribe({
       next: (resp)=>{
         this.userStoryTeam= resp;
-       console.log(this.userStoryTeam)
         this.getTasksByUserStory();
       }  
       ,error: (err)=>{
@@ -64,7 +67,7 @@ export class EstimateTasksHuComponent {
             title: 'my-swal-title',
             icon: 'my-swal-icon',
           },
-          background: '#F5B7B1',
+          background: '#FFF3D3',
         })
       }
     })
@@ -77,7 +80,6 @@ export class EstimateTasksHuComponent {
     this.userStoryTeam.forEach((element: { userStoryId: any; userStoryScore:number }) => {
       let userStoryId=element.userStoryId;
       
-      
       this.tasksService.getTasksByUserStory(this.teamId, userStoryId).subscribe({
 
         next: (resp)=> {
@@ -86,6 +88,18 @@ export class EstimateTasksHuComponent {
       })
     })
    
+  }
+
+  editTimeTasksByUseStory(tasksTeamId: string){
+    const dialogConfig= new MatDialogConfig();
+
+    dialogConfig.width='500px';
+    dialogConfig.data={ tasksTeamId:tasksTeamId}
+    
+    const dialogRef = this.dialog.open(
+      EditEstimateTasksHuComponent,
+      dialogConfig
+    );
   }
 
 
