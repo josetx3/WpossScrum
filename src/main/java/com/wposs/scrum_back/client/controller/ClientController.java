@@ -2,28 +2,19 @@ package com.wposs.scrum_back.client.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.client.dto.ClientDto;
-import com.wposs.scrum_back.client.entity.Client;
-import com.wposs.scrum_back.client.service.ClientServiceImpl;
 import com.wposs.scrum_back.client.service.ClienteService;
-import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.HashMap;
+import javax.validation.Valid;;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.*;
 
 @RestController
 @RequestMapping("/client")
@@ -93,5 +84,4 @@ public class ClientController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
-
 }

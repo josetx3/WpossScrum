@@ -31,19 +31,16 @@ public class ObservationController {
             @ApiResponse(responseCode = "400",description = "")
     })
     public ResponseEntity<List<ObservationDto>> getAllObservation(@RequestHeader(value="Authorization") String token) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<ObservationDto> observationDtos = obersvationService.getAllObservation();
-                if (!observationDtos.isEmpty()) {
-                    return new ResponseEntity<>(observationDtos, HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+      if (jwtUtil.validateToken(token)){
+          List<ObservationDto> observationDtos = obersvationService.getAllObservation();
+          if (!observationDtos.isEmpty()) {
+              return new ResponseEntity<>(observationDtos, HttpStatus.OK);
+          }
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        }
+      }else{
+          return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+      }
     }
 
     @PostMapping("/saveobservation")
@@ -53,17 +50,13 @@ public class ObservationController {
             @ApiResponse(responseCode = "400",description = "Error JSON")
     })
     public ResponseEntity<ObservationDto> saveObservation(@Valid @RequestBody ObservationDto observationDto, BindingResult result,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 if (result.hasErrors()){
                     throw new MethodArgumentNotValidException("ERROR en el JSON: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
                 return new ResponseEntity<>(obersvationService.saveObservation(observationDto),HttpStatus.CREATED);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 }

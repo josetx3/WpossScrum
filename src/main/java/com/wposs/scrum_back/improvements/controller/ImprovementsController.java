@@ -34,18 +34,14 @@ public class ImprovementsController {
             @ApiResponse(responseCode = "404",description = "Not Found Improvements")
     })
     public ResponseEntity<List<ImprovementsDto>> getAllImprovements(@RequestHeader(value="Authorization") String token) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<ImprovementsDto> improvementsDtos = improvementsService.getAllImprovements();
-                if (!improvementsDtos.isEmpty()){
-                    return new ResponseEntity<>(improvementsDtos, HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<ImprovementsDto> improvementsDtos = improvementsService.getAllImprovements();
+            if (!improvementsDtos.isEmpty()){
+                return new ResponseEntity<>(improvementsDtos, HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -56,17 +52,13 @@ public class ImprovementsController {
             @ApiResponse(responseCode = "400",description = "JSON Bad Request")
     })
     public ResponseEntity<ImprovementsDto> saveImprovements(@Valid @RequestBody ImprovementsDto improvementsDto, BindingResult result,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(improvementsService.saveImprovements(improvementsDto),HttpStatus.CREATED);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(improvementsService.saveImprovements(improvementsDto),HttpStatus.CREATED);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -77,16 +69,12 @@ public class ImprovementsController {
             @ApiResponse(responseCode = "404",description = "Improvements Not Found")
     })
     public ResponseEntity<ImprovementsDto> getByIdImprovements(@PathVariable("id")UUID idImprovemets,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return improvementsService.getByIdimprovements(idImprovemets)
-                        .map(improvementsDto -> new ResponseEntity<>(improvementsDto,HttpStatus.OK))
-                        .orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+            return improvementsService.getByIdimprovements(idImprovemets)
+                    .map(improvementsDto -> new ResponseEntity<>(improvementsDto,HttpStatus.OK))
+                    .orElse(null);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -97,17 +85,13 @@ public class ImprovementsController {
             @ApiResponse(responseCode = "404",description = "Not Found Improvements")
     })
     public ResponseEntity deleteImprovements(@PathVariable("idimprovements") UUID idImprovements,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (improvementsService.deleteImprovements(idImprovements)){
-                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+       if (jwtUtil.validateToken(token)){
+           if (improvementsService.deleteImprovements(idImprovements)){
+               return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+           }
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 }

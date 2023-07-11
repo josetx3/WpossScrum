@@ -20,7 +20,6 @@ import java.util.*;
 @CrossOrigin(maxAge = 3600)
 @RequestMapping("/employee")
 public class EmployeeController {
-
     @Autowired
     private EmployeService employeService;
 
@@ -31,14 +30,10 @@ public class EmployeeController {
     @Operation(summary = "Get employee by UUID")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<EmployeDto> findById(@PathVariable("id") UUID idEmploye, @RequestHeader(value="Authorization") String token) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
-        return employeService.getEmployeId(idEmploye).map(employeDto -> new ResponseEntity<>(employeDto,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+             return employeService.getEmployeId(idEmploye).map(employeDto -> new ResponseEntity<>(employeDto,HttpStatus.OK)).orElse(null);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -46,22 +41,16 @@ public class EmployeeController {
     @Operation(summary = "Get all employees")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<List<EmployeDto>> findAll(@RequestHeader(value="Authorization") String token) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 List<EmployeDto> employeDtos = employeService.getAllEmploye();
                 if (!employeDtos.isEmpty()){
                     return new ResponseEntity<>(employeDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
-
     }
-
 
     @PostMapping("/save/")
     @Operation(summary = "Create employee")
@@ -83,17 +72,14 @@ public class EmployeeController {
             @ApiResponse(responseCode = "404",description = "Employe Not Found")
     })
     public ResponseEntity<EmployeDto> updateEmployee(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID employeeId,@RequestBody @Valid EmployeDto employeeDto,BindingResult result) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(employeService.updateEmploye(employeeId,employeeDto),HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(employeService.updateEmploye(employeeId,employeeDto),HttpStatus.OK);
 
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -104,22 +90,13 @@ public class EmployeeController {
             @ApiResponse(responseCode = "404",description = "Employe Not Found")
     })
     public ResponseEntity<EmployeDto> updateEmployeePass(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID employeeId,@PathVariable("password") String password,@RequestBody @Valid EmployeDto employeeDto,BindingResult result) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try {
-                    if (result.hasErrors()){
-                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                    }
-                    return new ResponseEntity<>(employeService.updateEmployePass(employeeId,password,employeeDto),HttpStatus.OK);
-                }catch (Exception e){
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+     if (jwtUtil.validateToken(token)){
+         if (result.hasErrors()){
+             throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+         }
+         return new ResponseEntity<>(employeService.updateEmployePass(employeeId,password,employeeDto),HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -130,18 +107,14 @@ public class EmployeeController {
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
     public ResponseEntity<List<EmployeDto>> getAllEmployeToTeam(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID idTeam){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<EmployeDto> employeDtos = employeService.getEmployeToTeam(idTeam);
-                if (!employeDtos.isEmpty()){
-                    return new ResponseEntity<>(employeDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+       if (jwtUtil.validateToken(token)){
+           List<EmployeDto> employeDtos = employeService.getEmployeToTeam(idTeam);
+           if (!employeDtos.isEmpty()){
+               return new ResponseEntity<>(employeDtos,HttpStatus.OK);
+           }
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -152,21 +125,16 @@ public class EmployeeController {
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
     public ResponseEntity<List<EmployeDto>> getAllEmployeToTeam2(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID idTeam){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 List<EmployeDto> employeDtos = employeService.getEmployeToTeam2(idTeam);
                 if (!employeDtos.isEmpty()){
                     return new ResponseEntity<>(employeDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
-
 
     @GetMapping("employeenoteam/{id}")
     @Operation(summary = "Get All Employee no Exists And To Team")
@@ -175,19 +143,14 @@ public class EmployeeController {
             @ApiResponse(responseCode = "404",description = "")
     })
     public ResponseEntity<List<EmployeDto>> getAllEmployeeNoExistsToTeam(@RequestHeader(value="Authorization") String token,@PathVariable("id") UUID idTeam){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+      if (jwtUtil.validateToken(token)){
                 List<EmployeDto> employeDtos = employeService.getAllEmployeeNoExitsAndTeam(idTeam);
                 if (!employeDtos.isEmpty()){
                     return new ResponseEntity<>(employeDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
-
 }

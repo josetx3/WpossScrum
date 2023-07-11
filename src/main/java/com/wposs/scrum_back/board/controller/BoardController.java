@@ -3,9 +3,7 @@ package com.wposs.scrum_back.board.controller;
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
 import com.wposs.scrum_back.board.dto.BoardDto;
-import com.wposs.scrum_back.board.entity.Board;
 import com.wposs.scrum_back.board.service.BoardService;
-import com.wposs.scrum_back.improvements.entity.Improvements;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,18 +33,14 @@ public class BoardController {
             @ApiResponse(responseCode = "400",description = ""),
             @ApiResponse(responseCode = "500",description = "")
     })
-    public ResponseEntity<BoardDto> saveBoard(@Valid @RequestBody BoardDto boardDto, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new RequestException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(boardService.saveBoard(boardDto),HttpStatus.CREATED);
+    public ResponseEntity<BoardDto> saveBoard(@Valid @RequestBody BoardDto boardDto, BindingResult result, @RequestHeader(value="Authorization") String token) {
+        if (jwtUtil.validateToken(token)) {
+            if (result.hasErrors()) {
+                throw new RequestException("error en estructura de JSON " + result.getFieldError().getRejectedValue(), "400", HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(boardService.saveBoard(boardDto), HttpStatus.CREATED);
+        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -57,19 +51,15 @@ public class BoardController {
             @ApiResponse(responseCode = "404",description = "Not Found Boards")
     })
     public ResponseEntity<List<BoardDto>> getAllBoards(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<BoardDto> boardDtos = boardService.getAllBoards();
-                if (!boardDtos.isEmpty()){
-                    return new ResponseEntity<>(boardDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
-        }
+       if (jwtUtil.validateToken(token)){
+           List<BoardDto> boardDtos = boardService.getAllBoards();
+           if (!boardDtos.isEmpty()){
+               return new ResponseEntity<>(boardDtos,HttpStatus.OK);
+           }
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }else {
+           return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+       }
     }
 
     @PutMapping("/updateboard/{idBoard}")
@@ -79,17 +69,13 @@ public class BoardController {
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
     public ResponseEntity<BoardDto> updateBoard(@PathVariable("idBoard")UUID boardId,@Valid @RequestBody BoardDto boardDto,BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>( boardService.updateBoard(boardId,boardDto),HttpStatus.OK);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+      if (jwtUtil.validateToken(token)){
+          if (result.hasErrors()){
+              throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+          }
+          return new ResponseEntity<>( boardService.updateBoard(boardId,boardDto),HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -100,17 +86,13 @@ public class BoardController {
             @ApiResponse(responseCode = "404",description = "Not Found Board")
     })
     public ResponseEntity deleteBoard(@PathVariable("idBoard")UUID boardId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 if (boardService.deleteBoard(boardId)){
                     return new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
                 return new ResponseEntity(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -121,14 +103,10 @@ public class BoardController {
             @ApiResponse(responseCode = "404",description = "Not Fount Board")
     })
     public ResponseEntity<BoardDto> getBoardById(@PathVariable("idboard")UUID boardId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return boardService.getBoardById(boardId).map(boardDto -> new ResponseEntity<>(boardDto,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+            return boardService.getBoardById(boardId).map(boardDto -> new ResponseEntity<>(boardDto,HttpStatus.OK)).orElse(null);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
     @GetMapping("/boardFilter/{idarea}/{idteam}/{iduserhistory}")
@@ -138,18 +116,14 @@ public class BoardController {
             @ApiResponse(responseCode = "404",description = "Not Fount Board")
     })
     public ResponseEntity<List<BoardDto>> getBoardByTeamAndAreaAndUserStory(@PathVariable("idarea")UUID areaId,@PathVariable("idteam")UUID teamId,@PathVariable("iduserhistory")UUID userStoryId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<BoardDto> boardDtos = boardService.getAllBoardsByTeamAndAreaAndUserStory(areaId,teamId,userStoryId);
-                if (!boardDtos.isEmpty()){
-                    return new ResponseEntity<>(boardDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+       if (jwtUtil.validateToken(token)){
+           List<BoardDto> boardDtos = boardService.getAllBoardsByTeamAndAreaAndUserStory(areaId,teamId,userStoryId);
+           if (!boardDtos.isEmpty()){
+               return new ResponseEntity<>(boardDtos,HttpStatus.OK);
+           }
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 }
