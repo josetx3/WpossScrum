@@ -100,10 +100,13 @@ export class BoardSeeComponent implements OnInit{
           error:
             err => {
               Swal.fire({
+                position:'top-end',
                 title: 'El tablero que ha intentado buscar no existe.',
                 icon: 'warning',
                 confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK',
+                showConfirmButton: false,
+                timer: 3000,
+                toast: true,
                 customClass: {
                   container: 'my-swal-container',
                   title: 'my-swal-title',
@@ -143,7 +146,7 @@ export class BoardSeeComponent implements OnInit{
                   icon: 'my-swal-icon',
                   popup: 'my-swal-popup',
                 },
-                background: '#F44336',
+                background: '#E6F4EA',
              })
               this.boardFrom.reset();
               this.boardService.getAllBoard();

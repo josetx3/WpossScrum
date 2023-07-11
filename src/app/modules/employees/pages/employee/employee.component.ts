@@ -113,10 +113,8 @@ export class EmployeeComponent implements OnInit{
             })
           }
         })
-        console.log('pues se elimina bb')
-    }
-  })
-
+       }
+    })
   }
 
 

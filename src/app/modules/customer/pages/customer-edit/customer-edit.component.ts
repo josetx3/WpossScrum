@@ -51,10 +51,10 @@ export class CustomerEditComponent implements OnInit {
       const data ={
         clientNit:this.customerForm.get('clientNit')?.value,
         client_name:this.customerForm.get('client_name')?.value,
-        
       }
       this.customerService.updateCustomer(this.clienteNitEdit,data).subscribe(
-        (resp) =>{
+        {
+          next:(resp) =>{
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -71,11 +71,12 @@ export class CustomerEditComponent implements OnInit {
           })
           this.customerForm.reset();
           this.dialogRef.close();
-        },);
+        }
+          ,
+          error: (err)=>{
+          }
+        }
+        );
     }
-  }
-
-  CloseModal(): void {
-    this.dialogRef.close();
   }
 }

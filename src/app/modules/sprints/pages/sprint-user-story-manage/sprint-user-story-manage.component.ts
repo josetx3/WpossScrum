@@ -42,14 +42,35 @@ export class SprintUserStoryManageComponent {
   }
 
   getSprintDateById() {
-    this.sprintService.getSprintDateById(this.sprintId).subscribe((resp) => {
-      this.SprintDate = resp;
-      this.areaId= this.SprintDate.areaId;
-      this.teamId= this.SprintDate.teamId;
-      this.scorePointSprint= this.SprintDate.ScorePointSprint;
-      this.getUseStoryRef();
-  
-    });
+    this.sprintService.getSprintDateById(this.sprintId).subscribe({
+      next: (resp) => {
+        this.SprintDate = resp;
+        this.areaId= this.SprintDate.areaId;
+        this.teamId= this.SprintDate.teamId;
+        this.scorePointSprint= this.SprintDate.ScorePointSprint;
+        this.getUseStoryRef();
+    
+      }
+      ,
+      error: (err)=>{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'warning',
+          title: 'Debe primero calcular los puntos del sprint',
+          showConfirmButton: false,
+          timer: 1500,
+          toast: true,
+          customClass: {
+            container: 'my-swal-container',
+            title: 'my-swal-title',
+            icon: 'my-swal-icon',
+          },
+          background: '#FFFEFB',
+        })
+      }
+    }
+      
+      );
   }
 
   getUseStoryRef(){ //trae hu ref segun el team y el area
@@ -59,13 +80,34 @@ export class SprintUserStoryManageComponent {
   }
 
   getUseStoryDes(){ //trae hu des segun el team y el area
-    this.sprintService.getUseStoryDes(this.sprintId).subscribe((data)=>{
-       this.userStorysDes=data;
-       this.pointsTot=0;
-       this.userStorysDes.forEach((obj: { points: number; })=>{
-          this.pointsTot+=obj.points;
-       })
-  });
+    this.sprintService.getUseStoryDes(this.sprintId).subscribe(
+      {
+        next: (data)=>{
+          this.userStorysDes=data;
+          this.pointsTot=0;
+          this.userStorysDes.forEach((obj: { points: number; })=>{
+             this.pointsTot+=obj.points;
+          })
+         }
+        ,
+        error: (err)=>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Debe primero calcular los puntos del sprint',
+            showConfirmButton: false,
+            timer: 3000,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#FFFEFB',
+          })
+        }
+      }
+      );
   }
 
   addUserStoryToSprint(){
@@ -115,7 +157,7 @@ export class SprintUserStoryManageComponent {
                     title: 'my-swal-title',
                     icon: 'my-swal-icon',
                   },
-                  background: '#F5B7B1',
+                  background: '#FFFEFB',
                 })
               })
               this.ngOnInit();
@@ -125,17 +167,17 @@ export class SprintUserStoryManageComponent {
         this.pointsTot=this.pointsTot-pointHu;
         Swal.fire({
           position: 'top-end',
-          icon: 'error',
+          icon: 'warning',
           title: 'No se puede agregar la Historia de Usuario, número de puntos Sprint superados',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 3000,
           toast: true,
           customClass: {
             container: 'my-swal-container',
             title: 'my-swal-title',
             icon: 'my-swal-icon',
           },
-          background: '#F1948A',
+          background: '#FFFEFB',
         })
         this.ngOnInit();
       }
