@@ -60,8 +60,8 @@
                   </td >
                   <td  class="icon  text-center" > <p>N/A</p> 
                     <hr>
-                    <div *ngFor="let item of taskByUserStory[item.userStoryId]" >
-                        <button   type="button btn-2xs" class="btn btn btn-warning mb-1 pt-0 pb-0 " id="{{item.taskTeamId}}" (click)="editTimeTasksByUseStory(item.taskTeamId)"><i class="fas fa-edit fa-sm "></i></button>
+                    <div *ngFor="let item1 of taskByUserStory[item.userStoryId]" >
+                        <button   type="button btn-2xs" class="btn btn btn-warning mb-1 pt-0 pb-0" (click)="editTimeTasksByUseStory(item1.taskTeamId,item1.taskName, item1.taskHours, item.userStoryScore,item.userStoryId )"><i class="fas fa-edit fa-sm "></i></button>
                         <hr>
                     </div>
                   </td>

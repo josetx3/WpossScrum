@@ -21,10 +21,10 @@ export class TasksService {
     return this.httpClient.get('http://localhost:8020/taskteam/taskteam/'+ teamId +'/'+ userStoryId , {headers});
   }
 
-  public editTimeTasksByUseStory(tasksTeamId: String ): Observable<any>{
+  public editTimeTasksByUseStory(tasksTeamId: String, dataEditHours: any): Observable<any>{
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
     //arreglar la ruta 
-    return this.httpClient.get(''+ tasksTeamId , {headers});
+    return this.httpClient.put('http://localhost:8020/taskteam/updatetaskhours/'+ tasksTeamId ,dataEditHours, {headers});
   }
 }

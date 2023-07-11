@@ -18,6 +18,7 @@ export class EstimateTasksHuComponent {
   teamId: String | null='';
   userStoryTeam: any='';
   taskByUserStory: any [][]=[];
+  sumTasksHourBy: number[]=[];
   //userStoryId: String | null='';
 
 
@@ -77,29 +78,52 @@ export class EstimateTasksHuComponent {
 
   getTasksByUserStory(){
     
-    this.userStoryTeam.forEach((element: { userStoryId: any; userStoryScore:number }) => {
+    this.userStoryTeam.forEach((element: { userStoryId: any; }) => {
       let userStoryId=element.userStoryId;
       
       this.tasksService.getTasksByUserStory(this.teamId, userStoryId).subscribe({
 
         next: (resp)=> {
           this.taskByUserStory[userStoryId]= resp;
+          // this.sumTasksHourBy+=this.taskByUserStory[userStoryId];
+          // console.log(this.taskByUserStory[userStoryId])
+          let size= this.taskByUserStory[userStoryId].length;
+          this.sumTasksHourBy[userStoryId]=0;
+          for(let i=0; i<size; i++){
+            this.taskByUserStory[userStoryId][i]
+            this.sumTasksHourBy[userStoryId]+=this.taskByUserStory[userStoryId][i].taskHours;
+          }
+
         }
       })
     })
-   
   }
 
-  editTimeTasksByUseStory(tasksTeamId: string){
+
+  editTimeTasksByUseStory(tasksTeamId: string,taskName: string, taskHours: number, userStoryScore: number, userStoryId: any ){
     const dialogConfig= new MatDialogConfig();
 
     dialogConfig.width='500px';
-    dialogConfig.data={ tasksTeamId:tasksTeamId}
-    
+    dialogConfig.data={ 
+        tasksTeamId:tasksTeamId,
+        taskName: taskName,
+        taskHours: taskHours,
+        userStoryScore: userStoryScore, 
+        sumTasksHourBy: this.sumTasksHourBy,
+        userStoryId: userStoryId
+      }
+    console.log(dialogConfig.data)
     const dialogRef = this.dialog.open(
       EditEstimateTasksHuComponent,
       dialogConfig
     );
+
+    dialogRef.afterClosed().subscribe({
+        next: (resp)=>{
+          this.getTasksByUserStory()
+        }
+    })
+
   }
 
 
