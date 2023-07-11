@@ -1,7 +1,6 @@
 package com.wposs.scrum_back.area.repository;
 
 import com.wposs.scrum_back.area.entity.Area;
-import com.wposs.scrum_back.team.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

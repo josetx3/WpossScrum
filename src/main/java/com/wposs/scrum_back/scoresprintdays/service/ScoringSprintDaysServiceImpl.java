@@ -1,13 +1,9 @@
 package com.wposs.scrum_back.scoresprintdays.service;
 
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
-import com.wposs.scrum_back.Exception.exceptions.RequestException;
-import com.wposs.scrum_back.client.dto.ClientDto;
-import com.wposs.scrum_back.client.entity.Client;
 import com.wposs.scrum_back.scoresprintdays.dto.ScoringSprintDaysDto;
 import com.wposs.scrum_back.scoresprintdays.entity.ScoringSprintDays;
 import com.wposs.scrum_back.scoresprintdays.repository.ScoringSprintsDaysRepository;
-import com.wposs.scrum_back.userstory.entity.UserStory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

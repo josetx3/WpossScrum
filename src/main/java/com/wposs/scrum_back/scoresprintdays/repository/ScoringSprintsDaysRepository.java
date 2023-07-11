@@ -1,6 +1,5 @@
 package com.wposs.scrum_back.scoresprintdays.repository;
 
-import com.wposs.scrum_back.scoresprintdays.dto.ScoringSprintDaysDto;
 import com.wposs.scrum_back.scoresprintdays.entity.ScoringSprintDays;
 import org.springframework.data.jpa.repository.JpaRepository;
 

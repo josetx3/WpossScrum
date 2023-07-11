@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,11 +51,15 @@ public class ClientServiceImpl implements ClienteService{
 
     @Override
     public ClientDto updateCliente(String idCliente, ClientDto clientDto) {
-        return clientRepository.findById(idCliente).map(client -> {
-            client.setClientId((clientDto.getClientId()!=null)?clientDto.getClientId():client.getClientId());
-            client.setClientName((clientDto.getClientName()!=null)?clientDto.getClientName():client.getClientName());
-            return modelMapper.map(clientRepository.save(client),ClientDto.class);
-        }).orElseThrow(()->new MessageGeneric("No se encontro el cliente a Actualizar","400",HttpStatus.NOT_FOUND));
+
+        int resp=clientRepository.updateclient(clientDto.getClientId(),clientDto.getClientName(),idCliente);
+        if(resp==1){
+            return modelMapper.map(clientRepository.findById(clientDto.getClientId()),ClientDto.class);
+        }else{
+            throw new MessageGeneric("No se edito el cliente","400",HttpStatus.BAD_REQUEST);
+
+        }
+
     }
 
 }

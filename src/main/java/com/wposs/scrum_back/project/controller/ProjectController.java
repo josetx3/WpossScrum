@@ -29,14 +29,10 @@ public class ProjectController {
     @Operation(summary = "Get project by UUID")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<ProjectDto> findById(@PathVariable("id") UUID id,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return projectService.getProjectId(id).map(projectDto -> new ResponseEntity<>(projectDto,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+             return projectService.getProjectId(id).map(projectDto -> new ResponseEntity<>(projectDto,HttpStatus.OK)).orElse(null);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -44,18 +40,14 @@ public class ProjectController {
     @Operation(summary = "Get all projects")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<ProjectDto>> findAll(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<ProjectDto> projectDtos = projectService.gatAllProject();
-                if(!projectDtos.isEmpty()){
-                    return new ResponseEntity<>(projectDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<ProjectDto> projectDtos = projectService.gatAllProject();
+            if(!projectDtos.isEmpty()){
+                return new ResponseEntity<>(projectDtos,HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -66,17 +58,13 @@ public class ProjectController {
             @ApiResponse(responseCode = "400",description = "project bad request")
     })
     public ResponseEntity<ProjectDto> create(@Valid @RequestBody ProjectDto projectDto,BindingResult result,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(projectService.saveProject(projectDto),HttpStatus.CREATED);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(projectService.saveProject(projectDto),HttpStatus.CREATED);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -87,17 +75,13 @@ public class ProjectController {
             @ApiResponse(responseCode = "404",description = "Project Not Found")
     })
     public ResponseEntity<ProjectDto> updateProject(@Valid @RequestBody ProjectDto projectDto, @PathVariable("id") UUID projectId, BindingResult result,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(projectService.updateProject(projectId,projectDto),HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(projectService.updateProject(projectId,projectDto),HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -105,18 +89,14 @@ public class ProjectController {
     @Operation(summary = "Get all projects by area id")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<ProjectDto>> findAllProjectsByAreaId(@PathVariable UUID areaId,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 List<ProjectDto> projectDtos = projectService.getProjectToArea(areaId);
                 if (!projectDtos.isEmpty()){
                     return new ResponseEntity<>(projectDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 }

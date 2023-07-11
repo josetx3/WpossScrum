@@ -1,15 +1,13 @@
 package com.wposs.scrum_back.client.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wposs.scrum_back.project.entity.Project;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.List;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientDto {
