@@ -36,13 +36,11 @@ public class ClientController {
     @Operation(summary = "Get client by String")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<ClientDto> findById(@PathVariable String id,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return clienteService.getClienteId(id).map(clientDto -> new ResponseEntity<>(clientDto,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        //Condicion para validar el token de jwt
+        if(jwtUtil.validateToken(token)){
+           return clienteService.getClienteId(id).map(clientDto -> new ResponseEntity<>(clientDto,HttpStatus.OK)).orElse(null);
+       }else{//Cuando el token no es valido retorna un UNAUTHORIZED
+       return  new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -50,18 +48,15 @@ public class ClientController {
     @Operation(summary = "Get all clients")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<ClientDto>> findAll(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<ClientDto> clients = clienteService.gatAllCliente();
-                if (!clients.isEmpty()){
-                    return new ResponseEntity<>(clients,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+         if(jwtUtil.validateToken(token)){
+             List<ClientDto> clients = clienteService.gatAllCliente();
+             if (!clients.isEmpty()){
+                 return new ResponseEntity<>(clients,HttpStatus.OK);
+             }
+             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         }else{
+             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+         }
     }
 
     @PostMapping("/save/")
@@ -70,24 +65,15 @@ public class ClientController {
             @ApiResponse(responseCode = "201",description = "Client Created"),
             @ApiResponse(responseCode = "400",description = "client bad request")
     })
-    public ResponseEntity<ClientDto> create(@Valid @RequestBody ClientDto clientDto, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try{
-                    if (result.hasErrors()){
-                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                    }
-                    return new ResponseEntity<>(clienteService.saveCliente(clientDto),HttpStatus.OK);
-                }catch (Exception e){
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                }
-
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
-           // System.out.println(e);
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<?> create(@Valid @RequestBody ClientDto clientDto, BindingResult result, @RequestHeader(value="Authorization") String token){
+         if (jwtUtil.validateToken(token)){
+             if (result.hasErrors()){
+                 throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+             }
+             return new ResponseEntity<>(clienteService.saveCliente(clientDto),HttpStatus.OK);
+         } else{
+             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+         }
     }
 
     @PutMapping("/{id}")
@@ -98,22 +84,14 @@ public class ClientController {
             @ApiResponse(responseCode = "404",description = "Cliente Not Found")
     })
     public ResponseEntity<ClientDto> updateClient(@Valid @RequestBody ClientDto clientDto, @PathVariable("id") String clientId,BindingResult result,@RequestHeader(value="Authorization") String token) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try {
-                    if (result.hasErrors()){
-                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                    }
-                    return new ResponseEntity<>(clienteService.updateCliente(clientId,clientDto),HttpStatus.OK);
-                }catch (Exception e){
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(clienteService.updateCliente(clientId,clientDto),HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
     }
 
 }
