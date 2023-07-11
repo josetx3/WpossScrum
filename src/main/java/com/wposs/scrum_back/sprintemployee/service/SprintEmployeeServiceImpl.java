@@ -2,9 +2,6 @@ package com.wposs.scrum_back.sprintemployee.service;
 
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
-import com.wposs.scrum_back.Exception.exceptions.RequestException;
-import com.wposs.scrum_back.area.dto.AreaDto;
-import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.employe.entity.Employee;
 import com.wposs.scrum_back.employe.repository.EmployeeRepository;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
@@ -12,9 +9,6 @@ import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployee;
 import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
 import com.wposs.scrum_back.sprintemployee.repository.SprintEmployeeRepository;
-import com.wposs.scrum_back.userstory.dto.UserStoryDto;
-import com.wposs.scrum_back.userstory.entity.UserStory;
-import net.bytebuddy.implementation.bytecode.constant.IntegerConstant;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -81,9 +75,6 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
         }
     }
 
-
-
-
     @Override
     @Transactional
     public List<SprintEmployeeDto> getEmployeToTeam(UUID idSprint, UUID idTeam) {
@@ -126,7 +117,5 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
                 sprintEmployee.setObservations((sprintEmployeeDtoRequest.getObservations()!=null)?sprintEmployeeDtoRequest.getObservations():sprintEmployee.getObservations());
                 return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDtoRequest.class);
             }).orElseThrow(()->new MessageGeneric("No se encontro el sprint de empleado a actualizar","404",HttpStatus.NOT_FOUND));
-
     }
-
 }

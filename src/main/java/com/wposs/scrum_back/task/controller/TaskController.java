@@ -30,18 +30,14 @@ public class TaskController {
             @ApiResponse(responseCode = "404",description = "Not Found Task")
     })
     public ResponseEntity<List<TaskDto>> getAll(@RequestHeader(value="Authorization") String token) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 List<TaskDto> taskDtos = taskService.getAllTask();
                 if (!taskDtos.isEmpty()) {
                     return new ResponseEntity<>(taskDtos, HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -52,17 +48,13 @@ public class TaskController {
             @ApiResponse(responseCode = "400",description = "JSON mal estructurtado")
     })
     public ResponseEntity<TaskDto> saveTask(@Valid @RequestBody TaskDto taskDto, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 if (result.hasErrors()){
                     throw new MethodArgumentNotValidException("error en estructura de JSON "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
                 return new ResponseEntity<>(taskService.saveTask(taskDto),HttpStatus.CREATED);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 }

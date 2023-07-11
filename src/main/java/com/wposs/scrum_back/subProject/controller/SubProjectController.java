@@ -2,14 +2,11 @@ package com.wposs.scrum_back.subProject.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.subProject.dto.SubProjectDto;
-import com.wposs.scrum_back.subProject.entity.SubProject;
 import com.wposs.scrum_back.subProject.service.SubProjectService;
-import com.wposs.scrum_back.subProject.service.SubProjectServiceImpl;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/subproject")
@@ -33,14 +29,10 @@ public class SubProjectController {
     @Operation(summary = "Get subproject by UUID")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<SubProjectDto> findById(@PathVariable UUID id,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 return subProjectService.gatSubProjectId(id).map(subProjectDto -> new ResponseEntity<>(subProjectDto,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -48,18 +40,14 @@ public class SubProjectController {
     @Operation(summary = "Get all subprojects")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<List<SubProjectDto>> findAll(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                List<SubProjectDto> subProjectDtos = subProjectService.gatAllSubProject();
                if (!subProjectDtos.isEmpty()){
                    return new ResponseEntity<>(subProjectDtos,HttpStatus.OK);
                }
                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -70,17 +58,13 @@ public class SubProjectController {
             @ApiResponse(responseCode = "400",description = "subproject bad request")
     })
     public ResponseEntity<SubProjectDto> create(@Valid @RequestBody SubProjectDto subProjectDto, BindingResult result,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if(result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(subProjectService.saveSubProject(subProjectDto),HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            if(result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(subProjectService.saveSubProject(subProjectDto),HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -91,17 +75,13 @@ public class SubProjectController {
             @ApiResponse(responseCode = "404",description = "Project Not Found")
     })
     public ResponseEntity<SubProjectDto> updateSubProject(@RequestBody SubProjectDto subProject, @PathVariable("id") UUID subProjectId,BindingResult result,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 if (result.hasErrors()){
                     throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
                 return new ResponseEntity<>(subProjectService.updateSubProject(subProjectId,subProject),HttpStatus.OK);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -109,19 +89,14 @@ public class SubProjectController {
     @Operation(summary = "Get all subprojects by project id")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<List<SubProjectDto>> findAllSubProjectsByProjectId(@PathVariable UUID projectId,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 List<SubProjectDto> subProjectDtos = subProjectService.getSubProjectToProject(projectId);
                 if(!subProjectDtos.isEmpty()){
                     return new ResponseEntity<>(subProjectDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
-
 }

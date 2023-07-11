@@ -44,15 +44,11 @@ public class UserStoryController {
     })
     @ApiResponse(responseCode = "200",description = "")
     public ResponseEntity<UserStoryDto> finById(@PathVariable("userStoryId") UUID userStoryId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return userStoryService.getUserStoryById(userStoryId)
-                        .map(userStoryDto -> new ResponseEntity<>(userStoryDto,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+            return userStoryService.getUserStoryById(userStoryId)
+                    .map(userStoryDto -> new ResponseEntity<>(userStoryDto,HttpStatus.OK)).orElse(null);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -60,18 +56,14 @@ public class UserStoryController {
     @Operation(summary = "Get all User Stories")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<UserStoryDto>> findAll(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+       if (jwtUtil.validateToken(token)){
                 List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStory();
                 if(!userStoryDtos.isEmpty()){
                     return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -82,25 +74,15 @@ public class UserStoryController {
             @ApiResponse(responseCode = "404",description = "Not Found Users stories")
     })
     public ResponseEntity<List<UserStoryDto>> getAllUserStoryByTeam(@PathVariable("teamId") UUID teamId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try {
-                        List<UserStoryDto> userStoryDto = userStoryService.getAllUserStoryByTeam(teamId);
-                        if(!userStoryDto.isEmpty()){
-                            return new ResponseEntity<>(userStoryDto, HttpStatus.OK);
-                        }
-                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }catch (Exception e){
-                    return ResponseEntity.badRequest().build();
-                }
-
+        if (jwtUtil.validateToken(token)){
+            List<UserStoryDto> userStoryDto = userStoryService.getAllUserStoryByTeam(teamId);
+            if(!userStoryDto.isEmpty()){
+                return new ResponseEntity<>(userStoryDto, HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
-
     }
     @PostMapping("/save")
     @Operation(summary = "Create User Story")
@@ -109,22 +91,13 @@ public class UserStoryController {
             @ApiResponse(responseCode = "400",description = "user story bad request")
     })
     public ResponseEntity<UserStoryDto> create(@Valid @RequestBody UserStoryDto userStoryDto, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try {
-                    if (result.hasErrors()){
-                        throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                    }
-                    return new ResponseEntity<>(userStoryService.saveUserStory(userStoryDto),HttpStatus.CREATED);
-                }catch (Exception e){
-                    return ResponseEntity.badRequest().build();
-                }
-
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(userStoryService.saveUserStory(userStoryDto),HttpStatus.CREATED);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -135,37 +108,28 @@ public class UserStoryController {
             @ApiResponse(responseCode = "400",description = "Story Not Found")
     })
     public ResponseEntity<UserStoryDto> updateUserStory(@Valid @RequestBody UserStoryDto userStoryDto, @PathVariable("id") UUID userStoryId,BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(userStoryService.updateUserStory(userStoryId,userStoryDto),HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(userStoryService.updateUserStory(userStoryId,userStoryDto),HttpStatus.OK);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
-
 
     @GetMapping("/subproject/{subprojectId}")
     @Operation(summary = "Get all user stories by subproject id")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<UserStoryDto>> findAllUserStoriesBySubProjectId(@PathVariable("subprojectId") UUID subprojectId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToSubProject(subprojectId);
-                if (!userStoryDtos.isEmpty()){
-                    return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToSubProject(subprojectId);
+            if (!userStoryDtos.isEmpty()){
+                return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -176,18 +140,14 @@ public class UserStoryController {
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
     public ResponseEntity<List<UserStoryDto>> getAllUserStoryToTeam(@PathVariable("id")UUID idTeam, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToTeam(idTeam);
-                if(userStoryDtos.isEmpty()){
-                    new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-                return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            List<UserStoryDto> userStoryDtos = userStoryService.getAllUserStoryToTeam(idTeam);
+            if(userStoryDtos.isEmpty()){
+                new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -198,23 +158,14 @@ public class UserStoryController {
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
     public ResponseEntity<List<UserStoryDtoRequest>> getAllUserStoryRef(@PathVariable("idTeam") UUID idTeam, @PathVariable("idArea") UUID idArea, @RequestHeader(value="Authorization") String token){
-        try{
-            try {
-                if(jwtUtil.getKey(token) != null) {
-                    List<UserStoryDtoRequest> userStoryDtoRequests = userStoryService.getAllUserStoryRef(idTeam, idArea);
-                    if (!userStoryDtoRequests.isEmpty()){
-                        return new ResponseEntity<>(userStoryDtoRequests,HttpStatus.OK);
-                    }
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-            }catch (Exception e){
-                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<UserStoryDtoRequest> userStoryDtoRequests = userStoryService.getAllUserStoryRef(idTeam, idArea);
+            if (!userStoryDtoRequests.isEmpty()){
+                return new ResponseEntity<>(userStoryDtoRequests,HttpStatus.OK);
             }
-
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 }

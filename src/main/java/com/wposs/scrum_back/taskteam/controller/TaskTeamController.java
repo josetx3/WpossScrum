@@ -38,18 +38,14 @@ public class TaskTeamController {
             @ApiResponse(responseCode = "400",description = "task bad request")
     })
     public ResponseEntity<TaskTeamDto> create(@Valid @RequestBody TaskTeamDto taskTeamDto, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                taskTeamDto.setTaskHours(0);
-                return new ResponseEntity<>(teamService.saveTaskTeam(taskTeamDto),HttpStatus.CREATED);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            taskTeamDto.setTaskHours(0);
+            return new ResponseEntity<>(teamService.saveTaskTeam(taskTeamDto),HttpStatus.CREATED);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -57,18 +53,14 @@ public class TaskTeamController {
     @Operation(summary = "Get all task")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<List<TaskTeamDto>> findAll(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<TaskTeamDto> taskTeamDtos = teamService.getAllTaskTeam();
-                if (!taskTeamDtos.isEmpty()){
-                    return new ResponseEntity<>(taskTeamDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<TaskTeamDto> taskTeamDtos = teamService.getAllTaskTeam();
+            if (!taskTeamDtos.isEmpty()){
+                return new ResponseEntity<>(taskTeamDtos,HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -80,15 +72,11 @@ public class TaskTeamController {
             @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
     })
     public ResponseEntity<TaskTeamDto> findById(@PathVariable UUID taskTeamId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                 return teamService.getTaskTeamById(taskTeamId).map(taskTeamDto -> new ResponseEntity<>(taskTeamDto,HttpStatus.OK))
-                     .orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+            return teamService.getTaskTeamById(taskTeamId).map(taskTeamDto -> new ResponseEntity<>(taskTeamDto,HttpStatus.OK))
+                    .orElse(null);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -99,17 +87,13 @@ public class TaskTeamController {
             @ApiResponse(responseCode = "400",description = "Update Task Team Bad Request")
     })
     public ResponseEntity<TaskTeamDto> updateTaskTeam(@Valid @RequestBody TaskTeamDto taskTeamDto,@PathVariable("id") UUID idTaskTeam,BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(teamService.updateTaskTeam(idTaskTeam,taskTeamDto),HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(teamService.updateTaskTeam(idTaskTeam,taskTeamDto),HttpStatus.OK);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
     @PutMapping("/updatetaskhours/{id}")
@@ -119,17 +103,13 @@ public class TaskTeamController {
             @ApiResponse(responseCode = "400",description = "Update Task Team Bad Request")
     })
     public ResponseEntity<TaskTeamDto> updateTaskTeamHours(@Valid @RequestBody TaskTeamDto taskTeamDto,@PathVariable("id") UUID idTaskTeam,BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(teamService.updateTaskTeamHours(idTaskTeam,taskTeamDto),HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(teamService.updateTaskTeamHours(idTaskTeam,taskTeamDto),HttpStatus.OK);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -140,17 +120,13 @@ public class TaskTeamController {
             @ApiResponse(responseCode = "404",description = "Task Team Not Found")
     })
     public ResponseEntity deleteTaskTeam(@PathVariable("id") UUID idTaskTeam, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (teamService.deleteTaskTeam(idTaskTeam)){
-                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            if (teamService.deleteTaskTeam(idTaskTeam)){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -161,18 +137,14 @@ public class TaskTeamController {
             @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
     })
     public ResponseEntity<List<TaskTeamDto>> getAllTaskTeamToIdTeam(@PathVariable("idTeam") UUID idTeam, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 List<TaskTeamDto> taskTeamDtos = teamService.getTaskTeamToIdTeam(idTeam);
                 if(!taskTeamDtos.isEmpty()){
                     return new ResponseEntity<>(taskTeamDtos,HttpStatus.OK);
                 }
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -183,22 +155,14 @@ public class TaskTeamController {
             @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
     })
     public ResponseEntity<List<TaskTeamDtoRequest>> getAllTaskTeamToIdTeamAndIdUserStory(@PathVariable("idTeam") UUID idTeam,@PathVariable("idUserStory") UUID idUserStory, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try {
-                    List<TaskTeamDtoRequest> taskTeamDtosR = teamService.getTaskTeamToIdTeamAndUserStory(idTeam, idUserStory);
-                    if (!taskTeamDtosR.isEmpty()) {
-                        return new ResponseEntity<>(taskTeamDtosR, HttpStatus.OK);
-                    }
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }catch (Exception e){
-                    return ResponseEntity.badRequest().build();
-                }
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+       if (jwtUtil.validateToken(token)){
+           List<TaskTeamDtoRequest> taskTeamDtosR = teamService.getTaskTeamToIdTeamAndUserStory(idTeam, idUserStory);
+           if (!taskTeamDtosR.isEmpty()) {
+               return new ResponseEntity<>(taskTeamDtosR, HttpStatus.OK);
+           }
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 

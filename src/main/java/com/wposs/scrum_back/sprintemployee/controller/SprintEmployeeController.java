@@ -1,12 +1,9 @@
 package com.wposs.scrum_back.sprintemployee.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
-import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDtoRequest;
-import com.wposs.scrum_back.sprintemployee.entity.SprintEmployeePk;
 import com.wposs.scrum_back.sprintemployee.service.SprintEmployeeService;
-import com.wposs.scrum_back.userstory.dto.UserStoryDto;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,7 +23,6 @@ import java.util.UUID;
 public class SprintEmployeeController {
     @Autowired
     private SprintEmployeeService sprintEmployeeService;
-
     @Autowired
     private JWTUtil jwtUtil;
     @GetMapping("/allsprintemployee")
@@ -36,18 +32,14 @@ public class SprintEmployeeController {
             @ApiResponse(responseCode = "404",description = "Not Fount Sprint Employee")
     })
     public ResponseEntity<List<SprintEmployeeDtoRequest>> getAllSprintEmployee(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<SprintEmployeeDtoRequest> sprintEmployeeDtoRequests = sprintEmployeeService.getAllSprintEmployee();
-                if (!sprintEmployeeDtoRequests.isEmpty()){
-                    return new ResponseEntity<>(sprintEmployeeDtoRequests, HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<SprintEmployeeDtoRequest> sprintEmployeeDtoRequests = sprintEmployeeService.getAllSprintEmployee();
+            if (!sprintEmployeeDtoRequests.isEmpty()){
+                return new ResponseEntity<>(sprintEmployeeDtoRequests, HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -58,12 +50,12 @@ public class SprintEmployeeController {
             @ApiResponse(responseCode = "404",description = "Not Found By Id Sprint Employee")
     })
     public ResponseEntity<SprintEmployeeDtoRequest> getByIdSprintEmploye(@PathVariable("id") UUID idEmployee,@PathVariable("idSprint") UUID idSprint,@RequestHeader(value="Authorization") String token){
-
-                 return sprintEmployeeService.getBySprintEmployeeId(idEmployee,idSprint).map(SprintEmployeeDtoRequest -> new ResponseEntity<>(SprintEmployeeDtoRequest,HttpStatus.OK)).orElse(null);
-
-
+        if(jwtUtil.validateToken(token)) {
+            return sprintEmployeeService.getBySprintEmployeeId(idEmployee, idSprint).map(SprintEmployeeDtoRequest -> new ResponseEntity<>(SprintEmployeeDtoRequest, HttpStatus.OK)).orElse(null);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
-
 
     @PostMapping("/savesprintemployee")
     @Operation(summary = "Save To Sprint Employee")
@@ -72,20 +64,12 @@ public class SprintEmployeeController {
             @ApiResponse(responseCode = "400",description = "Bad Request Json")
     })
     public ResponseEntity<SprintEmployeeDtoRequest> saveSprintEmployee(@Valid @RequestBody SprintEmployeeDtoRequest sprintEmployeeDtoRequest, BindingResult result,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try{
-                    if (result.hasErrors()){
-                        throw new MethodArgumentNotValidException("error mal estructura en el JSON","400",HttpStatus.BAD_REQUEST);
-                    }
-                    return new ResponseEntity<>(sprintEmployeeService.saveSprintEmployee(sprintEmployeeDtoRequest),HttpStatus.CREATED);
-                }catch (Exception e){
-                    return ResponseEntity.badRequest().build();
-                }
-
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException("error mal estructura en el JSON","400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(sprintEmployeeService.saveSprintEmployee(sprintEmployeeDtoRequest),HttpStatus.CREATED);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         }
@@ -113,23 +97,14 @@ public class SprintEmployeeController {
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
     public ResponseEntity<List<SprintEmployeeDto>> getAllEmployeToTeam(@PathVariable("idSprint") UUID idSprint, @PathVariable("idTeam") UUID idTeam,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try{
-                    List<SprintEmployeeDto> sprintEmployeeDtos = sprintEmployeeService.getEmployeToTeam(idSprint, idTeam);
-                    if (!sprintEmployeeDtos.isEmpty()){
-                        return new ResponseEntity<>(sprintEmployeeDtos,HttpStatus.OK);
-                    }
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }catch (Exception e){
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-
+        if (jwtUtil.validateToken(token)){
+            List<SprintEmployeeDto> sprintEmployeeDtos = sprintEmployeeService.getEmployeToTeam(idSprint, idTeam);
+            if (!sprintEmployeeDtos.isEmpty()){
+                return new ResponseEntity<>(sprintEmployeeDtos,HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -140,10 +115,15 @@ public class SprintEmployeeController {
             @ApiResponse(responseCode = "200",description = "Return the updated employee"),
             @ApiResponse(responseCode = "404",description = "Employe Not Found")
     })
-    public ResponseEntity<SprintEmployeeDtoRequest> updateSprintEmployee(@PathVariable("id") UUID idEmployee,@PathVariable("idSprint") UUID idSprint,@RequestBody @Valid SprintEmployeeDtoRequest sprintEmployeeDtoRequest,BindingResult result) {
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<SprintEmployeeDtoRequest> updateSprintEmployee(@PathVariable("id") UUID idEmployee,@PathVariable("idSprint") UUID idSprint,@RequestHeader(value="Authorization") String token,@RequestBody @Valid SprintEmployeeDtoRequest sprintEmployeeDtoRequest,BindingResult result) {
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(sprintEmployeeService.updateSprintEmployee(idEmployee,idSprint, sprintEmployeeDtoRequest),HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(sprintEmployeeService.updateSprintEmployee(idEmployee,idSprint, sprintEmployeeDtoRequest),HttpStatus.OK);
+
     }
 }

@@ -4,7 +4,6 @@ import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDto;
 import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDtoRequest;
 import com.wposs.scrum_back.sprintuserstory.service.SprintUserstoryService;
-import com.wposs.scrum_back.taskteam.dto.TaskTeamDto;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,22 +32,13 @@ public class SprintUserstoryController {
             @ApiResponse(responseCode = "400",description = "Bad Request Json")
     })
     public ResponseEntity<SprintUserstoryDto> saveSprintEmployee(@Valid @RequestBody SprintUserstoryDto sprintUserstoryDto, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try{
-                    if (result.hasErrors()){
-                        throw new MethodArgumentNotValidException("error mal estructura en el JSON","400", HttpStatus.BAD_REQUEST);
-                    }
-                        return new ResponseEntity<>(sprintUserstoryService.saveSprintUserStory(sprintUserstoryDto),HttpStatus.CREATED);
-                }catch (Exception e){
-                    return ResponseEntity.badRequest().build();
-                }
-
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException("error mal estructura en el JSON","400", HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(sprintUserstoryService.saveSprintUserStory(sprintUserstoryDto),HttpStatus.CREATED);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -59,19 +49,10 @@ public class SprintUserstoryController {
             @ApiResponse(responseCode = "404",description = "user story data Not Found")
     })
     public ResponseEntity<List<SprintUserstoryDtoRequest>> getDataSprint(@PathVariable("idsprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try{
-                    return new ResponseEntity<>(sprintUserstoryService.getAllSprintUserstoryBySprint(idSprint),HttpStatus.OK);
-                }catch (Exception e){
-                    return ResponseEntity.badRequest().build();
-                }
-
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+       if (jwtUtil.validateToken(token)){
+           return new ResponseEntity<>(sprintUserstoryService.getAllSprintUserstoryBySprint(idSprint),HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
     @PutMapping("/updatesprintuserstory/{idSprint}/{idUserStory}")
@@ -81,17 +62,13 @@ public class SprintUserstoryController {
             @ApiResponse(responseCode = "400",description = "Update sprintuserstory Bad Request")
     })
     public ResponseEntity<SprintUserstoryDto> updateTaskTeam(@Valid @RequestBody SprintUserstoryDto sprintUserstoryDto,@PathVariable("idUserStory") UUID idUserStory,@PathVariable("idSprint") UUID idSprint, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
+        if (jwtUtil.validateToken(token)){
                 if (result.hasErrors()){
                     throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
                 return new ResponseEntity<>(sprintUserstoryService.updateUserstoryService(idSprint,idUserStory,sprintUserstoryDto),HttpStatus.OK);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -102,22 +79,14 @@ public class SprintUserstoryController {
             @ApiResponse(responseCode = "404",description = "sprintuserstory Not Found")
     })
     public ResponseEntity deletesSprintUserStory(@PathVariable("idUserStory") UUID idUserStory,@PathVariable("idSprint") UUID idSprint, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try{
-                    if (sprintUserstoryService.deleteSpringUserStory(idSprint,idUserStory)){
-                        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                    }
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-                catch (Exception e){
-                        return ResponseEntity.badRequest().build();
-                    }
-                }
-                return ResponseEntity.badRequest().build();
-            }catch (Exception e){
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+       if (jwtUtil.validateToken(token)){
+           if (sprintUserstoryService.deleteSpringUserStory(idSprint,idUserStory)){
+               return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+           }
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-            }
+       }else{
+           return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+       }
     }
 }

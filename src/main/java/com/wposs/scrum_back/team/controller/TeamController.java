@@ -30,14 +30,10 @@ public class TeamController {
     @Operation(summary = "Get team by UUID")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<TeamDto> findById(@PathVariable("id") UUID idTeam, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return teamService.getTeamByiId(idTeam).map(teamDto -> new ResponseEntity<>(teamDto,HttpStatus.OK)).orElse(null);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+            return teamService.getTeamByiId(idTeam).map(teamDto -> new ResponseEntity<>(teamDto,HttpStatus.OK)).orElse(null);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -48,20 +44,15 @@ public class TeamController {
             @ApiResponse(responseCode = "404",description = "Not Found")
     })
     public ResponseEntity<List<TeamDto>> findAll(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<TeamDto> teamDtos = teamService.getAllTeam();
-                if(!teamDtos.isEmpty()){
-                    return new ResponseEntity<>(teamDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+       if (jwtUtil.validateToken(token)){
+           List<TeamDto> teamDtos = teamService.getAllTeam();
+           if(!teamDtos.isEmpty()){
+               return new ResponseEntity<>(teamDtos,HttpStatus.OK);
+           }
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
-
     }
 
     @PostMapping("/save")
@@ -71,17 +62,13 @@ public class TeamController {
             @ApiResponse(responseCode = "400",description = "team bad request")
     })
     public ResponseEntity<TeamDto> create(@Valid @RequestBody TeamDto teamDto, BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw  new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(teamService.saveTeam(teamDto),HttpStatus.CREATED);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw  new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(teamService.saveTeam(teamDto),HttpStatus.CREATED);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -92,17 +79,13 @@ public class TeamController {
             @ApiResponse(responseCode = "404",description = "Project Not Found")
     })
     public ResponseEntity<TeamDto> updateTeam(@Valid @RequestBody TeamDto team, @PathVariable("id") UUID teamId,BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (result.hasErrors()){
-                    throw  new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
-                }
-                return new ResponseEntity<>(teamService.updateTeam(teamId,team),HttpStatus.OK);
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw  new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(teamService.updateTeam(teamId,team),HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -110,18 +93,14 @@ public class TeamController {
     @Operation(summary = "Get all teams by area id")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<TeamDto>> findAllProjectsByAreaId(@PathVariable UUID areaId, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<TeamDto> teamDtos = teamService.getTeamToArea(areaId);
-                if ((!teamDtos.isEmpty())){
-                    return new ResponseEntity<>(teamDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<TeamDto> teamDtos = teamService.getTeamToArea(areaId);
+            if ((!teamDtos.isEmpty())){
+                return new ResponseEntity<>(teamDtos,HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -133,21 +112,13 @@ public class TeamController {
             @ApiResponse(responseCode = "500",description = "An internal error occurred")
     })
     public ResponseEntity<?> saveEmployeeToTeam(@PathVariable("id") UUID idTeam,@RequestBody List<UUID> idEmployess,BindingResult result, @RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                try{
-                    if(result.hasErrors()){
-                        throw new MethodArgumentNotValidException("ocurrio un error inesperado en los datos recibidos","400",HttpStatus.BAD_REQUEST);
-                    }
-                    return new ResponseEntity<>(teamService.saveEmployeToTeam(idEmployess,idTeam),HttpStatus.CREATED);
-                }catch (Exception e) {
-                    return ResponseEntity.badRequest().body(e);
-                }
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+       if (jwtUtil.validateToken(token)){
+           if(result.hasErrors()){
+               throw new MethodArgumentNotValidException("ocurrio un error inesperado en los datos recibidos","400",HttpStatus.BAD_REQUEST);
+           }
+          return new ResponseEntity<>(teamService.saveEmployeToTeam(idEmployess,idTeam),HttpStatus.CREATED);
+       }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
-        }
+       }
     }
 }

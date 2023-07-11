@@ -1,7 +1,5 @@
 package com.wposs.scrum_back.sprint.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wposs.scrum_back.Exception.exceptions.InternalServerException;
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.area.entity.Area;
@@ -12,7 +10,6 @@ import com.wposs.scrum_back.sprint.entity.Sprint;
 import com.wposs.scrum_back.sprint.repository.SprintRepository;
 import com.wposs.scrum_back.team.entity.Team;
 import com.wposs.scrum_back.team.repository.TeamRepository;
-import io.swagger.v3.core.util.Json;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

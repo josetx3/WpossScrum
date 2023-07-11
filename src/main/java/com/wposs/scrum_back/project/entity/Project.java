@@ -3,6 +3,7 @@ package com.wposs.scrum_back.project.entity;
 import com.wposs.scrum_back.area.entity.Area;
 import com.wposs.scrum_back.client.entity.Client;
 import com.wposs.scrum_back.subProject.entity.SubProject;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.core.codec.ByteArrayEncoder;
 import org.w3c.dom.Text;
@@ -37,7 +38,7 @@ public class Project {
     @JoinColumn(name = "area_id", insertable = false, updatable = false)
     private Area area;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", insertable = false, updatable = false)
     private Client client;
 

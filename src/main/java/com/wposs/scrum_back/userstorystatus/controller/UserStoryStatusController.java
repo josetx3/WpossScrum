@@ -26,18 +26,14 @@ public class UserStoryStatusController {
     @Operation(description = "GET ALL STATUS")
     @ApiResponse(responseCode = "200",description = "ALL USER STORY STATUS")
     public ResponseEntity<List<UserStoryStatusDto>> getAllStatus(@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                List<UserStoryStatusDto> userStoryStatusDtos = userStoryStatusService.gatAll();
-                if (!userStoryStatusDtos.isEmpty()){
-                    return new ResponseEntity<>(userStoryStatusDtos,HttpStatus.OK);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            List<UserStoryStatusDto> userStoryStatusDtos = userStoryStatusService.gatAll();
+            if (!userStoryStatusDtos.isEmpty()){
+                return new ResponseEntity<>(userStoryStatusDtos,HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
     @PostMapping("/savestatus")
@@ -47,14 +43,10 @@ public class UserStoryStatusController {
             @ApiResponse(responseCode = "400",description = "FAIL STRUCT JSON")
     })
     public ResponseEntity<UserStoryStatusDto> saveStatus(@Valid @RequestBody UserStoryStatusDto userStoryStatusDto,@RequestHeader(value="Authorization") String token){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return new ResponseEntity<>(userStoryStatusService.saveStatus(userStoryStatusDto),HttpStatus.CREATED);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+        if (jwtUtil.validateToken(token)){
+            return new ResponseEntity<>(userStoryStatusService.saveStatus(userStoryStatusDto),HttpStatus.CREATED);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 
@@ -65,17 +57,13 @@ public class UserStoryStatusController {
             @ApiResponse(responseCode = "404",description = "Status Not Found")
     })
     public ResponseEntity deleteStatus(@PathVariable("id") Long idStatus,@RequestHeader(value="Authorization") String token) {
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                if (userStoryStatusService.deleteProducto(idStatus)){
-                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                }
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jwtUtil.validateToken(token)){
+            if (userStoryStatusService.deleteProducto(idStatus)){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
         }
     }
 }

@@ -1,9 +1,7 @@
 package com.wposs.scrum_back.sprint.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.wposs.scrum_back.sprint.dto.SprintDto;
 import com.wposs.scrum_back.sprint.dto.SprintDtoRequest;
-import io.swagger.v3.core.util.Json;
 
 import java.util.List;
 import java.util.Optional;
