@@ -55,4 +55,11 @@ export class EmployeesService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.get(this.API_SERVER + '/employeenoteam/' + teamId,{headers})
   }
+
+  public deleteEmployee(employeeId: String){
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    //arreglar la ruta
+    return this.httpClient.delete(this.API_SERVER + '/'+ employeeId,{headers})
+  }
 }

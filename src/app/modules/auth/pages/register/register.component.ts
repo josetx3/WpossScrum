@@ -39,8 +39,8 @@ export class RegisterComponent {
         employeeEmail: this.registerForm.get('employeeEmail')?.value,
         employeePassword: this.registerForm.get('employeePassword')?.value,
       }
-      this.authService.register(data).subscribe(
-        () => {
+      this.authService.register(data).subscribe({
+        next: () => {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -57,6 +57,25 @@ export class RegisterComponent {
           })
           this.registerForm.reset();
         }
+        ,
+        error: (err)=>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'El correo ya se encuentra registrado',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#FFFEFB',
+          })
+        }
+      }
+        
       )
       this.router.navigate(['/app/auth'])
     }

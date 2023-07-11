@@ -67,7 +67,7 @@ export class AreaComponent implements OnInit {
       text: 'Debe verificar que esta area no esté relacionada con algún proyecto. La información eliminada no se puede recuperar',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F1948A',
+      confirmButtonColor: '#007bff',
       cancelButtonColor: '#1ABC9C',
       confirmButtonText: 'si, eliminar!',
     }).then((result) => {

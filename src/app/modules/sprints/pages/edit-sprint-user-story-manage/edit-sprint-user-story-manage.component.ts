@@ -49,7 +49,7 @@ export class EditSprintUserStoryManageComponent implements OnInit{
               text: ' Al digitar una puntuación de cero la historia se eliminara del sprint y su estado volvera a REFINADA',
               icon: 'warning',
               showCancelButton: true,
-              confirmButtonColor: '#1ABC9C',
+              confirmButtonColor: '#007bff',
               cancelButtonColor: '#F1948A',
               confirmButtonText: 'Sí eliminar!',
               customClass: {
