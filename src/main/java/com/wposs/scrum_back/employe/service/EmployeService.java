@@ -13,10 +13,10 @@ public interface EmployeService {
     EmployeDto seveEmploye(EmployeDto employeDto);
     EmployeDto updateEmploye(UUID idEmploye, EmployeDto employeDto);
     EmployeDto updateEmployePass(UUID idEmploye,String password, EmployeDto employeDto);
+    Boolean deleteEmploye(UUID idEmployee);
     List<EmployeDto> getEmployeToTeam(UUID idTeam);
     List<EmployeDto> getEmployeToTeam2(UUID idTeam);
     List<EmployeDto> getAllEmployeeNoExitsAndTeam(UUID idTeam);
-
     ResponseEntity login(String correo, String password);
 
 }

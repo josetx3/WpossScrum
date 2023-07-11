@@ -153,4 +153,21 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete employee by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "DELETE SUCCESS"),
+            @ApiResponse(responseCode = "404",description = "EMPLOYEE NOT FOUND")
+    })
+    public ResponseEntity deleteEmployee(@PathVariable("id") UUID idEmployee, @RequestHeader(value="Authorization") String token){
+        if(jwtUtil.validateToken(token)){
+            if(employeService.deleteEmploye(idEmployee)){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

@@ -7,10 +7,8 @@ import com.wposs.scrum_back.employe.entity.Employee;
 import com.wposs.scrum_back.employe.entity.response;
 import com.wposs.scrum_back.employe.repository.EmployeeRepository;
 import com.wposs.scrum_back.utils.JWTUtil;
-import net.minidev.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -96,6 +94,15 @@ public class EmployeServiceImpl implements EmployeService{
             //employeDto.setEmployeePassword(password);
             //return employeDto;
         }
+    }
+
+    @Override
+    public Boolean deleteEmploye(UUID idEmployee) {
+        if(employeeRepository.findById(idEmployee).isPresent()){
+            employeeRepository.deleteById(idEmployee);
+            return true;
+        }
+        return false;
     }
 
     @Override

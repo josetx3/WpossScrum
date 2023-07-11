@@ -37,7 +37,7 @@ public class AreaServiceImpl implements AreaService{
 
     @Override
     public AreaDto saveArea(AreaDto areaDto) {
-        if(existAreaByName(areaDto.getAreaName())){
+        if(areaRepository.existsByAreaName(areaDto.getAreaName())){
             throw new MessageGeneric("Ya existe un Area Con este nombre: "+areaDto.getAreaName(),"409",HttpStatus.CONFLICT);
         }
         try {
@@ -50,7 +50,7 @@ public class AreaServiceImpl implements AreaService{
 
     @Override
     public AreaDto updateArea(UUID idArea, AreaDto areaDto) {
-        if(!existAreaByName(areaDto.getAreaName())){
+        if(!areaRepository.existsByAreaName(areaDto.getAreaName())){
             return areaRepository.findById(idArea).map(area -> {
                 area.setAreaName((areaDto.getAreaName()!=null)?areaDto.getAreaName():area.getAreaName());
                 return modelMapper.map(areaRepository.save(area),AreaDto.class);
@@ -67,10 +67,4 @@ public class AreaServiceImpl implements AreaService{
         }
         return false;
     }
-
-    @Override
-    public Boolean existAreaByName(String areaName){
-        return areaRepository.existsByAreaName(areaName);
-    }
-
 }

@@ -11,6 +11,5 @@ public interface AreaService {
     Optional<AreaDto> getAreaId(UUID idAre);
     AreaDto saveArea(AreaDto areaDto);
     AreaDto updateArea(UUID idArea,AreaDto areaDto);
-    Boolean existAreaByName(String areName);
     Boolean deleteArea(UUID idArea);
 }

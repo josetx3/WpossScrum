@@ -56,7 +56,7 @@ public class ClientController {
             @ApiResponse(responseCode = "201",description = "Client Created"),
             @ApiResponse(responseCode = "400",description = "client bad request")
     })
-    public ResponseEntity<?> create(@Valid @RequestBody ClientDto clientDto, BindingResult result, @RequestHeader(value="Authorization") String token){
+    public ResponseEntity<ClientDto> create(@Valid @RequestBody ClientDto clientDto, BindingResult result, @RequestHeader(value="Authorization") String token){
          if (jwtUtil.validateToken(token)){
              if (result.hasErrors()){
                  throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
