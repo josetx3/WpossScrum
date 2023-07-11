@@ -57,7 +57,7 @@ export class EditSprintUserStoryManageComponent implements OnInit{
                 title: 'my-swal-title',
                 icon: 'my-swal-icon',
               },
-              background: '#E6F4EA'
+              background: '#FFFEFB'
             }).then((result) => {
               if (result.isConfirmed) {
                 this.sprintService.deleteSprintUserstory(this.idSprint,this.userStoryId).subscribe({
@@ -84,7 +84,7 @@ export class EditSprintUserStoryManageComponent implements OnInit{
         } else if(pointForm < 0){
           Swal.fire({
             position: 'top-end',
-            icon: 'error',
+            icon: 'warning',
             title: 'El numero ingresado es menor que cero, ingrese un número valido.',
             showConfirmButton: false,
             timer: 2500,
@@ -94,7 +94,7 @@ export class EditSprintUserStoryManageComponent implements OnInit{
               title: 'my-swal-title',
               icon: 'my-swal-icon',
             },
-            background: '#F1948A',
+            background: '#FFFEFB',
           })
         }
         else if(newPoints < this.scorePointSprint)
@@ -127,7 +127,7 @@ export class EditSprintUserStoryManageComponent implements OnInit{
         }else{
           Swal.fire({
             position: 'top-end',
-            icon: 'error',
+            icon: 'warning',
             title: 'La puntuacion ingresada es mayor a los puntos del sprint ideal',
             showConfirmButton: false,
             timer: 3000,
@@ -137,7 +137,7 @@ export class EditSprintUserStoryManageComponent implements OnInit{
               title: 'my-swal-title',
               icon: 'my-swal-icon',
             },
-            background: '#F1948A',
+            background: '#E6F4EA',
           })
         }
     }

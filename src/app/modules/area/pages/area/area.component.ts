@@ -64,15 +64,17 @@ export class AreaComponent implements OnInit {
   deleteArea(id: string) {
     Swal.fire({
       title: 'Desea eliminar esta area?',
-      text: 'Al eliminar el area, elimina: los proyectos, subproyectos y equipos asociados a ella. La información eliminada no se puede recuperar',
+      text: 'Debe verificar que esta area no esté relacionada con algún proyecto. La información eliminada no se puede recuperar',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#F1948A',
+      cancelButtonColor: '#1ABC9C',
       confirmButtonText: 'si, eliminar!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.areaService.deleteArea(id).subscribe((resp) => {
+        this.areaService.deleteArea(id).subscribe({
+          next:
+          (resp) => {
           this.getAllAreas();
           Swal.fire({
             position: 'top-end',
@@ -87,10 +89,28 @@ export class AreaComponent implements OnInit {
               icon: 'my-swal-icon',
               popup: 'my-swal-popup',
             },
-            background: '#F44336',
+            background: '#FFFEFB',
           });
-        });
-      }
+        },
+        error:(err)=>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Esta area no se puede eliminar ya que tiene proyectos asociados a ella.',
+            showConfirmButton: false,
+            timer: 3000,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+              popup: 'my-swal-popup',
+            },
+            background: '#FFFEFB',
+          })
+        }
+      });
+      } 
     });
   } // deleteArea
 

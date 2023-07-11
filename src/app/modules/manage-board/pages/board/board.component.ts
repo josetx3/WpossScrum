@@ -13,6 +13,8 @@ import { TeamsTasksService } from 'src/app/modules/teams/pages/service/teams-tas
 import { Router } from '@angular/router';
 import {AreaInterface} from "../../../area/pages/Interface/interface-area";
 import {AreaService} from "../../../area/pages/service/area.service";
+import Swal from 'sweetalert2';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-board',
@@ -47,7 +49,8 @@ export class BoardComponent implements OnInit {
     private employeesService: EmployeesService,
     private boardService: BoardService,
     private taskTeamService: TeamsTasksService,
-    private route: Router
+    private route: Router,
+    private dialogRef : MatDialogRef<BoardComponent>,
   ) {}
 
   ngOnInit(): void {
@@ -102,8 +105,25 @@ export class BoardComponent implements OnInit {
         date: this.boardFrom.get('date')?.value,
       };
       this.boardService.saveBoard(data).subscribe((resp) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tablero añadido con exito.',
+          showConfirmButton: false,
+          timer: 1500,
+          toast: true,
+          customClass: {
+            container: 'my-swal-container',
+            title: 'my-swal-title',
+            icon: 'my-swal-icon',
+            popup: 'my-swal-popup',
+          },
+          background: '#E6F4EA',
+        })
         this.boardFrom.reset();
+        this.dialogRef.close()
         this.route.navigateByUrl('app/board');
+
       });
     }
   }

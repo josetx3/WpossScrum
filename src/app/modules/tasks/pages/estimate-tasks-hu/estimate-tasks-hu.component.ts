@@ -68,7 +68,7 @@ export class EstimateTasksHuComponent {
             title: 'my-swal-title',
             icon: 'my-swal-icon',
           },
-          background: '#FFF3D3',
+          background: '#FFFEFB',
         })
       }
     })

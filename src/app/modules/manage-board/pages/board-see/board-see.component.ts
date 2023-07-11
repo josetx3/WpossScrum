@@ -91,19 +91,29 @@ export class BoardSeeComponent implements OnInit{
         userStoryId: this.boardFrom.get('userStoryId')?.value,
         areaId: this.boardFrom.get('areaId')?.value,
       }
-        this.boardService.getBoardByAreaIdTeamIdUserStoryId(data.areaId, data.teamId, data.userStoryId).subscribe((resp)=>{
-        this.board = resp;
-        this.route.navigateByUrl('app/board');
+        this.boardService.getBoardByAreaIdTeamIdUserStoryId(data.areaId, data.teamId, data.userStoryId).subscribe({
+         next: (resp)=>{
+            this.board = resp;
+            this.route.navigateByUrl('app/board');
+            this.boardFrom.reset()
           },
-          err => {
-            Swal.fire({
-              title: 'El tablero que ha intentado buscar no existe.',
-              icon: 'warning',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK'
-            })
-
-          })      
+          error:
+            err => {
+              Swal.fire({
+                title: 'El tablero que ha intentado buscar no existe.',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+                customClass: {
+                  container: 'my-swal-container',
+                  title: 'my-swal-title',
+                  icon: 'my-swal-icon',
+                },
+                background: '#FFFEFB',
+              })
+              this.boardFrom.reset()
+            }
+        })      
     };
   }
   

@@ -18,6 +18,7 @@ export class CustomerEditComponent implements OnInit {
   });
   customer: any;
   clientNit: string = '';
+  clienteNitEdit: string='';
 
 
   constructor(
@@ -30,10 +31,8 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-    this.clientNit = this.data.clientNit;
-    this.getCustomerById(this.clientNit)
+    this.clienteNitEdit = this.data.clientNit;
+    this.getCustomerById(this.clienteNitEdit)
 
   }
 
@@ -52,8 +51,9 @@ export class CustomerEditComponent implements OnInit {
       const data ={
         clientNit:this.customerForm.get('clientNit')?.value,
         client_name:this.customerForm.get('client_name')?.value,
+        
       }
-      this.customerService.updateCustomer(this.clientNit,data).subscribe(
+      this.customerService.updateCustomer(this.clienteNitEdit,data).subscribe(
         (resp) =>{
           Swal.fire({
             position: 'top-end',

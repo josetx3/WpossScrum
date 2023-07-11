@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeamsService } from '../service/teams.service';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeesService } from 'src/app/modules/employees/pages/service/employees.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-team-add-employee',
@@ -48,10 +49,12 @@ export class TeamAddEmployeeComponent implements OnInit {
 
     this.teamService
       .addEmployeeTeam(this.teamId, this.teamEmployee)
-      .subscribe((resp) => {
+      .subscribe(
+        (resp) => {
         this.getAllEmployeesAddToTeam(this.teamId);
         this.teamEmployee= [];
-      });
+      }
+    );
   }
 
   //! Lista los empleados agregados al equipo

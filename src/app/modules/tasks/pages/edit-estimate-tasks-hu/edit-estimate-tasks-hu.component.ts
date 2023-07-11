@@ -48,14 +48,26 @@ export class EditEstimateTasksHuComponent {
         let hoursTasks=  hoursForm-this.taskHours;
         let newHours= this.sumTasksHourBy+hoursTasks;
         if(hoursForm< 0){
-          console.log('horas incorrectas, horas negativas')
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'La horas ingresadas son incorrectas.',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#FFFEFB'
+          })
         }else if(newHours< this.userStoryScore*8){
             const data={
               taskHours: hoursForm,
               taskTeamId: this.taskTeamId,
               taskName: this.taskName
             }
-            console.log(data)
             this.tasksService.editTimeTasksByUseStory(this.taskTeamId,data).subscribe({
               next: (resp)=>{
                 Swal.fire({
@@ -74,15 +86,26 @@ export class EditEstimateTasksHuComponent {
                 })
                 
               }
-
               ,
               error: (err)=>{
-
               }
             })
             this.dialogRef.close();
         }else{
-           console.log('horas ingresadas mayores a las de horas de la hu')
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'La horas ingresadas son mayores a las horas de la HU',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#FFFEFB'
+          })
         }
     }
    
