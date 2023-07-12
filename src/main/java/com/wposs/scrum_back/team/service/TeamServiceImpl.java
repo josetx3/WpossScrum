@@ -62,6 +62,10 @@ public class TeamServiceImpl implements TeamService{
 
     @Override
     public TeamDto updateTeam(UUID idTeam, TeamDto teamDto) {
+        Team teamP = modelMapper.map(teamDto,Team.class);
+        if (teamRepository.existsByTeamName(teamP.getTeamName())){
+            throw new MessageGeneric("Ya se encuentra Registrada una Historia de Usuario: "+teamP.getTeamName()+" Registrada","409",HttpStatus.CONFLICT);
+        }
         return teamRepository.findById(idTeam).map(team -> {
             team.setTeamName((teamDto.getTeamName()!=null)?teamDto.getTeamName():team.getTeamName());
             return modelMapper.map(teamRepository.save(team),TeamDto.class);

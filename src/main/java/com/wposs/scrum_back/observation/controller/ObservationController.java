@@ -3,6 +3,7 @@ package com.wposs.scrum_back.observation.controller;
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
 import com.wposs.scrum_back.observation.dto.ObservationDto;
 import com.wposs.scrum_back.observation.service.ObersvationService;
+import com.wposs.scrum_back.userstorystatus.dto.UserStoryStatusDto;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/observation")
@@ -58,5 +60,22 @@ public class ObservationController {
         }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+    }
+    @PutMapping("/{id}")
+    @Operation(summary = "Update the userStoryStatus")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Return the updated UserStoryStatus"),
+            @ApiResponse(responseCode = "404", description = "UserStoryStatus Not Found")
+    })
+        public ResponseEntity<ObservationDto> updateObservation(@RequestBody ObservationDto observationDto, @PathVariable("id") UUID idObservations, BindingResult result, @RequestHeader(value="Authorization") String token) {
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted a ingresado: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(obersvationService.updateObservation(idObservations,observationDto), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
     }
 }

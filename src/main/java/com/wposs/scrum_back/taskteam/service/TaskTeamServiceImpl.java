@@ -83,6 +83,10 @@ public class TaskTeamServiceImpl implements TaskTeamService{
 
     @Override
     public TaskTeamDto updateTaskTeam(UUID idTasTeam, TaskTeamDto taskTeamDto) {
+        TaskTeam taskTeamP = modelMapper.map(taskTeamDto,TaskTeam.class);
+        if (taskTeamRepository.existsByTaskNameAndTeamId(taskTeamP.getTaskName(),taskTeamP.getTeamId())){
+            throw new MessageGeneric("Ya se encuentra la tarea: "+taskTeamP.getTaskName()+" asociada al mismo equipo ","409",HttpStatus.CONFLICT);
+        }
         return taskTeamRepository.findById(idTasTeam).map(taskTeam -> {
             taskTeam.setTaskName((taskTeamDto.getTaskName()!=null)? taskTeamDto.getTaskName() : taskTeam.getTaskName());
             taskTeam.setTeamId((taskTeamDto.getTeamId()!=null)?taskTeamDto.getTeamId():taskTeam.getTeamId());
