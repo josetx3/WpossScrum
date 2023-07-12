@@ -53,20 +53,6 @@ export class SprintUserStoryManageComponent {
       }
       ,
       error: (err)=>{
-        Swal.fire({
-          position: 'top-end',
-          icon: 'warning',
-          title: 'Debe primero calcular los puntos del sprint',
-          showConfirmButton: false,
-          timer: 1500,
-          toast: true,
-          customClass: {
-            container: 'my-swal-container',
-            title: 'my-swal-title',
-            icon: 'my-swal-icon',
-          },
-          background: '#FFFEFB',
-        })
       }
     }
       
@@ -94,7 +80,7 @@ export class SprintUserStoryManageComponent {
           Swal.fire({
             position: 'top-end',
             icon: 'warning',
-            title: 'Debe primero calcular los puntos del sprint',
+            title: 'No hay HU en estado de desarrollo',
             showConfirmButton: false,
             timer: 3000,
             toast: true,

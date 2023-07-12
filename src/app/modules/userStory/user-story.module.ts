@@ -6,6 +6,7 @@ import { UserStoryAddComponent } from './pages/user-story-add/user-story-add.com
 import { UserStoryRoutingModule } from './user-story-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { StateUserStoryAddComponent } from './pages/state-user-story-add/state-user-story-add.component';
 
 
 
@@ -13,7 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [
     UserStoryComponent,
     UserStoryManagementComponent,
-    UserStoryAddComponent
+    UserStoryAddComponent,
+    StateUserStoryAddComponent
   ],
   imports: [
     CommonModule,

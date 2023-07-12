@@ -17,4 +17,11 @@ export class UserStoyStatusService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpCliente.get<UserStoyStatusService>(this.API_SERVER+"/statusall", {headers})
   }
+
+  public addEstateHU(dataEstateHU: any): Observable<UserStoyStatusService>{
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    //arreglar la ruta
+    return this.httpCliente.post<UserStoyStatusService>(this.API_SERVER+ '/savestatus',dataEstateHU, {headers})
+  }
 }
