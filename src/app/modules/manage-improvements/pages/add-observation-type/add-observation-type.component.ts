@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImprovementsService } from '../service/improvements.service';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { EditObservationTypeComponent } from '../edit-observation-type/edit-observation-type.component';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-add-observation-type',
@@ -17,7 +20,8 @@ export class AddObservationTypeComponent {
   })
 
   constructor(
-    public improvementsService: ImprovementsService
+    public improvementsService: ImprovementsService,
+    public matDialog: MatDialog
   ){
   }
 
@@ -95,7 +99,17 @@ export class AddObservationTypeComponent {
     })
   }
 
-  editTypeObservation(){
-    
+  editTypeObservationModal(observationId: String, observationName: String){
+    const dialogRef= this.matDialog.open(EditObservationTypeComponent, {
+      width: '500px',
+      data: { observationId: observationId,
+        observationName: observationName }
+    } )
+
+    dialogRef.afterClosed().subscribe({
+      next: (resp)=>{
+        this.getTypeObservations();
+      }
+    })
   }
 }

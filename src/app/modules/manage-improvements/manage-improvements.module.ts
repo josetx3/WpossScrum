@@ -6,6 +6,7 @@ import { ManageImprovementsSeeComponent } from './pages/manage-improvements-see/
 import { ManageImprovementsRoutingModule } from './manage-improvements-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddObservationTypeComponent } from './pages/add-observation-type/add-observation-type.component';
+import { EditObservationTypeComponent } from './pages/edit-observation-type/edit-observation-type.component';
 
 
 
@@ -14,7 +15,8 @@ import { AddObservationTypeComponent } from './pages/add-observation-type/add-ob
     ManageImprovementsComponent,
     ManageImprovementsAddComponent,
     ManageImprovementsSeeComponent,
-    AddObservationTypeComponent
+    AddObservationTypeComponent,
+    EditObservationTypeComponent
   ],
   imports: [
     CommonModule,

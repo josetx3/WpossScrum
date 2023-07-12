@@ -42,10 +42,9 @@
               <tr *ngFor="let item of typeObservation">
                 <td>{{item.observationName}}</td>
                 <td> 
-                    <button type="button" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-warning btn-sm m-1" (click)="editTypeObservationModal(item.observationId, item.observationName)"><i class="fas fa-edit"></i></button>
                 </td>
               </tr>
-               <!-- (click)="editObservationModal(item.observationId)" -->
             </tbody>
           </table>
         </div>
