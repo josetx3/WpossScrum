@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeProfileComponent } from './pages/employee-profile/employee-profile.component';
+import { EmployeTeamsComponent } from './pages/employe-teams/employe-teams.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EmployeeProfileComponent } from './pages/employee-profile/employee-prof
     EmployeeComponent,
     EmployeeAddComponent,
     EmployeeEditComponent,
-    EmployeeProfileComponent
+    EmployeeProfileComponent,
+    EmployeTeamsComponent
 
   ],
   imports: [

@@ -62,4 +62,11 @@ export class EmployeesService {
     //arreglar la ruta
     return this.httpClient.delete(this.API_SERVER + '/'+ employeeId,{headers})
   }
+
+  getAreaByEmployee(employeeId: string | null): Observable<any>{
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    //la ruta
+    return this.httpClient.get('http://localhost:8020/area/employee/'+ employeeId,{headers})
+  }
 }

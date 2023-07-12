@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EmployeeAddComponent } from '../employee-add/employee-add.component';
 import { EmployeeEditComponent } from '../employee-edit/employee-edit.component';
 import Swal from 'sweetalert2';
+import { EmployeTeamsComponent } from '../employe-teams/employe-teams.component';
 
 @Component({
   selector: 'app-employee',
@@ -115,6 +116,10 @@ export class EmployeeComponent implements OnInit{
         })
        }
     })
+  }
+
+  viewTeams(employeeId: String){
+    const matDialog= this.dialog.open(EmployeTeamsComponent, {width:'500px', data:{ employeeId: employeeId}} )
   }
 
 

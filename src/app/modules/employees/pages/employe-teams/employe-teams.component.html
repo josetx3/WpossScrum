@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Areas al que pertenece el empleado</h1>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-ligth text-center">
+            <tr>
+              <th scope="row" class="title_table">Nombre del Area</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let item of employeeArea">
+              <td>{{item.areaName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
