@@ -19,8 +19,6 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 //.antMatchers("/**").permitAll()
-                //.antMatchers(HttpMethod.POST,"/usuario").permitAll()
-                //.antMatchers(HttpMethod.POST,"/auth/login").permitAll()
                 .anyRequest().permitAll();// authenticated();
         return http.build();
     }

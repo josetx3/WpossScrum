@@ -38,6 +38,23 @@ public class AreaController {
 
     }
 
+    @GetMapping("/employee/{idEmployee}")
+    @Operation(summary = "Get all areas bye employee")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Get areas by employe succes"),
+            @ApiResponse(responseCode = "404", description = "Areas not found")
+    })
+    public ResponseEntity<List<AreaDto>> getAllAreasByEmployee(@PathVariable("idEmployee") UUID idEmployee,@RequestHeader(value = "Authorization") String token){
+        if (jwtUtil.validateToken(token)){
+            List<AreaDto> areaDtos= areaService.getAllAreaByIdEmployee(idEmployee);
+            if (!areaDtos.isEmpty()){
+                return new ResponseEntity<>(areaDtos,HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
     @GetMapping("/all")
     @Operation(summary = "Get all areas")
     @ApiResponse(responseCode = "200", description = "Get All List Success")

@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface AreaService {
     List<AreaDto> getAllArea();
+    List<AreaDto> getAllAreaByIdEmployee(UUID idEmployee);
     Optional<AreaDto> getAreaId(UUID idAre);
     AreaDto saveArea(AreaDto areaDto);
     AreaDto updateArea(UUID idArea,AreaDto areaDto);

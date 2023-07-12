@@ -29,6 +29,13 @@ public class AreaServiceImpl implements AreaService{
     }
 
     @Override
+    public List<AreaDto> getAllAreaByIdEmployee(UUID idEmployee) {
+        return areaRepository.findByEmployee(idEmployee).stream().map(area -> {
+            return modelMapper.map(area,AreaDto.class);
+        }).collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<AreaDto> getAreaId(UUID idArea) {
         return Optional.ofNullable(areaRepository.getAreaId(idArea).map(area -> {
             return modelMapper.map(area, AreaDto.class);
