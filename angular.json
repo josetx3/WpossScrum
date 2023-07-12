@@ -18,7 +18,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "sweetalert2"
+              "sweetalert2",
+              "crypto-js"
             ],
             "outputPath": "dist/scrumfrontend",
             "index": "src/index.html",
