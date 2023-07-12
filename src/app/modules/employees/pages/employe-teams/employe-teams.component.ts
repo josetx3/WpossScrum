@@ -27,6 +27,9 @@ export class EmployeTeamsComponent {
     this.employeService.getAreaByEmployee(this.employeeId).subscribe({
       next: (resp)=>{
           this.employeeArea= resp
+      },
+      error: (err)=>{
+          
       }
 
     })
