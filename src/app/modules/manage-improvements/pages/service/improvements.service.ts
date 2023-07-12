@@ -54,4 +54,19 @@ export class ImprovementsService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.get('http://localhost:8020/observation/all', {headers})
   }
+
+  public addObservationType(obsTypeDta: any): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    //arregla rutar
+    return this.httpClient.post('http://localhost:8020/observation/saveobservation', obsTypeDta, {headers})
+  }
+
+  public editObservationType(obsTypeDta: any): Observable<any> {
+    const token: string | null= ''+localStorage.getItem('token')
+    const headers = new HttpHeaders().set("Authorization", token);
+    //arregla rutar
+    return this.httpClient.put('http://localhost:8020/observation/saveobservation', obsTypeDta, {headers})
+  }
+
 }

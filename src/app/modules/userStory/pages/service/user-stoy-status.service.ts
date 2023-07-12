@@ -21,7 +21,6 @@ export class UserStoyStatusService {
   public addEstateHU(dataEstateHU: any): Observable<UserStoyStatusService>{
     const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    //arreglar la ruta
     return this.httpCliente.post<UserStoyStatusService>(this.API_SERVER+ '/savestatus',dataEstateHU, {headers})
   }
 }

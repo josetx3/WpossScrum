@@ -9,7 +9,14 @@
         </ol>
       </nav>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="AddImprovementsModal()">Agregar una mejora</button>
+    <div class="row">
+            <div class="col-8">
+              <button type="button" class="btn btn-primary" (click)="AddImprovementsModal()">Agregar una mejora</button>
+            </div>
+            <div class="col-4">
+              <button type="button" class="btn btn-primary" [routerLink]="['app-add-observation-type']">Agregar tipos de observaciones</button>
+            </div>
+    </div>
     <hr>
     <div class="table-responsive">
       <table class="table table-bordered table-hover text-center">
