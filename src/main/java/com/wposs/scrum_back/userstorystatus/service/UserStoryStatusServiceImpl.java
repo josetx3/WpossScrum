@@ -41,6 +41,14 @@ public class UserStoryStatusServiceImpl implements UserStoryStatusService {
     }
 
     @Override
+    public UserStoryStatusDto updateUserStoryStatus(Long idStatus, UserStoryStatusDto userStoryStatusDto) {
+        return userStoryStatusRepository.findById(idStatus).map(userStoryStatus -> {
+            userStoryStatus.setUserStoryStateName((userStoryStatusDto.getUserStoryStateName()!=null)?userStoryStatusDto.getUserStoryStateName():userStoryStatus.getUserStoryStateName());
+            return modelMapper.map(userStoryStatusRepository.save(userStoryStatus),UserStoryStatusDto.class);
+        }).orElseThrow(()->new MessageGeneric("No esta disponible el estado a actualizar","404",HttpStatus.NOT_FOUND));
+    }
+
+    @Override
     public Boolean deleteProducto(Long idStatus) {
         if (userStoryStatusRepository.findById(idStatus).isPresent()){
             userStoryStatusRepository.deleteById(idStatus);

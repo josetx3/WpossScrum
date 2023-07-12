@@ -28,7 +28,7 @@ public interface UserStoryRepository extends JpaRepository<UserStory, UUID> {
                 "ON sp.project_id = pro.project_id INNER JOIN wposs.area ar \n" +
                 "ON ar.area_id = pro.area_id INNER JOIN wposs.team te ON te.area_id = ar.area_id \n" +
                 "where te.team_id =?1 and ar.area_id = ?2 \n" +
-                "and uss.user_story_status_name = 'REFINADA';", nativeQuery = true)
+                "and uss.user_story_status_name = 'REFINADA' or  uss.user_story_status_name = 'refinada' ;", nativeQuery = true)
         List<Object[]> getAllUserStoryRef(UUID idTeam, UUID idArea);
 
         @Query(value = "SELECT DISTINCT ust.* FROM   wposs.team te inner join wposs.board bo on  te.team_id =bo.fk_team\n" +

@@ -39,7 +39,7 @@ public class ClientServiceImpl implements ClienteService{
     @Override
     public ClientDto saveCliente(ClientDto clientDto) {
         if(clientRepository.findById(clientDto.getClientId()).isPresent() ||clientRepository.existsByClientName(clientDto.getClientName())){
-            throw new MessageGeneric("Ya se encuentra Un cliente Registrado con este NIT o con ese nombre: "+clientDto.getClientId(),"409",HttpStatus.CONFLICT);
+            throw new MessageGeneric("Ya se encuentra Un cliente Registrado con este NIT o con ese nombre: ","409",HttpStatus.CONFLICT);
         }
         try{
             return modelMapper.map(clientRepository.save(modelMapper.map(clientDto,Client.class)),ClientDto.class);
@@ -51,7 +51,9 @@ public class ClientServiceImpl implements ClienteService{
 
     @Override
     public ClientDto updateCliente(String idCliente, ClientDto clientDto) {
-
+        if(clientRepository.findById(clientDto.getClientId()).isPresent() ||clientRepository.existsByClientName(clientDto.getClientName())){
+            throw new MessageGeneric("Ya se encuentra Un cliente Registrado con este NIT o con ese nombre: ","409",HttpStatus.CONFLICT);
+        }
         int resp=clientRepository.updateclient(clientDto.getClientId(),clientDto.getClientName(),idCliente);
         if(resp==1){
             return modelMapper.map(clientRepository.findById(clientDto.getClientId()),ClientDto.class);

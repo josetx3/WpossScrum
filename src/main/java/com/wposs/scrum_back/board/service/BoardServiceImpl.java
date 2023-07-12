@@ -45,6 +45,9 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardDto updateBoard(UUID boardId, BoardDto boardDto) {
+        if (boardRepository.existsByTeamIdAndUserStoryIdAndTaskTeamIdAndEmployeeId(boardDto.getTeamId(),boardDto.getUserStoryId(),boardDto.getTaskTeamId(),boardDto.getEmployeeId())){
+            throw new MessageGeneric("Ya existe un tablero con la infomacion ingresada","409", HttpStatus.CONFLICT);
+        }
         return boardRepository.findById(boardId).map(board -> {
             board.setDate((boardDto.getDate()!=null)?boardDto.getDate():board.getDate());
             board.setTeamId((boardDto.getTeamId()!=null)?boardDto.getTeamId():board.getTeamId());

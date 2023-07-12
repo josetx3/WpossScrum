@@ -1,5 +1,7 @@
 package com.wposs.scrum_back.userstorystatus.controller;
 
+import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
+import com.wposs.scrum_back.area.dto.AreaDto;
 import com.wposs.scrum_back.userstorystatus.dto.UserStoryStatusDto;
 import com.wposs.scrum_back.userstorystatus.service.UserStoryStatusService;
 import com.wposs.scrum_back.utils.JWTUtil;
@@ -9,10 +11,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/userstorystatus")
@@ -50,6 +54,23 @@ public class UserStoryStatusController {
         }
     }
 
+    @PutMapping("/{id}")
+    @Operation(summary = "Update the userStoryStatus")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Return the updated UserStoryStatus"),
+            @ApiResponse(responseCode = "404", description = "UserStoryStatus Not Found")
+    })
+    public ResponseEntity<UserStoryStatusDto> updateUserStoryStatus(@RequestBody UserStoryStatusDto userStoryStatusDto, @PathVariable("id") Long idStatus, BindingResult result, @RequestHeader(value="Authorization") String token) {
+        if (jwtUtil.validateToken(token)){
+            if (result.hasErrors()){
+                throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted a ingresado: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(userStoryStatusService.updateUserStoryStatus(idStatus, userStoryStatusDto), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+    }
     @DeleteMapping("/deletestatus/{id}")
     @Operation(description = "DELETE STATUS")
     @ApiResponses(value = {
