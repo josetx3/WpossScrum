@@ -38,7 +38,7 @@ public class Project {
     @JoinColumn(name = "area_id", insertable = false, updatable = false)
     private Area area;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "client_id", insertable = false, updatable = false)
     private Client client;
 

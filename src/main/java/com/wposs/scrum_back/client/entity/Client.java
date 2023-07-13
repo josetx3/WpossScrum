@@ -16,7 +16,7 @@ public class Client {
     @Column(name = "client_name", nullable = false, length = 100)
     private String clientName;
 
-    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REFRESH)
     private List<Project> projects;
 
     public String getClientId() {
