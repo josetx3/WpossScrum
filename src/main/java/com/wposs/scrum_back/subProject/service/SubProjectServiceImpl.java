@@ -58,10 +58,6 @@ public class SubProjectServiceImpl implements SubProjectService{
 
     @Override
     public SubProjectDto updateSubProject(UUID idSubProject, SubProjectDto subProjectDto) {
-        SubProject subProjectP = modelMapper.map(subProjectDto,SubProject.class);
-        if(subProjectRepository.existsBySubProjectName(subProjectP.getSubProjectName())){
-            throw new MessageGeneric("Ya existe este SubProjecto: "+subProjectP.getSubProjectName()+" Registrado","409",HttpStatus.CONFLICT);
-        }
         return subProjectRepository.findById(idSubProject).map(subProject -> {
             subProject.setSubProjectName((subProjectDto.getSubProjectName()!=null)?subProjectDto.getSubProjectName():subProject.getSubProjectName());
             subProject.setProjectId((subProjectDto.getProjectId()!=null)?subProjectDto.getProjectId():subProject.getProjectId());

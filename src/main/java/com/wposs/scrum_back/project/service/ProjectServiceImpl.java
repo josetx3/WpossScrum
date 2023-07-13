@@ -52,9 +52,6 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public ProjectDto updateProject(UUID idProject, ProjectDto projectDto) {
-        if (projectRepository.existsByProjectNameAndAreaId(projectDto.getProjectName(),projectDto.getAreaId())){
-            throw new MessageGeneric("Ya existe un Proyecto con este nombre: "+projectDto.getProjectName()+" Asociado al Area Selecionada","409",HttpStatus.CONFLICT);
-        }
         return projectRepository.findById(idProject).map(project -> {
             project.setProjectName((projectDto.getProjectName()!=null)?projectDto.getProjectName():project.getProjectName());
             project.setAreaId((projectDto.getAreaId()!=null)?projectDto.getAreaId():project.getAreaId());

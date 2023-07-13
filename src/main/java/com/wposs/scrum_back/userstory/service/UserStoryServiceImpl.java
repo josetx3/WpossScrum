@@ -69,10 +69,7 @@ public class UserStoryServiceImpl implements UserStoryService{
 
     @Override
     public UserStoryDto updateUserStory(UUID idUserStory, UserStoryDto userStoryDto) {
-        UserStory userStoryP = modelMapper.map(userStoryDto,UserStory.class);
-        if(userStoryRepository.existsByUserStoryNameAndSubProjectId(userStoryP.getUserStoryName(),userStoryP.getSubProjectId())){
-            throw new MessageGeneric("Error al intentar Registrar: "+userStoryP.getUserStoryName()+" Ya se encuentra Registrada al mismo SubProjecto","409",HttpStatus.CONFLICT);
-        }
+
         return userStoryRepository.findById(idUserStory).map(userStory -> {
             userStory.setUserStoryName((userStoryDto.getUserStoryName() != null)? userStoryDto.getUserStoryName(): userStory.getUserStoryName());
             userStory.setUserStoryArchive((userStoryDto.getUserStoryArchive() != null)? userStoryDto.getUserStoryArchive() : userStory.getUserStoryArchive());

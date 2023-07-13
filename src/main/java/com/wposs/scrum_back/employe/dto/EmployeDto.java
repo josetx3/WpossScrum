@@ -16,14 +16,14 @@ public class EmployeDto {
     @NotNull(message = "El nombre del Empleado no puede ser null")
     @NotEmpty
     @Size(max = 100,message = "el nombre del empleado no puede sobre pasar los 100 carateres")
-    @Pattern(regexp = "^[a-zA-Z ]+$",message = "El nombre del empleado solo se admiten letras")
+    @Pattern(regexp = "^[a-zA-Z\\s ]+$",message = "El nombre del empleado solo se admiten letras y espacios")
     private String employeeName;
 
     @JsonProperty(value = "employeeCharge")
     @NotNull(message = "El cargo del Empleado no puede ser null")
     @NotEmpty
     @Size(max = 100,message = "el cargo del empleado no puede sobre pasar los 100 carateres")
-    @Pattern(regexp = "^[a-zA-Z ]+$",message = "El cargo del empleado solo se admiten letras")
+    @Pattern(regexp = "^[a-zA-Z\\s ]+$",message = "El cargo del empleado solo se admiten letras y espacios")
     private String employeeCharge;
 
     @JsonProperty(value = "employeeEmail")
@@ -42,7 +42,7 @@ public class EmployeDto {
     @NotNull(message = "El conocimiento del Empleado no puede ser null")
     @NotEmpty
     @Size(max = 200,message = "El conocimieno del empleado no puede sobre pasar los 200 caracteres")
-    @Pattern(regexp = "[a-zA-Z]+",message = "El campo employeeKnowledge solo se admiten letras")
+    @Pattern(regexp = "[a-zA-Z\\s]+",message = "El campo employeeKnowledge solo se admiten letras y espacios")
     private String employeeKnowledge;
 
     public UUID getEmployeeId() {

@@ -51,7 +51,7 @@ public class TeamServiceImpl implements TeamService{
     public TeamDto saveTeam(TeamDto teamDto) {
         Team team = modelMapper.map(teamDto,Team.class);
         if (teamRepository.existsByTeamName(team.getTeamName())){
-            throw new MessageGeneric("Ya se encuentra Registrada una Historia de Usuario: "+team.getTeamName()+" Registrada","409",HttpStatus.CONFLICT);
+            throw new MessageGeneric("Ya se encuentra un equipo con: "+team.getTeamName(),"409",HttpStatus.CONFLICT);
         }
         try {
             return modelMapper.map(teamRepository.save(team),TeamDto.class);
@@ -64,7 +64,7 @@ public class TeamServiceImpl implements TeamService{
     public TeamDto updateTeam(UUID idTeam, TeamDto teamDto) {
         Team teamP = modelMapper.map(teamDto,Team.class);
         if (teamRepository.existsByTeamName(teamP.getTeamName())){
-            throw new MessageGeneric("Ya se encuentra Registrada una Historia de Usuario: "+teamP.getTeamName()+" Registrada","409",HttpStatus.CONFLICT);
+            throw new MessageGeneric("Ya se encuentra Registrado un equipo con : "+teamP.getTeamName(),"409",HttpStatus.CONFLICT);
         }
         return teamRepository.findById(idTeam).map(team -> {
             team.setTeamName((teamDto.getTeamName()!=null)?teamDto.getTeamName():team.getTeamName());

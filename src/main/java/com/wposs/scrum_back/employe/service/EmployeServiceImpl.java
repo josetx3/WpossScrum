@@ -62,9 +62,7 @@ public class EmployeServiceImpl implements EmployeService{
 
     @Override
     public EmployeDto updateEmploye(UUID idEmploye, EmployeDto employeDto) {
-        if (employeeRepository.existsByEmployeeEmail(employeDto.getEmployeeEmail())){
-            throw new MessageGeneric("El empleado con este gmail: "+employeDto.getEmployeeEmail()+" Ya se encuentra Registrado","409",HttpStatus.CONFLICT);
-        }
+
         return employeeRepository.findById(idEmploye).map(employee -> {
             employee.setEmployeeName((employeDto.getEmployeeName()!=null)?employeDto.getEmployeeName():employee.getEmployeeName());
             employee.setEmployeeCharge((employeDto.getEmployeeCharge()!=null)? employeDto.getEmployeeCharge() : employee.getEmployeeCharge());
@@ -76,9 +74,6 @@ public class EmployeServiceImpl implements EmployeService{
 
     @Override
     public EmployeDto updateEmployePass(UUID idEmploye,String password, EmployeDto employeDto) {
-        if (employeeRepository.existsByEmployeeEmail(employeDto.getEmployeeEmail())){
-            throw new MessageGeneric("El empleado con este gmail: "+employeDto.getEmployeeEmail()+" Ya se encuentra Registrado","409",HttpStatus.CONFLICT);
-        }
         try {
             Optional<Employee> employee1 = employeeRepository.findById(idEmploye);
             if (passwordEncoder.matches(password, employee1.get().getEmployeePassword())) {
