@@ -36,11 +36,24 @@ export class LoginComponent implements OnInit{
         employeeEmail:this.loginForm.get('employeeEmail')?.value,
         employeePassword:this.loginForm.get('employeePassword')?.value,
       }
-      
+
       this.authService.PostEmailAndClave(data).subscribe({
         next: resp => {
           const currentTime= new Date();
-         
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Login exitoso',
+            showConfirmButton: false,
+            timer: 2500,
+            toast: true,
+            customClass: {
+              container: 'my-swal-container',
+              title: 'my-swal-title',
+              icon: 'my-swal-icon',
+            },
+            background: '#E6F4EA',
+          });
 
     //  const encryptedData = this.encry.encryptData(originalData);
     //  console.log( "encrip "+encryptedData);
@@ -48,7 +61,7 @@ export class LoginComponent implements OnInit{
     //  const datos:any= localStorage.getItem('data');
     //  const desencryptedData = this.encry.decryptData(datos);
     //  console.log( "noencrip "+desencryptedDat
-          
+
           const encryptToken= this.encry.encryptData(resp.token)
           const encryptedName= this.encry.encryptData(resp.nameE)
           const encryptedCharge= this.encry.encryptData(resp.charge)
@@ -77,13 +90,13 @@ export class LoginComponent implements OnInit{
            },
          })
         }
-        
+
       })
     }
   }
 
   ngOnInit():void{
-    
+
     const token =localStorage.getItem('token');
     console.log()
     if(token==='' || token===null || token===undefined){

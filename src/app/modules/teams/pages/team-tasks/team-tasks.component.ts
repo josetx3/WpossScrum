@@ -114,7 +114,7 @@ export class TeamTasksComponent {
               icon: 'my-swal-icon',
               popup: 'my-swal-popup',
             },
-            background: '#F44336',
+            background: '#E6F4EA',
           })
           this.tasksForm.reset();
           this.getAllTasksTeams();
