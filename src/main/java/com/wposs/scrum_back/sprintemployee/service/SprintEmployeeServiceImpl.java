@@ -46,20 +46,6 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
         return Optional.ofNullable(sprintEmployeeRepository.findByPrimaryKey(primaryKey).map(sprintEmployee -> modelMapper.map(sprintEmployee,SprintEmployeeDtoRequest.class))
                 .orElseThrow(()->new MessageGeneric("","", HttpStatus.NOT_FOUND)));
     }
-/*
-    @Override
-    public SprintEmployeeDto saveSprintEmployee(SprintEmployeeDto sprintEmployeeDto) {
-        SprintEmployee sprintEmployee = modelMapper.map(sprintEmployeeDto,SprintEmployee.class);
-        SprintEmployeePk sprintEmployeePk = new SprintEmployeePk(sprintEmployee.getId().getEmployeeId(),sprintEmployee.getId().getSprintId());
-        if (sprintEmployeeRepository.existsById(sprintEmployeePk)){
-            throw new MessageGeneric("","",HttpStatus.CONFLICT);
-        }
-        try {
-            return modelMapper.map(sprintEmployeeRepository.save(sprintEmployee),SprintEmployeeDto.class);
-        }catch (Exception ex){
-            throw new InternalServerException("","",HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
 
     @Override
     public SprintEmployeeDtoRequest saveSprintEmployee(SprintEmployeeDtoRequest sprintEmployeeDtoRequest) {
@@ -84,11 +70,7 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
            throw new MessageGeneric("Error","404",HttpStatus.NOT_FOUND);
        }
         for (Object[] sprintEmployee:SprintEmployee) {
-            //UUID  uuid1=UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
             Employee employee=employeeRepository.findByEmployeeEmail(sprintEmployee[1].toString());
-
-            //String UU = "38400000-8cf0-11bd-b23e-10b96e4ef00d";
-           // UUID uuid = UUID.fromString(UU);
             SprintEmployeeDto sprintEmployeeDto = new SprintEmployeeDto(
                     sprintEmployee[0].toString(),
                     sprintEmployee[1].toString(),
@@ -101,7 +83,6 @@ public class SprintEmployeeServiceImpl implements SprintEmployeeService{
             sprintEmployeeDtos.add(sprintEmployeeDto);
         }
         return sprintEmployeeDtos;
-
     }
 
     @Override

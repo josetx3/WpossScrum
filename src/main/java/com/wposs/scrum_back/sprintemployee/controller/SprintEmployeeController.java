@@ -76,20 +76,6 @@ public class SprintEmployeeController {
     }
 
 
-    /*
-    @PostMapping("/savesprintemployee")
-    @Operation(summary = "Save To Sprint Employee")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201",description = "Save Success Sprint Employe"),
-            @ApiResponse(responseCode = "400",description = "Bad Request Json")
-    })
-    public ResponseEntity<SprintEmployeeDto> saveSprintEmployee(@Valid @RequestBody SprintEmployeeDto sprintEmployeeDto, BindingResult result){
-        if (result.hasErrors()){
-            throw new MethodArgumentNotValidException("error mal estructura en el JSON","400",HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(sprintEmployeeService.saveSprintEmployee(sprintEmployeeDto),HttpStatus.CREATED);
-    }*/
-
     @GetMapping("/employeeteam/{idSprint}/{idTeam}")
     @Operation(summary = "Get all employee to team")
     @ApiResponses(value = {

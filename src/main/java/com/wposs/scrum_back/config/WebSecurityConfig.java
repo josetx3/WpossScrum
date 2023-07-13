@@ -16,11 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
-        http.cors().and().csrf().disable()
+        return  http.cors().and().csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/**").permitAll()
-                .anyRequest().permitAll();// authenticated();
-        return http.build();
+                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/employee/save").permitAll()
+                //el resto de peticiones deben estar bloquedas y solo permitir acceder a ellas cuando ya este autenticado
+                //por ahora se les da el acceso libre a todos los emdpoints
+                .anyRequest().permitAll().and().build();// authenticated();
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
