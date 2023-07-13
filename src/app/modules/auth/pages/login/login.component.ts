@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { encrypt } from 'src/app/utils/encrypt';
 
 
 
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit{
   constructor(
     private authService: AuthService,
     private router: Router,
+    private encry: encrypt
 
   ){}
 
@@ -34,17 +36,32 @@ export class LoginComponent implements OnInit{
         employeeEmail:this.loginForm.get('employeeEmail')?.value,
         employeePassword:this.loginForm.get('employeePassword')?.value,
       }
-      //console.log(JSON.stringify(data))
-        this.authService.PostEmailAndClave(data).subscribe(resp => {
-        const currentTime= new Date();
-         localStorage.setItem('token', resp.token);
-        localStorage.setItem('name', resp.nameE);
-        localStorage.setItem('charge', resp.charge);
-        localStorage.setItem('horaInicio', currentTime.toString() )
-        localStorage.setItem('id', resp.idE)
-        // console.log('resp contiene: '+resp.token);
-        this.router.navigate(['/app'])
-      },err =>{
+      
+      this.authService.PostEmailAndClave(data).subscribe({
+        next: resp => {
+          const currentTime= new Date();
+         
+
+    //  const encryptedData = this.encry.encryptData(originalData);
+    //  console.log( "encrip "+encryptedData);
+    //  localStorage.setItem("data",encryptedData)
+    //  const datos:any= localStorage.getItem('data');
+    //  const desencryptedData = this.encry.decryptData(datos);
+    //  console.log( "noencrip "+desencryptedDat
+          
+          const encryptToken= this.encry.encryptData(resp.token)
+          const encryptedName= this.encry.encryptData(resp.nameE)
+          const encryptedCharge= this.encry.encryptData(resp.charge)
+          const encryptedId= this.encry.encryptData(resp.idE)
+          localStorage.setItem('token', encryptToken);
+          localStorage.setItem('name', encryptedName);
+          localStorage.setItem('charge', encryptedCharge);
+          localStorage.setItem('horaInicio', currentTime.toString());
+          localStorage.setItem('id',encryptedId);
+          this.router.navigate(['/app'])
+        },
+        error: err =>{
+          console.log(err)
         Swal.fire({
           position: 'top-end',
           icon: 'warning',
@@ -57,14 +74,18 @@ export class LoginComponent implements OnInit{
             title: 'my-swal-title',
             icon: 'my-swal-icon',
             popup: 'my-swal-popup',
-          },
-        })
+           },
+         })
+        }
+        
       })
     }
   }
 
   ngOnInit():void{
-    const token = localStorage.getItem('token');
+    
+    const token =localStorage.getItem('token');
+    console.log()
     if(token==='' || token===null || token===undefined){
 
     }else{

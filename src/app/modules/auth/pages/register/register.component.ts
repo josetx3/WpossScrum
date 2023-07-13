@@ -73,6 +73,7 @@ export class RegisterComponent {
             },
             background: '#FFFEFB',
           })
+          console.log(err)
         }
       }
         

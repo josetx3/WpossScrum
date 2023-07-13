@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { encrypt } from 'src/app/utils/encrypt';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +8,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public nameE:String  | null ;
-  public charge:String  | null ;
+  public nameE:any  ;
+  public charge:any   ;
 
 
   constructor(
     private router: Router,
+    private encryp: encrypt
   ){
-    this.nameE=localStorage.getItem('name');
-    this.charge=localStorage.getItem('charge');
 
+    const name: any=localStorage.getItem('name');
+    const charge: any=localStorage.getItem('charge');
+    this.nameE=this.encryp.decryptData(name)
+    this.charge= this.encryp.decryptData(charge)
   }
   ngOnInit(): void {
 
