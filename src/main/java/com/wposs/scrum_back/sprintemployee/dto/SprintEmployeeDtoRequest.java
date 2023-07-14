@@ -34,7 +34,7 @@ public class SprintEmployeeDtoRequest implements Serializable {
     @JsonProperty(value = "employeeName")
     private String employeeName;
     @JsonProperty(value = "daysLeave")
-    @DecimalMin(value = "1")
+    @DecimalMin(value = "0")
     private Integer daysLeave;
     @JsonProperty(value = "observations")
     private String observations;

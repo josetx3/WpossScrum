@@ -16,7 +16,7 @@ public class SprintEmployeeDto implements Serializable {
     @JsonProperty(value = "employeeId")
     private UUID employeeId;
     @JsonProperty(value = "daysLeave")
-    @DecimalMin(value = "1")
+    @DecimalMin(value = "0")
     private Integer daysLeave;
     @JsonProperty(value = "observations")
     private String observations;
