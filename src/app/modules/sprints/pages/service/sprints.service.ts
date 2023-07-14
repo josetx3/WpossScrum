@@ -165,4 +165,11 @@ export class SprintsService {
     //arreglar ruta
     return this.httpClient.delete('http://localhost:8020/sprintuserstory/deletesprintuserstory/' + sprintId +'/'+userstoryId, {headers});
   }
+
+  public updateSprint(sprintId: string | null, data: any): Observable<any>{
+    const enToken: any=localStorage.getItem('token')
+    const token =''+ this.encry.decryptData(enToken);
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.put('http://localhost:8020/sprint/updatesprint/' + sprintId , data, {headers});
+  }
 }

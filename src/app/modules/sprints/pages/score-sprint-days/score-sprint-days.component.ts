@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateItem } from '../interface/sprints-interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { SprintsService } from '../service/sprints.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-score-sprint-days',
@@ -16,6 +17,11 @@ export class ScoreSprintDaysComponent implements OnInit {
   });
 
   sprintId: string | null = '';
+  teamId: string | null='';
+  areaId: string | null='';
+  sprintStart: any='';
+  sprintEnd: any='';
+  sprintDay: string | null='';
   arrayDates: any[] = [];
   startDate: any;
   endDate: any;
@@ -37,8 +43,17 @@ export class ScoreSprintDaysComponent implements OnInit {
   getAllDatesSprint() {
     this.sprintService.getSprintById(this.sprintId).subscribe({
       next: (data) => {
+        console.log(data)
+        this.teamId= data.teamId;
+        this.areaId= data.areaId;
+        this.sprintStart= data.sprintStart;
+        this.sprintEnd= data.sprintEnd;
+        this.sprintDay= data.sprintDay;
+
         this.startDate = new Date(data.sprintStart);
         this.endDate = new Date(data.sprintEnd);
+        this.endDate.setDate(this.endDate.getDate() + 1)
+        console.log(this.startDate)
 
         this.currentDate = this.startDate;
         this.arrayDates = [];
@@ -77,5 +92,43 @@ export class ScoreSprintDaysComponent implements OnInit {
       0
     );
   }
+
+  CalculateSprintPoints2(){
+    const data={
+      teamId: this.teamId,
+      areaId: this.areaId,
+      sprintStart: this.sprintStart,
+      sprintEnd: this.sprintEnd,
+      sprintDay: this.sprintDay,
+      sprintDaysDate: this.totalScore
+    }
+
+    console.log(data)
+    this.sprintService.updateSprint(this.sprintId, data).subscribe({
+
+    next: (resp)=>{
+      Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Los días punteados hansido guardados con exito',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true,
+                customClass: {
+                  container: 'my-swal-container',
+                  title: 'my-swal-title',
+                  icon: 'my-swal-icon',
+                },
+                background: '#E6F4EA',
+              })
+    }
+    , 
+    error: (err)=>{
+      console.log("puntos no guardados")
+    }
+    })
+  }
+
+
 
 }
