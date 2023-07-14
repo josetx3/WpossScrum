@@ -172,4 +172,12 @@ export class SprintsService {
     const headers = new HttpHeaders().set("Authorization", token);
     return this.httpClient.put('http://localhost:8020/sprint/updatesprint/' + sprintId , data, {headers});
   }
+
+   public getSprintByTeam(teamId: String | null): Observable<any>{
+    const enToken: any=localStorage.getItem('token')
+    const token =''+ this.encry.decryptData(enToken);
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get('' + teamId , {headers});
+
+   }
 }

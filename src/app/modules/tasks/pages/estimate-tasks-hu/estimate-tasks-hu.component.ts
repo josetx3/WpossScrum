@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { EditEstimateTasksHuComponent } from '../edit-estimate-tasks-hu/edit-estimate-tasks-hu.component';
+import { SprintsService } from 'src/app/modules/sprints/pages/service/sprints.service';
 
 @Component({
   selector: 'app-estimate-tasks-hu',
@@ -19,6 +20,7 @@ export class EstimateTasksHuComponent {
   userStoryTeam: any='';
   taskByUserStory: any [][]=[];
   sumTasksHourBy: number[]=[];
+  NuSprint: number[]=[];
   //userStoryId: String | null='';
 
 
@@ -27,6 +29,7 @@ export class EstimateTasksHuComponent {
   })
 
   constructor(
+    public sprintService: SprintsService,
     public teamService: TeamsService,
     public tasksService: TasksService,
     private dialog: MatDialog
@@ -59,7 +62,6 @@ export class EstimateTasksHuComponent {
           position: 'top-end',
           icon: 'warning',
           title: 'Este equipo no tiene HU asociadas',
-          text:'Para añadirlas vaya a la seccion Gestionar Board',
           showConfirmButton: false,
           timer: 3000,
           toast: true,
@@ -71,6 +73,15 @@ export class EstimateTasksHuComponent {
           background: '#FFFEFB',
         })
       }
+    })
+  }
+
+  getSprintByTeam(){
+    this.sprintService.getSprintByTeam(this.teamId).subscribe({
+      next: (res)=> {
+        this.NuSprint= res.nuSprint;
+      },
+      error: (err)=>{}
     })
   }
 

@@ -65,7 +65,7 @@ export class CalculateSprintPointsComponent implements OnInit {
   getBySprintId() {
     this.sprintService.getSprintById(this.sprintId).subscribe({
       next: (resp) => {
-        this.sprintDays = resp.sprintDay;
+        this.sprintDays = resp.sprintDaysDate;
       },
     });
   }
@@ -102,8 +102,7 @@ export class CalculateSprintPointsComponent implements OnInit {
           ?.value,
         percentage: this.sprintEmployeePercentage,
         percentageFinal:
-          (this.sprintEmployeePercentage *
-            (this.sprintDays - this.sprintEmployeeDay)) /
+          (this.sprintEmployeePercentage *(this.sprintDays - this.sprintEmployeeDay)) /
           100,
       };
       this.sprintService.saveCalculationSprintPoints(data).subscribe({
@@ -116,12 +115,24 @@ export class CalculateSprintPointsComponent implements OnInit {
             'Presione el Boton (OK) para Continuar',
             'success'
           );
-        },error: () =>{
-          Swal.fire(
-            'Ese empleado ya esta registrado!',
-            'Presione el Boton (OK) para Continuar',
-            'warning'
-          );
+        },error: (err) =>{
+          if (err.status == 409){
+            Swal.fire({
+              position: 'top-end',
+              icon: 'warning',
+              title: 'El empleado ya está agregado al Sprint',
+              showConfirmButton: false,
+              timer: 1500,
+              toast: true,
+              customClass: {
+                container: 'my-swal-container',
+                title: 'my-swal-title',
+                icon: 'my-swal-icon',
+              },
+              background: '#FFFEFB',
+            });
+          }
+         
         }
       });
     } else {

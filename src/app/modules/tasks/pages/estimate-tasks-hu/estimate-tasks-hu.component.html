@@ -21,6 +21,15 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row col-12">
+                      <label class="col-2 col-form-label">Seleccione el sprint </label>
+                      <div class="col-4">
+                          <select class="form-select mt-2 mb-2" formControlName="teamId">
+                              <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}
+                              </option>
+                          </select>
+                      </div>
+                  </div>
                 </div>
             </div>
             <div class="col-12 text-center mt-4">
@@ -36,7 +45,7 @@
             <table class="table table-bordered table-hover text-center">
               <thead class="thead-ligth">
                 <tr>
-                  <th scope="row" class="title_table">Tareas/historias</th>
+                  <th scope="row" class="title_table">Historias/Tareas</th>
                   <th scope="row" class="title_table icon">Puntos HU</th>
                   <th scope="row" class="title_table icon">Horas</th>
                   <th scope="row" class="title_table icon">Acciones</th>
