@@ -57,6 +57,19 @@ public class UserStoryServiceImpl implements UserStoryService{
     @Override
     public UserStoryDto saveUserStory(UserStoryDto userStoryDto) {
         UserStory userStory = modelMapper.map(userStoryDto,UserStory.class);
+        String codeUserStory= userStoryRepository.getLastCodeUserStory(userStory.getSubProjectId());
+        String codeUserStoryNew;
+        if(codeUserStory==null){
+            codeUserStoryNew = "HU001";
+        }else{
+            String numeroStr = codeUserStory.substring(2);
+            int numero = Integer.parseInt(numeroStr);
+            numero++;
+            String nuevoNumeroStr = String.format("%03d", numero);
+            codeUserStoryNew = "HU" + nuevoNumeroStr;
+        }
+        userStory.setUserStoryCode(codeUserStoryNew);
+
         if(userStoryRepository.existsByUserStoryNameAndSubProjectId(userStory.getUserStoryName(),userStory.getSubProjectId())){
             throw new MessageGeneric("Error al intentar Registrar: "+userStory.getUserStoryName()+" Ya se encuentra Registrada al mismo SubProjecto","409",HttpStatus.CONFLICT);
         }
@@ -118,7 +131,6 @@ public class UserStoryServiceImpl implements UserStoryService{
         return userStoryDtoRequests;
 
     }
-
 
     @Override
     @Transactional

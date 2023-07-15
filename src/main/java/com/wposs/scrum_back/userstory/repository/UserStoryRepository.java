@@ -31,6 +31,9 @@ public interface UserStoryRepository extends JpaRepository<UserStory, UUID> {
                 "and uss.user_story_status_name = 'REFINADA' or  uss.user_story_status_name = 'refinada' ;", nativeQuery = true)
         List<Object[]> getAllUserStoryRef(UUID idTeam, UUID idArea);
 
+        @Query(value = "select user_story_code from wposs.user_story where sub_project_id=?1\n" +
+                " order by user_story_code desc limit 1",nativeQuery = true)
+        String getLastCodeUserStory(UUID subProjectId);
         /*@Query(value = "SELECT DISTINCT ust.* FROM   wposs.team te inner join wposs.board bo on  te.team_id =bo.fk_team\n" +
                 "inner join wposs.user_story ust on  bo.fk_user_story=ust.user_story_id\n" +
                 "inner join wposs.sprint_userstory sus on ust.user_story_id = sus.fk_user_story_id\n" +
