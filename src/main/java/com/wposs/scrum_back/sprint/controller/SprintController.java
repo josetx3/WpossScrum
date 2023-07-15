@@ -63,6 +63,8 @@ public class SprintController {
         }
     }
 
+
+
     @GetMapping("/sprint/{idsprint}")
     @Operation(summary = "Get Sprint By Id")
     @ApiResponses(value = {
@@ -103,6 +105,25 @@ public class SprintController {
                     throw new MethodArgumentNotValidException("Data no Valida: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
                 }
                 return new ResponseEntity<>(sprintService.updateSprint(idSprint,sprintDto),HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/sprinteam/{idTeam}")
+    @Operation(summary = "Get Sprint data By Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Get Succes Sprint by Team"),
+            @ApiResponse(responseCode = "404",description = "Sprint  Not Found")
+    })
+    public ResponseEntity<List<SprintDto>> getSprintByTeam(@PathVariable("idTeam") UUID idTeam, @RequestHeader(value="Authorization") String token){
+        if(jwtUtil.validateToken(token)){
+            List<SprintDto> sprintDtos= sprintService.getSprintByTeam(idTeam);
+            if (!sprintDtos.isEmpty()){
+                return new ResponseEntity<>(sprintDtos, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

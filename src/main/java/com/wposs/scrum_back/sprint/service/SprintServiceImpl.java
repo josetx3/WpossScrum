@@ -63,6 +63,12 @@ public class SprintServiceImpl implements SprintService{
         }).orElseThrow(()->new MessageGeneric("No se encuentra el Spring Solicitado","404",HttpStatus.NOT_FOUND)));
     }
 
+    public List<SprintDto> getSprintByTeam(UUID teamId){
+        return sprintRepository.getByTeamId(teamId).stream().map(sprint -> {
+            return modelMapper.map(sprint, SprintDto.class);
+        }).collect(Collectors.toList());
+    }
+
     @Override
     public SprintDto updateSprint(UUID sprintId, SprintDto sprintDto) {
         return sprintRepository.findById(sprintId).map(sprint -> {
@@ -97,4 +103,6 @@ public class SprintServiceImpl implements SprintService{
         }
         return dataRequest;
     }
+
+
 }

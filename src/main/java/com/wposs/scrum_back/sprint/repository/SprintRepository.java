@@ -14,6 +14,8 @@ public interface SprintRepository extends JpaRepository<Sprint, UUID> {
     Optional<Sprint> getByTeamIdAndSprintCount(UUID idTeam, Integer number);
     Optional<Sprint> getBySprintCountIsNull();
 
+    List<Sprint> getByTeamId(UUID idTeam);
+
     @Query(value = "select ar.area_name, te.team_name, sp.numero_sprint, sc.score_sprint\n" +
             "from wposs.area ar inner join wposs.team te on ar.area_id = te.area_id inner join\n" +
             "wposs.sprint sp on te.team_id = sp.fk_team_id inner join wposs.score_sprint_days\n" +

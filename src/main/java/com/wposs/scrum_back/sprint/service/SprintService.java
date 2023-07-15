@@ -14,4 +14,6 @@ public interface SprintService {
     SprintDto updateSprint(UUID sprintId,SprintDto sprintDto);
 
     SprintDtoRequest getDataSprint(UUID idSprint);
+
+    List<SprintDto> getSprintByTeam(UUID teamId);
 }
