@@ -15,7 +15,7 @@
                     <div class="row col-12">
                         <label class="col-2 col-form-label">Seleccione el equipo </label>
                         <div class="col-4">
-                            <select class="form-select mt-2 mb-2" formControlName="teamId">
+                            <select class="form-select mt-2 mb-2" formControlName="teamId" (change)="selectedTeam()">
                                 <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}
                                 </option>
                             </select>
@@ -25,7 +25,7 @@
                       <label class="col-2 col-form-label">Seleccione el sprint </label>
                       <div class="col-4">
                           <select class="form-select mt-2 mb-2" formControlName="teamId">
-                              <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}
+                              <option *ngFor="let item of sprints" value="{{item.sprintId}}">{{item.nuSprint}}
                               </option>
                           </select>
                       </div>

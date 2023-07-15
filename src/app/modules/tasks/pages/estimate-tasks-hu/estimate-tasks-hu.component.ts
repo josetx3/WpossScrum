@@ -20,7 +20,7 @@ export class EstimateTasksHuComponent {
   userStoryTeam: any='';
   taskByUserStory: any [][]=[];
   sumTasksHourBy: number[]=[];
-  NuSprint: number[]=[];
+  sprints: any='';
   //userStoryId: String | null='';
 
 
@@ -37,10 +37,10 @@ export class EstimateTasksHuComponent {
   }
 
   ngOnInit(){
-    this.getAllTams()
+    this.getAllTeams()
   }
 
-  getAllTams(){
+  getAllTeams(){
     this.teamService.getAllTeams().subscribe(
       {
         next: (resp)=>{
@@ -50,12 +50,24 @@ export class EstimateTasksHuComponent {
     )
   }
 
-  getStoryUserbyTeam(){
+  selectedTeam(){
     this.teamId= this.addEstimateHU.get('teamId')?.value;
+    this.sprintService.getSprintByTeam(this.teamId).subscribe({
+      next: (res)=> {
+        this.sprints= res;
+        console.log(this.sprints);
+      },
+      error: (err)=>{}
+    })
+  }
+
+  getStoryUserbyTeam(){
+    // this.teamId= this.addEstimateHU.get('teamId')?.value;
+    console.log('el id del equipo es'+this.teamId);
     this.tasksService.getStoryUserbyTeam(this.teamId).subscribe({
       next: (resp)=>{
         this.userStoryTeam= resp;
-        this.getTasksByUserStory();
+        // this.getTasksByUserStory();
       }  
       ,error: (err)=>{
         Swal.fire({
@@ -75,17 +87,6 @@ export class EstimateTasksHuComponent {
       }
     })
   }
-
-  getSprintByTeam(){
-    this.sprintService.getSprintByTeam(this.teamId).subscribe({
-      next: (res)=> {
-        this.NuSprint= res.nuSprint;
-      },
-      error: (err)=>{}
-    })
-  }
-
-  
 
   getTasksByUserStory(){
     

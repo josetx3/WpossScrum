@@ -177,7 +177,7 @@ export class SprintsService {
     const enToken: any=localStorage.getItem('token')
     const token =''+ this.encry.decryptData(enToken);
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get('' + teamId , {headers});
+    return this.httpClient.get('http://localhost:8020/sprint/sprinteam/' + teamId , {headers});
 
    }
 }
