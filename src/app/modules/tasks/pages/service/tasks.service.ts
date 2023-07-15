@@ -11,12 +11,12 @@ export class TasksService {
   constructor(private httpClient: HttpClient,
               private encry: encrypt) { }
 
-  public getStoryUserbyTeam(teamId: String |null): Observable<any>{
+  public getStoryUserbyTeam(teamId: String |null,sprintId: String |null ): Observable<any>{
     const enToken: any=localStorage.getItem('token')
     const token =''+ this.encry.decryptData(enToken);
     // const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get('http://localhost:8020/userstory/allByTeam/'+ teamId, {headers});
+    return this.httpClient.get('http://localhost:8020/userstory/allByTeam/'+ teamId +'/' +sprintId, {headers});
   }
 
   public getTasksByUserStory(teamId: String |null, userStoryId: String |null): Observable<any>{

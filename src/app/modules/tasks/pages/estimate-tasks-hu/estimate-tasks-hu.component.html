@@ -24,7 +24,7 @@
                     <div class="row col-12">
                       <label class="col-2 col-form-label">Seleccione el sprint </label>
                       <div class="col-4">
-                          <select class="form-select mt-2 mb-2" formControlName="teamId">
+                          <select class="form-select mt-2 mb-2" formControlName="sprintId">
                               <option *ngFor="let item of sprints" value="{{item.sprintId}}">{{item.nuSprint}}
                               </option>
                           </select>
@@ -52,27 +52,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of userStoryTeam">
-                  <td class="title_table" > <strong> {{item.userStoryName}}</strong> 
-                    <hr>
-                    <div *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center m-4">
-                        {{item.taskName}}
-                        <hr>
-                    </div>
-                  </td>
+                <tr *ngFor="let item of userStoryTeamSprint">
+                  <td class="title_table" > <strong> {{item.userStoryName}}</strong> </td>
                   <td class="title_table" ><strong>{{item.userStoryScore}} <hr> </strong> </td>
-                  <td> <strong>{{item.userStoryScore * 8}}</strong>
-                    <hr>
-                    <div *ngFor="let item of taskByUserStory[item.userStoryId]" class="title_table text-center m-4">
-                        {{item.taskHours}} <hr>
-                    </div>
-                  </td >
+                  <td> <strong>{{item.userStoryScore * 8}}</strong> </td >
                   <td  class="icon  text-center" > <p>N/A</p> 
-                    <hr>
-                    <div *ngFor="let item1 of taskByUserStory[item.userStoryId]" >
-                        <button   type="button btn-2xs" class="btn btn btn-warning mb-1 pt-0 pb-0" (click)="editTimeTasksByUseStory(item1.taskTeamId,item1.taskName, item1.taskHours, item.userStoryScore,item.userStoryId )"><i class="fas fa-edit fa-sm "></i></button>
-                        <hr>
-                    </div>
+                        <button   type="button btn-2xs" class="btn btn btn-warning mb-1 pt-0 pb-0" 
+                        (click)="editTimeTasksByUseStory(item.taskTeamId,item.taskName, item.taskHours, item.userStoryScore,item.userStoryId )">
+                        <i class="fas fa-edit fa-sm "></i></button>
                   </td>
                 </tr>
               </tbody>

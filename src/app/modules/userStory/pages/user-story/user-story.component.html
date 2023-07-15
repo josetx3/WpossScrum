@@ -25,6 +25,7 @@
       <table class="table table-bordered table-hover">
         <thead class="thead-ligth text-center">
           <tr>
+            <th scope="row" class="title_table"> Codigo HU</th>
             <th scope="row" class="title_table">Nombre de la historia</th>
             <th scope="row" class="title_table">Estado</th>
             <th scope="row" class="title_table">Fecha maxima</th>
@@ -34,6 +35,7 @@
         </thead>
         <tbody class="text-center">
           <tr *ngFor="let item of userStory">
+            <td>{{item.userStoryCode}}</td>
             <td>{{item.userStoryName}}</td>
             <td>{{item.userStoryStateName}}</td>
             <td>{{item.fechaMaxima}}</td>

@@ -17,8 +17,9 @@ export class EstimateTasksHuComponent {
 
   teams: any='';
   teamId: String | null='';
+  sprintId:String | null='';
   teamIDb: String | null='';
-  userStoryTeam: any='';
+  userStoryTeamSprint: any='';
   taskByUserStory: any [][]=[];
   sumTasksHourBy: number[]=[];
   sprints: any='';
@@ -27,6 +28,7 @@ export class EstimateTasksHuComponent {
 
   addEstimateHU: FormGroup = new FormGroup({
     teamId: new FormControl(null, [Validators.required]),
+    sprintId: new FormControl(null, [Validators.required])
   })
 
   constructor(
@@ -54,7 +56,7 @@ export class EstimateTasksHuComponent {
   selectedTeam(){
     this.teamIDb='';
     this.teamIDb= this.addEstimateHU.get('teamId')?.value;
-    console.log(this.teamId);
+    console.log(this.teamIDb);
     this.sprintService.getSprintByTeam(this.teamIDb).subscribe({
       next: (res)=> {
         this.sprints= res;
@@ -67,11 +69,12 @@ export class EstimateTasksHuComponent {
 
   getStoryUserbyTeam(){
     this.teamId= this.addEstimateHU.get('teamId')?.value;
-    // console.log('el id del equipo es'+this.teamId);
-    this.tasksService.getStoryUserbyTeam(this.teamId).subscribe({
+    this.sprintId= this.addEstimateHU.get('sprintId')?.value;
+    console.log('el id del equipo es'+this.sprintId);
+    this.tasksService.getStoryUserbyTeam(this.teamId,this.sprintId ).subscribe({
       next: (resp)=>{
-        this.userStoryTeam= resp;
-        // this.getTasksByUserStory();
+        this.userStoryTeamSprint= resp;
+        // console.log(this.userStoryTeam)
       }  
       ,error: (err)=>{
         Swal.fire({
@@ -94,7 +97,7 @@ export class EstimateTasksHuComponent {
 
   getTasksByUserStory(){
     
-    this.userStoryTeam.forEach((element: { userStoryId: any; }) => {
+    this.userStoryTeamSprint.forEach((element: { userStoryId: any; }) => {
       let userStoryId=element.userStoryId;
       
       this.tasksService.getTasksByUserStory(this.teamId, userStoryId).subscribe({
