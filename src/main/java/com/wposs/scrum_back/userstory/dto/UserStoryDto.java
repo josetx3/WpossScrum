@@ -22,7 +22,10 @@ public class UserStoryDto {
     @Size(max = 100,message = "La HU debe no debe contener mas 100 caracteres")
     @Pattern(regexp = "^[a-zA-Z \\d ]+$",message = "El nombre de la historia solo debe contener letras y espacios")
     private String userStoryName;
-
+    @NotNull(message = "El codigo de la historia de usuario no debe ser null")
+    @NotEmpty
+    @Pattern(regexp = "^[a-zA-Z ]+$",message = "El codigo de la historia solo debe contener letras y numeros")
+    private String codeStoryName;
     @NotNull(message = "historia de usuario no debe ser null")
     @Max(value = 999,message = "Los puntos no pueden exceder los 3 dijitos")
     private Integer userStoryScore;
@@ -102,5 +105,13 @@ public class UserStoryDto {
 
     public void setSubProjectId(UUID subProjectId) {
         this.subProjectId = subProjectId;
+    }
+
+    public String getCodeStoryName() {
+        return codeStoryName;
+    }
+
+    public void setCodeStoryName(String codeStoryName) {
+        this.codeStoryName = codeStoryName;
     }
 }

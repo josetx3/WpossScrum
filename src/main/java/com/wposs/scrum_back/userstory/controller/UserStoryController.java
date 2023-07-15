@@ -67,15 +67,15 @@ public class UserStoryController {
         }
     }
 
-    @GetMapping("/allByTeam/{teamId}")
+    @GetMapping("/allByTeam/{teamId}/{sprintId}")
     @Operation(summary = "Get All Use Story By team")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get All success"),
             @ApiResponse(responseCode = "404",description = "Not Found Users stories")
     })
-    public ResponseEntity<List<UserStoryDto>> getAllUserStoryByTeam(@PathVariable("teamId") UUID teamId, @RequestHeader(value="Authorization") String token){
+    public ResponseEntity<List<UserStoryDto>> getAllUserStoryByTeam(@PathVariable("teamId") UUID teamId,@PathVariable("sprintId") UUID sprintId, @RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
-            List<UserStoryDto> userStoryDto = userStoryService.getAllUserStoryByTeam(teamId);
+            List<UserStoryDto> userStoryDto = userStoryService.getAllUserStoryByTeam(teamId,sprintId);
             if(!userStoryDto.isEmpty()){
                 return new ResponseEntity<>(userStoryDto, HttpStatus.OK);
             }

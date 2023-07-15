@@ -24,5 +24,5 @@ public interface UserStoryService {
 
     List<UserStoryDtoRequest> getAllUserStoryRef(UUID idTeam, UUID idArea);
 
-    List<UserStoryDto> getAllUserStoryByTeam(UUID teamId);
+    List<UserStoryDto> getAllUserStoryByTeam(UUID teamId,UUID sprintId);
 }

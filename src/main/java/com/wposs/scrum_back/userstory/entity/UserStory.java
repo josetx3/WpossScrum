@@ -24,6 +24,8 @@ public class UserStory {
     @Column(name = "user_story_id")
     private UUID userStoryId;
 
+    @Column(name = "user_story_code",nullable = false)
+    private String codeStoryName;
     @Column(name = "user_story_name", length = 30)
     private String userStoryName;
 
@@ -144,5 +146,13 @@ public class UserStory {
 
     public void setFechaMaxima(Date fechaMaxima) {
         this.fechaMaxima = fechaMaxima;
+    }
+
+    public String getCodeStoryName() {
+        return codeStoryName;
+    }
+
+    public void setCodeStoryName(String codeStoryName) {
+        this.codeStoryName = codeStoryName;
     }
 }

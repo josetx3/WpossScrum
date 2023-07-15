@@ -122,8 +122,8 @@ public class UserStoryServiceImpl implements UserStoryService{
 
     @Override
     @Transactional
-    public List<UserStoryDto> getAllUserStoryByTeam(UUID teamId) {
-        return userStoryRepository.getUserStoryByTeam(teamId).stream()
+    public List<UserStoryDto> getAllUserStoryByTeam(UUID teamId, UUID sprintId) {
+        return userStoryRepository.getUserStoryByTeamAndSprint(teamId,sprintId).stream()
                 .map(userStory -> {
                     return modelMapper.map(userStory, UserStoryDto.class);
                 }).collect(Collectors.toList());
