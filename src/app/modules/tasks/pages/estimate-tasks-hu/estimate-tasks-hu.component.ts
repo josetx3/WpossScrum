@@ -17,6 +17,7 @@ export class EstimateTasksHuComponent {
 
   teams: any='';
   teamId: String | null='';
+  teamIDb: String | null='';
   userStoryTeam: any='';
   taskByUserStory: any [][]=[];
   sumTasksHourBy: number[]=[];
@@ -51,19 +52,22 @@ export class EstimateTasksHuComponent {
   }
 
   selectedTeam(){
-    this.teamId= this.addEstimateHU.get('teamId')?.value;
-    this.sprintService.getSprintByTeam(this.teamId).subscribe({
+    this.teamIDb='';
+    this.teamIDb= this.addEstimateHU.get('teamId')?.value;
+    console.log(this.teamId);
+    this.sprintService.getSprintByTeam(this.teamIDb).subscribe({
       next: (res)=> {
         this.sprints= res;
-        console.log(this.sprints);
       },
-      error: (err)=>{}
+      error: (err)=>{
+        this.sprints= null;
+      }
     })
   }
 
   getStoryUserbyTeam(){
-    // this.teamId= this.addEstimateHU.get('teamId')?.value;
-    console.log('el id del equipo es'+this.teamId);
+    this.teamId= this.addEstimateHU.get('teamId')?.value;
+    // console.log('el id del equipo es'+this.teamId);
     this.tasksService.getStoryUserbyTeam(this.teamId).subscribe({
       next: (resp)=>{
         this.userStoryTeam= resp;
