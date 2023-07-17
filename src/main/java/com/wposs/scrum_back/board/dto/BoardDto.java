@@ -28,19 +28,26 @@ public class BoardDto implements Serializable {
     private Date date;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String employeeName;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String taskName;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String taskHours;
-
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String taskState;
     public String getTaskHours() {
         return taskHours;
     }
 
     public void setTaskHours(String taskHours) {
         this.taskHours = taskHours;
+    }
+
+    public String getTaskState() {
+        return taskState;
+    }
+
+    public void setTaskState(String taskState) {
+        this.taskState = taskState;
     }
 
     public String getTaskName() {
