@@ -24,7 +24,6 @@ public class TaskTeam {
     private String taskName;
 
     @Column(name = "task_team_hours")
-    @ColumnDefault("0")
     private Integer taskHours;
     @Column(name = "fk_team")
     private UUID teamId;
