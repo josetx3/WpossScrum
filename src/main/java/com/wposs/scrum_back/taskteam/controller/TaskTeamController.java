@@ -42,7 +42,6 @@ public class TaskTeamController {
             if (result.hasErrors()){
                 throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            taskTeamDto.setTaskHours(0);
             return new ResponseEntity<>(teamService.saveTaskTeam(taskTeamDto),HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -161,6 +160,24 @@ public class TaskTeamController {
                return new ResponseEntity<>(taskTeamDtosR, HttpStatus.OK);
            }
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("taskteamhu/{idTeam}/{idUserStory}")
+    @Operation(summary = "get All taskteam to Idteam and Iduserstory")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "get All Success"),
+            @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
+    })
+    public ResponseEntity<List<TaskTeamDto>> getAllTaskTeamToIdTeamAndIdUserStory1(@PathVariable("idTeam") UUID idTeam,@PathVariable("idUserStory") UUID idUserStory, @RequestHeader(value="Authorization") String token){
+        if (jwtUtil.validateToken(token)){
+            List<TaskTeamDto> taskTeamDtosR = teamService.getTaskTeamToIdTeamAndIdUserStory(idTeam, idUserStory);
+            if (!taskTeamDtosR.isEmpty()) {
+                return new ResponseEntity<>(taskTeamDtosR, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

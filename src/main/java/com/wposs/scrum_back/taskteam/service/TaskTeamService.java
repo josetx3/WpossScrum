@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface TaskTeamService {
     List<TaskTeamDto> getAllTaskTeam();
     List<TaskTeamDto> getTaskTeamToIdTeam(UUID idTeam);
-
+    List<TaskTeamDto> getTaskTeamToIdTeamAndIdUserStory(UUID teamId, UUID userStoryId);
     List<TaskTeamDtoRequest> getTaskTeamToIdTeamAndUserStory(UUID teamId, UUID userStoryId);
     Optional<TaskTeamDto> getTaskTeamById(UUID idTaskTeam);
     TaskTeamDto saveTaskTeam(TaskTeamDto taskTeamDto);

@@ -24,4 +24,12 @@ public interface TaskTeamRepository extends JpaRepository<TaskTeam, UUID> {
             "inner join wposs.sprint_userstory sus on ust.user_story_id = sus.fk_user_story_id and sp.sprint_id = sus.fk_sprint_id\n" +
             "where te.team_id=?1 and ust.user_story_id=?2",nativeQuery = true)
     List<Object[]> getDataTaskByTeamAndUserStory(UUID teamId, UUID userStoryId);
+
+
+    @Query(value = "SELECT distinct tte.* from wposs.user_story us inner join wposs.task_team tte on us.user_story_id = tte.fk_user_story \n" +
+            "inner join wposs.team te on tte.fk_team = te.team_id \n" +
+            "inner join wposs.sprint sp on te.team_id = sp.fk_team_id \n" +
+            "inner join wposs.sprint_userstory spu on sp.sprint_id = spu.fk_sprint_id and us.user_story_id = spu.fk_user_story_id\n" +
+            "where te.team_id=?1 and us.user_story_id=?2",nativeQuery = true)
+    List<TaskTeam> getTaskTeamByTeamAndUserStory(UUID teamId, UUID userStoryId);
 }

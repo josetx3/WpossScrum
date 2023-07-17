@@ -2,8 +2,6 @@ package com.wposs.scrum_back.taskteam.service;
 
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
-import com.wposs.scrum_back.employe.entity.Employee;
-import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.taskteam.dto.TaskTeamDto;
 import com.wposs.scrum_back.taskteam.dto.TaskTeamDtoRequest;
 import com.wposs.scrum_back.taskteam.entity.TaskTeam;
@@ -27,15 +25,9 @@ public class TaskTeamServiceImpl implements TaskTeamService {
     @Autowired
     private ModelMapper modelMapper;
 
-
     @Override
-    @Transactional
     public List<TaskTeamDto> getAllTaskTeam() {
-       /* modelMapper.typeMap(TaskTeam.class, TaskTeamDto.class).addMappings(mapper -> {
-            mapper.map(src -> src.getUserStory().getUserStoryId(), TaskTeamDto::setUserStoryId);
-        });*/
         return taskTeamRepository.getAllTaskTeam().stream().map(taskTeam -> {
-            System.out.println("esta est loa HU:  "+taskTeam.getUserStory());
             return modelMapper.map(taskTeam,TaskTeamDto.class);
         }).collect(Collectors.toList());
     }
@@ -67,6 +59,14 @@ public class TaskTeamServiceImpl implements TaskTeamService {
             return modelMapper.map(taskTeam,TaskTeamDto.class);
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public List<TaskTeamDto> getTaskTeamToIdTeamAndIdUserStory(UUID teamId, UUID userStoryId) {
+        return taskTeamRepository.getTaskTeamByTeamAndUserStory(teamId,userStoryId).stream().map(taskTeam -> {
+            return modelMapper.map(taskTeam,TaskTeamDto.class);
+        }).collect(Collectors.toList());
+    }
+
     @Override
     public Optional<TaskTeamDto> getTaskTeamById(UUID idTaskTeam) {
         return Optional.ofNullable(taskTeamRepository.findById(idTaskTeam)

@@ -16,7 +16,7 @@ public class TaskTeamDto {
     private UUID taskTeamId;
 
     @NotBlank(message = "El nombre de la tarea no debe ser null")
-    @Pattern(regexp = "^[a-zA-Z ]+$",message = "El nombre de la tarea solo debe contener letras")
+    @Pattern(regexp = "^[a-zA-Z \\d ]+$",message = "El nombre de la tarea solo debe contener letras")
     @Size(max = 100,message = "El nombre de la tarea no debe sobre pasar los 100 caracteres")
     private String taskName;
 
