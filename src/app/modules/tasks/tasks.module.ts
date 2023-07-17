@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EstimateTasksHuComponent } from './pages/estimate-tasks-hu/estimate-tasks-hu.component';
 import { MatButtonModule } from '@angular/material/button';
 import { EditEstimateTasksHuComponent } from './pages/edit-estimate-tasks-hu/edit-estimate-tasks-hu.component';
+import { AddTasksHuComponent } from './pages/add-tasks-hu/add-tasks-hu.component';
 
 
 
@@ -13,6 +14,7 @@ import { EditEstimateTasksHuComponent } from './pages/edit-estimate-tasks-hu/edi
   declarations: [
     EstimateTasksHuComponent,
     EditEstimateTasksHuComponent,
+    AddTasksHuComponent,
   ],
   imports: [
     CommonModule,

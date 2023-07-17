@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-body">
+        <div class="pagetitle m-2">
+        <h1>Agregar tareas en HU</h1>
+            <nav>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+                <li class="breadcrumb-item active"><a routerLink="/app/tasks">A. y E. Tareas en HU</a></li>
+                <li class="breadcrumb-item active">Agregar Tareas en HU</li>
+              </ol>
+            </nav>
+        </div>
+        <div>
+            <ol><strong>Cod. de la HU: </strong>{{userStoryCode}}</ol>
+            <ol><strong>Nombre de la HU: </strong>{{userStoryName}}</ol>
+            <ol><strong>Puntos de la HU: </strong>{{userStoryScore}}</ol>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="addTaskUS" (ngSubmit)="addTaskToUserStory()"> 
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="col-4 col-form-label">Nombre de la tarea</label>
+                            <input type="text" class="form-control" formControlName="taskName" maxlength="100">
+                            <div *ngIf="addTaskUS.get('taskName')?.dirty || addTaskUS.get('taskName')?.touched">
+                              <h3 *ngIf="addTaskUS.get('taskName')?.hasError('required')" class="form-red-validator m-1"> Este
+                                campo es requerido</h3>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <label class="col-6 col-form-label">Horas</label>
+                            <input type="number" class="form-control" formControlName="hours" maxlength="2">
+                            <div *ngIf="addTaskUS.get('hours')?.dirty || addTaskUS.get('hours')?.touched">
+                              <h3 *ngIf="addTaskUS.get('hours')?.hasError('required')" class="form-red-validator m-1"> Este
+                                campo es requerido</h3>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="addTaskUS.invalid">Agregar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
