@@ -3,6 +3,7 @@ import { EmployeesService } from '../service/employees.service';
 import { Employee, Employee2 } from '../interface/employee';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { encrypt } from 'src/app/utils/encrypt';
 
 @Component({
   selector: 'app-employee-profile',
@@ -26,11 +27,13 @@ export class EmployeeProfileComponent implements OnInit{
   })
 
   constructor(
-        private employeeService: EmployeesService
+        private employeeService: EmployeesService,
+        private encry: encrypt
   ){}
 
    ngOnInit(): void {
-    this.id= localStorage.getItem('id');
+    const enId: any=localStorage.getItem('id');
+    this.id= this.encry.decryptData(enId)
     this.getEmployeeById(this.id)
   }
 

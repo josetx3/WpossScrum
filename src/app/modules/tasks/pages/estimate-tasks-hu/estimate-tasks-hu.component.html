@@ -59,7 +59,7 @@
                   <td>{{item.userStoryScore}}  </td>
                   <td> {{item.userStoryScore * 8}}</td >
                   <td  class="icon text-center" >
-                        <button  type="button" class="btn btn btn-success btn-sm m-1" title="Agregar tareas a la HU"
+                        <button  type="button" class="btn btn btn-success btn-sm m-1" title="Gestionar las tareas de la HU"
                         [routerLink]="['app-add-tasks-hu']" [queryParams]="{userStoryCode:item.userStoryCode, userStoryName: item.userStoryName,
                           userStoryScore: item.userStoryScore, TeamId: this.teamId, sprintId: this.sprintId, userStoryID: item.userStoryId}">
                         <i class="fa fa-plus"></i></button>
