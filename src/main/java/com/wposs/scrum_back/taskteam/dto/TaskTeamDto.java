@@ -27,6 +27,9 @@ public class TaskTeamDto {
     @JsonProperty(value = "teamName",access = JsonProperty.Access.READ_ONLY)
     private String teamName;
 
+    @JsonProperty(value = "userStoryId")
+    private UUID userStoryId;
+
     public String getTeamName() {
         return teamName;
     }
@@ -66,4 +69,13 @@ public class TaskTeamDto {
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
+
+    public UUID getUserStoryId() {
+        return userStoryId;
+    }
+
+    public void setUserStoryId(UUID userStoryId) {
+        this.userStoryId = userStoryId;
+    }
+
 }

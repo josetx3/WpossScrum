@@ -3,6 +3,7 @@ package com.wposs.scrum_back.userstory.entity;
 import com.wposs.scrum_back.board.entity.Board;
 import com.wposs.scrum_back.improvements.entity.Improvements;
 import com.wposs.scrum_back.subProject.entity.SubProject;
+import com.wposs.scrum_back.taskteam.entity.TaskTeam;
 import com.wposs.scrum_back.userstorystatus.entity.UserStoryStatus;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -58,7 +59,18 @@ public class UserStory {
     private List<Board> boards;
 
     @OneToMany(mappedBy = "userStory",cascade = {CascadeType.DETACH,CascadeType.REMOVE,CascadeType.MERGE})
+    private List<TaskTeam> taskTeams;
+
+    @OneToMany(mappedBy = "userStory",cascade = {CascadeType.DETACH,CascadeType.REMOVE,CascadeType.MERGE})
     private List<Improvements> improvements;
+
+    public List<TaskTeam> getTaskTeams() {
+        return taskTeams;
+    }
+
+    public void setTaskTeams(List<TaskTeam> taskTeams) {
+        this.taskTeams = taskTeams;
+    }
 
     public List<Improvements> getImprovements() {
         return improvements;

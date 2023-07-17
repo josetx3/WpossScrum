@@ -3,10 +3,12 @@ package com.wposs.scrum_back.taskteam.entity;
 import com.wposs.scrum_back.board.entity.Board;
 import com.wposs.scrum_back.improvements.entity.Improvements;
 import com.wposs.scrum_back.team.entity.Team;
+import com.wposs.scrum_back.userstory.entity.UserStory;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.security.PrivateKey;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,10 +28,15 @@ public class TaskTeam {
     private Integer taskHours;
     @Column(name = "fk_team")
     private UUID teamId;
+
+    @Column(name = "fk_user_story")
+    private  UUID userStoryId;
     @ManyToOne
     @JoinColumn(name = "fk_team",insertable = false,updatable = false)
     private Team team;
-
+    @ManyToOne
+    @JoinColumn(name = "fk_user_story",insertable = false,updatable = false)
+    private UserStory userStory;
     @OneToMany(mappedBy = "taskTeam",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REMOVE})
     private List<Board> boards;
 
@@ -90,5 +97,21 @@ public class TaskTeam {
 
     public void setTeamId(UUID teamId) {
         this.teamId = teamId;
+    }
+
+    public UserStory getUserStory() {
+        return userStory;
+    }
+
+    public void setUserStory(UserStory userStory) {
+        this.userStory = userStory;
+    }
+
+    public UUID getUserStoryId() {
+        return userStoryId;
+    }
+
+    public void setUserStoryId(UUID userStoryId) {
+        this.userStoryId = userStoryId;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class TaskTeamServiceImpl implements TaskTeamService{
+public class TaskTeamServiceImpl implements TaskTeamService {
     @Autowired
     private TaskTeamRepository taskTeamRepository;
     @Autowired
@@ -28,8 +29,13 @@ public class TaskTeamServiceImpl implements TaskTeamService{
 
 
     @Override
+    @Transactional
     public List<TaskTeamDto> getAllTaskTeam() {
+       /* modelMapper.typeMap(TaskTeam.class, TaskTeamDto.class).addMappings(mapper -> {
+            mapper.map(src -> src.getUserStory().getUserStoryId(), TaskTeamDto::setUserStoryId);
+        });*/
         return taskTeamRepository.getAllTaskTeam().stream().map(taskTeam -> {
+            System.out.println("esta est loa HU:  "+taskTeam.getUserStory());
             return modelMapper.map(taskTeam,TaskTeamDto.class);
         }).collect(Collectors.toList());
     }
