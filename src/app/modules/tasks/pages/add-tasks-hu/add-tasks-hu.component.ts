@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TasksService } from '../service/tasks.service';
 import Swal from 'sweetalert2';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EditEstimateTasksHuComponent } from '../edit-estimate-tasks-hu/edit-estimate-tasks-hu.component';
 
 @Component({
   selector: 'app-add-tasks-hu',
@@ -26,7 +28,8 @@ export class AddTasksHuComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private taskService: TasksService
+    private taskService: TasksService,
+    private dialog: MatDialog
   ){}
 
   ngOnInit(){
@@ -143,6 +146,15 @@ export class AddTasksHuComponent {
     })
   }
 
-  editHoursTasksModal(taskId: string, taskName: string, taskHours: number){}
+  editHoursTasksModal(taskTeamId: string, taskName: string, taskHours: number){
+    const configDialog= new MatDialogConfig();
+    configDialog.width='500px'
+    configDialog.data={taskTeamId: taskTeamId,taskName: taskName,
+                       taskHours: taskHours, userStoryScore: this.userStoryScore,
+                       userStoryId: this.userStoryId, hoursTot: this.hoursTot, teamId: this.teamId}
+
+    const MatDialog= this.dialog.open(EditEstimateTasksHuComponent,
+                      configDialog)
+  }
 
 }

@@ -5,8 +5,16 @@
             <form [formGroup]="FormEditHoursTasks" (ngSubmit)="editHoursTasks()">
                 <div class="row">
                   <div class="col-12">
+                    <label class="col-6 col-form-label">Nombre de la tarea</label>
+                    <input type="text" class="form-control" formControlName="taskNameForm" maxlength="100">
+                    <div *ngIf="FormEditHoursTasks.get('taskNameForm')?.dirty || FormEditHoursTasks.get('taskNameForm')?.touched">
+                      <h3 *ngIf="FormEditHoursTasks.get('taskNameForm')?.hasError('required')" class="form-red-validator m-1"> Este
+                        campo es requerido</h3>
+                    </div>
+                  </div>
+                  <div class="col-12">
                     <label class="col-6 col-form-label">Digite las horas de las tareas</label>
-                    <input type="text" class="form-control" formControlName="hoursTasks" maxlength="3">
+                    <input type="number" class="form-control" formControlName="hoursTasks" maxlength="3">
                     <div *ngIf="FormEditHoursTasks.get('hoursTasks')?.dirty || FormEditHoursTasks.get('hoursTasks')?.touched">
                       <h3 *ngIf="FormEditHoursTasks.get('hoursTasks')?.hasError('required')" class="form-red-validator m-1"> Este
                         campo es requerido</h3>

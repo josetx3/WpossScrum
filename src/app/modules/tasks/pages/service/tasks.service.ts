@@ -32,7 +32,7 @@ export class TasksService {
     const token =''+ this.encry.decryptData(enToken);
     // const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.put('http://localhost:8020/taskteam/updatetaskhours/'+ tasksTeamId ,dataEditHours, {headers});
+    return this.httpClient.put('http://localhost:8020/taskteam/updatetask/'+ tasksTeamId ,dataEditHours, {headers});
   }
 
   public addTaskToUserStory( dataTask: any): Observable<any>{

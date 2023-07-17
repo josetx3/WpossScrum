@@ -11,15 +11,17 @@ import Swal from 'sweetalert2';
 })
 export class EditEstimateTasksHuComponent {
 
+  teamId: string='';
   taskTeamId: String= '';
   taskHours: number=0;
   userStoryScore: number=0;
-  sumTasksHourBy: number=0;
+  sumTasksHours: number=0;
   userStoryId: string='';
   taskName: string='';
 
   FormEditHoursTasks: FormGroup= new FormGroup({
-    hoursTasks: new FormControl(null, [Validators.required])
+    hoursTasks: new FormControl(null, [Validators.required]),
+    taskNameForm: new FormControl(null, [Validators.required])
   }
   );
 
@@ -31,14 +33,16 @@ export class EditEstimateTasksHuComponent {
   ){}
 
   ngOnInit(){
-    this.taskTeamId= this.data.tasksTeamId;
+    this.teamId= this.data.teamId;
+    this.taskTeamId= this.data.taskTeamId;
     this.taskHours= this.data.taskHours;
     this.userStoryScore= this.data.userStoryScore;
     this.userStoryId= this.data.userStoryId;
-    this.sumTasksHourBy=this.data.sumTasksHourBy[this.userStoryId];
+    this.sumTasksHours=this.data.hoursTot;
     this.taskName= this.data.taskName;
     this.FormEditHoursTasks.patchValue({
-      hoursTasks: this.taskHours
+      hoursTasks: this.taskHours,
+      taskNameForm: this.taskName
     })
   }
 
@@ -46,7 +50,7 @@ export class EditEstimateTasksHuComponent {
     if (this.FormEditHoursTasks.valid) {
         let hoursForm= parseInt(this.FormEditHoursTasks.get('hoursTasks')?.value)
         let hoursTasks=  hoursForm-this.taskHours;
-        let newHours= this.sumTasksHourBy+hoursTasks;
+        let newHours= this.sumTasksHours+hoursTasks;
         if(hoursForm< 0){
           Swal.fire({
             position: 'top-end',
@@ -63,12 +67,14 @@ export class EditEstimateTasksHuComponent {
             background: '#FFFEFB'
           })
         }else if(newHours< this.userStoryScore*8){
-            const data={
-              taskHours: hoursForm,
-              taskTeamId: this.taskTeamId,
-              taskName: this.taskName
+          const dataTasks={
+            taskName: this.FormEditHoursTasks.get('taskNameForm')?.value,
+            taskHours: parseInt(this.FormEditHoursTasks.get('hoursTasks')?.value),
+            teamId: this.teamId,
+            userStoryId: this.userStoryId
             }
-            this.tasksService.editTimeTasksByUseStory(this.taskTeamId,data).subscribe({
+
+            this.tasksService.editTimeTasksByUseStory(this.taskTeamId, dataTasks).subscribe({
               next: (resp)=>{
                 Swal.fire({
                   position: 'top-end',
@@ -108,11 +114,5 @@ export class EditEstimateTasksHuComponent {
           })
         }
     }
-   
   }
-
-
-  
-
-
 }
