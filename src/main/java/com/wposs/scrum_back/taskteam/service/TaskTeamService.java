@@ -16,6 +16,6 @@ public interface TaskTeamService {
     Optional<TaskTeamDto> getTaskTeamById(UUID idTaskTeam);
     TaskTeamDto saveTaskTeam(TaskTeamDto taskTeamDto);
     TaskTeamDto updateTaskTeam(UUID idTasTeam,TaskTeamDto taskTeamDto);
-    TaskTeamDto updateTaskTeamHours(UUID idTasTeam, TaskTeamDto taskTeamDto);
+    TaskTeamDto updateTaskTeamState(UUID idTasTeam, TaskTeamDto taskTeamDto);
     Boolean deleteTaskTeam(UUID idTasTeam);
 }

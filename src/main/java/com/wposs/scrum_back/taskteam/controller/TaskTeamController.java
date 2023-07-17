@@ -95,18 +95,18 @@ public class TaskTeamController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
-    @PutMapping("/updatetaskhours/{id}")
+    @PutMapping("/updatetaskstate/{id}")
     @Operation(summary = "Update Task Team")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Update Task Team Success"),
             @ApiResponse(responseCode = "400",description = "Update Task Team Bad Request")
     })
-    public ResponseEntity<TaskTeamDto> updateTaskTeamHours(@Valid @RequestBody TaskTeamDto taskTeamDto,@PathVariable("id") UUID idTaskTeam,BindingResult result, @RequestHeader(value="Authorization") String token){
+    public ResponseEntity<TaskTeamDto> updateTaskTeamState(@Valid @RequestBody TaskTeamDto taskTeamDto,@PathVariable("id") UUID idTaskTeam,BindingResult result, @RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
             if (result.hasErrors()){
                 throw new MethodArgumentNotValidException(result.getFieldError().getDefaultMessage()+" usted ingreso: "+result.getFieldError().getRejectedValue(),"400",HttpStatus.BAD_REQUEST);
             }
-            return new ResponseEntity<>(teamService.updateTaskTeamHours(idTaskTeam,taskTeamDto),HttpStatus.OK);
+            return new ResponseEntity<>(teamService.updateTaskTeamState(idTaskTeam,taskTeamDto),HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

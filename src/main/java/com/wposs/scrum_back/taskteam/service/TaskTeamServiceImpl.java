@@ -77,6 +77,7 @@ public class TaskTeamServiceImpl implements TaskTeamService {
     @Override
     public TaskTeamDto saveTaskTeam(TaskTeamDto taskTeamDto) {
         TaskTeam taskTeam = modelMapper.map(taskTeamDto,TaskTeam.class);
+        taskTeam.setTaskState("PENDIENTE");
         if (taskTeamRepository.existsByTaskNameAndTeamId(taskTeam.getTaskName(),taskTeam.getTeamId())){
             throw new MessageGeneric("Ya se encuentra la tarea: "+taskTeam.getTaskName()+" asociada al mismo equipo ","409",HttpStatus.CONFLICT);
         }
@@ -97,9 +98,9 @@ public class TaskTeamServiceImpl implements TaskTeamService {
         }).orElseThrow(()->new MessageGeneric("Error,No se encontro la Tarea a Actualizar","404",HttpStatus.NOT_FOUND));
     }
     @Override
-    public TaskTeamDto updateTaskTeamHours(UUID idTasTeam, TaskTeamDto taskTeamDto) {
+    public TaskTeamDto updateTaskTeamState(UUID idTasTeam, TaskTeamDto taskTeamDto) {
         return taskTeamRepository.findById(idTasTeam).map(taskTeam -> {
-            taskTeam.setTaskHours((taskTeamDto.getTaskHours()!=null)? taskTeamDto.getTaskHours() : taskTeam.getTaskHours());
+            taskTeam.setTaskState("FINALIZADA");
             return modelMapper.map(taskTeamRepository.save(taskTeam),TaskTeamDto.class);
         }).orElseThrow(()->new MessageGeneric("Error,No se encontro la Tarea a Actualizar","404",HttpStatus.NOT_FOUND));
     }

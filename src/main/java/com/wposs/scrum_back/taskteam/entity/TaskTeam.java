@@ -22,9 +22,10 @@ public class TaskTeam {
     private UUID taskTeamId;
     @Column(name = "task_team_name")
     private String taskName;
-
     @Column(name = "task_team_hours")
     private Integer taskHours;
+    @Column(name = "task_team_state")
+    private String taskState;
     @Column(name = "fk_team")
     private UUID teamId;
 
@@ -88,6 +89,14 @@ public class TaskTeam {
 
     public void setTaskHours(Integer taskHours) {
         this.taskHours = taskHours;
+    }
+
+    public String getTaskState() {
+        return taskState;
+    }
+
+    public void setTaskState(String taskState) {
+        this.taskState = taskState;
     }
 
     public UUID getTeamId() {

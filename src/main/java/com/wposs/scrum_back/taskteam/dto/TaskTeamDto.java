@@ -22,6 +22,8 @@ public class TaskTeamDto {
 
     @JsonProperty(value = "taskHours")
     private Integer taskHours;
+    @JsonProperty(value = "taskState")
+    private String taskState;
     @JsonProperty(value = "teamId")
     private UUID teamId;
     @JsonProperty(value = "teamName",access = JsonProperty.Access.READ_ONLY)
@@ -40,6 +42,14 @@ public class TaskTeamDto {
 
     public Integer getTaskHours() {
         return taskHours;
+    }
+
+    public String getTaskState() {
+        return taskState;
+    }
+
+    public void setTaskState(String taskState) {
+        this.taskState = taskState;
     }
 
     public void setTaskHours(Integer taskHours) {

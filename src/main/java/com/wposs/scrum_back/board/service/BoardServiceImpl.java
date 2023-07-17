@@ -5,6 +5,8 @@ import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.board.dto.BoardDto;
 import com.wposs.scrum_back.board.entity.Board;
 import com.wposs.scrum_back.board.repository.BoardRepository;
+import com.wposs.scrum_back.taskteam.entity.TaskTeam;
+import com.wposs.scrum_back.taskteam.repository.TaskTeamRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +24,15 @@ public class BoardServiceImpl implements BoardService{
     private ModelMapper modelMapper;
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private TaskTeamRepository taskTeamRepository;
 
     @Override
     public BoardDto saveBoard(BoardDto boardDto) {
         Board board = modelMapper.map(boardDto,Board.class);
+        Optional<TaskTeam> taskTeam = taskTeamRepository.findById(board.getTaskTeamId());
+        taskTeam.get().setTaskState("EN CURSO");
+        taskTeamRepository.save(taskTeam.get());
         if (boardRepository.existsByTeamIdAndUserStoryIdAndTaskTeamIdAndEmployeeId(board.getTeamId(),board.getUserStoryId(),board.getTaskTeamId(),board.getEmployeeId())){
             throw new MessageGeneric("Ya existe un tablero con la infomacion ingresada","409", HttpStatus.CONFLICT);
         }
