@@ -24,7 +24,7 @@ export class TasksService {
     const token =''+ this.encry.decryptData(enToken);
     // const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.get('http://localhost:8020/taskteam/taskteam/'+ teamId +'/'+ userStoryId , {headers});
+    return this.httpClient.get('http://localhost:8020/taskteam/taskteamhu/'+ teamId +'/'+ userStoryId , {headers});
   }
 
   public editTimeTasksByUseStory(tasksTeamId: String, dataEditHours: any): Observable<any>{
