@@ -7,4 +7,6 @@ export interface IBoard {
   taskName: string,
   employeeId: string
   employeeName: string,
+  taskHours: string,
+  taskState: string
 }

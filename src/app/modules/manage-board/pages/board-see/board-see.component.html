@@ -72,6 +72,8 @@
                 <thead class="thead-ligth">
                   <tr>
                     <th scope="row" class="title_table">Tarea</th>
+                    <th scope="row" class="title_table">Horas</th>
+                    <th scope="row" class="title_table">Estado</th>
                     <th scope="row" class="title_table icon">Empleado</th>
                     <th scope="row" class="title_table icon">Fecha</th>
                     <th scope="row" class="title_table icon">Acciones</th>
@@ -80,12 +82,16 @@
                 <tbody>
                   <tr *ngFor="let item of board">
                     <td>{{item.taskName}}</td>
+                    <td>{{item.taskHours}}</td>
+                    <td>{{item.taskState}}</td>
                     <td>{{item.employeeName}}</td>
                     <td>{{item.date}}</td>
                     <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
                         (click)="editBoardModal(item.idBoard)"><i class="fas fa-edit"></i></button>
                       <button type="button" class="btn btn-danger btn-sm m-1" (click)="deleteBoard(item.idBoard)"><i
                           class="fas fa-trash"></i></button>
+                          <button type="button" class="btn btn-success btn-sm m-1" (click)="finishedTask(item.taskName, item.taskTeamId)"><i
+                            class="bi bi-check-circle"></i></button>
                     </td>
                   </tr>
                 </tbody>

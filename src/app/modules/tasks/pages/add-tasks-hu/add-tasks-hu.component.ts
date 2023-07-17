@@ -153,6 +153,7 @@ export class AddTasksHuComponent {
     this.taskService.getTasksByUserStory(this.teamId, this.userStoryId).subscribe({
       next: (resp)=>{
         this.tasksByUserStory= resp;
+        console.log(this.tasksByUserStory)
         this.tasksByUserStory.forEach( (element:{taskHours: number;})=>{
           this.hoursTot+= element.taskHours
         })

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { BoardEditComponent } from '../board-edit/board-edit.component';
 import { BoardComponent } from '../board/board.component';
+import { TasksService } from 'src/app/modules/tasks/pages/service/tasks.service';
 
 
 @Component({
@@ -33,12 +34,16 @@ export class BoardSeeComponent implements OnInit{
   areaId: string='';
   userStorys: any;
   board: IBoard[]= [];
+  taskTeamId: string='';
+  taskName: string='';
+
 
 
   constructor(
     private areaServise: AreaService,
     private userStoryService: userStoryService,
     private boardService: BoardService,
+    private taskService: TasksService,
     private route: Router,
     private dialog: MatDialog
   ) {
@@ -85,7 +90,6 @@ export class BoardSeeComponent implements OnInit{
 
   filterboard(): void {
     if (this.boardFrom.valid) {
-      // this.boardFrom.reset()
       const data = {
         teamId: this.boardFrom.get('teamId')?.value,
         userStoryId: this.boardFrom.get('userStoryId')?.value,
@@ -170,5 +174,54 @@ export class BoardSeeComponent implements OnInit{
     //  this.getAllBoard();
      })
   }
+
+  finishedTask( taskName: string, taskTeamId: string){
+    
+    Swal.fire({
+      title: 'La tarea ha sido finalizada?',
+      text: ' Al presionar Sí. El estado de la tarea cambiara a finalizadp',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#007bff',
+      cancelButtonColor: '#F1948A',
+      confirmButtonText: 'Sí!',
+      customClass: {
+        container: 'my-swal-container',
+        title: 'my-swal-title',
+        icon: 'my-swal-icon',
+      },
+      background: '#FFFEFB'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const data={
+          taskName: taskName,
+          taskTeamId: taskTeamId,
+          }
+        this.taskService.finishedTask(taskTeamId, data).subscribe({
+          next: (resp)=>{
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Tarea finalizada',
+              showConfirmButton: false,
+              timer: 1500,
+              toast: true,
+              customClass: {
+                container: 'my-swal-container',
+                title: 'my-swal-title',
+                icon: 'my-swal-icon',
+              },
+              background: '#E6F4EA'
+            })
+          }
+        })
+      
+    }
+  })
+
+    
+  }
+
+  
 
 }
