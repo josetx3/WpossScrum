@@ -140,4 +140,12 @@ public class UserStoryServiceImpl implements UserStoryService{
                     return modelMapper.map(userStory, UserStoryDto.class);
                 }).collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public List<UserStoryDto> getAllBoardsByTeamAndAreaAndSprint(UUID areaId, UUID teamId, UUID sprintId) {
+        return userStoryRepository.getUserStoryByAreaAndTeamAndSprint(areaId,teamId,sprintId).stream().map(userStory -> {
+            return modelMapper.map(userStory,UserStoryDto.class);
+        }).collect(Collectors.toList());
+    }
 }

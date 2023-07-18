@@ -1,6 +1,7 @@
 package com.wposs.scrum_back.userstory.controller;
 
 import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException;
+import com.wposs.scrum_back.board.dto.BoardDto;
 import com.wposs.scrum_back.sprint.dto.SprintDto;
 import com.wposs.scrum_back.sprintemployee.dto.SprintEmployeeDto;
 import com.wposs.scrum_back.userstory.dto.UserStoryDto;
@@ -165,6 +166,23 @@ public class UserStoryController {
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+    @GetMapping("/userFilter/{idarea}/{idteam}/{idsprint}")
+    @Operation(summary = "Get Board By area, team and userhistory")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Success user story"),
+            @ApiResponse(responseCode = "404",description = "Not Fount user story")
+    })
+    public ResponseEntity<List<UserStoryDto>> getBoardByTeamAndAreaAndsprint(@PathVariable("idarea")UUID areaId, @PathVariable("idteam")UUID teamId, @PathVariable("idsprint")UUID sprintId, @RequestHeader(value="Authorization") String token){
+        if (jwtUtil.validateToken(token)){
+            List<UserStoryDto> userStoryDtos = userStoryService.getAllBoardsByTeamAndAreaAndSprint(areaId,teamId,sprintId);
+            if (!userStoryDtos.isEmpty()){
+                return new ResponseEntity<>(userStoryDtos,HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }

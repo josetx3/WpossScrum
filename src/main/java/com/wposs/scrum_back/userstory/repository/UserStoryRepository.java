@@ -43,4 +43,11 @@ public interface UserStoryRepository extends JpaRepository<UserStory, UUID> {
                 "                inner join wposs.user_story ust on ust.user_story_id = sus.fk_user_story_id\n" +
                 "                where  te.team_id = ?1 and spri.sprint_id=?2", nativeQuery = true)
         List<UserStory> getUserStoryByTeamAndSprint(UUID teamId,UUID sprintId);
+
+        @Query(value = "SELECT distinct us.* FROM wposs.user_story  us INNER JOIN wposs.board bo ON us.user_story_id = bo.fk_user_story\n" +
+                "INNER JOIN wposs.team te ON bo.fk_team = te.team_id\n" +
+                "INNER JOIN wposs.area ar ON te.area_id = ar.area_id\n" +
+                "INNER JOIN  wposs.sprint spr on ar.area_id = spr.fk_area_id\n" +
+                "WHERE ar.area_id=?1 and te.team_id=?2 and spr.sprint_id=?3",nativeQuery = true)
+        List<UserStory> getUserStoryByAreaAndTeamAndSprint(UUID areaId,UUID teamId,UUID sprintId);
 }
