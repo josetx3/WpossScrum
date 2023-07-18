@@ -89,8 +89,14 @@ public class JWTUtil {
 
     public boolean validateToken(String jwt) {
         try {
+            if (jwt != null) {
+                if (jwt.startsWith("Bearer ")) {
+                    jwt=jwt.substring(7);
+                }
+            }
             // Parsea y verifica el token JWT
             Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key)).parseClaimsJws(jwt);
+
             return true; // this token is valid
         } catch (JwtException | IllegalArgumentException e) {
             log.error("Error al validar el token JWT: {}", e.getMessage());

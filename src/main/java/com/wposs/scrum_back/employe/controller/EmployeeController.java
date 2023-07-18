@@ -5,8 +5,11 @@ import com.wposs.scrum_back.employe.dto.EmployeDto;
 import com.wposs.scrum_back.employe.service.EmployeService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.*;
 
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
 @RestController
 @CrossOrigin(maxAge = 3600)
 @RequestMapping("/employee")
@@ -28,6 +37,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get employee by UUID")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<EmployeDto> findById(@PathVariable("id") UUID idEmploye, @RequestHeader(value="Authorization") String token) {
         if (jwtUtil.validateToken(token)){
@@ -39,6 +49,7 @@ public class EmployeeController {
 
     @GetMapping("/all")
     @Operation(summary = "Get all employees")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<List<EmployeDto>> findAll(@RequestHeader(value="Authorization") String token) {
         if (jwtUtil.validateToken(token)){
@@ -54,6 +65,7 @@ public class EmployeeController {
 
     @PostMapping("/save/")
     @Operation(summary = "Create employee")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "employee created"),
             @ApiResponse(responseCode = "400",description = "employee bad request")
@@ -67,6 +79,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update the employee")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Return the updated employee"),
             @ApiResponse(responseCode = "404",description = "Employe Not Found")
@@ -85,6 +98,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}/{password}")
     @Operation(summary = "Update the employee with new password")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Return the updated employee"),
             @ApiResponse(responseCode = "404",description = "Employe Not Found")
@@ -102,6 +116,7 @@ public class EmployeeController {
 
     @GetMapping("employeteam/{id}")
     @Operation(summary = "Get all employee to team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get all Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
@@ -120,6 +135,7 @@ public class EmployeeController {
 
     @GetMapping("employeetoteam/{id}")
     @Operation(summary = "Get all employee to team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get all Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
@@ -138,6 +154,7 @@ public class EmployeeController {
 
     @GetMapping("employeenoteam/{id}")
     @Operation(summary = "Get All Employee no Exists And To Team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = ""),
             @ApiResponse(responseCode = "404",description = "")
@@ -156,6 +173,7 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete employee by id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "DELETE SUCCESS"),
             @ApiResponse(responseCode = "404",description = "EMPLOYEE NOT FOUND")

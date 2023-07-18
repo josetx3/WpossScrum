@@ -5,8 +5,11 @@ import com.wposs.scrum_back.project.dto.ProjectDto;
 import com.wposs.scrum_back.project.service.ProjectService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
@@ -27,6 +35,7 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get project by UUID")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<ProjectDto> findById(@PathVariable("id") UUID id,@RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
@@ -38,6 +47,7 @@ public class ProjectController {
 
     @GetMapping("/all")
     @Operation(summary = "Get all projects")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<ProjectDto>> findAll(@RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
@@ -53,6 +63,7 @@ public class ProjectController {
 
     @PostMapping("/save")
     @Operation(summary = "Create project")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "project created"),
             @ApiResponse(responseCode = "400",description = "project bad request")
@@ -70,6 +81,7 @@ public class ProjectController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update the project")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Return the updated project"),
             @ApiResponse(responseCode = "404",description = "Project Not Found")
@@ -87,6 +99,7 @@ public class ProjectController {
 
     @GetMapping("/area/{areaId}")
     @Operation(summary = "Get all projects by area id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<ProjectDto>> findAllProjectsByAreaId(@PathVariable UUID areaId,@RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){

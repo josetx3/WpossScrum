@@ -6,8 +6,11 @@ import com.wposs.scrum_back.improvements.entity.Improvements;
 import com.wposs.scrum_back.improvements.service.ImprovementsService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
 @RestController
 @RequestMapping("/improvements")
 public class ImprovementsController {
@@ -29,6 +37,7 @@ public class ImprovementsController {
 
     @GetMapping("/all")
     @Operation(summary = "Get All Improvements")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get All Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Improvements")
@@ -47,6 +56,7 @@ public class ImprovementsController {
 
     @PostMapping("/saveimprovements")
     @Operation(summary = "Save Improvements")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "Save Improvements Success"),
             @ApiResponse(responseCode = "400",description = "JSON Bad Request")
@@ -64,6 +74,7 @@ public class ImprovementsController {
 
     @GetMapping("/improvementsId/{id}")
     @Operation(summary = "Get Improvements By Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Improvements Success"),
             @ApiResponse(responseCode = "404",description = "Improvements Not Found")
@@ -80,6 +91,7 @@ public class ImprovementsController {
 
     @DeleteMapping("/deleteimprovements/{idimprovements}")
     @Operation(summary = "Delete Improvements")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",description = "Delete Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Improvements")

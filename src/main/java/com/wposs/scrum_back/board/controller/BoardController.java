@@ -6,8 +6,11 @@ import com.wposs.scrum_back.board.dto.BoardDto;
 import com.wposs.scrum_back.board.service.BoardService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,12 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
 @RestController
 @RequestMapping("board")
 public class BoardController {
@@ -28,6 +37,7 @@ public class BoardController {
     private JWTUtil jwtUtil;
     @PostMapping("/saveboard")
     @Operation(summary = "Save to Board")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = ""),
             @ApiResponse(responseCode = "400",description = ""),
@@ -46,6 +56,7 @@ public class BoardController {
 
     @GetMapping("/allboards")
     @Operation(summary = "Get All Boards")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Boards Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Boards")
@@ -64,6 +75,7 @@ public class BoardController {
 
     @PutMapping("/updateboard/{idBoard}")
     @Operation(summary = "Update Board")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
@@ -81,6 +93,7 @@ public class BoardController {
 
     @DeleteMapping("/deleteboard/{idBoard}")
     @Operation(summary = "Delecte Board To Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",description = "Not Contend Success"),
             @ApiResponse(responseCode = "404",description = "Not Found Board")
@@ -98,6 +111,7 @@ public class BoardController {
 
     @GetMapping("/boardid/{idboard}")
     @Operation(summary = "Get Board By Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Success Board"),
             @ApiResponse(responseCode = "404",description = "Not Fount Board")
@@ -111,6 +125,7 @@ public class BoardController {
     }
     @GetMapping("/boardFilter/{idarea}/{idteam}/{iduserhistory}")
     @Operation(summary = "Get Board By area, team and userhistory")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Success Board"),
             @ApiResponse(responseCode = "404",description = "Not Fount Board")
