@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from "@angular/forms";
 import { AreaInterface } from 'src/app/modules/area/pages/Interface/interface-area';
 import { Team } from 'src/app/modules/teams/pages/interface/team';
-import { IBoard } from '../interface/board';
+import { Board, IBoard } from '../interface/board';
 import { AreaService } from 'src/app/modules/area/pages/service/area.service';
 import { userStoryService } from 'src/app/modules/userStory/pages/service/user-story.service';
 import { BoardService } from '../service/board.service';
@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 import { BoardEditComponent } from '../board-edit/board-edit.component';
 import { BoardComponent } from '../board/board.component';
 import { TasksService } from 'src/app/modules/tasks/pages/service/tasks.service';
+import { SprintsService } from 'src/app/modules/sprints/pages/service/sprints.service';
+import { Sprints } from 'src/app/modules/sprints/pages/interface/sprints-interfaces';
 
 
 @Component({
@@ -24,7 +26,7 @@ export class BoardSeeComponent implements OnInit{
   boardFrom: FormGroup = new FormGroup({
     teamId: new FormControl(null, [Validators.required]),
     areaId: new FormControl(null, [Validators.required]),
-    userStoryId: new FormControl(null, [Validators.required]),
+    sprintId: new FormControl(null, [Validators.required]),
 
   })
 
@@ -33,9 +35,11 @@ export class BoardSeeComponent implements OnInit{
   areas: AreaInterface[]=[];
   areaId: string='';
   userStorys: any;
-  board: IBoard[]= [];
+  board:Board= [];
   taskTeamId: string='';
   taskName: string='';
+  sprints: Sprints[]=[];
+  userStoryTeamSprint:any='';
 
 
 
@@ -45,7 +49,8 @@ export class BoardSeeComponent implements OnInit{
     private boardService: BoardService,
     private taskService: TasksService,
     private route: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sprintService: SprintsService
   ) {
   }
 
@@ -80,9 +85,12 @@ export class BoardSeeComponent implements OnInit{
 
  selectTeam() {
   this.teamId = this.boardFrom.get('teamId')?.value;
-  this.userStoryService.getUserStoryToTeam(this.teamId).subscribe({ //trae todas las hu segun el equipo
-    next: (r)=> {
-      this.userStorys = r;
+  this.sprintService.getSprintByTeam(this.teamId).subscribe({
+    next:(res)=>{
+      this.sprints= res;
+    },
+    error: (res)=>{
+      this.sprints=res.null;
     }
   })
 }
@@ -92,38 +100,63 @@ export class BoardSeeComponent implements OnInit{
     if (this.boardFrom.valid) {
       const data = {
         teamId: this.boardFrom.get('teamId')?.value,
-        userStoryId: this.boardFrom.get('userStoryId')?.value,
+        sprintId: this.boardFrom.get('sprintId')?.value,
         areaId: this.boardFrom.get('areaId')?.value,
       }
-        this.boardService.getBoardByAreaIdTeamIdUserStoryId(data.areaId, data.teamId, data.userStoryId).subscribe({
-         next: (resp)=>{
-            this.board = resp;
-            this.route.navigateByUrl('app/board');
-            this.boardFrom.reset()
-          },
-          error:
-            err => {
-              Swal.fire({
-                position:'top-end',
-                title: 'El tablero que ha intentado buscar no existe.',
-                icon: 'warning',
-                confirmButtonColor: '#3085d6',
-                showConfirmButton: false,
-                timer: 3000,
-                toast: true,
-                customClass: {
-                  container: 'my-swal-container',
-                  title: 'my-swal-title',
-                  icon: 'my-swal-icon',
-                },
-                background: '#FFFEFB',
-              })
-              this.boardFrom.reset()
-            }
-        })      
-    };
+
+      this.taskService.getStoryUserbyTeam(data.teamId,data.sprintId ).subscribe({
+        next: (resp)=>{
+          this.userStoryTeamSprint= resp;
+          console.log(this.userStoryTeamSprint)
+          this.userStoryTeamSprint.forEach((element: { userStoryId: string; })=> {
+            let userStoryId=element.userStoryId
+            console.log(userStoryId)
+            this.boardService.getBoardByAreaIdTeamIdUserStoryId(data.areaId, data.teamId,userStoryId).subscribe({
+              next: (resp)=>{
+                console.log(userStoryId)
+                 this.board[userStoryId] = resp;
+                 console.log(this.board)
+                 this.route.navigateByUrl('app/board');
+                 userStoryId='';
+               },
+               error:
+                 err => {
+                   Swal.fire({
+                     position:'top-end',
+                     title: 'Se debe agregar tablero de la historia vacía',
+                     icon: 'warning',
+                     confirmButtonColor: '#3085d6',
+                     showConfirmButton: false,
+                     timer: 3000,
+                     toast: true,
+                     customClass: {
+                       container: 'my-swal-container',
+                       title: 'my-swal-title',
+                       icon: 'my-swal-icon',
+                     },
+                     background: '#FFFEFB',
+                   })
+                 }
+             }) 
+          });
+        }  
+      })     
+    }
   }
-  
+
+  getRowClass(status: string): string {
+
+    switch (status) {
+      case 'FINALIZADA':
+        return 'task-completed';
+      case 'EN CURSO':
+        return 'task-in-progress';
+      case 'PENDIENTE':
+        return 'task-pending';
+      default:
+        return '';
+    }
+  }
 
   deleteBoard(id: string): void{
     Swal.fire({
@@ -152,7 +185,6 @@ export class BoardSeeComponent implements OnInit{
                 },
                 background: '#E6F4EA',
              })
-              this.boardFrom.reset();
               this.boardService.getAllBoard();
            })
 
@@ -175,7 +207,7 @@ export class BoardSeeComponent implements OnInit{
      })
   }
 
-  finishedTask( taskName: string, taskTeamId: string){
+  finishedTask(taskName: string, taskTeamId: string){
     
     Swal.fire({
       title: 'La tarea ha sido finalizada?',
@@ -213,13 +245,12 @@ export class BoardSeeComponent implements OnInit{
               },
               background: '#E6F4EA'
             })
+            this.filterboard();
           }
         })
       
     }
   })
-
-    
   }
 
   

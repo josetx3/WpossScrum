@@ -15,6 +15,7 @@ import {AreaInterface} from "../../../area/pages/Interface/interface-area";
 import {AreaService} from "../../../area/pages/service/area.service";
 import Swal from 'sweetalert2';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TasksService } from 'src/app/modules/tasks/pages/service/tasks.service';
 
 @Component({
   selector: 'app-board',
@@ -34,6 +35,7 @@ export class BoardComponent implements OnInit {
   teamId: string = '';
   userStoryTeam: UserStory[] = [];
   board: IBoard[] = [];
+  userStoryId: string='';
 
 
   areas: AreaInterface[]= [];
@@ -49,6 +51,7 @@ export class BoardComponent implements OnInit {
     private employeesService: EmployeesService,
     private boardService: BoardService,
     private taskTeamService: TeamsTasksService,
+    private taskService: TasksService,
     private route: Router,
     private dialogRef : MatDialogRef<BoardComponent>,
   ) {}
@@ -70,11 +73,26 @@ export class BoardComponent implements OnInit {
 
   selectTeam(){
     this.teamId = this.boardFrom.get('teamId')?.value;
-    this.userStoryService.getUserStoryToTeam(this.teamId).subscribe(resp =>{
-      this.userStory = resp;
+    this.userStoryService.getUserStoryToTeam(this.teamId).subscribe({
+      next:(resp) =>{
+        this.userStory = resp;
+        },
+      error: (err)=>{
+        this.userStory=null;
+      }
     })
-    this.taskTeamService.getAllTaskTeamByTeamId(this.teamId).subscribe(resp =>{
-      this.taskTeam = resp;
+  }
+
+  selectUserStory(){
+    this.teamId = this.boardFrom.get('teamId')?.value;
+    this.userStoryId= this.boardFrom.get('userStoryId')?.value;
+    this.taskService.getTasksByUserStory(this.teamId, this.userStoryId).subscribe({
+      next:resp =>{
+        this.taskTeam = resp;
+        },
+      error: ()=>{
+        this.taskTeam=null;
+      }
     })
     this.getAllEmployeesTeam();
   }

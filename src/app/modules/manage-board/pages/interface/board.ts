@@ -10,3 +10,7 @@ export interface IBoard {
   taskHours: string,
   taskState: string
 }
+
+export interface Board {
+  [userStoryId: string]: any; // Aquí, el tipo 'any' se puede reemplazar con el tipo adecuado para las user stories
+}
