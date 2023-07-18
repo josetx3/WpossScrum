@@ -7,8 +7,11 @@ import com.wposs.scrum_back.team.dto.TeamEmployeDto;
 import com.wposs.scrum_back.team.service.TeamService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
-
+@SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
 @RestController
 @RequestMapping("/team")
 public class TeamController {
@@ -28,6 +31,7 @@ public class TeamController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get team by UUID")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<TeamDto> findById(@PathVariable("id") UUID idTeam, @RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
@@ -39,6 +43,7 @@ public class TeamController {
 
     @GetMapping("/all")
     @Operation(summary = "Get all teams")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "successful search"),
             @ApiResponse(responseCode = "404",description = "Not Found")
@@ -57,6 +62,7 @@ public class TeamController {
 
     @PostMapping("/save")
     @Operation(summary = "Create team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "Team Create"),
             @ApiResponse(responseCode = "400",description = "team bad request")
@@ -74,6 +80,7 @@ public class TeamController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update the team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Return the updated team"),
             @ApiResponse(responseCode = "404",description = "Project Not Found")
@@ -91,6 +98,7 @@ public class TeamController {
 
     @GetMapping("/area/{areaId}")
     @Operation(summary = "Get all teams by area id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<TeamDto>> findAllProjectsByAreaId(@PathVariable UUID areaId, @RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
@@ -106,6 +114,7 @@ public class TeamController {
 
     @PutMapping("saveemployetoteam/{id}")
     @Operation(summary = "Save to employee To team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "Save Success"),
             @ApiResponse(responseCode = "400",description = "Error when inserting the employee in the team"),

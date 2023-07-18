@@ -6,8 +6,11 @@ import com.wposs.scrum_back.observation.service.ObersvationService;
 import com.wposs.scrum_back.userstorystatus.dto.UserStoryStatusDto;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
 @RestController
 @RequestMapping("/observation")
 public class ObservationController {
@@ -28,6 +36,7 @@ public class ObservationController {
 
     @GetMapping("/all")
     @Operation(summary = "Get All Observation")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get All Success"),
             @ApiResponse(responseCode = "400",description = "")
@@ -47,6 +56,7 @@ public class ObservationController {
 
     @PostMapping("/saveobservation")
     @Operation(summary = "Save Observation")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "Save Success"),
             @ApiResponse(responseCode = "400",description = "Error JSON")
@@ -63,6 +73,7 @@ public class ObservationController {
     }
     @PutMapping("/{id}")
     @Operation(summary = "Update the userStoryStatus")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Return the updated UserStoryStatus"),
             @ApiResponse(responseCode = "404", description = "UserStoryStatus Not Found")

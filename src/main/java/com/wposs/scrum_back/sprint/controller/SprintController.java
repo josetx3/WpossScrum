@@ -6,8 +6,11 @@ import com.wposs.scrum_back.sprint.dto.SprintDtoRequest;
 import com.wposs.scrum_back.sprint.service.SprintService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,12 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
 @RestController
 @RequestMapping("/sprint")
 public class SprintController {
@@ -27,6 +36,7 @@ public class SprintController {
     private JWTUtil jwtUtil;
     @GetMapping("/all")
     @Operation(summary = "Get All Sprint")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get All success"),
             @ApiResponse(responseCode = "404",description = "Not Found Sprint")
@@ -46,6 +56,7 @@ public class SprintController {
 
     @PostMapping("/savesprint")
     @Operation(summary = "Save Sprint")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "Create Success"),
             @ApiResponse(responseCode = "400",description = "Sprint Bad Request"),
@@ -67,6 +78,7 @@ public class SprintController {
 
     @GetMapping("/sprint/{idsprint}")
     @Operation(summary = "Get Sprint By Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get Succes Sprint"),
             @ApiResponse(responseCode = "404",description = "Sprint Not Found")
@@ -80,6 +92,7 @@ public class SprintController {
     }
     @GetMapping("/sprintData/{idsprint}")
     @Operation(summary = "Get Sprint data By Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get Succes Sprint"),
             @ApiResponse(responseCode = "404",description = "Sprint data Not Found")
@@ -94,6 +107,7 @@ public class SprintController {
 
     @PutMapping("/updatesprint/{idsprint}")
     @Operation(summary = "Update Sprint")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Update Success Sprint"),
             @ApiResponse(responseCode = "400",description = "Data Invaild"),
@@ -112,6 +126,7 @@ public class SprintController {
 
     @GetMapping("/sprinteam/{idTeam}")
     @Operation(summary = "Get Sprint data By Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get Succes Sprint by Team"),
             @ApiResponse(responseCode = "404",description = "Sprint  Not Found")

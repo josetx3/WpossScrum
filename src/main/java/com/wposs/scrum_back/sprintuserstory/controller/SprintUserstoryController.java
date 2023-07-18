@@ -6,8 +6,11 @@ import com.wposs.scrum_back.sprintuserstory.dto.SprintUserstoryDtoRequest;
 import com.wposs.scrum_back.sprintuserstory.service.SprintUserstoryService;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+@SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
 @RestController
 @RequestMapping("/sprintuserstory")
 public class SprintUserstoryController {
@@ -27,6 +31,7 @@ public class SprintUserstoryController {
     private JWTUtil jwtUtil;
     @PostMapping("/savesprintuserstory")
     @Operation(summary = "Save To Sprint story")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "Save Success Sprint  story"),
             @ApiResponse(responseCode = "400",description = "Bad Request Json")
@@ -44,6 +49,7 @@ public class SprintUserstoryController {
 
     @GetMapping("/sprintuserstory/{idsprint}")
     @Operation(summary = "Get user story by sprint")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get Succes user story"),
             @ApiResponse(responseCode = "404",description = "user story data Not Found")
@@ -57,6 +63,7 @@ public class SprintUserstoryController {
     }
     @PutMapping("/updatesprintuserstory/{idSprint}/{idUserStory}")
     @Operation(summary = "Update sprintuserstory")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Update sprintuserstory Success"),
             @ApiResponse(responseCode = "400",description = "Update sprintuserstory Bad Request")
@@ -74,6 +81,7 @@ public class SprintUserstoryController {
 
     @DeleteMapping("/deletesprintuserstory/{idSprint}/{idUserStory}")
     @Operation(summary = "Delete sprintuserstory")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Delete Success"),
             @ApiResponse(responseCode = "404",description = "sprintuserstory Not Found")

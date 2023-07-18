@@ -8,8 +8,11 @@ import com.wposs.scrum_back.taskteam.service.TaskTeamService;
 import com.wposs.scrum_back.taskteam.service.TaskTeamServiceImpl;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +26,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
 @RestController
 @RequestMapping("/taskteam")
 public class TaskTeamController {
@@ -33,6 +37,7 @@ public class TaskTeamController {
     private JWTUtil jwtUtil;
     @PostMapping("/createtask")
     @Operation(summary = "Create task")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "task created"),
             @ApiResponse(responseCode = "400",description = "task bad request")
@@ -50,6 +55,7 @@ public class TaskTeamController {
 
     @GetMapping("/all")
     @Operation(summary = "Get all task")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "success")
     public ResponseEntity<List<TaskTeamDto>> findAll(@RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
@@ -65,7 +71,7 @@ public class TaskTeamController {
 
     @GetMapping("/{taskTeamId}")
     @Operation(summary = "Get task by UUID")
-    @ApiResponse(responseCode = "200",description = "success")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "success"),
             @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
@@ -81,6 +87,7 @@ public class TaskTeamController {
 
     @PutMapping("/updatetask/{id}")
     @Operation(summary = "Update Task Team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Update Task Team Success"),
             @ApiResponse(responseCode = "400",description = "Update Task Team Bad Request")
@@ -97,6 +104,7 @@ public class TaskTeamController {
     }
     @PutMapping("/updatetaskstate/{id}")
     @Operation(summary = "Update Task Team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Update Task Team Success"),
             @ApiResponse(responseCode = "400",description = "Update Task Team Bad Request")
@@ -114,6 +122,7 @@ public class TaskTeamController {
 
     @DeleteMapping("/deleteTaskTeam/{id}")
     @Operation(summary = "Delete Task Team To Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Delete Success"),
             @ApiResponse(responseCode = "404",description = "Task Team Not Found")
@@ -131,6 +140,7 @@ public class TaskTeamController {
 
     @GetMapping("taskteam/{idTeam}")
     @Operation(summary = "get All taskteam to Idteam")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "get All Success"),
             @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
@@ -149,6 +159,7 @@ public class TaskTeamController {
 
     @GetMapping("taskteam/{idTeam}/{idUserStory}")
     @Operation(summary = "get All taskteam to Idteam and Iduserstory")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "get All Success"),
             @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")
@@ -167,6 +178,7 @@ public class TaskTeamController {
 
     @GetMapping("taskteamhu/{idTeam}/{idUserStory}")
     @Operation(summary = "get All taskteam to Idteam and Iduserstory")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "get All Success"),
             @ApiResponse(responseCode = "404",description = "Not Found TaskTeam")

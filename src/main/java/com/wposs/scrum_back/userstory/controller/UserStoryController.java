@@ -12,8 +12,11 @@ import com.wposs.scrum_back.userstory.service.UserStoryService;
 import com.wposs.scrum_back.userstory.service.UserStoryServiceImpl;
 import com.wposs.scrum_back.utils.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
 @RestController
 @RequestMapping("/userstory")
 public class UserStoryController {
@@ -39,6 +43,7 @@ public class UserStoryController {
 
     @GetMapping("/{userStoryId}")
     @Operation(summary = "Get UserStory To Id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "successful search"),
             @ApiResponse(responseCode = "404",description = "Not Found UserStory")
@@ -55,6 +60,7 @@ public class UserStoryController {
 
     @GetMapping("/userstory/all")
     @Operation(summary = "Get all User Stories")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<UserStoryDto>> findAll(@RequestHeader(value="Authorization") String token){
        if (jwtUtil.validateToken(token)){
@@ -70,6 +76,7 @@ public class UserStoryController {
 
     @GetMapping("/allByTeam/{teamId}/{sprintId}")
     @Operation(summary = "Get All Use Story By team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get All success"),
             @ApiResponse(responseCode = "404",description = "Not Found Users stories")
@@ -87,6 +94,7 @@ public class UserStoryController {
     }
     @PostMapping("/save")
     @Operation(summary = "Create User Story")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "user story created"),
             @ApiResponse(responseCode = "400",description = "user story bad request")
@@ -104,6 +112,7 @@ public class UserStoryController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update the userStory")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "the updated User story"),
             @ApiResponse(responseCode = "400",description = "Story Not Found")
@@ -121,6 +130,7 @@ public class UserStoryController {
 
     @GetMapping("/subproject/{subprojectId}")
     @Operation(summary = "Get all user stories by subproject id")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200",description = "successful search")
     public ResponseEntity<List<UserStoryDto>> findAllUserStoriesBySubProjectId(@PathVariable("subprojectId") UUID subprojectId, @RequestHeader(value="Authorization") String token){
         if (jwtUtil.validateToken(token)){
@@ -136,6 +146,7 @@ public class UserStoryController {
 
     @GetMapping("/userstoryteam/{id}")
     @Operation(summary = "Get All UserStory To Team")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
@@ -154,6 +165,7 @@ public class UserStoryController {
 
     @GetMapping("/userstoryteam/{idTeam}/{idArea}")
     @Operation(summary = "Get UserStory to team and area")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Get all Success"),
             @ApiResponse(responseCode = "404",description = "Not Found")
@@ -171,6 +183,7 @@ public class UserStoryController {
     }
     @GetMapping("/userFilter/{idarea}/{idteam}/{idsprint}")
     @Operation(summary = "Get Board By area, team and userhistory")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Success user story"),
             @ApiResponse(responseCode = "404",description = "Not Fount user story")
