@@ -26,16 +26,12 @@
           </select>
         </div>
         <div class="form-group col-8 m-1">
-          <label>Seleccionar empleado</label>
+          <label>Asignar empleado</label>
           <select class="form-select" formControlName="employeeId">
             <option>Seleccionar</option>
             <option value="{{employee.employeeId}}" *ngFor="let employee of employees">{{employee.employeeName}}
             </option>
           </select>
-        </div>
-        <div class="form-group col-8 m-1">
-          <label>Fecha</label>
-          <input type="date" class="form-control" formControlName="date">
         </div>
         <div class="col-3 m-3">
           <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="boardEditFrom.invalid">Guardar</button>

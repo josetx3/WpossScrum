@@ -51,10 +51,6 @@
             <div class="col-12 text-center">
               <button class="btn btn-primary mx-2 mb-2" (click)="filterboard()">Filtrar</button>
             </div>
-            <hr>
-            <div class="col-12">
-              <button class="btn btn-primary mx-2 mb-2 bnt" (click)="addBoardModal()">Añadir tablero</button>
-            </div>
           </div>
         </form>
       </div>
@@ -73,7 +69,7 @@
                       <th scope="row" class="title_table">Horas</th>
                       <th scope="row" class="title_table">Estado</th>
                       <th scope="row" class="title_table icon">Empleado</th>
-                      <th scope="row" class="title_table icon">Fecha</th>
+                      <th scope="row" class="title_table icon">Fecha asignacion</th>
                       <th scope="row" class="title_table icon">Acciones</th>
                     </tr>
                   </thead>
@@ -83,7 +79,7 @@
                       <td>{{item.taskHours}}</td>
                       <td>{{item.taskState}}</td>
                       <td>{{item.employeeName}}</td>
-                      <td>{{item.date}}</td>
+                      <td>{{formatDate(item.assingDate)}}</td>
                       <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
                           (click)="editBoardModal(item.idBoard)"><i class="fas fa-edit"></i></button>
                         <button type="button" class="btn btn-danger btn-sm m-1" (click)="deleteBoard(item.idBoard)"><i

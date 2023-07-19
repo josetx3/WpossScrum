@@ -20,11 +20,10 @@ export class BoardEditComponent implements OnInit {
 
 
   boardEditFrom: FormGroup = new FormGroup({
-    teamId: new FormControl(null, [Validators.required]),
-    userStoryId: new FormControl(null, [Validators.required]),
-    taskTeamId: new FormControl(null, [Validators.required]),
+    teamId: new FormControl({ value: null, disabled: true }),
+    userStoryId: new FormControl({ value: null, disabled: true }),
+    taskTeamId: new FormControl({ value: null, disabled: true }),
     employeeId: new FormControl(null, [Validators.required]),
-    date: new FormControl(null, [Validators.required])
   })
 
   teams:any;
@@ -92,19 +91,18 @@ export class BoardEditComponent implements OnInit {
         userStoryId: this.boardEditFrom.get('userStoryId')?.value,
         taskTeamId: this.boardEditFrom.get('taskTeamId')?.value,
         employeeId: this.boardEditFrom.get('employeeId')?.value,
-        date: this.boardEditFrom.get('date')?.value
       }
       this.boardService.updateBoard(this.idBoard, data).subscribe((resp) => {
           this.boardEditFrom.reset()
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Proyecto editado',
+            title: 'Empleado asignado con exito',
             showConfirmButton: false,
             timer: 1500
           })
           this.dialogRef.close();
-          location.reload();
+         
         },
       );
     }

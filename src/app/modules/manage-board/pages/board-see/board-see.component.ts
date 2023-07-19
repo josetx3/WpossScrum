@@ -144,6 +144,19 @@ export class BoardSeeComponent implements OnInit{
     }
   }
 
+  formatDate(assignDate: string): string {
+   
+    const dateObj = new Date(assignDate);
+  
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+  
+    
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  }
+
   getRowClass(status: string): string {
 
     switch (status) {
@@ -185,7 +198,7 @@ export class BoardSeeComponent implements OnInit{
                 },
                 background: '#E6F4EA',
              })
-              this.boardService.getAllBoard();
+             this.filterboard();
            })
 
         }
@@ -196,16 +209,11 @@ export class BoardSeeComponent implements OnInit{
   editBoardModal(idBoard: String) {
     const dialogRef = this.dialog.open(BoardEditComponent, {width: '500px', maxHeight: '600px',   data:{idBoard: idBoard }});
      dialogRef.afterClosed().subscribe(resul => {
-    //  this.getAllBoard();
+      this.filterboard();
      })
   }
 
-  addBoardModal() {
-    const dialogRef = this.dialog.open(BoardComponent, {width: '500px', maxHeight:'600px'});
-     dialogRef.afterClosed().subscribe(resul => {
-    //  this.getAllBoard();
-     })
-  }
+ 
 
   finishedTask(taskName: string, taskTeamId: string, idBoard: string){
     
@@ -249,7 +257,7 @@ export class BoardSeeComponent implements OnInit{
             this.filterboard();
           }
         })
-      
+  
     }
   })
   }
