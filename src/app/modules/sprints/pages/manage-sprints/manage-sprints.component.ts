@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { SprintAddComponent } from '../sprint-add/sprint-add.component';
 import {AddUserStorySprintComponent} from "../add-user-story-sprint/add-user-story-sprint.component";
+import { GraphicBurndownchartComponent } from '../graphic-burndownchart/graphic-burndownchart.component';
 
 @Component({
   selector: 'app-manage-sprints',
@@ -96,6 +97,15 @@ export class ManageSprintsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe( (resul) =>{
       this.getAllSprints();
+    })
+  }
+
+  viewGraphicUserStory(){
+
+    
+    const dialogRef= this.dialog.open(GraphicBurndownchartComponent,{
+      width:'1000px',
+      maxHeight: '700px'
     })
   }
 

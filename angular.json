@@ -19,7 +19,8 @@
           "options": {
             "allowedCommonJsDependencies": [
               "sweetalert2",
-              "crypto-js"
+              "crypto-js",
+              "rfdc"
             ],
             "outputPath": "dist/scrumfrontend",
             "index": "src/index.html",

@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { SprintUserStoryManageComponent } from './pages/sprint-user-story-manage/sprint-user-story-manage.component';
 import { EditSprintUserStoryManageComponent } from './pages/edit-sprint-user-story-manage/edit-sprint-user-story-manage.component';
+import { GraphicBurndownchartComponent } from './pages/graphic-burndownchart/graphic-burndownchart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -23,12 +25,14 @@ import { EditSprintUserStoryManageComponent } from './pages/edit-sprint-user-sto
     SprintAddComponent,
     SprintUserStoryManageComponent,
     EditSprintUserStoryManageComponent,
+    GraphicBurndownchartComponent,
   ],
   imports: [
     CommonModule,
     SprintsRoutingModule,
     ReactiveFormsModule,
     MatButtonModule,
+    NgxChartsModule,
     FormsModule
   ]
 })

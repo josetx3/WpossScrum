@@ -22,6 +22,7 @@
             <th scope="row" class="title_table">Puntear dias</th>
             <th scope="row" class="title_table">Calcular Puntos Sprint</th>
             <th scope="row" class="title_table">Añadir HU</th>
+            <th scope="row" class="title_table">Burn down chart</th>
           </tr>
         </thead>
         <tbody class="text-center">
@@ -43,6 +44,10 @@
             <td class="icon">
               <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['sprint-user-story',item.sprintId, item]"
                       title="Añadir Historias de usuario"><i class="bi bi-file-plus-fill"></i></button>
+            </td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary btn-sm m-1" (click)="viewGraphicUserStory()"
+                      title="Grafica Burn down chart"><i class="bi bi-bar-chart-steps"></i></button>
             </td>
           </tr>
         </tbody>
