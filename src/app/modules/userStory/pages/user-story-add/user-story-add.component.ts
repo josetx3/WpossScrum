@@ -70,6 +70,7 @@ export class UserStoryAddComponent implements OnInit {
 
       this.userStoryService.saveUser_story(data).subscribe(
         (resp) => {
+          console.log(resp)
           Swal.fire({
             position: 'top-end',
             icon: 'success',

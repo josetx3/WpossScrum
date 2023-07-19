@@ -59,7 +59,6 @@ export class BoardEditComponent implements OnInit {
           teamId : resp.teamId,
           taskTeamId : resp.taskTeamId,
           date : resp.date
-
       })
       }
     });

@@ -21,7 +21,7 @@
                 <form [formGroup]="addTaskUS" (ngSubmit)="addTaskToUserStory()"> 
                     <div class="row">
                         <div class="col-6">
-                            <label class="col-4 col-form-label">Nombre de la tarea</label>
+                            <label class="col-6 col-form-label">Nombre de la tarea</label>
                             <input type="text" class="form-control" formControlName="taskName" maxlength="100">
                             <div *ngIf="addTaskUS.get('taskName')?.dirty || addTaskUS.get('taskName')?.touched">
                               <h3 *ngIf="addTaskUS.get('taskName')?.hasError('required')" class="form-red-validator m-1"> Este

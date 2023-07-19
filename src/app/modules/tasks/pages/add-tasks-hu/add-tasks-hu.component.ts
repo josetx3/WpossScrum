@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditEstimateTasksHuComponent } from '../edit-estimate-tasks-hu/edit-estimate-tasks-hu.component';
 import { SprintsService } from 'src/app/modules/sprints/pages/service/sprints.service';
+import { BoardService } from 'src/app/modules/manage-board/pages/service/board.service';
 
 @Component({
   selector: 'app-add-tasks-hu',
@@ -33,6 +34,7 @@ export class AddTasksHuComponent {
     private route: ActivatedRoute,
     private taskService: TasksService,
     private sprintService: SprintsService,
+    private boardService: BoardService,
     private dialog: MatDialog
   ){}
 
@@ -49,8 +51,6 @@ export class AddTasksHuComponent {
     this.getAllTasksByUserStory();
     this.getSprintById();
 
-    console.log('id team: '+this.teamId+'id sprint: '+ this.sprintId)
-    console.log('Id: '+ this.userStoryId+'codigo de HU: '+ this.userStoryCode +' Nombre hu: '+ this.userStoryName+'PUNTOS H U: '+this.userStoryScore)
   }
 
   getSprintById(){
@@ -92,6 +92,7 @@ export class AddTasksHuComponent {
         }
         this.taskService.addTaskToUserStory(dataTasks).subscribe({
           next: (resp)=>{
+            console.log(resp)
             Swal.fire({
               position: 'top-end',
               icon: 'success',
@@ -108,6 +109,14 @@ export class AddTasksHuComponent {
             })
             this.addTaskUS.reset();
             this.getAllTasksByUserStory();
+            const data = {
+              teamId: resp.teamId,
+              userStoryId: resp.userStoryId,
+              taskTeamId: resp.taskTeamId,
+            }
+            this.boardService.saveBoard(data).subscribe((resp) => {
+              console.log("se agg bb")
+            })
           }
           ,
           error: (err)=>{}
@@ -153,7 +162,6 @@ export class AddTasksHuComponent {
     this.taskService.getTasksByUserStory(this.teamId, this.userStoryId).subscribe({
       next: (resp)=>{
         this.tasksByUserStory= resp;
-        console.log(this.tasksByUserStory)
         this.tasksByUserStory.forEach( (element:{taskHours: number;})=>{
           this.hoursTot+= element.taskHours
         })

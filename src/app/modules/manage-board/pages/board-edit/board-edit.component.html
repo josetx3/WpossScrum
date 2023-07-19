@@ -4,8 +4,9 @@
     <div class="form-row align-items-center">
       <form class="sprints-form" [formGroup]="boardEditFrom" (ngSubmit)="editBoard()">
         <div class="form-group col-8 m-1">
-          <label>Seleccionar equipo</label>
-          <select class="form-select" formControlName="teamId">
+          <label>Equipo</label>
+          <!-- <input type="text" class="form-control" formControlName="teamId"> -->
+          <select class="form-select" formControlName="teamId" >
             <option value="{{team.teamId}}" *ngFor="let team of teams">{{team.teamName}}</option>
           </select>
         </div>

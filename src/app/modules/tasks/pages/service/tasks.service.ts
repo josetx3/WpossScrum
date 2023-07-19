@@ -42,11 +42,11 @@ export class TasksService {
     return this.httpClient.post('http://localhost:8020/taskteam/createtask',dataTask, {headers});
   }
 
-  public finishedTask(taskTeamId: String |null, data:any): Observable<any>{
+  public finishedTask(taskTeamId: String |null, idBoard: string, data:any): Observable<any>{
     const enToken: any=localStorage.getItem('token')
     const token =''+ this.encry.decryptData(enToken);
     // const token: string | null= ''+localStorage.getItem('token')
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.put('http://localhost:8020/taskteam/updatetaskstate/'+ taskTeamId,data, {headers});
+    return this.httpClient.put('http://localhost:8020/taskteam/updatetaskstate/'+ taskTeamId+ '/' +idBoard ,data, {headers});
   }
 }

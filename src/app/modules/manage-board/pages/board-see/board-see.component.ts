@@ -207,7 +207,7 @@ export class BoardSeeComponent implements OnInit{
      })
   }
 
-  finishedTask(taskName: string, taskTeamId: string){
+  finishedTask(taskName: string, taskTeamId: string, idBoard: string){
     
     Swal.fire({
       title: 'La tarea ha sido finalizada?',
@@ -227,10 +227,11 @@ export class BoardSeeComponent implements OnInit{
       if (result.isConfirmed) {
         const data={
           taskName: taskName,
-          taskTeamId: taskTeamId,
+          taskTeamId: taskTeamId
           }
-        this.taskService.finishedTask(taskTeamId, data).subscribe({
+        this.taskService.finishedTask(taskTeamId, idBoard, data).subscribe({
           next: (resp)=>{
+            console.log(resp)
             Swal.fire({
               position: 'top-end',
               icon: 'success',
