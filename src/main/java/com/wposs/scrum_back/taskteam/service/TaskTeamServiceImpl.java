@@ -32,6 +32,7 @@ public class TaskTeamServiceImpl implements TaskTeamService {
     private ModelMapper modelMapper;
 
     @Override
+    @Transactional
     public List<TaskTeamDto> getAllTaskTeam() {
         return taskTeamRepository.getAllTaskTeam().stream().map(taskTeam -> {
             return modelMapper.map(taskTeam,TaskTeamDto.class);
@@ -67,6 +68,7 @@ public class TaskTeamServiceImpl implements TaskTeamService {
     }
 
     @Override
+    @Transactional
     public List<TaskTeamDto> getTaskTeamToIdTeamAndIdUserStory(UUID teamId, UUID userStoryId) {
         return taskTeamRepository.getTaskTeamByTeamAndUserStory(teamId,userStoryId).stream().map(taskTeam -> {
             return modelMapper.map(taskTeam,TaskTeamDto.class);
