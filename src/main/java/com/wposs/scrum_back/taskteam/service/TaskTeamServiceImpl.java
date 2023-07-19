@@ -2,6 +2,8 @@ package com.wposs.scrum_back.taskteam.service;
 
 import com.wposs.scrum_back.Exception.exceptions.MessageGeneric;
 import com.wposs.scrum_back.Exception.exceptions.RequestException;
+import com.wposs.scrum_back.board.entity.Board;
+import com.wposs.scrum_back.board.repository.BoardRepository;
 import com.wposs.scrum_back.taskteam.dto.TaskTeamDto;
 import com.wposs.scrum_back.taskteam.dto.TaskTeamDtoRequest;
 import com.wposs.scrum_back.taskteam.entity.TaskTeam;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +26,8 @@ import java.util.stream.Collectors;
 public class TaskTeamServiceImpl implements TaskTeamService {
     @Autowired
     private TaskTeamRepository taskTeamRepository;
+    @Autowired
+    private BoardRepository boardRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -98,7 +104,15 @@ public class TaskTeamServiceImpl implements TaskTeamService {
         }).orElseThrow(()->new MessageGeneric("Error,No se encontro la Tarea a Actualizar","404",HttpStatus.NOT_FOUND));
     }
     @Override
-    public TaskTeamDto updateTaskTeamState(UUID idTasTeam, TaskTeamDto taskTeamDto) {
+    public TaskTeamDto updateTaskTeamState(UUID idTasTeam,UUID idBoard, TaskTeamDto taskTeamDto) {
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        ZoneId zonaHorariaColombia = ZoneId.of("America/Bogota");
+        fechaHoraActual = fechaHoraActual.atZone(ZoneId.systemDefault()).withZoneSameInstant(zonaHorariaColombia).toLocalDateTime();
+        LocalDateTime finalFechaHoraActual = fechaHoraActual;
+
+        Optional<Board> board = boardRepository.findById(idBoard);
+        board.get().setFinishDate(finalFechaHoraActual);
+        boardRepository.save(board.get());
         return taskTeamRepository.findById(idTasTeam).map(taskTeam -> {
             taskTeam.setTaskState("FINALIZADA");
             return modelMapper.map(taskTeamRepository.save(taskTeam),TaskTeamDto.class);

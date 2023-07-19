@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,9 +33,6 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardDto saveBoard(BoardDto boardDto) {
         Board board = modelMapper.map(boardDto,Board.class);
-        Optional<TaskTeam> taskTeam = taskTeamRepository.findById(board.getTaskTeamId());
-        taskTeam.get().setTaskState("EN CURSO");
-        taskTeamRepository.save(taskTeam.get());
         if (boardRepository.existsByTeamIdAndUserStoryIdAndTaskTeamIdAndEmployeeId(board.getTeamId(),board.getUserStoryId(),board.getTaskTeamId(),board.getEmployeeId())){
             throw new MessageGeneric("Ya existe un tablero con la infomacion ingresada","409", HttpStatus.CONFLICT);
         }
@@ -52,11 +52,15 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardDto updateBoard(UUID boardId, BoardDto boardDto) {
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        ZoneId zonaHorariaColombia = ZoneId.of("America/Bogota");
+        fechaHoraActual = fechaHoraActual.atZone(ZoneId.systemDefault()).withZoneSameInstant(zonaHorariaColombia).toLocalDateTime();
+        LocalDateTime finalFechaHoraActual = fechaHoraActual;
         return boardRepository.findById(boardId).map(board -> {
-            board.setDate((boardDto.getDate()!=null)?boardDto.getDate():board.getDate());
-            board.setTeamId((boardDto.getTeamId()!=null)?boardDto.getTeamId():board.getTeamId());
-            board.setUserStoryId((boardDto.getUserStoryId()!=null)?boardDto.getUserStoryId():board.getUserStoryId());
-            board.setTaskTeamId((boardDto.getTaskTeamId()!=null)?boardDto.getTaskTeamId():board.getTaskTeamId());
+            Optional<TaskTeam> taskTeam = taskTeamRepository.findById(board.getTaskTeamId());
+            taskTeam.get().setTaskState("EN CURSO");
+            taskTeamRepository.save(taskTeam.get());
+            board.setAssingDate(finalFechaHoraActual);
             board.setEmployeeId((boardDto.getEmployeeId()!=null)?boardDto.getEmployeeId():board.getEmployeeId());
             return modelMapper.map(boardRepository.save(board),BoardDto.class);
         }).orElseThrow(()->new MessageGeneric("no esta disponioble el tablero a Actualizar","404",HttpStatus.NOT_FOUND));

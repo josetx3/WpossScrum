@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,11 +26,15 @@ public class Board {
     private UUID userStoryId;
     @Column(name = "fk_task_team",nullable = false,length = 40)
     private UUID taskTeamId;
-    @Column(name = "fk_employee",nullable = false,length = 40)
+    @Column(name = "fk_employee",length = 40)
     private UUID employeeId;
-    @Column(name = "fecha_board",nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    @Column(name = "fecha_board")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime assingDate;
+
+    @Column(name = "fecha_board_terminado")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime finishDate;
 
     @ManyToOne
     @JoinColumn(name = "fk_team",insertable = false,updatable = false)
@@ -78,12 +83,20 @@ public class Board {
         this.idBoard = idBoard;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getAssingDate() {
+        return assingDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAssingDate(LocalDateTime assingDate) {
+        this.assingDate = assingDate;
+    }
+
+    public LocalDateTime getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(LocalDateTime finishDate) {
+        this.finishDate = finishDate;
     }
 
     public Team getTeam() {

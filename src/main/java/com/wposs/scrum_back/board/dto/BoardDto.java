@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,12 +21,12 @@ public class BoardDto implements Serializable {
     @NotNull
     @JsonProperty(value = "taskTeamId")
     private UUID taskTeamId;
-    @NotNull
+
     @JsonProperty(value = "employeeId")
     private UUID employeeId;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @NotNull
-    private Date date;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime assingDate;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String employeeName;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -74,12 +75,12 @@ public class BoardDto implements Serializable {
         this.idBoard = idBoard;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getAssingDate() {
+        return assingDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAssingDate(LocalDateTime assingDate) {
+        this.assingDate = assingDate;
     }
 
     public UUID getTeamId() {
