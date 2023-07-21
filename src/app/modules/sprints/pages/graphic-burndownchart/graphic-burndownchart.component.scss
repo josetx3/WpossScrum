@@ -1,0 +1,23 @@
+.graphic{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.text{
+  padding-left:65px ;
+}
+.graphic-generic {
+
+  width: 1000px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

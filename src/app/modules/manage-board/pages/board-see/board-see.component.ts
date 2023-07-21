@@ -65,7 +65,7 @@ export class BoardSeeComponent implements OnInit{
   //   })
   // }
 
-  
+
 
   getAllArea(){
     this.areaServise.getAllArea().subscribe({  //Trae todas las areas
@@ -137,24 +137,26 @@ export class BoardSeeComponent implements OnInit{
                      background: '#FFFEFB',
                    })
                  }
-             }) 
+             })
           });
-        }  
-      })     
+        }
+      })
     }
   }
 
   formatDate(assignDate: string): string {
-   
+   if(assignDate){
     const dateObj = new Date(assignDate);
-  
+
     const year = dateObj.getFullYear();
     const month = String(dateObj.getMonth() + 1).padStart(2, '0');
     const day = String(dateObj.getDate()).padStart(2, '0');
-  
-    
+
+
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
+   }
+    return '';
   }
 
   getRowClass(status: string): string {
@@ -213,10 +215,10 @@ export class BoardSeeComponent implements OnInit{
      })
   }
 
- 
+
 
   finishedTask(taskName: string, taskTeamId: string, idBoard: string){
-    
+
     Swal.fire({
       title: 'La tarea ha sido finalizada?',
       text: ' Al presionar Sí. El estado de la tarea cambiara a finalizadp',
@@ -257,11 +259,11 @@ export class BoardSeeComponent implements OnInit{
             this.filterboard();
           }
         })
-  
+
     }
   })
   }
 
-  
+
 
 }
