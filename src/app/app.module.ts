@@ -24,6 +24,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { TokenExpirationInterceptor } from './interceptors/token-expiration.interceptor';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
+
 
 @NgModule({
   declarations: [
@@ -47,6 +51,7 @@ import { TokenExpirationInterceptor } from './interceptors/token-expiration.inte
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgxChartsModule,
 
     //Material
     MatSidenavModule,

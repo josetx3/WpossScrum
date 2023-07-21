@@ -5,12 +5,18 @@ export interface Sprints {
   sprintEnd: string;
   nuSprint: number;
   areaId: string;
-  sprintId: number;
+  sprintId: string;
   teamName: string;
   sprintDay: string;
+  sprintDaysDate: string;
 }
 
 
 export interface DateItem {
   date: string;
+}
+
+export interface DataChart{
+    name: number,
+    value: number
 }

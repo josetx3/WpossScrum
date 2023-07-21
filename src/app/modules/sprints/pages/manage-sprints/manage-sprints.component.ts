@@ -100,12 +100,13 @@ export class ManageSprintsComponent implements OnInit {
     })
   }
 
-  viewGraphicUserStory(){
+  viewGraphicUserStory(sprintId: string){
 
-    
+  
     const dialogRef= this.dialog.open(GraphicBurndownchartComponent,{
       width:'1000px',
-      maxHeight: '700px'
+      maxHeight: '700px',
+      data:{ sprintId: sprintId}
     })
   }
 
