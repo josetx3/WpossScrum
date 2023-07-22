@@ -26,8 +26,9 @@ export class GraphicBurndownchartComponent {
   areaId: string='';
   board:Board= [];
   hoursTasks: number=0;
+  result:any='';
 
-  
+
 
   view: [number, number] = [900, 500];
 
@@ -55,14 +56,14 @@ export class GraphicBurndownchartComponent {
   colorScheme: any = {
     domain: ['#00A6FE', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
- 
-  
+
+
 
 
   ngOnInit(){
     this.sprintId= this.data.sprintId;
     this.getSprintById()
-    
+
   }
 
   getSprintById(){
@@ -74,7 +75,7 @@ export class GraphicBurndownchartComponent {
           this.areaId= resp.areaId;
           this.teamId= resp.teamId;
           this.sprintDays= parseInt(resp.sprintDaysDate);
-          console.log('datos'+ this.teamId+ this.sprintId)
+          //console.log('datos'+ this.teamId+ this.sprintId)
           this.getStoryUserByTeam()
         }
         ,
@@ -84,24 +85,29 @@ export class GraphicBurndownchartComponent {
   }
 
   getStoryUserByTeam(){
+    let i:number=1;
     this.tasksService.getStoryUserbyTeam(this.teamId, this.sprintId).subscribe({
       next: (resp)=>{
         this.UserStorys= resp;
-        console.log(this.UserStorys)
+        //console.log(this.UserStorys)
         let userStoryId= resp.userStoryId;
         this.UserStorys.forEach((obj:{userStoryId: string})=>{
           userStoryId=obj.userStoryId
-          console.log(userStoryId)
+          //console.log(userStoryId)
           this.boardService.getBoardByAreaIdTeamIdUserStoryId(this.areaId, this.teamId,userStoryId).subscribe({
             next: (resp)=>{
                this.board[userStoryId] = resp;
-               console.log(this.board)
+            //   console.log(this.board)
                this.board[userStoryId].forEach((obj:{taskHours: string})=>{
                 this.hoursTasks+= parseInt(obj.taskHours)
-                console.log(this.hoursTasks)
-                
+                //console.log(this.hoursTasks)
+
                })
-              this.dataChart()
+               //console.log("el numero: "+i)
+               if(i===this.UserStorys.length){
+                this.dataChart()
+               }
+            i++;
              },
           error:()=>{}
             })
@@ -110,25 +116,22 @@ export class GraphicBurndownchartComponent {
       ,
       error: ()=>{}
     })
-    
+
   }
 
   multi = [
     {
       "name": "Horas estimadas",
       "series": [
-          {
-            "name":0,
-            "value": 0
-          }
+
       ]
     },
-  
+
     {
       "name": "Horas reales",
       "series": [
         {
-          "name":0,
+          "name":"0",
           "value": 0
         }
       ]
@@ -136,25 +139,25 @@ export class GraphicBurndownchartComponent {
   ];
 
   dataChart(){
-    
-    console.log(this.hoursTasks)
-    console.log(this.sprintDays)
+
+    //console.log(this.hoursTasks)
+    //console.log(this.sprintDays)
     let decr:number= this.hoursTasks/this.sprintDays;
-    console.log(decr)
+    //console.log(decr)
     let hrsF:number= this.hoursTasks
-   
-    for(let i:number=0; i<this.sprintDays; i++){
-        this.multi[0].series.push({name: i, value: hrsF})
-        this.multi[1].series.push({name: i, value: hrsF})
+
+    for(let i:number=0; i<=this.sprintDays; i++){
+        this.multi[0].series.push({name: i+"", value: hrsF})
+        //this.multi[1].series.push({name: i, value: hrsF})
         hrsF=hrsF-decr;
     }
-
-    console.log(this.multi)
+    this.result=this.multi
+    //console.log(this.multi)
   }
 
 
 
- 
+
 
   onSelect(data: any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));

@@ -107,15 +107,15 @@ export class BoardSeeComponent implements OnInit{
       this.taskService.getStoryUserbyTeam(data.teamId,data.sprintId ).subscribe({
         next: (resp)=>{
           this.userStoryTeamSprint= resp;
-          console.log(this.userStoryTeamSprint)
+          //console.log(this.userStoryTeamSprint)
           this.userStoryTeamSprint.forEach((element: { userStoryId: string; })=> {
             let userStoryId=element.userStoryId
-            console.log(userStoryId)
+            //console.log(userStoryId)
             this.boardService.getBoardByAreaIdTeamIdUserStoryId(data.areaId, data.teamId,userStoryId).subscribe({
               next: (resp)=>{
-                console.log(userStoryId)
+                //console.log(userStoryId)
                  this.board[userStoryId] = resp;
-                 console.log(this.board)
+                 //console.log(this.board)
                  this.route.navigateByUrl('app/board');
                  userStoryId='';
                },
