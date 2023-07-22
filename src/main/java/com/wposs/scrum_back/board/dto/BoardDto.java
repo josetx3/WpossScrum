@@ -27,6 +27,9 @@ public class BoardDto implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime assingDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime finishDate;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String employeeName;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -81,6 +84,14 @@ public class BoardDto implements Serializable {
 
     public void setAssingDate(LocalDateTime assingDate) {
         this.assingDate = assingDate;
+    }
+
+    public LocalDateTime getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(LocalDateTime finishDate) {
+        this.finishDate = finishDate;
     }
 
     public UUID getTeamId() {
