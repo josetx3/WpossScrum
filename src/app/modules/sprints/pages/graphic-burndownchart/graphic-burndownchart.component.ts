@@ -53,13 +53,9 @@ export class GraphicBurndownchartComponent {
   xAxisLabel: string = 'Duracion del sprint (Jornada)';
   yAxisLabel: string = 'Tarbajo realizado (Horas de tareas)';
   timeline: boolean = true;
-
   colorScheme: any = {
     domain: ['#00A6FE', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
-
-
-
 
   ngOnInit(){
     this.sprintId= this.data.sprintId;
@@ -76,7 +72,6 @@ export class GraphicBurndownchartComponent {
           this.areaId= resp.areaId;
           this.teamId= resp.teamId;
           this.sprintDays= parseInt(resp.sprintDaysDate);
-          //console.log('datos'+ this.teamId+ this.sprintId)
           this.getStoryUserByTeam()
         }
         ,
@@ -104,15 +99,10 @@ export class GraphicBurndownchartComponent {
                 if(obj.finishDate){
                   this.dataFinishTask[p]=[obj.finishDate,parseInt(obj.taskHours)]
 
-                 }else{
-                  this.dataFinishTask[p]=0
-                 }
-                 //console.log('datossss: '+ this.dataFinishTask[p]);
+                }
                  p++
                })
-               //console.log("el numero: "+i)
                if(i===this.UserStorys.length){
-                // await wait(10000);
                 this.dataChart()
                }
                i++;
@@ -146,13 +136,15 @@ export class GraphicBurndownchartComponent {
     },
   ];
 
+ compararFechas(a: [Date, number], b: [Date, number]) {
+    return b[0].getTime() - a[0].getTime();
+  }
+
  dataChart(){
   let hoursEnd:number= this.hoursTasks
-  let data:any[]=[]
   let j=1;
 
-    console.log('datos: '+this.dataFinishTask);
-    this.multi[1].series[0].value=hoursEnd
+
     for(let n=this.dataFinishTask.length-1; n>=0;n--){
       if(this.dataFinishTask[n]===0){
         console.log('datos obviados: '+  n)
@@ -160,33 +152,34 @@ export class GraphicBurndownchartComponent {
         const dateObj = new Date(this.dataFinishTask[n][0]);
         const year = dateObj.getFullYear();
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const day = String(dateObj.getDate()).padStart(2, '0');
+        const day = String(dateObj.getDate()+1).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
-        this.dataFinishTask[n][0]=formattedDate
+        this.dataFinishTask[n][0]=new Date(formattedDate)
       }
     }
+    console.log('datos: '+this.dataFinishTask);
+    this.dataFinishTask.sort(this.compararFechas);
+    console.log('datos: '+this.dataFinishTask );
+    this.multi[1].series[0].value=hoursEnd
     for(let n=this.dataFinishTask.length-1; n>=0;n--){
-      if(this.dataFinishTask[n]===0){
-        console.log('datos obviados: '+  n)
-      }else{
         hoursEnd=hoursEnd-this.dataFinishTask[n][1]
-       // data[]
-        //console.log('datos impostnates: '+ this.dataFinishTask[n][0]+" horas"+this.dataFinishTask[n][1])
         if(n>=1){
-          console.log("  :"+this.dataFinishTask[n][0]+"  "+this.dataFinishTask[n-1][0])
-          if(this.dataFinishTask[n][0]===this.dataFinishTask[n-1][0]){
-
+          if(this.dataFinishTask[n][0].getTime()===this.dataFinishTask[n-1][0].getTime()){
           }else{
-           this.multi[1].series.push({name: (j+1)+'', value: hoursEnd})
-           j++;
+            console.log('entraa')
+            j++;
+           this.multi[1].series.push({name: (j)+'', value: hoursEnd})
           }
         }
         if(n===0){
-          this.multi[1].series.push({name: (j)+'', value: hoursEnd})
-          j++;
+          // if(this.dataFinishTask[n][0].getTime()===this.dataFinishTask[n+1][0].getTime()){
+          //   this.multi[1].series[j-1].value=hoursEnd
+          // }else{
+            console.log('entraa222')
+            this.multi[1].series.push({name: (j+1)+'', value: hoursEnd})
+            j++;
+          //}
         }
-      }
-      //this.dataFinishTask
     }
     //console.log(this.hoursTasks)
     //console.log(this.sprintDays)
@@ -202,43 +195,4 @@ export class GraphicBurndownchartComponent {
     this.result=this.multi
     console.log(this.multi)
   }
-
-  // getDataFinishTasks(){
-  //   let userStoryId1=''
-  //   let i=0
-  //   let p=1
-  //    this.UserStorys.forEach((obj:{userStoryId: string})=>{
-  //      userStoryId1=obj.userStoryId
-  //      this.boardService.getBoardByAreaIdTeamIdUserStoryId(this.areaId, this.teamId,userStoryId1).subscribe({
-  //        next: (resp)=>{
-  //           this.board[userStoryId1] = resp;
-  //           this.board[userStoryId1].forEach((obj:{taskHours: string,taskName: any,finishDate:any})=>{
-  //            if(obj.finishDate){
-  //             this.dataFinishTask[i]=obj.finishDate
-
-  //            }else{
-  //             this.dataFinishTask[i]=''
-  //            }
-  //            console.log('datossss: '+ this.dataFinishTask[i]);
-  //            i++
-  //           })
-  //           if(p===this.UserStorys.length){
-  //             // await wait(10000);
-  //             this.dataChart()
-  //            }
-  //            p++;
-  //         }
-
-  //        })
-
-  //    })
-  // }
-
-  // function wait(timeInMilliseconds: number): Promise<void> {
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, timeInMilliseconds);
-  //   });
-  // }
 }

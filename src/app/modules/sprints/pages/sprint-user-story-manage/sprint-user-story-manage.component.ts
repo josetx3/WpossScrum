@@ -23,12 +23,12 @@ export class SprintUserStoryManageComponent {
   teamId: String='';
   pointsTot: number=0;
   scorePointSprint: Number=0;
- 
+
   addUserStoryForm: FormGroup = new FormGroup({
     userStoryId: new FormControl(null, [Validators.required]),
     points: new FormControl(null, [Validators.required])
   })
-  
+
   constructor(
     private route: ActivatedRoute,
     public sprintService: SprintsService,
@@ -49,13 +49,13 @@ export class SprintUserStoryManageComponent {
         this.teamId= this.SprintDate.teamId;
         this.scorePointSprint= this.SprintDate.ScorePointSprint;
         this.getUseStoryRef();
-    
+
       }
       ,
       error: (err)=>{
       }
     }
-      
+
       );
   }
 
@@ -100,8 +100,8 @@ export class SprintUserStoryManageComponent {
     if (this.addUserStoryForm.valid) {
       let pointHu=parseInt(this.addUserStoryForm.get('points')?.value);
       this.pointsTot+=pointHu;
-      if(this.pointsTot<this.SprintDate.ScorePointSprint){
-        const dataSprintUserStory = 
+      if(this.pointsTot<=this.SprintDate.ScorePointSprint){
+        const dataSprintUserStory =
         {
           idSprint:this.sprintId,
           userStoryId:this.addUserStoryForm.get('userStoryId')?.value,
@@ -130,7 +130,7 @@ export class SprintUserStoryManageComponent {
           },
           error:
             err=>{
-              err.status({400: 
+              err.status({400:
                 Swal.fire({
                   position: 'top-end',
                   icon: 'warning',
@@ -174,7 +174,7 @@ export class SprintUserStoryManageComponent {
   editSprintUserStoryManageModal(idSprint: String, userStoryId:String, points: Number) {
     const dialogRef = this.dialog.open(EditSprintUserStoryManageComponent,
 
-    {width: '500px', maxHeight: '600px', 
+    {width: '500px', maxHeight: '600px',
     data:{
         idSprint: idSprint,
         userStoryId: userStoryId,

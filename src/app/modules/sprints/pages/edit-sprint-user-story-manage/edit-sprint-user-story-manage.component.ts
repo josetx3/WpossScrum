@@ -34,15 +34,15 @@ export class EditSprintUserStoryManageComponent implements OnInit{
     this.points=this.data.points;
     this.scorePointSprint= this.data.scorePointSprint;
     this.editPointForm.patchValue({
-      pointsHU: this.points   
+      pointsHU: this.points
     })
   }
- 
+
   editPonitHUSprint(){
     if (this.editPointForm.valid) {
         let pointForm= parseInt(this.editPointForm.get('pointsHU')?.value);
         let editPoints= pointForm- this.points;
-        let newPoints= this.pointsTot+ editPoints ;    
+        let newPoints= this.pointsTot+ editPoints ;
         if(pointForm === 0){
             Swal.fire({
               title: 'Eliminacion de la HU del sprint',
@@ -97,9 +97,9 @@ export class EditSprintUserStoryManageComponent implements OnInit{
             background: '#FFFEFB',
           })
         }
-        else if(newPoints < this.scorePointSprint)
+        else if(newPoints <= this.scorePointSprint)
         {
-          const dataSprintUserStory = 
+          const dataSprintUserStory =
           {
             idSprint:this.idSprint,
             userStoryId:this.userStoryId,
