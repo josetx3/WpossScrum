@@ -38,6 +38,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MainComponent,
     FooterComponent,
     FilterAddEmployeesTeamPipe,
+
   ],
   imports: [
 

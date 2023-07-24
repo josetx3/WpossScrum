@@ -93,14 +93,16 @@ export class GraphicBurndownchartComponent {
           //console.log(userStoryId)
           this.boardService.getBoardByAreaIdTeamIdUserStoryId(this.areaId, this.teamId,userStoryId).subscribe({
             next: (resp)=>{
+              console.log(resp);
+              
                this.board[userStoryId] = resp;
                this.board[userStoryId].forEach((obj:{taskHours: string,finishDate:any})=>{
                 this.hoursTasks+= parseInt(obj.taskHours)
                 if(obj.finishDate){
                   this.dataFinishTask[p]=[obj.finishDate,parseInt(obj.taskHours)]
-
+                  p++
                 }
-                 p++
+                
                })
                if(i===this.UserStorys.length){
                 this.dataChart()
@@ -143,7 +145,7 @@ export class GraphicBurndownchartComponent {
  dataChart(){
   let hoursEnd:number= this.hoursTasks
   let j=1;
-
+  console.log(this.dataFinishTask)
 
     for(let n=this.dataFinishTask.length-1; n>=0;n--){
       if(this.dataFinishTask[n]===0){

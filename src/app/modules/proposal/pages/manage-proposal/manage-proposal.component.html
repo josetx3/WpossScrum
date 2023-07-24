@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="card-body">
+      <div class="pagetitle m-2">
+        <h1>Propuestas</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+            <li class="breadcrumb-item active">Propuestas</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <form [formGroup]="addProposalForm" (ngSubmit)="addProposal()"> 
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row col-6">
+                            <label class="col-6 col-form-label">Elija el cliente: </label>
+                            <div class="col-12">
+                              <select class="form-control form-select" formControlName="clienteId">
+                                <option *ngFor="let item of customers" value="{{item.clientId}}">{{ item.clienteName}}</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <label class="col-6 col-form-label">Elija el subproyecto: </label>
+                            <div class="col-12">
+                            <select class="form-control form-select" formControlName="subProjectId">
+                                <option *ngFor="let item of subProjects" value="{{item.subProjectId}}">{{ item.subProjectName}}</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row col-12">
+                            <label for="text" class="col-12 col-form-label">Nombre de la propuesta</label>
+                            <div class="col-6">
+                                <input type="text" class="form-control" formControlName="proposalName">
+                                <div *ngIf="addProposalForm.get('employeeName')?.dirty || addProposalForm.get('employeeName')?.touched">
+                                    <p *ngIf="addProposalForm.get('employeeName')?.hasError('required')"
+                                    class="form-red-validator m-1">Este campo es requerido </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12">
+                            <label for="text" class="col-12 col-form-label">Descripcion</label>
+                            <div class="col-6">
+                                <textarea class="form-control" rows="3" formControlName="proposalObservationn"></textarea>
+                                <div *ngIf="addProposalForm.get('employeeName')?.dirty || addProposalForm.get('employeeName')?.touched">
+                                    <p *ngIf="addProposalForm.get('employeeName')?.hasError('required')"
+                                    class="form-red-validator m-1">Este campo es requerido </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12">
+                            <label for="inputNumber" class="col-12 col-form-label">Subir archivo</label>
+                            <div class="col-6">
+                              <input type="file" class="form-control" formControlName="proposalArchive"> 
+                            </div>
+                          </div>
+
+                        <div class="col-12 mt-4">
+                            <button class="btn btn-primary mx-2 mb-2 mt-2" type="submit" [disabled]="addProposalForm.invalid">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+  </div>
