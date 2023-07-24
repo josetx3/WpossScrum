@@ -1,6 +1,8 @@
 package com.wposs.scrum_back.client.entity;
 
 import com.wposs.scrum_back.project.entity.Project;
+import com.wposs.scrum_back.proposal.entity.Proposal;
+import com.wposs.scrum_back.userstory.entity.UserStory;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +20,11 @@ public class Client {
 
     @OneToMany(mappedBy = "client",cascade = CascadeType.REFRESH)
     private List<Project> projects;
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REFRESH)
+    private List<Proposal> proposals;
+
+
 
     public String getClientId() {
         return clientId;
@@ -41,5 +48,13 @@ public class Client {
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public List<Proposal> getProposals() {
+        return proposals;
+    }
+
+    public void setProposals(List<Proposal> proposals) {
+        this.proposals = proposals;
     }
 }

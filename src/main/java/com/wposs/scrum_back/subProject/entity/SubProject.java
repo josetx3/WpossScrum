@@ -1,6 +1,7 @@
 package com.wposs.scrum_back.subProject.entity;
 
 import com.wposs.scrum_back.project.entity.Project;
+import com.wposs.scrum_back.proposal.entity.Proposal;
 import com.wposs.scrum_back.team.entity.Team;
 import com.wposs.scrum_back.userstory.entity.UserStory;
 import org.hibernate.annotations.GenericGenerator;
@@ -37,6 +38,9 @@ public class SubProject {
 
     @OneToMany(mappedBy = "subProject",cascade = {CascadeType.DETACH,CascadeType.REMOVE,CascadeType.MERGE})
     private List<UserStory> userStories;
+
+    @OneToMany(mappedBy = "subProject",cascade = {CascadeType.DETACH,CascadeType.REMOVE,CascadeType.MERGE})
+    private List<Proposal> proposals;
     @ManyToOne
     @JoinColumn(name = "team_id",updatable = false,insertable = false)
     private Team team;
@@ -96,5 +100,13 @@ public class SubProject {
 
     public void setTeamId(UUID teamId) {
         this.teamId = teamId;
+    }
+
+    public List<Proposal> getProposals() {
+        return proposals;
+    }
+
+    public void setProposals(List<Proposal> proposals) {
+        this.proposals = proposals;
     }
 }
