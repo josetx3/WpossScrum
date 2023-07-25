@@ -18,7 +18,7 @@
                             <label class="col-6 col-form-label">Elija el cliente: </label>
                             <div class="col-12">
                               <select class="form-control form-select" formControlName="clienteId">
-                                <option *ngFor="let item of customers" value="{{item.clientId}}">{{ item.clienteName}}</option>
+                                <option *ngFor="let item of customers" value="{{item.clientNit}}">{{ item.client_name}}</option>
                               </select>
                             </div>
                         </div>
@@ -34,8 +34,8 @@
                             <label for="text" class="col-12 col-form-label">Nombre de la propuesta</label>
                             <div class="col-6">
                                 <input type="text" class="form-control" formControlName="proposalName">
-                                <div *ngIf="addProposalForm.get('employeeName')?.dirty || addProposalForm.get('employeeName')?.touched">
-                                    <p *ngIf="addProposalForm.get('employeeName')?.hasError('required')"
+                                <div *ngIf="addProposalForm.get('proposalName')?.dirty || addProposalForm.get('proposalName')?.touched">
+                                    <p *ngIf="addProposalForm.get('proposalName')?.hasError('required')"
                                     class="form-red-validator m-1">Este campo es requerido </p>
                                 </div>
                             </div>
@@ -43,9 +43,9 @@
                         <div class="row col-12">
                             <label for="text" class="col-12 col-form-label">Descripcion</label>
                             <div class="col-6">
-                                <textarea class="form-control" rows="3" formControlName="proposalObservationn"></textarea>
-                                <div *ngIf="addProposalForm.get('employeeName')?.dirty || addProposalForm.get('employeeName')?.touched">
-                                    <p *ngIf="addProposalForm.get('employeeName')?.hasError('required')"
+                                <textarea class="form-control" rows="3" formControlName="proposalObservation"></textarea>
+                                <div *ngIf="addProposalForm.get('proposalObservation')?.dirty || addProposalForm.get('proposalObservation')?.touched">
+                                    <p *ngIf="addProposalForm.get('proposalObservation')?.hasError('required')"
                                     class="form-red-validator m-1">Este campo es requerido </p>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                         <div class="row col-12">
                             <label for="inputNumber" class="col-12 col-form-label">Subir archivo</label>
                             <div class="col-6">
-                              <input type="file" class="form-control" formControlName="proposalArchive"> 
+                              <input type="file" accept=".pdf" class="form-control" formControlName="proposalArchive" (change)="onFileSelected($event)"> 
                             </div>
                           </div>
 
@@ -65,5 +65,37 @@
             </form>
         </div>
     </div>
+    <hr>
+    <div class="col-12">
+      <div class="row">
+        <div class="table-responsive" >
+          <table class="table table-bordered table-hover text-center ">
+            <thead class="thead-ligth">
+              <tr>
+                <th scope="row" class="title_table">Propuesta</th>
+                <th scope="row" class="title_table">Nombre cliente</th>
+                <th scope="row" class="title_table">Nombre Subproyecto</th>
+                <th scope="row" class="title_table">Observaciones</th>
+                <th scope="row" class="title_table icon">Estado</th>
+                <th scope="row" class="title_table icon">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of proposal">
+                <td>{{item.proposalName}}</td>
+                <td>{{item.clientName}}</td>
+                <td>{{item.subprojectName}}</td>
+                <td>{{item.proposalObservation}}</td>
+                <td>{{item.proposalStatus}}</td>
+                <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
+                    ><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger btn-sm m-1" ><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
+</div>
