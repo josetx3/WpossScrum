@@ -14,7 +14,7 @@ public class Proposal {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "proposal_id")
-    private UUID proposal_id;
+    private UUID proposalId;
 
     @Column(name = "fk_client_id")
     private String clientId;
@@ -43,12 +43,12 @@ public class Proposal {
     @Column(name = "proposal_state", nullable = false,length = 20)
     private String proposalState;
 
-    public UUID getProposal_id() {
-        return proposal_id;
+    public UUID getProposalId() {
+        return proposalId;
     }
 
-    public void setProposal_id(UUID proposal_id) {
-        this.proposal_id = proposal_id;
+    public void setProposalId(UUID proposalId) {
+        this.proposalId = proposalId;
     }
 
     public void setClientId(String clientId) {
