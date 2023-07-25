@@ -25,7 +25,7 @@ import java.util.List;
         bearerFormat = "JWT"
 )
 @RestController
-@RequestMapping("proposal")
+@RequestMapping("/proposal")
 public class ProposalController {
     @Autowired
     private ProposalService proposalService;

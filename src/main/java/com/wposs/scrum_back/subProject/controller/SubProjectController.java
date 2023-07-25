@@ -107,4 +107,19 @@ public class SubProjectController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+    @GetMapping("/client/{clientId}")
+    @Operation(summary = "get al subproject by client id")
+    @SecurityRequirement(name = "barerAuth")
+    @ApiResponse(responseCode = "200",description = "success")
+    public ResponseEntity<List<SubProjectDto>> findAllSubprojectByClientId(@PathVariable String clientId,@RequestHeader(value = "Authorization")String token){
+        if (jwtUtil.validateToken(token)){
+            List<SubProjectDto> subProjectDtos=subProjectService.getSubprojectsToClient(clientId);
+            if (!subProjectDtos.isEmpty()){
+                return new ResponseEntity<>(subProjectDtos,HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

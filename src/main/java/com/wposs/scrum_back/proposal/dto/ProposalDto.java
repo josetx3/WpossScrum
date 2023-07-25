@@ -52,8 +52,8 @@ public class ProposalDto {
     @JsonProperty(value = "clientName",access = JsonProperty.Access.READ_ONLY)
     private String clientName;
 
-    @JsonProperty(value = "subProjectName",access = JsonProperty.Access.READ_ONLY)
-    private String subProjectName;
+    @JsonProperty(value = "subProjectNameSubProjectName",access = JsonProperty.Access.READ_ONLY)
+    private String subProjectNameSubProjectName;
     public UUID getProposalId() {
         return proposalId;
     }
@@ -118,11 +118,11 @@ public class ProposalDto {
         this.clientName = clientName;
     }
 
-    public String getSubProjectName() {
-        return subProjectName;
+    public String getSubProjectNameSubProjectName() {
+        return subProjectNameSubProjectName;
     }
 
-    public void setSubProjectName(String subProjectName) {
-        this.subProjectName = subProjectName;
+    public void setSubProjectNameSubProjectName(String subProjectNameSubProjectName) {
+        this.subProjectNameSubProjectName = subProjectNameSubProjectName;
     }
 }

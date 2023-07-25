@@ -37,6 +37,13 @@ public class SubProjectServiceImpl implements SubProjectService{
     }
 
     @Override
+    public List<SubProjectDto> getSubprojectsToClient(String clientId) {
+        return subProjectRepository.findSubprojectsByClient(clientId).stream().map(subProject -> {
+            return modelMapper.map(subProject,SubProjectDto.class);
+        }).collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<SubProjectDto> gatSubProjectId(UUID idSubProject) {
         return Optional.of(subProjectRepository.findById(idSubProject).map(subProject -> {
             return modelMapper.map(subProject,SubProjectDto.class);
