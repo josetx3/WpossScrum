@@ -17,7 +17,7 @@
                         <div class="row col-6">
                             <label class="col-6 col-form-label">Elija el cliente: </label>
                             <div class="col-12">
-                              <select class="form-control form-select" formControlName="clienteId">
+                              <select class="form-control form-select" formControlName="clienteId" (change)="getAllSubprojects()">
                                 <option *ngFor="let item of customers" value="{{item.clientNit}}">{{ item.client_name}}</option>
                               </select>
                             </div>

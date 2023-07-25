@@ -70,4 +70,11 @@ export class SubprojectService {
     return this.httpClient.get(this.API_SERVER+'/project/'+projectId, {headers});
   }
 
+  getSubprojectByCustomer(clientId: string):Observable<any>{
+    const enToken: any=localStorage.getItem('token')
+    const token =''+ this.encry.decryptData(enToken);
+    const headers = new HttpHeaders().set("Authorization", token);
+    return this.httpClient.get(this.API_SERVER+'/client/'+clientId, {headers});
+  }
+
 }

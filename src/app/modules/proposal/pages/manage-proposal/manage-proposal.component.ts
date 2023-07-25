@@ -27,7 +27,7 @@ export class ManageProposalComponent {
   subProjects: Subproject[]=[];
   customers: Client[]=[];
   public base64String: any;
-  pdfContent: string='';
+
 
   ngOnInit(){
     this.getAllSubprojects();
@@ -41,18 +41,22 @@ export class ManageProposalComponent {
     private proposalService: ProposalService
   ){}
 
-  getAllSubprojects(){
-    this.subprojectService.getAllSubprojects().subscribe({
-      next: (resp)=>{
-        this.subProjects= resp;
-      }
-    })
-  }
-
   getAllCustomer(){
     this.customerService.getAllCustomer().subscribe({
       next: (resp)=>{
         this.customers=resp;
+      }
+    })
+  }
+
+  getAllSubprojects(){
+   const clientId= this.addProposalForm.get('clienteId')?.value
+    this.subprojectService.getSubprojectByCustomer(clientId).subscribe({
+      next: (resp)=>{
+        this.subProjects= resp;
+      }, 
+      error: (err)=>{
+        this.subProjects=[];
       }
     })
   }
