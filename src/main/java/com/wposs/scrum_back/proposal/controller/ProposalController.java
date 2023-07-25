@@ -17,6 +17,7 @@ import com.wposs.scrum_back.Exception.exceptions.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @SecurityScheme(
         name = "barerAuth",
@@ -49,7 +50,17 @@ public class ProposalController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
-
+    @GetMapping(value = "{id}")
+    @Operation(summary = "Get proposal by id")
+    @SecurityRequirement(name = "barerAuth")
+    @ApiResponse(responseCode = "200",description = "successfull search")
+    public ResponseEntity<ProposalDto> findById(@PathVariable("id") UUID proposalId,@RequestHeader(value = "Authorization") String token ){
+        if(jwtUtil.validateToken(token)){
+            return proposalService.getById(proposalId).map(proposalDto -> new ResponseEntity<>(proposalDto,HttpStatus.OK)).orElse(null);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
     @PostMapping("/save")
     @Operation(summary = "save proposal")
     @SecurityRequirement(name="barerAuth")
