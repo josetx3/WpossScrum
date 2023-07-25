@@ -31,10 +31,7 @@ public class ProposalServiceImpl implements ProposalService{
     @Override
     public ProposalDto saveProposal(ProposalDto proposalDto) {
        Proposal proposal= modelMapper.map(proposalDto,Proposal.class);
-       try{
+        System.out.println(proposal.getClientId());
            return modelMapper.map(proposalRepository.save(proposal),ProposalDto.class);
-       }catch (Exception e){
-           throw  new InternalServerException("Error al crear una nueva propuesta,json mal estructurado","500", HttpStatus.INTERNAL_SERVER_ERROR);
-       }
     }
 }

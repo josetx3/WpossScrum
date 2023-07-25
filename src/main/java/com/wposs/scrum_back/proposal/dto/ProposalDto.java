@@ -3,6 +3,7 @@ package com.wposs.scrum_back.proposal.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -39,7 +40,8 @@ public class ProposalDto {
     private String proposalDescription;
 
     @JsonProperty(value = "proposalArchive")
-    private byte[] proposalArchive;
+
+    private String proposalArchive;
 
     @JsonProperty(value = "proposalState")
     @NotNull(message = "el estado de la propuesta no puede ser null")
@@ -92,11 +94,11 @@ public class ProposalDto {
         this.proposalDescription = proposalDescription;
     }
 
-    public byte[] getProposalArchive() {
+    public String getProposalArchive() {
         return proposalArchive;
     }
 
-    public void setProposalArchive(byte[] proposalArchive) {
+    public void setProposalArchive(String proposalArchive) {
         this.proposalArchive = proposalArchive;
     }
 

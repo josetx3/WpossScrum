@@ -36,9 +36,9 @@ public class Proposal {
     @Column(name = "proposal_description", nullable = false,length = 300)
     private String proposalDescription;
 
-    @Lob
-    @Column(name = "proposal_archive")
-    private byte[] proposalArchive;
+
+    @Column(name = "proposal_archive", columnDefinition = "text")
+    private String proposalArchive;
 
     @Column(name = "proposal_state", nullable = false,length = 20)
     private String proposalState;
@@ -99,11 +99,11 @@ public class Proposal {
         this.proposalDescription = proposalDescription;
     }
 
-    public byte[] getProposalArchive() {
+    public String getProposalArchive() {
         return proposalArchive;
     }
 
-    public void setProposalArchive(byte[] proposalArchive) {
+    public void setProposalArchive(String proposalArchive) {
         this.proposalArchive = proposalArchive;
     }
 
