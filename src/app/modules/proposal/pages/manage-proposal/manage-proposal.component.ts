@@ -7,6 +7,8 @@ import { SubprojectService } from 'src/app/modules/proyect/pages/service/subproj
 import { Proposal } from '../interface/proposal';
 import { ProposalService } from '../../service/proposal.service';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { EditProposalComponent } from '../edit-proposal/edit-proposal.component';
 
 @Component({
   selector: 'app-manage-proposal',
@@ -30,7 +32,6 @@ export class ManageProposalComponent {
 
 
   ngOnInit(){
-    this.getAllSubprojects();
     this.getAllCustomer();
     this.getAllProposal()
   }
@@ -38,7 +39,8 @@ export class ManageProposalComponent {
   constructor(
     private subprojectService: SubprojectService,
     private customerService: CustomerService,
-    private proposalService: ProposalService
+    private proposalService: ProposalService,
+    private matDialog: MatDialog
   ){}
 
   getAllCustomer(){
@@ -160,6 +162,17 @@ export class ManageProposalComponent {
     }
   
     return new Blob([bytes], { type: type });
+  }
+
+  updateProposal(proposalId: string){
+      const dialog= this.matDialog.open(EditProposalComponent,{
+        width: '500px',
+        data:{proposalId:proposalId}
+      })
+
+      dialog.afterClosed().subscribe(
+        ()=>this.getAllProposal()
+      )
   }
 }
 

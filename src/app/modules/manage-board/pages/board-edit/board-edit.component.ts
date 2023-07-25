@@ -41,7 +41,6 @@ export class BoardEditComponent implements OnInit {
     private employeesService: EmployeesService,
     private boardService: BoardService,
     private taskTeamService: TeamsTasksService,
-    private route: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<BoardComponent>,
   ) {

@@ -97,7 +97,7 @@
                 <td>{{item.proposalDescription}}</td>
                 <td>{{item.proposalState}}</td>
                 <td class="icon"><button type="button" class="btn btn-danger btn-sm m-1" (click)="viewPdf(item.proposalArchive,item.proposalName )"><i class="bi bi-filetype-pdf" ></i></button></td>
-                <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button>
+                <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1" (click)="updateProposal(item.proposalId)"><i class="fas fa-edit"></i></button>
                 </td>
               </tr>
             </tbody>
