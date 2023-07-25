@@ -1,7 +1,8 @@
 export interface Proposal {
     clientName: String;
-    subprojectName: String;
-    proposalName: String;
-    proposalObservation: String;
-    proposalStatus: String;
+    subProjectNameSubProjectName: string;
+    proposalName: string;
+    proposalDescription: String;
+    proposalState: String;
+    proposalArchive: string;
 }

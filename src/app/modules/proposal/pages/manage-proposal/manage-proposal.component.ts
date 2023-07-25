@@ -23,15 +23,16 @@ export class ManageProposalComponent {
     proposalArchive: new FormControl(null, Validators.required)
   })
 
-  pdfFiles: File | null=null;
   proposal: Proposal[]=[];
   subProjects: Subproject[]=[];
   customers: Client[]=[];
   public base64String: any;
+  pdfContent: string='';
 
   ngOnInit(){
     this.getAllSubprojects();
     this.getAllCustomer();
+    this.getAllProposal()
   }
 
   constructor(
@@ -63,7 +64,6 @@ export class ManageProposalComponent {
 
     reader.readAsDataURL(archive);
     reader.onload = () => {
-    // Obtener la URL de datos codificada en base64 de la imagen cargada
     let pdfDataURL = reader.result?.toString().split(',')[1];
     this.base64String = pdfDataURL;
     
@@ -120,8 +120,42 @@ export class ManageProposalComponent {
     this.proposalService.getAllProposal().subscribe({
       next: (resp)=>{
         this.proposal=resp;
+        
       }
     })
+  }
+
+  viewPdf(proposalArchive: string, proposalName: string){
+    const base64String = proposalArchive; 
+    const filename = proposalName+".pdf"; 
+
+    this.downloadPDFFromBase64(base64String, filename);
+  }
+
+   downloadPDFFromBase64(base64: string, filename: string) {
+    const blob = this.base64toBlob(base64, 'application/pdf');
+    const url = URL.createObjectURL(blob);
+  
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+  
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  base64toBlob(base64: string, type: string): Blob {
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+  
+    for (let i = 0; i < len; ++i) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+  
+    return new Blob([bytes], { type: type });
   }
 }
 
