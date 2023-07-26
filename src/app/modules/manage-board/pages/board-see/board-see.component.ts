@@ -217,53 +217,82 @@ export class BoardSeeComponent implements OnInit{
 
 
 
-  finishedTask(taskName: string, taskTeamId: string, idBoard: string){
-
-    Swal.fire({
-      title: 'La tarea ha sido finalizada?',
-      text: ' Al presionar Sí. El estado de la tarea cambiara a finalizadp',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#007bff',
-      cancelButtonColor: '#F1948A',
-      confirmButtonText: 'Sí!',
-      customClass: {
-        container: 'my-swal-container',
-        title: 'my-swal-title',
-        icon: 'my-swal-icon',
-      },
-      background: '#FFFEFB'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const data={
-          taskName: taskName,
-          taskTeamId: taskTeamId
-          }
-        this.taskService.finishedTask(taskTeamId, idBoard, data).subscribe({
-          next: (resp)=>{
-            console.log(resp)
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Tarea finalizada',
-              showConfirmButton: false,
-              timer: 1500,
-              toast: true,
-              customClass: {
-                container: 'my-swal-container',
-                title: 'my-swal-title',
-                icon: 'my-swal-icon',
-              },
-              background: '#E6F4EA'
-            })
-            this.filterboard();
-          }
-        })
-
-    }
-  })
+  finishedTask(taskName: string, taskTeamId: string, idBoard: string, taskState: string){
+    if(taskState=== 'PENDIENTE'){
+      Swal.fire({
+        position:'top-end',
+        title: 'No es posible finalizar la tarea ya que se encuentra en estado PENDIENTE',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true,
+        customClass: {
+          container: 'my-swal-container',
+          title: 'my-swal-title',
+          icon: 'my-swal-icon',
+        },
+        background: '#FFFEFB',
+      })
+    }else if(taskState=== 'FINALIZADA'){
+      Swal.fire({
+        position:'top-end',
+        title: 'Esta tarea ya se encuentra en estado FINALIZADA.',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true,
+        customClass: {
+          container: 'my-swal-container',
+          title: 'my-swal-title',
+          icon: 'my-swal-icon',
+        },
+        background: '#FFFEFB',
+      })
+    }else{
+        Swal.fire({
+        title: 'La tarea ha sido finalizada?',
+        text: ' Al presionar Sí. El estado de la tarea cambiara a finalizadp',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#007bff',
+        cancelButtonColor: '#F1948A',
+        confirmButtonText: 'Sí!',
+        customClass: {
+          container: 'my-swal-container',
+          title: 'my-swal-title',
+          icon: 'my-swal-icon',
+        },
+        background: '#FFFEFB'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const data={
+            taskName: taskName,
+            taskTeamId: taskTeamId
+            }
+          this.taskService.finishedTask(taskTeamId, idBoard, data).subscribe({
+            next: (resp)=>{
+              console.log(resp)
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Tarea finalizada',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true,
+                customClass: {
+                  container: 'my-swal-container',
+                  title: 'my-swal-title',
+                  icon: 'my-swal-icon',
+                },
+                background: '#E6F4EA'
+              })
+              this.filterboard();
+            }
+          })
+        }
+      })
+    }   
   }
-
-
-
 }

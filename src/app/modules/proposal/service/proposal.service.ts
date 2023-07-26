@@ -40,6 +40,6 @@ export class ProposalService {
     const enToken: any=localStorage.getItem('token');
     const token =''+ this.encry.decryptData(enToken);
     const headers = new HttpHeaders().set("Authorization", token);
-    return this.httpClient.put(this.API_SERVER + "/update", dataProposal,{headers});
+    return this.httpClient.put(this.API_SERVER + "/", dataProposal,{headers});
   }
 }
