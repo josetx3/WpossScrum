@@ -1,0 +1,54 @@
+<div class="card">
+    <div class="card-body">
+      <div class="pagetitle m-2">
+        <h1>Añadir tipos de observaciones</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+            <li class="breadcrumb-item active"><a routerLink="/app/improvements">Mejoras</a></li>
+            <li class="breadcrumb-item active">Añadir tipos de observaciones</li>
+          </ol>
+        </nav>
+        <div class="row"> 
+            <div class="col-12">
+                <form [formGroup]="addTypeObservationsForm" (ngSubmit)="addObservationType()">
+                    <div class="row">
+                      <div class="col-5">
+                        <label class="col-6 col-form-label"> Nombre del tipo de observacion</label>
+                       <input type="text" class="form-control" formControlName="observationType">
+                        <div *ngIf="addTypeObservationsForm.get('observationType')?.dirty || addTypeObservationsForm.get('observationType')?.touched">
+                            <h3 *ngIf="addTypeObservationsForm.get('observationType')?.hasError('required')" class="form-red-validator m-1"> Este
+                              campo es requerido</h3>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-12 text-center mt-4 d-flex justify-content-around bd-highlight">
+                      <button mat-raised-button color="primary" class="btn btn-primary m-3" type="submit" [disabled]="addTypeObservationsForm.invalid">Agregar</button>
+                      <button mat-raised-button color="primary" class="btn btn btn-primary m-3" routerLink="/app/improvements">Volver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-ligth text-center">
+              <tr>
+                <th scope="row" class="title_table">Nombre del estado de la HU</th>
+                <th scope="row" class="title_table">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let item of typeObservation">
+                <td>{{item.observationName}}</td>
+                <td> 
+                    <button type="button" class="btn btn-warning btn-sm m-1" (click)="editTypeObservationModal(item.observationId, item.observationName)"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+   </div>
+</div>
+

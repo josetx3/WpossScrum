@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Clientes</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Clientes</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-primary" (click)="addCustomerModal()">Agregar cliente</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="car-title">Lista de Clientes</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center ">
+          <tr>
+            <th scope="row" class="title_table">NIT</th>
+            <th scope="row" class="title_table">Razón social</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-center" >
+          <tr *ngFor="let item of customer">
+            <td>{{item.clientNit}}</td>
+            <td>{{item.client_name}}</td>
+            <td class="icon">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editCustomerModal(item.clientNit)">
+                <i class="fas fa-edit"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

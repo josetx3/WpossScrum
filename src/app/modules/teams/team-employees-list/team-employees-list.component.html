@@ -1,0 +1,33 @@
+<div class="mat-elevation-z8 p-3">
+  <h2>Empleados en equipo</h2>
+  <mat-form-field>
+    <mat-label>Busqueda General</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef> Id</th>
+        <td mat-cell *matCellDef="let row"> {{row.employeeId}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre</th>
+        <td mat-cell *matCellDef="let row"> {{row.employeepName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Cargo">
+        <th mat-header-cell *matHeaderCellDef> Cargo</th>
+        <td mat-cell *matCellDef="let row"> {{row.employeeCharge}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Conocimiento">
+        <th mat-header-cell *matHeaderCellDef> Conocimiento</th>
+        <td mat-cell *matCellDef="let row"> {{row.employeeKnowledge}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="card justify-content-center">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Proyectos</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Proyectos</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h2 class="">Agregar un nuevo proyecto</h2>
+      </div>
+      <div class="col-8">
+        <button type="button" class="btn btn-primary" (click)="addProjetModal()">Agregar proyecto</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Lista de proyectos</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table">Nombre del proyecto</th>
+            <th scope="row" class="title_table">Área</th>
+            <th scope="row" class="title_table">Cliente</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of proyect">
+            <td>{{item.projectName}}</td>
+            <td>{{item.areaId}}</td>
+            <td>{{item.clientId}}</td>
+            <td class="icon text-center">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editProjetModal(item.projectId)"><i
+                  class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-primary btn-sm m-1" (click)="viewSubprojectsToProyect(item.projectId)" ><i
+                  class="fa fa-eye"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

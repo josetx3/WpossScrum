@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Gestionar tablero</h1>
+    <div class="form-row align-items-center">
+      <form class="sprints-form" [formGroup]="boardEditFrom" (ngSubmit)="editBoard()">
+        <div class="form-group col-8 m-1">
+          <label>Equipo</label>
+          <!-- <input type="text" class="form-control" formControlName="teamId"> -->
+          <select class="form-select" formControlName="teamId" >
+            <option value="{{team.teamId}}" *ngFor="let team of teams">{{team.teamName}}</option>
+          </select>
+        </div>
+        <div class="form-group col-8 m-1">
+          <label>Seleccionar historia de usuario</label>
+          <select class="form-select" formControlName="userStoryId">
+            <option>Seleccionar</option>
+            <option value="{{userStory.userStoryId}}" *ngFor="let userStory of userStory">{{userStory.userStoryName}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-8 m-1">
+          <label>Seleccionar tarea</label>
+          <select class="form-select" formControlName="taskTeamId">
+            <option>Seleccionar</option>
+            <option value="{{item.taskTeamId}}" *ngFor="let item of taskTeam">{{ item.taskName }}</option>
+          </select>
+        </div>
+        <div class="form-group col-8 m-1">
+          <label>Asignar empleado</label>
+          <select class="form-select" formControlName="employeeId">
+            <option>Seleccionar</option>
+            <option value="{{employee.employeeId}}" *ngFor="let employee of employees">{{employee.employeeName}}
+            </option>
+          </select>
+        </div>
+        <div class="col-3 m-3">
+          <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="boardEditFrom.invalid">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Añadir tablero</h1>
+    <div class="form-row align-items-center">
+      <form class="sprints-form" [formGroup]="boardFrom" (ngSubmit)="saveBoard()">
+        <div class="form-group col-7 m-1">
+          <label>Seleccionar area</label>
+          <select class="form-select" formControlName="areaId" (change)="selectArea()">
+            <option  *ngFor="let team of areas" value="{{team.areaId}}">{{team.areaName}}</option>
+          </select>
+        </div>
+        <div class="form-group col-7 m-1">
+          <label>Seleccionar equipo</label>
+          <select class="form-select" formControlName="teamId" (change)="selectTeam()">
+            <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.teamName}} </option>
+          </select>
+        </div>
+        <div class="form-group col-7 m-1">
+          <label>Seleccionar historia de usuario</label>
+          <select class="form-select" formControlName="userStoryId" (change)="selectUserStory()">
+            <option *ngFor="let userStory of userStory" value="{{userStory.userStoryId}}">{{userStory.userStoryName}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-7 m-1">
+          <label>Seleccionar tarea</label>
+          <select class="form-select" formControlName="taskTeamId">
+         
+            <option *ngFor="let item of taskTeam" value="{{item.taskTeamId}}" >{{item.taskName}}</option>
+          </select>
+        </div>
+        <div class="form-group col-7 m-1">
+          <label>Seleccionar empleado</label>
+          <select class="form-select" formControlName="employeeId">
+            
+            <option *ngFor="let employee of employees" value="{{employee.employeeId}}">{{employee.employeeName}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-7 m-1">
+          <label>Fecha</label>
+          <input type="date" class="form-control" formControlName="date">
+        </div>
+        <div class="col-3 mt-3">
+          <button class="btn btn btn-primary mb-2 " type="submit" [disabled]="boardFrom.invalid" >Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

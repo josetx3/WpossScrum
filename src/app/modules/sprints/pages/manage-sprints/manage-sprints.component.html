@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Sprint</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Sprint</li>
+        </ol>
+      </nav>
+    </div>
+    <button class="btn btn-primary mx-2 mb-3 " (click)="AddSprintModal()">Agregar un sprint</button>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center ">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">N°Sprint</th>
+            <th scope="row" class="title_table">Equipo</th>
+            <th scope="row" class="title_table">Fecha Inicial</th>
+            <th scope="row" class="title_table">Fecha Final</th>
+            <th scope="row" class="title_table">Dias de sprint</th>
+            <th scope="row" class="title_table">Puntear dias</th>
+            <th scope="row" class="title_table">Calcular Puntos Sprint</th>
+            <th scope="row" class="title_table">Añadir HU</th>
+            <th scope="row" class="title_table">Burn down chart</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor=" let item of sprints">
+            <td class="content_table">{{item.nuSprint}}</td>
+            <td class="content_table">{{item.teamName}}</td>
+            <td class="content_table">{{item.sprintStart}}</td>
+            <td class="content_table">{{item.sprintEnd}}</td>
+            <td class="content_table">{{item.sprintDay}}</td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary btn-sm"
+                (click)="sendToChosenButton(item,'score-sprint-days')"><i class="fa-solid fa-calendar"></i></button>
+            </td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary btn-sm"
+                (click)="sendToChosenButton(item,'calculate_points_sprint')"><i
+                  class="fa-solid fa-calculator"></i></button>
+            </td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['sprint-user-story',item.sprintId, item]"
+                      title="Añadir Historias de usuario"><i class="bi bi-file-plus-fill"></i></button>
+            </td>
+            <td class="icon">
+              <button type="button" class="btn btn-primary btn-sm m-1" (click)="viewGraphicUserStory(item.sprintId)"
+                      title="Grafica Burn down chart"><i class="bi bi-bar-chart-steps"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

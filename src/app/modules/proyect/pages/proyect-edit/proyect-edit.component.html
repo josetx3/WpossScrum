@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Editar proyecto</h1>
+    <form class="userStory-form" [formGroup]="proyectEditForm" (ngSubmit)="edit()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Nombre del proyecto</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="proyectName">
+              <div *ngIf="proyectEditForm.get('proyectName')?.dirty || proyectEditForm.get('proyectName')?.touched">
+                <h3 *ngIf="proyectEditForm.get('proyectName')?.hasError('required')" class="form-red-validator m-1"> Este campo es requerido</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el cliente: </label>
+            <div class="col-12">
+              <select class="form-control form-select " formControlName="proyectClient">
+                <option value="{{client.clientNit}}" *ngFor="let client of clients">{{client.client_name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el cliente: </label>
+            <div class="col-12">
+              <select class="form-control form-select " formControlName="proyectArea">
+                <option value="{{area.areaId}}" *ngFor="let area of areas">{{area.areaName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn btn-primary" type="submit" [disabled]="proyectEditForm.invalid">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Agregar un nuevo equipo</h1>
+    <form class="manage-teams-form" [formGroup]="manageTeamsForm" (ngSubmit)="saveTeams()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Nombre del equipo</label>
+            <div class="col-12">
+              <input type="text" class="form-control" formControlName="teamName">
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el area: </label>
+            <div class="col-12">
+              <select class="form-select mt-2 form-control" formControlName="areaId">
+                <option value="{{item.areaId}}" *ngFor="let item of areas">{{item.areaName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-6 mt-3 m-1">
+            <button class="btn btn-primary mb-2" type="submit" [disabled]="manageTeamsForm.invalid">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

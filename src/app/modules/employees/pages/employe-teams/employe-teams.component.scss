@@ -1,0 +1,17 @@
+.template-no-area{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+    text-align: center;
+  
+    .template-no-area-content{
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px) {
+    .template-no-area-content{
+      font-size: 2px;
+    }
+  }
+  

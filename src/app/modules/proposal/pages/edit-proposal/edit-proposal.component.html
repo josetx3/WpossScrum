@@ -1,0 +1,48 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+        <h1 class="card-title">Editar propuesta</h1>
+            <div class="form-container w-100 mt-4">
+                <form [formGroup]="editProposalForm" (ngSubmit)="updateProposal()"> 
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row col-12">
+                                <label for="text" class="col-12 col-form-label">Nombre de la propuesta</label>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" formControlName="proposalName" maxlength="60">
+                                    <div *ngIf="editProposalForm.get('proposalName')?.dirty || editProposalForm.get('proposalName')?.touched">
+                                        <p *ngIf="editProposalForm.get('proposalName')?.hasError('required')"
+                                        class="form-red-validator m-1">Este campo es requerido </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-12">
+                                <label for="text" class="col-12 col-form-label">Descripcion</label>
+                                <div class="col-12">
+                                    <textarea class="form-control" rows="3" formControlName="proposalObservation" maxlength="300"></textarea>
+                                    <div *ngIf="editProposalForm.get('proposalObservation')?.dirty || editProposalForm.get('proposalObservation')?.touched">
+                                        <p *ngIf="editProposalForm.get('proposalObservation')?.hasError('required')"
+                                        class="form-red-validator m-1">Este campo es requerido </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-12">
+                                <label class="col-12 col-form-label">Estado de la propuesta</label>
+                                <div class="col-12">
+                                <input type="text" class="form-control" formControlName="proposalStatus" maxlength="60">
+                                </div>
+                                <div *ngIf="editProposalForm.get('proposalStatus')?.dirty || editProposalForm.get('proposalStatus')?.touched">
+                                <p *ngIf="editProposalForm.get('proposalStatus')?.hasError('required')"
+                                class="form-red-validator m-1">Este campo es requerido </p>
+                            </div>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button class="btn btn-primary mx-2 mb-2 mt-2" type="submit" [disabled]="editProposalForm.invalid">Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

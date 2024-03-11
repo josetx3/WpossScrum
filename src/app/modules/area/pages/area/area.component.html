@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Areas</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Areas</li>
+        </ol>
+      </nav>
+    </div>
+    <form [formGroup]="areaForm" (ngSubmit)="saveArea()">
+      <div class="row col-12">
+        <div class="col-12">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Agregar nueva area</label>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control" formControlName="areaName" maxlength="21">
+          <div *ngIf="areaForm.get('areaName')?.dirty || areaForm.get('areaName')?.touched">
+            <h3 *ngIf="areaForm.get('areaName')?.hasError('required')" class="form-red-validator m-1"> Este campo es requerido</h3>
+            <p *ngIf="areaForm.get('areaName')?.hasError('maxlength')" class="form-red-validator m-1">El maximo de caracteres permitidos es de 20</p>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-4">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="car-title">Lista de las areas</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table">#</th>
+            <th scope="row" class="title_table">Nombre del área</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of area; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.areaName}}</td>
+            <td class="icon text-center"><button type="button" class="btn btn-warning btn-sm m-1"
+                (click)="editAreaModal(item.areaId)"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-danger btn-sm m-1" (click)="deleteArea(item.areaId)"><i
+                  class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,110 @@
+<div class="card">
+    <div class="card-body">
+      <div class="pagetitle m-2">
+        <h1>Propuestas</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+            <li class="breadcrumb-item active">Propuestas</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <form [formGroup]="addProposalForm" (ngSubmit)="addProposal()"> 
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row col-6">
+                            <label class="col-6 col-form-label">Elija el cliente: </label>
+                            <div class="col-12">
+                              <select class="form-control form-select" formControlName="clienteId" (change)="getAllSubprojects()">
+                                <option *ngFor="let item of customers" value="{{item.clientNit}}">{{ item.client_name}}</option>
+                              </select>
+                            </div>
+                            <div *ngIf="addProposalForm.get('clienteId')?.dirty || addProposalForm.get('clienteId')?.touched">
+                              <p *ngIf="addProposalForm.get('clienteId')?.hasError('required')"
+                              class="form-red-validator m-1">Este campo es requerido </p>
+                          </div>
+                        </div>
+                        <div class="row col-6">
+                            <label class="col-6 col-form-label">Elija el subproyecto: </label>
+                            <div class="col-12">
+                            <select class="form-control form-select" formControlName="subProjectId">
+                                <option *ngFor="let item of subProjects" value="{{item.subProjectId}}">{{ item.subProjectName}}</option>
+                            </select>
+                            </div>
+                            <div *ngIf="addProposalForm.get('subProjectId')?.dirty || addProposalForm.get('subProjectId')?.touched">
+                              <p *ngIf="addProposalForm.get('subProjectId')?.hasError('required')"
+                              class="form-red-validator m-1">Este campo es requerido </p>
+                          </div>
+                        </div>
+                        <div class="row col-12">
+                            <label for="text" class="col-12 col-form-label">Nombre de la propuesta</label>
+                            <div class="col-6">
+                                <input type="text" class="form-control" formControlName="proposalName" maxlength="60">
+                                <div *ngIf="addProposalForm.get('proposalName')?.dirty || addProposalForm.get('proposalName')?.touched">
+                                    <p *ngIf="addProposalForm.get('proposalName')?.hasError('required')"
+                                    class="form-red-validator m-1">Este campo es requerido </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12">
+                            <label for="text" class="col-12 col-form-label">Descripcion</label>
+                            <div class="col-6">
+                                <textarea class="form-control" rows="3" formControlName="proposalObservation" maxlength="300"></textarea>
+                                <div *ngIf="addProposalForm.get('proposalObservation')?.dirty || addProposalForm.get('proposalObservation')?.touched">
+                                    <p *ngIf="addProposalForm.get('proposalObservation')?.hasError('required')"
+                                    class="form-red-validator m-1">Este campo es requerido </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12">
+                            <label for="inputNumber" class="col-12 col-form-label">Subir archivo</label>
+                            <div class="col-6">
+                              <input type="file" accept=".pdf" class="form-control" formControlName="proposalArchive" (change)="onFileSelected($event)"> 
+                            </div>
+                          </div>
+
+                        <div class="col-12 mt-4">
+                            <button class="btn btn-primary mx-2 mb-2 mt-2" type="submit" [disabled]="addProposalForm.invalid">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="col-12">
+      <div class="row">
+        <div class="table-responsive" >
+          <table class="table table-bordered table-hover text-center ">
+            <thead class="thead-ligth">
+              <tr>
+                <th scope="row" class="title_table">Propuesta</th>
+                <th scope="row" class="title_table">Nombre cliente</th>
+                <th scope="row" class="title_table">Nombre Subproyecto</th>
+                <th scope="row" class="title_table">Observaciones</th>
+                <th scope="row" class="title_table icon">Estado</th>
+                <th scope="row" class="title_table icon">PDF</th>
+                <th scope="row" class="title_table icon">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of proposal">
+                <td>{{item.proposalName}}</td>
+                <td>{{item.clientName}}</td>
+                <td>{{item.subProjectNameSubProjectName}}</td>
+                <td>{{item.proposalDescription}}</td>
+                <td>{{item.proposalState}}</td>
+                <td class="icon"><button type="button" class="btn btn-danger btn-sm m-1" (click)="viewPdf(item.proposalArchive,item.proposalName )"><i class="bi bi-filetype-pdf" ></i></button></td>
+                <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1" (click)="updateProposal(item.proposalId)"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

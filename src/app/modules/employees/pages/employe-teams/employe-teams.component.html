@@ -1,0 +1,32 @@
+<div class="container mt-4">
+<div class="card">
+    <div class="card-body" *ngIf="employeeArea.length > 0; else emptyState">
+      <h1 class="card-title">Areas al que pertenece el empleado</h1>
+      <div class="table-responsive">
+        <div class="row">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-ligth text-center">
+              <tr>
+                <th scope="row" class="title_table">Nombre del Area</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let item of employeeArea">
+                <td>{{item.areaName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <ng-template #emptyState>
+    <div class="template-no-area">
+      <div class="template-no-area-content">
+        <p>Este empleado no está en niguna area</p>
+      </div>
+    </div>
+  </ng-template>
+  

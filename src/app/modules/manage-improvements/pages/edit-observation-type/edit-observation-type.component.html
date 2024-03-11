@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <div class="card">
+      <div class="card-body">
+        <div class="pagetitle m-2">
+          <h1>Editar tipos de observaciones</h1>
+          <div class="row"> 
+              <div class="col-12">
+                  <form [formGroup]="editTypeObservationsForm" >
+                      <div class="row">
+                        <div class="col-12">
+                          <label class="col-6 col-form-label"> Nombre del tipo de observacion</label>
+                        <input type="text" class="form-control" formControlName="observationType">
+                          <div *ngIf="editTypeObservationsForm.get('observationType')?.dirty || editTypeObservationsForm.get('observationType')?.touched">
+                              <h3 *ngIf="editTypeObservationsForm.get('observationType')?.hasError('required')" class="form-red-validator m-1"> Este
+                                campo es requerido</h3>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-12 text-center mt-4 d-flex justify-content-around bd-highlight">
+                        <button mat-raised-button color="primary" class="btn btn-primary m-3" [disabled]="editTypeObservationsForm.invalid" (click)="editObservationType()">Editar</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

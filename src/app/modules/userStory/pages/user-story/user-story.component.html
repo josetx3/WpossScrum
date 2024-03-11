@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Historias de Usuario</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Historia de usuario</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h2>Agregar una nueva historia de usuario</h2>
+      </div>
+      <div class="col-8">
+        <button type="button" class="btn btn-primary" (click)="addUserStoryModal()">Agregar historia</button>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-primary" [routerLink]="['app-state-user-story-add']" >Agregar estados</button>
+      </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table"> Codigo HU</th>
+            <th scope="row" class="title_table">Nombre de la historia</th>
+            <th scope="row" class="title_table">Estado</th>
+            <th scope="row" class="title_table">Fecha maxima</th>
+            <th scope="row" class="title_table icon">Puntos</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of userStory">
+            <td>{{item.userStoryCode}}</td>
+            <td>{{item.userStoryName}}</td>
+            <td>{{item.userStoryStateName}}</td>
+            <td>{{item.fechaMaxima}}</td>
+            <td>{{item.userStoryScore}}</td>
+            <td class="icon text-center">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editUserStoryModal(item.userStoryId)">
+                <i class="fas fa-edit"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

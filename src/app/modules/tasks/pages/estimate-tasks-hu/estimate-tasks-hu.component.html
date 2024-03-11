@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="card-body">
+        <div class="pagetitle m-2">
+            <h1>Agregar y Estimar tareas en HU</h1>
+            <nav>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+                <li class="breadcrumb-item active">A. y E. Tareas en HU</li>
+              </ol>
+            </nav>
+          </div>
+        <form [formGroup]="filterHU" (ngSubmit)="getStoryUserbyTeam()">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row col-12">
+                        <label class="col-2 col-form-label">Seleccione el equipo </label>
+                        <div class="col-4">
+                            <select class="form-select mt-2 mb-2" formControlName="teamId" (change)="selectedTeam()">
+                                <option *ngFor="let item of teams" value="{{item.teamId}}">{{item.teamName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                      <label class="col-2 col-form-label">Seleccione el sprint </label>
+                      <div class="col-4">
+                          <select class="form-select mt-2 mb-2" formControlName="sprintId">
+                              <option *ngFor="let item of sprints" value="{{item.sprintId}}">{{item.nuSprint}}
+                              </option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-12 text-center mt-4">
+                <button mat-raised-button color="primary"  class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="filterHU.invalid">Buscar</button>
+            </div>
+        </form> 
+        <div class="col-12">
+            <!-- <label *ngFor="let item of taskByUserStory">
+               <p>Sprint: <strong>{{item.sprintNumber}}</strong></p> 
+            </label> -->
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+              <thead class="thead-ligth">
+                <tr>
+                  <th scope="row" class="title_table">Cod.</th>
+                  <th scope="row" class="title_table">Historias</th>
+                  <th scope="row" class="title_table">Puntos HU</th>
+                  <th scope="row" class="title_table">Horas</th>
+                  <th scope="row" class="title_table icon">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of userStoryTeamSprint" class="text-center">
+                  <td>  {{item.userStoryCode}}</td>
+                  <td>  {{item.userStoryName}}</td>
+                  <td>{{item.userStoryScore}}  </td>
+                  <td> {{item.userStoryScore * 8}}</td >
+                  <td  class="icon text-center" >
+                        <button  type="button" class="btn btn btn-success btn-sm m-1" title="Gestionar las tareas de la HU"
+                        [routerLink]="['app-add-tasks-hu']" [queryParams]="{userStoryCode:item.userStoryCode, userStoryName: item.userStoryName,
+                          userStoryScore: item.userStoryScore, TeamId: this.teamId, sprintId: this.sprintId, userStoryID: item.userStoryId}">
+                        <i class="fa fa-plus"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
+

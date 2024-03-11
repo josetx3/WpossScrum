@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Editar horas de las Tareas</h1>
+            <form [formGroup]="FormEditHoursTasks" (ngSubmit)="editHoursTasks()">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="col-6 col-form-label">Nombre de la tarea</label>
+                    <input type="text" class="form-control" formControlName="taskNameForm" maxlength="100">
+                    <div *ngIf="FormEditHoursTasks.get('taskNameForm')?.dirty || FormEditHoursTasks.get('taskNameForm')?.touched">
+                      <h3 *ngIf="FormEditHoursTasks.get('taskNameForm')?.hasError('required')" class="form-red-validator m-1"> Este
+                        campo es requerido</h3>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label class="col-6 col-form-label">Digite las horas de las tareas</label>
+                    <input type="number" class="form-control" formControlName="hoursTasks" maxlength="3">
+                    <div *ngIf="FormEditHoursTasks.get('hoursTasks')?.dirty || FormEditHoursTasks.get('hoursTasks')?.touched">
+                      <h3 *ngIf="FormEditHoursTasks.get('hoursTasks')?.hasError('required')" class="form-red-validator m-1"> Este
+                        campo es requerido</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-center mt-4">
+                  <button class="btn btn-primary mx-2 mb-2" type="submit" [disabled]="FormEditHoursTasks.invalid">Editar</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>

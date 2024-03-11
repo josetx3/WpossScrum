@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Mejoras</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Mejoras</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+            <div class="col-8">
+              <button type="button" class="btn btn-primary" (click)="AddImprovementsModal()">Agregar una mejora</button>
+            </div>
+            <div class="col-4">
+              <button type="button" class="btn btn-primary" [routerLink]="['app-add-observation-type']">Agregar tipos de observaciones</button>
+            </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">Area</th>
+            <th scope="row" class="title_table">Equipo</th>
+            <th scope="row" class="title_table icon">Histoia de usuario</th>
+            <th scope="row" class="title_table icon">Tarea</th>
+            <th scope="row" class="title_table icon">Tipo de observacion</th>
+            <th scope="row" class="title_table icon">Mas detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of improvements;">
+            <td>{{item.areaName}}</td>
+            <td>{{item.teamName}}</td>
+            <td>{{item.userStoryName}}</td>
+            <td>{{item.nameTask}}</td>
+            <td>{{item.observationName}}</td>
+            <td class="icon">
+              <button class="btn btn-primary btn-sm m-1" (click)="viewMejora(item.improvementsId)"><i
+                  class="fa fa-eye"></i></button>
+              <button type="button" class="btn btn-danger btn-sm m-1"
+                (click)="deleteImprovements(item.improvementsId)"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

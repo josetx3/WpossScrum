@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Editar historia de usuario</h1>
+    <div class="form-row align-items-center">
+      <form class="subprojects-form" [formGroup]="userStoryForm" (ngSubmit)="edit()">
+        <div class="form-group mb-3">
+          <label class="mr-sm"> Nombre historia de usuario</label>
+          <input type="text" class="form-control" formControlName="userStoryName" maxlength="31" >
+          <div *ngIf="userStoryForm.get('userStoryName')?.dirty || userStoryForm.get('userStoryName')?.touched">
+            <p *ngIf="userStoryForm.get('userStoryName')?.hasError('required')" class="form-red-validator m-1">
+              Este campo es requerido
+            </p>
+            <p *ngIf="userStoryForm.get('userStoryName')?.hasError('maxlength')" class="form-red-validator m-1">
+              El maximo de caracteres permitidos es de 30
+            </p>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <span class="mr-sm">Estado</span>
+          <div class="label-text">
+            <select class="form-control" formControlName="userStoryStateId">
+              <option *ngFor="let item of userStoryState" value="{{item.userStoryStateId}}">{{ item.userStoryStateName}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label class="mr-sm">Fecha maxima</label>
+          <input type="date" class="form-control" formControlName="fechaMaxima">
+        </div>
+        <div class="form-group mb-3">
+          <label>Puntos historia de usuario</label>
+          <input type="text" class="form-control" placeholder="Ingrese los puntos" formControlName="userStoryScore">
+        </div>
+        <div class="input-group mb-3">
+          <form>
+            <div class="form-group">
+              <label class="mr-sm ">Archivo</label>
+              <input type="file" class="form-control" formControlName="userStoryArchive">
+            </div>
+          </form>
+        </div>
+        <button class="btn btn btn-primary mb-2 " type="submit">Editar</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="card justify-content-center">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Subproyectos</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Subproyectos</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h2>Agregar un nuevo subproyecto</h2>
+      </div>
+      <div class="col-9">
+        <button type="button" class="btn btn-primary" (click)="addSubprojetModal()">Agregar subproyecto</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h1 class="car-title">Lista de los subproyectos</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table">Nombre del subproyecto</th>
+            <th scope="row" class="title_table">Proyecto</th>
+            <th scope="row" class="title_table icon">equipo</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of subproject" class="text-center">
+            <td>{{item.subProjectName}}</td>
+            <td>{{item.projectName}}</td>
+            <td>{{item.teamName}}</td>
+            <td class="icon text-center">
+              <button type="button" class="btn btn-warning btn-sm m-1" (click)="editSubProjetModal(item.subProjectId)"
+                title="Editar Subproyecto"><i class="fas fa-edit"></i></button>
+<!--              <button type="button" class="btn btn-primary btn-sm m-1" [routerLink]="['/app/user-story']"
+                title="Visualizar subproyecto"><i class="fa fa-eye"></i></button>-->
+              <button type="button" class="btn btn-primary btn-sm m-1" (click)="viewSubprojectsUserStory(item.subProjectId)"
+                      title="Visualizar Historias de usuario"><i class="fa fa-eye"></i></button>
+              <button type="button" class="btn btn-success btn-sm m-1" (click)="addUserStoryModal()"
+                title="Agregar historia de usuario"><i class="fa fa-plus"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

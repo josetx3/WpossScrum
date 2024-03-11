@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Historias de usuario</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table">Nombre Historias de Usuario</th>
+            <th scope="row" class="title_table">Fecha Maxima</th>
+            <th scope="row" class="title_table">Puntos</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of teamStory">
+            <td>{{item.userStoryName}}</td>
+            <td>{{item.fechaMaxima}}</td>
+            <td> {{item.userStoryScore}} </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-primary">Puntuar Historias</button>
+    </div>
+  </div>
+</div>

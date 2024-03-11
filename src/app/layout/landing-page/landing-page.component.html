@@ -1,0 +1,387 @@
+<body>
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="logo">
+        <span>SCRUM</span>
+      </a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="#about">Sobre scrum</a></li>
+          <li><a class="nav-link scrollto" href="#events">Eventos</a></li>
+          <li><a class="nav-link scrollto" href="#artifact">Artefactos</a></li>
+          <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
+          <li><a class="getstarted scrollto cursor-pointer" (click)="auth()">Login</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    </div>
+  </header>
+  <section id="hero" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">Scrum management</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Herramienta para la implementacion de la metodologia scrum para
+            tus proyectos
+          </h2>
+          <div data-aos="fade-up" data-aos-delay="600">
+            <div class="text-center text-lg-start">
+              <a (click)="auth()"
+                class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center cursor-pointer">
+                <span>Ingresa</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="assets/img/scrum.jpg" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+  <main>
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="row gx-0">
+          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>¿Que es scrum?</h3>
+              <h2>Es una metodología de trabajo iterativa e incremental para la gestión de proyectos, desplegado
+                principalmente en el desarrollo ágil de software.</h2>
+              <p>
+                La metodología scrum hace hincapié en el software funcional, la flexibilidad para cambiar junto con las
+                realidades de negocio emergentes como páginas web, la comunicación y la colaboración.
+              </p>
+              <div class="text-center text-lg-start">
+                <a href="https://www.arimetrics.com/glosario-digital/scrum" target="_blank"
+                  class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Informate mas!</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+            <img src="./assets/img/about.jpg" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="counts" class="counts">
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-emoji-smile"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Facil acceso</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-journal-richtext" style="color: #ee6c20;"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Proyectos seguros</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-headset" style="color: #15be56;"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Soporte en linea</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-people" style="color: #bb0852;"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Equipos de trabajo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="features" class="features">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h2>Caracteristicas</h2>
+          <p>Como caracteristicas de scrum podemos encontrar</p>
+        </header>
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="./assets/img/features.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
+            <div class="row align-self-center gy-4">
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="200">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Enfoque iterativo</h3>
+                </div>
+              </div>
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="300">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Roles definidos</h3>
+                </div>
+              </div>
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="400">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Product Backlog</h3>
+                </div>
+              </div>
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="500">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Sprint Planning</h3>
+                </div>
+              </div>
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="600">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Sprint Review</h3>
+                </div>
+              </div>
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Sprint Retrospective</h3>
+                </div>
+              </div>
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Transparencia y visibilidad</h3>
+                </div>
+              </div>
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Adaptabilidad y flexibilidad</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="events" class="services">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h2>Principales documentos en scrum</h2>
+          <p>Eventos SCRUM</p>
+        </header>
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-box blue">
+              <i class="ri-discuss-line icon"></i>
+              <h3>SPRINT</h3>
+              <p>Es la medida por la cual los integrantes del equipo SCRUM han fraccionado el proyecto. Los sprints son
+                unidades entregables y medibles para los steakholders y que pueden probar y valorar.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-box orange">
+              <i class="ri-discuss-line icon"></i>
+              <h3>SPRINT PLANNING</h3>
+              <p>Es la unión previa para planificar el sprint. Suelen ser largas y establecen las tareas que van a
+                llevar a cabo durante todo el sprint.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-box green">
+              <i class="ri-discuss-line icon"></i>
+              <h3>DAILY/WEEKLY SCRUM</h3>
+              <p>Reunión Diaria de 15 minutos de duración por la cual se repasa que se hizo ayer, que se hará hoy y que
+                impedimentos se han encontrado.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-box red">
+              <i class="ri-discuss-line icon"></i>
+              <h3>SPRINT REVIEW</h3>
+              <p>Reunión Final al terminar el sprint para valorar por parte del Product Owner el trabajo y dar el OK al
+                sprint para pasar al siguiente. En este evento participa todo el equipo.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-box purple">
+              <i class="ri-discuss-line icon"></i>
+              <h3>SPRINT RETROSPECTIVE.</h3>
+              <p>Reunión posterior a la review donde se pone encima de la mesa qué ha ido bien, qué ha ido mal y da pie
+                a sugerencias de mejora para el siguiente sprint.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+            <div class="service-box pink">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Dolori Architecto</h3>
+              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti
+                recusandae ducimus enim.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="artifact" class="services">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <p>Artefactos SCRUM</p>
+        </header>
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-box blue">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Product Backlog</h3>
+              <p>Son la lista de necesidades del cliente que dividiremos en sprints backlog. Estas necesidades se
+                realizan en la reunión previa con los steakholders.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-box orange">
+              <i class="ri-discuss-line icon"></i>
+              <h3>SPRINT Backlog</h3>
+              <p>Son las divisiones entregables a los clientes y que desglosamos del Product backlog. Estas divisiones
+                han de poder ser entregables.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-box green">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Burn down chart</h3>
+              <p> Muestra el trabajo que queda en el sprint backlog. Proporciona una visión simple del progreso del
+                sprint y se puede actualizar todos los días. También proporciona virtualizaciones rápidas para
+                referencia.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-box red">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Definition of Ready </h3>
+              <p>Cuando decidimos que un producto está para entregar.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-box purple">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Definition of Done.</h3>
+              <p> Se establece en el srpint planning. Es el listado de características que un cliente establece como
+                óptimas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="faq" class="faq">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h2>F.A.Q</h2>
+          <p>Preguntas frecuentes sobre Scrum</p>
+        </header>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="accordion accordion-flush" id="faqlist1">
+              <div class="accordion-item col-12">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-1">
+                    ¿Cuales son los participantes en Scrum?
+                  </button>
+                </h2>
+                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    <p> Los tres actores fundamentales en la metodologia scrum son el dueño del proyecto, el scrum
+                      master y el miembro del equipo:
+                    </p>
+                    <ul>
+                      <li>Product Owner</li>
+                      <li>Steakholders</li>
+                      <li>Scrum master</li>
+                      <li>Equipo scrum:
+                        <ul>
+                          <li>Ingenieros de softwate</li>
+                          <li>Arquitectos</li>
+                          <li>Analistas</li>
+                          <li>Programadores</li>
+                          <li>Expertos en control de calidad</li>
+                          <li>Diseñadores de interfaz de usuario</li>
+                          <li>Probadores</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-5 col-md-12 footer-info">
+            <a href="#" class="logo d-flex align-items-center">
+              <img src="assets/img/logo.png" alt="">
+              <span> SCRUM</span>
+            </a>
+            <p>Herramienta para la implementacion de la metodologia scrum para tus proyectos.</p>
+            <div class="social-links mt-3">
+              <a href="" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-6 footer-links">
+            <h4>Links utilizados</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#hero">Inicio</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#about">Sobre scrum</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#events">Eventos</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#artifact">Artefactos</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#faq">F.A.Q</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-6 footer-links">
+            <h4>Otros servicios</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a (click)="auth()">Login</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+            <h4>Contacto</h4>
+            <p>
+              Ocaña, Norte de Santander<br>
+              Colombia<br><br>
+              <strong>Phone:</strong> +57 0000000000<br>
+              <strong>Email:</strong> scrum@wposs.com<br>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  <script src="assets/js/landing.js"></script>
+</body>

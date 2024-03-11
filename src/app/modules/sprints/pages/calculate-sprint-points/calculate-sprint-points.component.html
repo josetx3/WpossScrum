@@ -1,0 +1,82 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Calcular puntos Sprint Ideal</h1>
+    <form class="sprints-form" [formGroup]="calculateSprintForm" (ngSubmit)="saveSprintPoints()">
+      <div class="row">
+        <div class="col-12">
+          <div class="row col-12">
+            <label class="col-6 col-form-label">Seleccione el Empleado: </label>
+            <div class="col-12">
+              <select class="form-select mt-2 mb-2" formControlName="employeeId">
+                <option value="">Seleccione</option>
+                <option *ngFor="let item of employees" value="{{item.employeeId}}">{{item.employeeName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Porcentaje</label>
+            <div class="col-12">
+              <input class="form-control" type="number" formControlName="sprintEmployeePercentage" maxlength="4">
+              <div *ngIf="calculateSprintForm.get('sprintEmployeePercentage')?.hasError('max')" class="form-red-validator m-1">El valor máximo permitido es 100.</div>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputEmail" class="col-6 col-form-label">Dias de Permiso</label>
+            <div class="col-12">
+              <input class="form-control" type="number" formControlName="sprintEmployeeDay">
+            </div>
+          </div>
+          <div class="row col-12">
+            <label for="inputPassword" class="col-6 col-form-label">Observaciones</label>
+            <div class="col-12">
+              <textarea class="form-control" formControlName="sprintEmployeeDescription"
+                style="height: 100px"></textarea>
+            </div>
+          </div>
+          <div class="row col-3 mt-3 m-1">
+            <button mat-raised-button color="primary" class="btn btn btn-primary mb-2 " type="submit">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="title mt-3 text-center">
+      <h2 class=" mr-2">{{teamName}}</h2>
+    </div>
+    <div class="table-responsive mt-3 mb-4">
+      <table class="table table-condensed table-hover ">
+        <thead class="thead-ligth text-center">
+          <tr>
+            <th scope="row" class="title_table">Empleado</th>
+            <th scope="row" class="title_table">Porcentaje(%)</th>
+            <th scope="row" class="title_table">Puntos Calculados</th>
+            <th scope="row" class="title_table">Observaciones</th>
+            <th scope="row" class="title_table">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of employeeListFinal">
+            <td class="title_table">{{item.employeeName}}</td>
+            <td class="title_table">{{item.percentage}}%</td>
+            <td class="title_table">{{item.percentageFinal}}</td>
+            <td class="title_table">{{item.observations}}</td>
+            <td class="icon">
+              <button  type="button" class="btn btn-warning btn-sm m-1" (click)="editEmployeeTeamSprint(item.employeeId)" ><i class="fas fa-edit"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="points_final row"  role="toolbar">
+      <!-- <label>Los puntos del sprint son</label>
+      <br>
+      <span>("{{finalCalculation}}")</span>
+      <br> -->
+      <div class="col-12">
+        <button mat-raised-button color="primary" class="btn btn btn-primary m-3  col-3" (click)="calculateSprintPoints()">Calcular Puntos</button>
+        <button mat-raised-button color="primary" class="btn btn btn-primary m-3  col-3" routerLink="/app/sprints">Volver</button>
+      </div>
+    </div>
+    
+  </div>
+</div>

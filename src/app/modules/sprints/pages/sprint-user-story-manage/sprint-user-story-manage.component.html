@@ -1,0 +1,76 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Añadir HU</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Sprint</li>
+          <li class="breadcrumb-item active">Añadir HU</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="title" *ngIf="SprintDate">
+      <div> <strong> Area: {{SprintDate.areaName}}</strong> </div>
+      <div> <strong> Equipo: {{SprintDate.teamName}}</strong></div>
+      <div> <strong> Sprint: {{SprintDate.nuSprint}}</strong></div>
+      <div> <strong> Puntos Sprint ideal: {{SprintDate.ScorePointSprint}}</strong></div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="addUserStoryForm" (ngSubmit)="addUserStoryToSprint()">
+          <div class="row">
+            <div class="col-5">
+              <label class=" col-form-label">
+                Historia de usuario
+              </label>
+              <select class="form-select" aria-label="Default select example" formControlName="userStoryId">
+                <option value="{{item.userstoryId}}" *ngFor="let item of userStorys">{{item.userStoryName}}</option>
+              </select>
+            </div>
+
+            <div class="col-2">
+              <label class="col-4 col-form-label">Puntos</label>
+              <input type="text" class="form-control" formControlName="points" maxlength="3">
+              <div *ngIf="addUserStoryForm.get('points')?.dirty || addUserStoryForm.get('points')?.touched">
+                <h3 *ngIf="addUserStoryForm.get('points')?.hasError('required')" class="form-red-validator m-1"> Este
+                  campo es requerido</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 text-center mt-4 d-flex justify-content-around bd-highlight">
+            <button mat-raised-button color="primary" class="btn btn-primary m-3" type="submit" [disabled]="addUserStoryForm.invalid">Agregar</button>
+            <button mat-raised-button color="primary" class="btn btn btn-primary m-3" routerLink="/app/sprints">Volver</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-ligth">
+          <tr>
+            <th scope="row" class="title_table">H U</th>
+            <th scope="row" class="title_table icon">Proyectos</th>
+            <th scope="row" class="title_table icon">Subproyectos</th>
+            <th scope="row" class="title_table icon">Puntos HU</th>
+            <th scope="row" class="title_table icon">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of userStorysDes">
+            <td>{{item.userStoryName}}</td>
+            <td>{{item.projectName}}</td>
+            <td>{{item.subProjectName}}</td>
+            <td>{{item.points}}</td>
+            <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
+                (click)="editSprintUserStoryManageModal(item.sprintId, item.userstoryId, item.points)"><i class="fas fa-edit"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Puntear dias sprint</h1>
+      <div class="row">
+        <div class="table-responsive  ">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-ligth">
+              <tr>
+                <th class="title_table text-center w-50">Fecha</th>
+                <th class="title_table text-center">Días Sprint</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of arrayDates; let i = index">
+                <tr>
+                  <td class="text-center p-3">{{item.date}}</td>
+                  <td class="text-center">
+                    <div class="container-select w-100">
+                      <select name="sprintDaysScore" class="form-select text-center" [(ngModel)]="selectedValues[i]"
+                        (change)="CalculateSprintPoints()">
+                        <option value="0">N/A</option>
+                        <option value="0.5">Medio Día</option>
+                        <option value="1">Día</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-12">
+              <button class=" col-2 btn btn-primary" (click)="CalculateSprintPoints2()">Calcular</button>
+            </div>
+          </div>
+          <div class="col-6 mt-2">
+            <h1>El total es: {{totalScore}} </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

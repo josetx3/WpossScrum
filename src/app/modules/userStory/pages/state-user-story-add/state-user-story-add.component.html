@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="card-body">
+      <div class="pagetitle m-2">
+        <h1>Añadir estados de las HU</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+            <li class="breadcrumb-item active"><a routerLink="/app/user-story">Historias de Usuario</a></li>
+            <li class="breadcrumb-item active">Añadir estados de las HU</li>
+          </ol>
+        </nav>
+        <div class="row"> 
+            <div class="col-12">
+                <form [formGroup]="addEstateHUForm" (ngSubmit)="addEstateHU()">
+                    <div class="row">
+                      <div class="col-5">
+                        <label class="col-6 col-form-label"> Estado de Historia de Usuario</label>
+                        <select class="form-select" aria-label="Default select example" formControlName="estateUS" id="mySelect">
+                          <option value="REFINADA"> REFINADA</option>
+                          <option value="CREADA"> CREADA</option>
+                          <option value="DESARROLLO"> DESARROLLO</option>
+                          <option value="DESARROLLADO"> DESARROLLADA</option>
+                          <option value="FINALIZADA"> FINALIZADA</option>
+                        </select>
+                        <div *ngIf="addEstateHUForm.get('estateUS')?.dirty || addEstateHUForm.get('estateUS')?.touched">
+                            <h3 *ngIf="addEstateHUForm.get('estateUS')?.hasError('required')" class="form-red-validator m-1"> Este
+                              campo es requerido</h3>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-12 text-center mt-4 d-flex justify-content-around bd-highlight">
+                      <button mat-raised-button color="primary" class="btn btn-primary m-3" type="submit" [disabled]="addEstateHUForm.invalid">Agregar</button>
+                      <button mat-raised-button color="primary" class="btn btn btn-primary m-3" routerLink="/app/user-story">Volver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-ligth text-center">
+              <tr>
+                <th scope="row" class="title_table">Nombre del estado de la HU</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let item of userStoryState">
+                <td>{{item.userStoryStateName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="card">
+  <div class="card-body">
+    <div class="pagetitle m-2">
+      <h1>Tablero</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+          <li class="breadcrumb-item active">Tablero</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <form [formGroup]="boardFrom" (ngSubmit)="filterboard()">
+          <div class="row col-12">
+            <label class="col-5 col-form-label">
+              <h2>Seleccionar area</h2>
+            </label>
+            <div class="col-7">
+              <select class="form-select" aria-label="Default select example" formControlName="areaId"
+                (change)="selectArea()">
+                <option selected>Seleccione</option>
+                <option value="{{item.areaId}}" *ngFor="let item of areas">{{ item.areaName }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-5 col-form-label">
+              <h2>Seleccionar equipo</h2>
+            </label>
+            <div class="col-7">
+              <select class="form-select" aria-label="Default select example" formControlName="teamId"
+                (change)="selectTeam()">
+                <option selected>Seleccionar equipo</option>
+                <option value="{{team.teamId}}" *ngFor="let team of teams">{{team.teamName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row col-12">
+            <label class="col-5 col-form-label">
+              <h2>Seleccionar Sprint</h2>
+            </label>
+            <div class="col-sm-7">
+              <select class="form-select" aria-label="Default select example" formControlName="sprintId">
+                <option selected>Seleccionar</option>
+                <option value="{{item.sprintId}}" *ngFor="let item of sprints">{{item.nuSprint}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="btn-new">
+            <div class="col-12 text-center">
+              <button class="btn btn-primary mx-2 mb-2" (click)="filterboard()">Filtrar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <hr>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-8 col-sm-8" >
+          <div *ngFor="let item1 of userStoryTeamSprint"> Tablero {{item1.userStoryCode}}
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <table class="table table-hover text-center">
+                  <thead class="thead-ligth">
+                    <tr>
+                      <th scope="row" class="title_table">Tarea</th>
+                      <th scope="row" class="title_table">Horas</th>
+                      <th scope="row" class="title_table">Estado</th>
+                      <th scope="row" class="title_table icon">Empleado</th>
+                      <th scope="row" class="title_table icon">Fecha asignacion</th>
+                      <th scope="row" class="title_table icon">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of board[item1.userStoryId]" [ngClass]="getRowClass(item.taskState)">
+                      <td>{{item.taskName}}</td>
+                      <td>{{item.taskHours}}</td>
+                      <td>{{item.taskState}}</td>
+                      <td>{{item.employeeName}}</td>
+                      <td>{{formatDate(item.assingDate)}}</td>
+                      <td class="icon"><button type="button" class="btn btn-warning btn-sm m-1"
+                          (click)="editBoardModal(item.idBoard)"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm m-1" (click)="deleteBoard(item.idBoard)"><i
+                            class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-success btn-sm m-1" (click)="finishedTask(item.taskName, item.taskTeamId, item.idBoard, item.taskState)"><i
+                              class="bi bi-check-circle"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

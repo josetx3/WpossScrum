@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="card-body">
+        <div class="pagetitle m-2">
+        <h1>Agregar tareas en HU</h1>
+            <nav>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/app">Inicio</a></li>
+                <li class="breadcrumb-item active"><a routerLink="/app/tasks">A. y E. Tareas en HU</a></li>
+                <li class="breadcrumb-item active">Agregar Tareas en HU</li>
+              </ol>
+            </nav>
+        </div>
+        <div>
+            <ol><strong>Cod. de la HU: </strong>{{userStoryCode}}</ol>
+            <ol><strong>Nombre de la HU: </strong>{{userStoryName}}</ol>
+            <ol><strong>Puntos de la HU: </strong>{{userStoryScore}}</ol>
+            <ol><strong>Horas de la HU: </strong>{{userStoryScore* 8}} </ol>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="addTaskUS" (ngSubmit)="addTaskToUserStory()"> 
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="col-6 col-form-label">Nombre de la tarea</label>
+                            <input type="text" class="form-control" formControlName="taskName" maxlength="100">
+                            <div *ngIf="addTaskUS.get('taskName')?.dirty || addTaskUS.get('taskName')?.touched">
+                              <h3 *ngIf="addTaskUS.get('taskName')?.hasError('required')" class="form-red-validator m-1"> Este
+                                campo es requerido</h3>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <label class="col-6 col-form-label">Horas</label>
+                            <input type="number" class="form-control" formControlName="hours" maxlength="2">
+                            <div *ngIf="addTaskUS.get('hours')?.dirty || addTaskUS.get('hours')?.touched">
+                              <h3 *ngIf="addTaskUS.get('hours')?.hasError('required')" class="form-red-validator m-1"> Este
+                                campo es requerido</h3>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button class="btn btn-primary mx-2 mb-2 mt-2" type="submit" [disabled]="addTaskUS.invalid">Agregar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+              <thead class="thead-ligth">
+                <tr>
+                  <th scope="row" class="title_table">Tarea</th>
+                  <th scope="row" class="title_table">Horas</th>
+                  <th scope="row" class="title_table">Estado</th>
+                  <th scope="row" class="title_table icon">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tasksByUserStory" class="text-center">
+                  <td>  {{item.taskName}}</td>
+                  <td>{{item.taskHours}}  </td>
+                  <td>{{item.taskState}}  </td>
+                  <td  class="icon text-center" >
+                        <button  type="button" class="btn btn btn-warning btn-sm m-1" title="Editar horas de las tareas a la HU">
+                        <i class="fas fa-edit" (click)="editHoursTasksModal(item.taskTeamId, item.taskName, item.taskHours)"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
